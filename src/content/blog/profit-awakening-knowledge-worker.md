@@ -15,7 +15,7 @@ tags:
 
 ## 寫在最前面：這篇文章的緣起
 
-前陣子，我聽了《[查理的創業化合物](https://www.youtube.com/@charlies.insight)》這個 [Podcast](/blog/podcast-note-taking-workflow) 節目，那一集邀請的來賓是[吳淡如](https://www.facebook.com/goodtimewu)老師。我一邊聽，一邊在筆電上快速記下幾個關鍵字，其中一句話特別刺進我心裡：「沒賺錢不要自我安慰，沒賺錢本身就是一種損失。」
+前陣子，我聽了《[查理的創業化合物](https://www.youtube.com/@charlies.insight)》這個 Podcast 節目，那一集邀請的來賓是[吳淡如](https://www.facebook.com/goodtimewu)老師。我一邊聽，一邊在筆電上快速記下幾個關鍵字，其中一句話特別刺進我心裡：「沒賺錢不要自我安慰，沒賺錢本身就是一種損失。」
 
 顯然，這不是什麼心靈雞湯式的勵志語錄。對於像我這樣在知識產業打滾超過十五年的人來說，這句話背後的邏輯既刺耳又精準。它直接戳破了很多知識工作者習慣用來安慰自己的那層薄紗：我們可以暫時不體面，但不能長期不獲利；我們可以暫時走慢一點，但絕對不能靠自我感動活著。
 
@@ -320,6 +320,6 @@ tags:
 
 ## 延伸閱讀
 
-- [Podcast 筆記術：6 個步驟，用 Podwise + Anytype 搭建內容飛輪](/blog/podcast-note-taking-workflow)
-- [Ulysses + Claude + MCP：打造 AI 驅動的智慧寫作系統，讓產出效率翻倍](/blog/ulysses-claude-mcp-writing-workflow)
-- [AI 董事會法：一套讓你的思考愈辯愈明的對話方法](/blog/ai-board-meeting-method)
+- [擁有多項興趣的你，如何把「什麼都想學」變成獨特優勢？](/blog/multipotentialite-value-creation-guide)
+- [AI 時代的殘酷分水嶺：為什麼 95% 自由工作者的收入腰斬，5% 卻翻倍成長？](/blog/ai-freelance-survival-guide)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

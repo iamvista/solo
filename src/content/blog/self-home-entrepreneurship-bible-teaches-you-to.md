@@ -68,6 +68,6 @@ tags:
 
 ## 延伸閱讀
 
-- [銷售不再靠運氣：揭秘日本 B2B 的《The Model》成長法則](/blog/sales-no-longer-rely-on-luck)
-- [《維斯塔繭居日記》：為自己工作的九個步驟](/blog/vesta-cocoon-diary-nine-steps-to)
-- [我看《暢玩一人公司：用個人品牌創造理想的工作方式及事業地圖》：用興趣驅動，追求美好人生](/blog/i-read-playing-one-man-company-use)
+- [擁有多項興趣的你，如何把「什麼都想學」變成獨特優勢？](/blog/multipotentialite-value-creation-guide)
+- [知識工作者的獲利覺醒：從現金流思維到微型組織時代的生存法則](/blog/profit-awakening-knowledge-worker)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

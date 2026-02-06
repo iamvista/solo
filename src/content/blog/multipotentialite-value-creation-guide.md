@@ -199,8 +199,8 @@ Dan Koe 在他的文章中提出一個有趣的觀點：我們正在經歷一場
 ---
 
 **延伸閱讀：**
-- <a href="/blog/ai-freelance-survival-guide" target="_blank">AI 時代的自由工作者生存指南</a>
-- <a href="/blog/turn-teaching-into-long-term-assets-with-ai" target="_blank">講師的數位資產管理術：用 AI 把授課經驗變成可複利的系統</a>
+- [AI 時代的殘酷分水嶺：為什麼 95% 自由工作者的收入腰斬，5% 卻翻倍成長？](/blog/ai-freelance-survival-guide)
+- [知識工作者的獲利覺醒：從現金流思維到微型組織時代的生存法則](/blog/profit-awakening-knowledge-worker)
 - <a href="https://www.vista.tw/services/consulting" target="_blank">Vista 一對一顧問諮詢</a>
 
 > 本文改寫自 <a href="https://iamvista.substack.com/p/vista-no101" target="_blank" rel="noopener noreferrer">Vista 電子報 No.101</a>，原始靈感來自 Dan Koe 的創作者經濟理論。
@@ -212,5 +212,5 @@ Dan Koe 在他的文章中提出一個有趣的觀點：我們正在經歷一場
 ## 延伸閱讀
 
 - [AI 時代的殘酷分水嶺：為什麼 95% 自由工作者的收入腰斬，5% 卻翻倍成長？](/blog/ai-freelance-survival-guide)
-- [PM 的美麗與哀愁：AI 時代，產品經理會被取代還是被迫升級？](/blog/pm-beautiful-sorrow-ai-era)
 - [知識工作者的獲利覺醒：從現金流思維到微型組織時代的生存法則](/blog/profit-awakening-knowledge-worker)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

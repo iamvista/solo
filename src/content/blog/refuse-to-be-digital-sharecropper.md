@@ -100,6 +100,6 @@ Vibe Coding，就像是打碎高牆的鐵鎚，可以讓你用導演思維來設
 
 ## 延伸閱讀
 
-- [找到你的關鍵字：用 AI 打磨個人品牌的核心元素](/blog/find-your-keywords-use-ai-to)
-- [因應生成式人工智慧的時代來臨：職場人士的 AI 行動指南](/blog/facing-the-advent-of-the-era)
-- [讓 ChatGPT 為你規劃個人品牌的發展計畫](/blog/let-chatgpt-plan-your-personal-brand-development-plan)
+- [AI 時代的殘酷分水嶺：為什麼 95% 自由工作者的收入腰斬，5% 卻翻倍成長？](/blog/ai-freelance-survival-guide)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [我看《在 AI 時代勝出：行銷自己的祕密》：打造獨特且關鍵的價值主張](/blog/i-read-winning-in-the-ai-era)

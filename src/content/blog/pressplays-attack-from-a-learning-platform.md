@@ -62,5 +62,5 @@ Paul進一步補充，所謂「粉絲經濟的推手」不是只專注在經營�
 ## 延伸閱讀
 
 - [知識付費內容訂閱小峰會：游舒帆談從事知識付費服務的五個感悟](/blog/knowledge-paid-content-subscription-summit-you)
-- [專訪《科技島讀》創辦人周欽華：經營訂閱制內容的體悟及經驗分享](/blog/exclusive-interview-with-zhou-qinhua-founder)
-- [每月金額突破12萬元的訂閱服務，是如何煉成的？](/blog/how-did-you-create-a-subscription)
+- [訂閱制成功的關鍵：如何打造讓人離不開的內容服務](/blog/the-key-to-success-of-subscription-based)
+- [淺談創作者經濟 feat. AnyoneLab 聯合創辦人刁思宇](/blog/a-brief-discussion-on-the-creator)

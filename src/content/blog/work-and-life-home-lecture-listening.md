@@ -108,4 +108,5 @@ tags:
 
 ## 延伸閱讀
 
-- [我看《自流量生活》：打造獨特銷售主張，比賣東西更重要](/blog/i-watch-self-traffic-life-creating-a)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [知識工作者的獲利覺醒：從現金流思維到微型組織時代的生存法則](/blog/profit-awakening-knowledge-worker)

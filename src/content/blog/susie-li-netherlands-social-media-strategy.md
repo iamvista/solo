@@ -105,6 +105,6 @@ layout: ../../layouts/BlogPost.astro
 
 ## 延伸閱讀
 
-- [在關係裡長出影響力：跟「閱讀人」鄭俊德學習打造鐵粉的祕密](/blog/building-influence-through-community-cheng-junde)
-- [從新書宣傳到打造鐵粉生態圈：Pat Flynn 的全方位漏斗行銷](/blog/from-book-promotion-to-building-an)
+- [透過社群打造影響力：跟「閱讀人」鄭俊德學習深耕社群的方法](/blog/building-influence-through-community-cheng-junde)
 - [品牌故事，要能引起共鳴](/blog/brand-story-must-resonate)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

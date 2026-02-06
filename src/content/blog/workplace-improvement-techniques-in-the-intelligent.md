@@ -91,5 +91,5 @@ tags:
 ## 延伸閱讀
 
 - [打造個人品牌：海莉老師的能量水晶轉化術](/blog/building-a-personal-brand-teacher-hailis)
-- [述說品牌故事，與顧客搏感情](/blog/tell-brand-stories-and-build-relationships)
+- [品牌故事，要能引起共鳴](/blog/brand-story-must-resonate)
 - [前進LinkedIn，打造個人品牌](/blog/go-linkedin-and-build-your-personal)

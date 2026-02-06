@@ -92,6 +92,6 @@ Gipi談到這一點的時候，我不禁想起去年自己做[線上課程](http
 
 ## 延伸閱讀
 
-- [專訪《科技島讀》創辦人周欽華：經營訂閱制內容的體悟及經驗分享](/blog/exclusive-interview-with-zhou-qinhua-founder)
-- [每月金額突破12萬元的訂閱服務，是如何煉成的？](/blog/how-did-you-create-a-subscription)
 - [PressPlay的進擊：從碎片化時代的學習平臺，到粉絲經濟的品牌推手](/blog/pressplays-attack-from-a-learning-platform)
+- [訂閱制成功的關鍵：如何打造讓人離不開的內容服務](/blog/the-key-to-success-of-subscription-based)
+- [淺談創作者經濟 feat. AnyoneLab 聯合創辦人刁思宇](/blog/a-brief-discussion-on-the-creator)

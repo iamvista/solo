@@ -125,6 +125,6 @@ data-ad-slot="8706246337">
 
 ## 延伸閱讀
 
-- [「內容行銷＆文案寫作6小時實務班」課程心得：掌握寫作精髓](/blog/content-marketing-copywriting-6-hour-practical-1)
-- [「內容行銷＆文案寫作6小時實務班」課程心得：大師指導](/blog/content-marketing-copywriting-6-hour-practical)
-- [「精進內容力」課程心得：感受進步，從用心撰寫每篇文章做起](/blog/refining-content-power-course-experience-feel)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
+- [2025 年必學的寫作策略：如何讓你的內容脫穎而出？](/blog/must-learn-writing-strategies-in-2025-how)
+- [品牌故事，要能引起共鳴](/blog/brand-story-must-resonate)

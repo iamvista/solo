@@ -81,6 +81,6 @@ AI技術已經滲透到寫作領域，許多媒體和企業開始使用AI生成�
 
 ## 延伸閱讀
 
-- [品牌行銷新時代：如何運用定位與自媒體策略打造成功品牌](/blog/the-new-era-of-brand-marketing)
-- [規劃利他共好策略，跨領域整合產業創新](/blog/plan-altruistic-and-mutually-beneficial-strategies)
-- [Dan Koe：打造一人公司商業模式，如何把自己產品化？](/blog/dan-koe-how-to-build-a-one-person)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [品牌故事，要能引起共鳴](/blog/brand-story-must-resonate)

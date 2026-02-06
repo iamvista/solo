@@ -61,6 +61,6 @@ tags:
 
 ## 延伸閱讀
 
-- [為何內容創作者都需要內容策略](/blog/why-content-creators-need-a-content)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
 - [異國生活與自媒體：李思萱老師的旅荷社群攻略分享會心得](/blog/susie-li-netherlands-social-media-strategy)
-- [知識變現之道：給職場人士的五個建議](/blog/how-to-monetize-knowledge-five-suggestions)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

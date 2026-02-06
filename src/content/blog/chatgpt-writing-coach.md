@@ -79,6 +79,6 @@ layout: '../../layouts/BlogPost.astro'
 
 ## 延伸閱讀
 
-- [與 AI 協作寫一篇充滿乾貨的精彩文章吧！](/blog/collaborate-with-ai-to-write-an)
-- [善用思維鏈，增進 ChatGPT 的提問效能](/blog/make-good-use-of-thought-chains)
-- [打造卓越的文字力，從建立寫作的系統觀開始](/blog/building-excellent-writing-skills-starts-with)
+- [2025 年必學的寫作策略：如何讓你的內容脫穎而出？](/blog/must-learn-writing-strategies-in-2025-how)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
+- [《你今天寫了沒？寫出斜槓人生的深度練習法》書摘](/blog/have-you-written-today-book-excerpt-1)

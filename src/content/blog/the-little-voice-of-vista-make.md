@@ -86,6 +86,6 @@ We respect your privacy. Unsubscribe at any time.
 
 ## 延伸閱讀
 
-- [《Vista的小聲音》：如何打造一個有聲有色的部落格](/blog/vistas-little-voice-how-to-create)
-- [《Vista的小聲音》：媽媽可以用Notion做的50件事 feat. 《享受成為媽媽》電子報創辦人平凡媽](/blog/vistas-little-voice-50-things-moms)
-- [《Vista的小聲音》：如何找到自己的關鍵字](/blog/vistas-little-voice-how-to-find)
+- [《Vista的小聲音》：如何打造一個部落格](/blog/vistas-little-voice-how-to-build)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

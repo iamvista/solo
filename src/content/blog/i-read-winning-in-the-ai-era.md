@@ -52,5 +52,5 @@ tags:
 ## 延伸閱讀
 
 - [拒絕當數位佃農：2026 年，為何你需要用 Vibe Coding 打造數位總部？](/blog/refuse-to-be-digital-sharecropper)
-- [我看《知識複利：將內容變現，打造專家型個人品牌的策略》：打造個人品牌，從有效輸出開始](/blog/i-read-knowledge-compound-interest-strategies)
-- [找到你的關鍵字：用 AI 打磨個人品牌的核心元素](/blog/find-your-keywords-use-ai-to)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [AI 時代的殘酷分水嶺：為什麼 95% 自由工作者的收入腰斬，5% 卻翻倍成長？](/blog/ai-freelance-survival-guide)

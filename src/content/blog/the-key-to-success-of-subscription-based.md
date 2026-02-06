@@ -60,6 +60,6 @@ tags:
 
 ## 延伸閱讀
 
-- [「掌握快速成長的訂閱經濟新商機：臺灣實戰X世界趨勢」聽講心得：打造一個以顧客為核心的商業模式](/blog/grasping-new-business-opportunities-in-the)
-- [什麼是「訂閱經濟」？打造最強的商業模式，從價格的競逐轉為體驗的提昇](/blog/what-is-the-subscription-economy-create)
-- [知識工作者的自我精進：如何從線下講師，成為線上的知識網紅？（下）](/blog/self-improvement-of-knowledge-workers-how-to-1)
+- [知識付費內容訂閱小峰會：游舒帆談從事知識付費服務的五個感悟](/blog/knowledge-paid-content-subscription-summit-you)
+- [PressPlay的進擊：從碎片化時代的學習平臺，到粉絲經濟的品牌推手](/blog/pressplays-attack-from-a-learning-platform)
+- [淺談創作者經濟 feat. AnyoneLab 聯合創辦人刁思宇](/blog/a-brief-discussion-on-the-creator)

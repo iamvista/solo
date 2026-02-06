@@ -89,6 +89,6 @@ Photo by [Brooke Lark](https://unsplash.com/@brookelark?utm_source=unsplash&utm
 
 ## 延伸閱讀
 
-- [《Vista的小聲音》：如何打造一個有聲有色的部落格](/blog/vistas-little-voice-how-to-create)
-- [《Vista的小聲音》：如何找到自己的關鍵字](/blog/vistas-little-voice-how-to-find)
 - [《Vista的小聲音》：善用模板打造人生新格局（附贈打造個人品牌簡報與模板）](/blog/the-little-voice-of-vista-make)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

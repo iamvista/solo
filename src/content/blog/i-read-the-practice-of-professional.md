@@ -70,6 +70,6 @@ AI的崛起，無疑是這個時代最具顛覆性的力量。它以極快的速
 
 ## 延伸閱讀
 
-- [我看《知識複利：將內容變現，打造專家型個人品牌的策略》：打造個人品牌，從有效輸出開始](/blog/i-read-knowledge-compound-interest-strategies)
 - [我看《在 AI 時代勝出：行銷自己的祕密》：打造獨特且關鍵的價值主張](/blog/i-read-winning-in-the-ai-era)
-- [在關係裡長出影響力：跟「閱讀人」鄭俊德學習打造鐵粉的祕密](/blog/grow-influence-in-relationships-learn-the)
+- [透過社群打造影響力：跟「閱讀人」鄭俊德學習深耕社群的方法](/blog/building-influence-through-community-cheng-junde)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

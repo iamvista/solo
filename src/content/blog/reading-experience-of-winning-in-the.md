@@ -52,6 +52,6 @@ tags:
 
 ## 延伸閱讀
 
-- [不是你不夠努力，是價值主張還不夠吸引人](/blog/value-proposition-startup-secrets)
-- [掌握個人品牌的核心要素：從真實到價值，打造你的影響力藍圖](/blog/master-the-core-elements-of-personal)
-- [《AI行銷學》閱讀心得：企業轉型之路，從打造全通路行銷開始](/blog/reading-experience-of-ai-marketing-the)
+- [我看《在 AI 時代勝出：行銷自己的祕密》：打造獨特且關鍵的價值主張](/blog/i-read-winning-in-the-ai-era)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [AI 時代的殘酷分水嶺：為什麼 95% 自由工作者的收入腰斬，5% 卻翻倍成長？](/blog/ai-freelance-survival-guide)

@@ -95,9 +95,9 @@ layout: '../../layouts/BlogPost.astro'
 
 **延伸閱讀：**
 
-- [打造你的個人品牌：從定位到經營的完整指南](/blog/personal-brand-positioning)
-- [什麼是內容行銷？完整指南帶你掌握核心概念](/blog/what-is-content-marketing)
-- [9 個內容行銷趨勢，掌握未來的內容經營方向](/blog/9-major-trends-in-content-marketing)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
+- [品牌故事，要能引起共鳴](/blog/brand-story-must-resonate)
 
 ---
 

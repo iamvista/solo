@@ -323,5 +323,4 @@ AI 還在快速進化，市場也在持續變化。保持開放心態，願意�
 ## 延伸閱讀
 
 - [擁有多項興趣的你，如何把「什麼都想學」變成獨特優勢？](/blog/multipotentialite-value-creation-guide)
-- [PM 的美麗與哀愁：AI 時代，產品經理會被取代還是被迫升級？](/blog/pm-beautiful-sorrow-ai-era)
 - [知識工作者的獲利覺醒：從現金流思維到微型組織時代的生存法則](/blog/profit-awakening-knowledge-worker)

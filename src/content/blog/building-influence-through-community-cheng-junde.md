@@ -118,11 +118,6 @@ tags:
 
 ---
 
-**延伸閱讀：**
-- <a href="/blog/value-proposition-startup-secrets" target="_blank">不是你不夠努力，是價值主張還不夠吸引人</a>
-- <a href="/blog/copywriting-is-your-cashability" target="_blank">文案力就是你的「鈔能力」：在把 ChatGPT 變神隊友之前，你得先讓自己變強</a>
-- <a href="/blog/content-marketing-erta-model" target="_blank">內容行銷的 ERTA 模型：讓你的內容自帶傳播力</a>
-
 ☕️ [請 Vista 喝杯咖啡](https://vista.im/coffee)
 
 ---
@@ -130,5 +125,5 @@ tags:
 ## 延伸閱讀
 
 - [異國生活與自媒體：李思萱老師的旅荷社群攻略分享會心得](/blog/susie-li-netherlands-social-media-strategy)
-- [從新書宣傳到打造鐵粉生態圈：Pat Flynn 的全方位漏斗行銷](/blog/from-book-promotion-to-building-an)
-- [我看《夢想成真！喚醒你的手作魂：從興趣到販售的必作事項100》：用內容幫您的品牌加值](/blog/i-watched-dreams-come-true-awakening)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
+- [品牌故事，要能引起共鳴](/blog/brand-story-must-resonate)

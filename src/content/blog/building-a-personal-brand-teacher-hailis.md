@@ -61,4 +61,4 @@ tags:
 
 - [前進LinkedIn，打造個人品牌](/blog/go-linkedin-and-build-your-personal)
 - [智能時代的職場精進術](/blog/workplace-improvement-techniques-in-the-intelligent)
-- [Instagram社群現象揭秘：剖析「世代標籤」數據，帶您看懂#93LINE和#00LINE的意涵](/blog/uncovering-the-instagram-social-phenomenon-analyzing)
+- [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)

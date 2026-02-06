@@ -127,4 +127,4 @@ tags:
 
 ## 延伸閱讀
 
-- [在關係裡長出影響力：跟「閱讀人」鄭俊德學習打造鐵粉的祕密](/blog/grow-influence-in-relationships-learn-the)
+- [透過社群打造影響力：跟「閱讀人」鄭俊德學習深耕社群的方法](/blog/building-influence-through-community-cheng-junde)
