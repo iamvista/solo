@@ -6,7 +6,7 @@ description: >-
   LinkedIn是一家以商業客戶為導向的社群網站，由美國著名投資家和創業者Reid Hoffman先生於2002年12月創辦，總部位於美國加州山景城。
 pubDate: '2023-08-15'
 updatedDate: '2023-08-15'
-heroImage: >-
+
 tags:
   - 求職
   - 個人品牌

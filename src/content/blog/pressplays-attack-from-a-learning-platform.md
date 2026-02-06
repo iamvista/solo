@@ -6,7 +6,7 @@ description: >-
   其實，我對PressPlay並不陌生，對他們的前身──HereO募資平臺也略有所知。
 pubDate: '2018-02-09'
 updatedDate: '2023-06-25'
-heroImage: >-
+
 tags:
   - PressPlay
   - 知識付費

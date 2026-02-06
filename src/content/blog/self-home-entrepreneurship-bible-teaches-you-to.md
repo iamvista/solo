@@ -5,7 +5,7 @@ description: >-
   ──不可摧毀自己成為「自僱者」這個絕佳的身份，以創造出多數Cash Point（收入來源），並為社會貢獻的可能性。
 pubDate: '2020-05-27'
 updatedDate: '2020-05-27'
-heroImage: >-
+
 tags:
   - 創業
   - 職場

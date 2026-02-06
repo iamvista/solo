@@ -5,7 +5,7 @@ description: >-
   最近正忙著營運「商業思維學院」的游舒帆（Gipi）首先登場，我也在此簡單記錄他所分享的一些感悟與觀察。
 pubDate: '2019-12-20'
 updatedDate: '2023-06-25'
-heroImage: >-
+
 tags:
   - 線上課程
   - 知識付費

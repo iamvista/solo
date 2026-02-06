@@ -6,7 +6,6 @@ description: >-
   有些人已經開始行動，並且持續透過講課、撰寫文章或拍攝照片來打造個人品牌。
 pubDate: '2018-04-14'
 updatedDate: '2023-06-25'
-heroImage: >-
 tags:
   - 內容行銷
   - 部落格

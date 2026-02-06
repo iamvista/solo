@@ -6,7 +6,7 @@ description: >-
   然而，危機中往往蘊藏著新的契機。
 pubDate: '2025-01-14'
 updatedDate: '2025-01-14'
-heroImage: >-
+
 tags:
   - 讀書心得
   - ai

@@ -6,7 +6,7 @@ description: >-
   有幾位聽眾朋友聽了當天的節目之後，就跟我聯繫。
 pubDate: '2022-01-07'
 updatedDate: '2022-01-12'
-heroImage: >-
+
 tags:
   - Podcast
   - 定位

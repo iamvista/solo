@@ -5,7 +5,7 @@ description: >-
   海莉老師不僅是NLP催眠專業執行師、希塔療癒基礎療癒師和塔羅占卜師，也是一位知名的水晶、珠寶設計師；更棒的是她將傳統的水晶愛好，提升為一門結合設計與個人成長的藝術。
 pubDate: '2024-04-16'
 updatedDate: '2024-04-16'
-heroImage: >-
+
 tags:
   - Instagram
   - BNI

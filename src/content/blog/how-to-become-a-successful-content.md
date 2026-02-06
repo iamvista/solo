@@ -5,7 +5,7 @@ description: >-
   我想，這不僅是一場關乎寫作技巧與行銷策略的戰役，更是對自我堅持與熱情的考驗。
 pubDate: '2024-03-20'
 updatedDate: '2024-03-20'
-heroImage: >-
+
 tags:
   - 寫作
   - 個人品牌
