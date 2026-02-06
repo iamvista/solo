@@ -2,6 +2,7 @@
 title: 在關係裡長出影響力：跟「閱讀人」鄭俊德學習打造鐵粉的祕密
 description: 社群經營的本質不是「擁有」，而是「共創」。從「閱讀人」創辦人鄭俊德的講座中，學習如何透過長期深耕、真誠陪伴與價值共鳴，在大社群時代打造屬於你的專屬鐵粉。
 pubDate: '2026-01-19T14:00:00'
+heroImage: /images/blog/reading-man-community-hero.jpg
 tags:
   - 社群經營
   - 個人品牌

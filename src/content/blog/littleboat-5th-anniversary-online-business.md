@@ -2,6 +2,7 @@
 title: "從痛苦中逃離到自由人生：小船的系統化創業方法論"
 description: "小船創業五週年公開大課聽講心得，深入解析 IDEA 藍圖系統——從識別獨特價值、精準定位目標人群、價值包裝到放大影響力的完整知識付費創業方法論。"
 pubDate: "2026-02-04T10:00:00"
+heroImage: /images/blog/littleboat-5th-anniversary-hero.jpg
 tags: ["知識付費", "網路創業", "個人品牌", "小船", "線上課程"]
 ---
 

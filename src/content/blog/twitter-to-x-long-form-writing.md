@@ -2,6 +2,7 @@
 title: "從 Twitter 到 X：二十年後重新回歸，長文寫作才是信任的存摺"
 description: "從 2006 年的 Twitter 早期使用者到 2026 年的 X 平臺回歸，探討社群媒體二十年演變、長文創作的價值，以及為什麼在 AI 時代，深度寫作才是建立信任的關鍵。"
 pubDate: "2026-02-05T10:00:00"
+heroImage: /images/blog/twitter-to-x-long-form-writing-hero.jpg
 tags: ["社群媒體", "長文寫作", "X", "Twitter", "個人品牌", "內容創作"]
 ---
 

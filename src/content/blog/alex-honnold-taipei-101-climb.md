@@ -2,6 +2,7 @@
 title: '從霍諾德登頂臺北 101 看見的三件事：天賦、職涯專案化與城市行銷的現代啟示'
 description: '艾力克斯・霍諾德赤手獨攀臺北 101 大樓的 Netflix 全球直播，不只是一場極限運動表演，更是天賦結構化、職涯專案化與城市行銷內容化的精彩示範。從咖啡館裡觀看直播的視角，探索這場垂直冒險帶給我們的深層啟發。'
 pubDate: '2026-01-25'
+heroImage: /images/blog/alex-honnold-taipei-101-hero.jpg
 tags: ['個人品牌', '城市行銷', '職涯發展', '內容行銷', '臺北']
 layout: '../../layouts/BlogPost.astro'
 ---

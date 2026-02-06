@@ -2,6 +2,7 @@
 title: 擁有多項興趣的你，如何把「什麼都想學」變成獨特優勢？
 description: 在 AI 時代，跨領域的多元興趣不是累贅，而是最強大的競爭優勢。這篇文章解析如何將你的多重興趣轉化為一人企業的核心資產，並提供具體可執行的內容創作系統。
 pubDate: '2026-01-20T16:00:00'
+heroImage: /images/blog/multipotentialite-hero.jpg
 tags:
   - 一人企業
   - 個人品牌

@@ -2,6 +2,7 @@
 title: '霍諾德攀登臺北 101 的啟示：從極限運動家身上學會職涯的階梯思維'
 description: '2026 年 1 月 25 日，艾力克斯・霍諾德徒手攀登臺北 101 大樓，創下歷史紀錄。本文從天賦發現、風險管理、專注力修煉、個人品牌經營到城市行銷，深度解析這場極限挑戰帶給職涯發展的十大啟示。'
 pubDate: '2026-01-25T21:00:00'
+heroImage: /images/blog/honnold-career-ladder-hero.jpg
 tags: ['職涯發展', '個人品牌', '自我成長', '風險管理', '專注力']
 layout: '../../layouts/BlogPost.astro'
 ---
