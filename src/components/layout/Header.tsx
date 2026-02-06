@@ -96,7 +96,7 @@ export function Header() {
           ) : user ? (
             <>
               <Button variant="ghost" asChild>
-                <Link href="/dashboard">控制台</Link>
+                <Link href="/dashboard">控制臺</Link>
               </Button>
               <Button variant="outline" onClick={handleLogout}>
                 登出
@@ -133,7 +133,7 @@ export function Header() {
               {user ? (
                 <>
                   <Button asChild className="w-full">
-                    <Link href="/dashboard">控制台</Link>
+                    <Link href="/dashboard">控制臺</Link>
                   </Button>
                   <Button variant="outline" onClick={handleLogout} className="w-full">
                     登出

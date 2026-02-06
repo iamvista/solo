@@ -40,7 +40,7 @@ export default async function DashboardPage() {
           嗨，{displayName}！
         </h1>
         <p className="mt-2 text-muted-foreground">
-          歡迎來到你的自由人學院控制台
+          歡迎來到你的自由人學院控制臺
         </p>
       </div>
 

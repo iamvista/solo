@@ -14,7 +14,7 @@ export default function PrivacyPage() {
               1. 前言
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              自由人學院（以下簡稱「本平台」）非常重視您的隱私權。本隱私權政策說明我們如何收集、使用、揭露及保護您的個人資料。使用本平台服務，即表示您同意本政策的條款。
+              自由人學院（以下簡稱「本平臺」）非常重視您的隱私權。本隱私權政策說明我們如何收集、使用、揭露及保護您的個人資料。使用本平臺服務，即表示您同意本政策的條款。
             </p>
           </section>
 
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>使用資料：</strong>
-                您與本平台互動的資訊，包括瀏覽的頁面、點擊的連結等。
+                您與本平臺互動的資訊，包括瀏覽的頁面、點擊的連結等。
               </li>
               <li>
                 <strong>技術資料：</strong>IP 位址、瀏覽器類型、裝置資訊等。
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
               <li>
                 <strong>服務提供商：</strong>
-                與協助我們運營平台的第三方服務商（如雲端服務、分析工具）。
+                與協助我們運營平臺的第三方服務商（如雲端服務、分析工具）。
               </li>
               <li>
                 <strong>法律要求：</strong>當法律要求或為保護我們的權利時。
@@ -126,7 +126,7 @@ export default function PrivacyPage() {
               8. 第三方連結
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              本平台可能包含第三方網站的連結。我們對這些網站的隱私實務不負責任。建議您在提供個人資料前，先查閱這些網站的隱私權政策。
+              本平臺可能包含第三方網站的連結。我們對這些網站的隱私實務不負責任。建議您在提供個人資料前，先查閱這些網站的隱私權政策。
             </p>
           </section>
 
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
               9. 兒童隱私
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              本平台不針對 18
+              本平臺不針對 18
               歲以下的兒童提供服務。我們不會故意收集兒童的個人資料。如發現我們意外收集了兒童資料，將立即刪除。
             </p>
           </section>
