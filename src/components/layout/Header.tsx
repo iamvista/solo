@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 const navigation = [
   { name: "診斷工具", href: "/diagnose" },
@@ -13,6 +15,33 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    // 取得目前用戶
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    // 監聽登入狀態變化
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -62,12 +91,27 @@ export function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
-          <Button variant="ghost" asChild>
-            <Link href="/auth/login">登入</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/diagnose">免費診斷</Link>
-          </Button>
+          {loading ? (
+            <div className="h-9 w-20 animate-pulse rounded-md bg-muted" />
+          ) : user ? (
+            <>
+              <Button variant="ghost" asChild>
+                <Link href="/dashboard">控制台</Link>
+              </Button>
+              <Button variant="outline" onClick={handleLogout}>
+                登出
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" asChild>
+                <Link href="/auth/login">登入</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/diagnose">免費診斷</Link>
+              </Button>
+            </>
+          )}
         </div>
       </nav>
 
@@ -86,12 +130,25 @@ export function Header() {
               </Link>
             ))}
             <div className="mt-4 flex flex-col gap-2">
-              <Button variant="outline" asChild className="w-full">
-                <Link href="/auth/login">登入</Link>
-              </Button>
-              <Button asChild className="w-full">
-                <Link href="/diagnose">免費診斷</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Button asChild className="w-full">
+                    <Link href="/dashboard">控制台</Link>
+                  </Button>
+                  <Button variant="outline" onClick={handleLogout} className="w-full">
+                    登出
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" asChild className="w-full">
+                    <Link href="/auth/login">登入</Link>
+                  </Button>
+                  <Button asChild className="w-full">
+                    <Link href="/diagnose">免費診斷</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
