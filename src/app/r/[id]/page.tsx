@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import { getDiagnosisById } from "@/lib/supabase/diagnosis";
 
 // Solo 類型定義
@@ -129,6 +130,7 @@ interface DiagnosisResult {
   score_sustainability: number;
   total_score: number;
   solo_type: SoloTypeKey;
+  diagnosis_type: "quick" | "full";
   created_at: string;
 }
 
@@ -233,6 +235,9 @@ export default function DiagnoseResultPage() {
       {/* Solo Type Card */}
       <Card className={`${soloType.bgColor} ${soloType.borderColor} border-2`}>
         <CardHeader className="text-center">
+          <Badge variant={result.diagnosis_type === "full" ? "default" : "secondary"} className="mx-auto mb-4">
+            {result.diagnosis_type === "full" ? "🎯 深度診斷" : "⚡ 快速診斷"}
+          </Badge>
           <div className="text-7xl">{soloType.emoji}</div>
           <CardTitle className={`mt-4 text-3xl ${soloType.color}`}>
             {soloType.name}
@@ -332,23 +337,47 @@ export default function DiagnoseResultPage() {
       <Card className="mt-8 bg-primary text-primary-foreground">
         <CardContent className="pt-6">
           <div className="text-center">
-            <h3 className="text-xl font-bold">想要更深入的診斷？</h3>
-            <p className="mt-2 text-primary-foreground/80">
-              完整版診斷包含 20 道專業題目，產出更詳細的報告與個人化建議
-            </p>
-            <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button variant="secondary" size="lg" asChild>
-                <Link href="/diagnose/full">深度診斷</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                asChild
-                className="border border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-              >
-                <Link href="/diagnose">重新測驗</Link>
-              </Button>
-            </div>
+            {result.diagnosis_type === "quick" ? (
+              <>
+                <h3 className="text-xl font-bold">想要更深入的診斷？</h3>
+                <p className="mt-2 text-primary-foreground/80">
+                  深度診斷包含 18 道專業題目，每個維度 3-4 題，結果更精準
+                </p>
+                <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <Button variant="secondary" size="lg" asChild>
+                    <Link href="/diagnose/full">開始深度診斷</Link>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    asChild
+                    className="border border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  >
+                    <Link href="/diagnose">重新快速診斷</Link>
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 className="text-xl font-bold">🎉 你完成了深度診斷！</h3>
+                <p className="mt-2 text-primary-foreground/80">
+                  建議定期（每季）重新診斷，追蹤你的事業成長軌跡
+                </p>
+                <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <Button variant="secondary" size="lg" asChild>
+                    <Link href="/dashboard">查看診斷紀錄</Link>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    asChild
+                    className="border border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  >
+                    <Link href="/diagnose/full">再次深度診斷</Link>
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -216,17 +216,116 @@ export default function DiagnosePage() {
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center">
-          <Badge variant="secondary" className="mb-4">
-            ⏱️ 只需 3 分鐘
-          </Badge>
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Solo 事業健檢
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            7 道題目，快速診斷你的自由事業競爭力
+            診斷你的自由事業競爭力，獲得專屬成長建議
           </p>
         </div>
 
+        {/* 診斷類型選擇 */}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          {/* 快速診斷 */}
+          <Card className="relative overflow-hidden transition-all hover:border-primary/50 hover:shadow-lg cursor-pointer" onClick={() => setStep("quiz")}>
+            <div className="absolute right-4 top-4">
+              <Badge variant="secondary">推薦新手</Badge>
+            </div>
+            <CardHeader>
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+                ⚡
+              </div>
+              <CardTitle className="mt-4">快速診斷</CardTitle>
+              <CardDescription>
+                3 分鐘完成，快速了解現況
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 7 道精選題目
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 5 維度競爭力分析
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> Solo 類型診斷
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 行動建議
+                </li>
+              </ul>
+              <Button className="mt-6 w-full" onClick={() => setStep("quiz")}>
+                開始快速診斷
+                <svg
+                  className="ml-2 h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* 深度診斷 */}
+          <Card className="relative overflow-hidden border-2 border-primary/20 bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
+            <div className="absolute right-4 top-4">
+              <Badge>完整版</Badge>
+            </div>
+            <CardHeader>
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+                🎯
+              </div>
+              <CardTitle className="mt-4">深度診斷</CardTitle>
+              <CardDescription>
+                8-10 分鐘，全面剖析事業體質
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 18 道專業題目
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 更精準的維度分析
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 個人化行動方案
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> 可追蹤歷次結果
+                </li>
+              </ul>
+              <Button className="mt-6 w-full" variant="default" asChild>
+                <a href="/diagnose/full">
+                  開始深度診斷
+                  <svg
+                    className="ml-2 h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* 你將獲得 */}
         <Card className="mt-12">
           <CardHeader className="text-center">
             <CardTitle>你將獲得</CardTitle>
@@ -244,11 +343,11 @@ export default function DiagnosePage() {
               </div>
               <div className="text-center">
                 <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl">🎯</span>
+                  <span className="text-2xl">🦁</span>
                 </div>
                 <h3 className="font-medium">Solo 類型診斷</h3>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  了解你屬於哪種類型
+                  6 種類型，了解你的特質
                 </p>
               </div>
               <div className="text-center">
@@ -264,27 +363,9 @@ export default function DiagnosePage() {
           </CardContent>
         </Card>
 
-        <div className="mt-10 text-center">
-          <Button size="lg" onClick={() => setStep("quiz")}>
-            開始診斷
-            <svg
-              className="ml-2 h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </Button>
-          <p className="mt-4 text-sm text-muted-foreground">
-            完全免費，無需登入
-          </p>
-        </div>
+        <p className="mt-8 text-center text-sm text-muted-foreground">
+          完全免費，結果可分享，登入後可儲存紀錄
+        </p>
       </div>
     );
   }
