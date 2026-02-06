@@ -6,6 +6,7 @@ description: >-
   什麼是模板呢？根據維基百科的詮釋，所謂的模板或稱樣板、範本，通常指具有固定內容、可構建多個不同實例的可重複使用的樣板。
   說到模板（template），我想大家應該都很喜歡！
 pubDate: '2022-01-04'
+heroImage: /images/blog/vista-voice-hero.jpg
 updatedDate: '2022-01-12'
 tags:
   - Vista的小聲音
