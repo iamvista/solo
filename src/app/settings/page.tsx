@@ -179,19 +179,26 @@ export default function SettingsPage() {
     try {
       const supabase = createClient();
 
-      const updates = {
+      const updates: Record<string, unknown> = {
         id: user.id,
         display_name: displayName.trim() || null,
-        bio: bio.trim() || null,
         avatar_url: avatarUrl,
         updated_at: new Date().toISOString(),
       };
+
+      // 只有當 bio 有值時才加入（避免欄位不存在時出錯）
+      if (bio.trim()) {
+        updates.bio = bio.trim();
+      }
 
       const { error } = await supabase
         .from("profiles")
         .upsert(updates, { onConflict: "id" });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error details:", error);
+        throw error;
+      }
 
       setMessage({ type: "success", text: "設定已儲存！" });
     } catch (error) {
