@@ -5,7 +5,7 @@ description: >-
   工具的善用、專業的持續精進，以及人生選擇的主動鍛鍊。
 pubDate: '2025-05-27T12:45:50.000Z'
 updatedDate: '2025-05-27T12:56:11.000Z'
-heroImage: >-
+heroImage: /images/blog/life-better-hero.jpg
 tags:
   - 個人品牌
   - 職涯

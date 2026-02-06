@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts, getAllTags, formatDate } from "@/lib/blog";
+import { getAllPosts, formatDate } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "部落格 | 自由人學院 - 自由工作者的成長指南",
@@ -22,12 +22,6 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://solo.tw/blog",
     siteName: "自由人學院",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "部落格 | 自由人學院",
-    description:
-      "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容。幫助自由工作者把專業變成事業。",
   },
   alternates: {
     canonical: "https://solo.tw/blog",
@@ -69,9 +63,9 @@ export default async function BlogPage() {
     .slice(0, 8)
     .map(([tag]) => tag);
 
-  // 精選文章（有圖片的前 4 篇）
-  const featuredPosts = posts.filter((post) => post.heroImage).slice(0, 4);
-  const regularPosts = posts.slice(4);
+  // 精選文章（有圖片的前 5 篇）
+  const featuredPosts = posts.filter((post) => post.heroImage).slice(0, 5);
+  const regularPosts = posts.slice(5);
 
   if (posts.length === 0) {
     return (
@@ -96,27 +90,27 @@ export default async function BlogPage() {
       />
 
       <div className="min-h-screen bg-stone-50">
-        {/* Hero Header - 日式極簡風格 */}
+        {/* Hero Header */}
         <header className="border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="mx-auto max-w-7xl px-6 py-14 lg:py-20">
             <div className="text-center">
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
                 SOLO ACADEMY BLOG
               </p>
-              <h1 className="mt-4 text-4xl font-light tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 text-4xl font-light tracking-tight text-stone-900 sm:text-5xl">
                 自由工作者的
-                <span className="font-normal text-amber-600">成長指南</span>
+                <span className="font-medium text-amber-600">成長指南</span>
               </h1>
-              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
+              <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-stone-600">
                 個人品牌 · 知識變現 · AI 工具應用
               </p>
             </div>
 
-            {/* Tags - 膠囊式設計 */}
-            <nav className="mt-12 flex flex-wrap items-center justify-center gap-3">
+            {/* Tags */}
+            <nav className="mt-10 flex flex-wrap items-center justify-center gap-2">
               <Link
                 href="/blog"
-                className="rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+                className="rounded-full bg-stone-900 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-stone-800"
               >
                 全部
               </Link>
@@ -124,7 +118,7 @@ export default async function BlogPage() {
                 <Link
                   key={tag}
                   href={`/blog/tag/${encodeURIComponent(tag)}`}
-                  className="rounded-full border border-stone-300 bg-white px-5 py-2 text-sm text-stone-700 transition-all hover:border-amber-500 hover:text-amber-600"
+                  className="rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm text-stone-600 transition-all hover:border-amber-500 hover:text-amber-600"
                 >
                   {tag}
                 </Link>
@@ -133,31 +127,31 @@ export default async function BlogPage() {
           </div>
         </header>
 
-        <main className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
-          {/* Featured Posts - 雜誌式 Bento Grid */}
-          {featuredPosts.length > 0 && (
-            <section className="mb-20">
-              <div className="mb-8 flex items-center justify-between">
+        <main className="mx-auto max-w-7xl px-6 py-12 lg:py-16">
+          {/* Bento Grid - 精選文章 */}
+          {featuredPosts.length >= 5 && (
+            <section className="mb-16">
+              <div className="mb-6 flex items-center gap-4">
                 <h2 className="text-xs font-medium uppercase tracking-[0.15em] text-stone-500">
                   精選文章
                 </h2>
-                <div className="h-px flex-1 bg-stone-200 ml-6" />
+                <div className="h-px flex-1 bg-stone-200" />
               </div>
 
-              <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-2">
-                {/* Main Feature */}
-                <article className="group lg:col-span-7 lg:row-span-2">
-                  <Link href={`/blog/${featuredPosts[0].slug}`} className="block">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-stone-200 lg:aspect-[4/5]">
+              <div className="grid gap-4 md:grid-cols-4 md:grid-rows-2 lg:gap-5">
+                {/* 主打文章 - 左側大圖 (16:9 橫向) */}
+                <article className="group md:col-span-2 md:row-span-2">
+                  <Link href={`/blog/${featuredPosts[0].slug}`} className="block h-full">
+                    <div className="relative h-full min-h-[320px] overflow-hidden rounded-2xl bg-stone-200 md:min-h-full">
                       {featuredPosts[0].heroImage && (
                         <img
                           src={featuredPosts[0].heroImage}
                           alt={featuredPosts[0].title}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-8">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
                         <div className="mb-3 flex gap-2">
                           {featuredPosts[0].tags.slice(0, 2).map((tag) => (
                             <span
@@ -168,13 +162,13 @@ export default async function BlogPage() {
                             </span>
                           ))}
                         </div>
-                        <h3 className="text-2xl font-medium leading-tight text-white lg:text-3xl">
+                        <h3 className="text-xl font-medium leading-snug text-white lg:text-2xl">
                           {featuredPosts[0].title}
                         </h3>
-                        <p className="mt-3 line-clamp-2 text-sm text-white/80">
+                        <p className="mt-2 line-clamp-2 text-sm text-white/80 lg:text-base">
                           {featuredPosts[0].description}
                         </p>
-                        <time className="mt-4 block text-xs text-white/60">
+                        <time className="mt-3 block text-xs text-white/60">
                           {formatDate(featuredPosts[0].pubDate)}
                         </time>
                       </div>
@@ -182,62 +176,117 @@ export default async function BlogPage() {
                   </Link>
                 </article>
 
-                {/* Secondary Features */}
-                {featuredPosts.slice(1, 4).map((post, index) => (
-                  <article
-                    key={post.slug}
-                    className="group lg:col-span-5"
-                  >
-                    <Link href={`/blog/${post.slug}`} className="flex gap-5">
-                      <div className="relative aspect-square w-28 flex-shrink-0 overflow-hidden rounded-xl bg-stone-200 sm:w-36">
-                        {post.heroImage && (
-                          <img
-                            src={post.heroImage}
-                            alt={post.title}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        )}
-                      </div>
-                      <div className="flex flex-col justify-center py-1">
-                        <div className="mb-2 flex gap-2">
-                          {post.tags.slice(0, 1).map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs font-medium text-amber-600"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                        <h3 className="line-clamp-2 text-base font-medium leading-snug text-stone-900 transition-colors group-hover:text-amber-600 sm:text-lg">
-                          {post.title}
+                {/* 右上 - 第2篇 */}
+                <article className="group">
+                  <Link href={`/blog/${featuredPosts[1].slug}`} className="block h-full">
+                    <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
+                      {featuredPosts[1].heroImage && (
+                        <img
+                          src={featuredPosts[1].heroImage}
+                          alt={featuredPosts[1].title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <span className="mb-1 block text-xs font-medium text-amber-400">
+                          {featuredPosts[1].tags[0]}
+                        </span>
+                        <h3 className="line-clamp-2 text-sm font-medium text-white lg:text-base">
+                          {featuredPosts[1].title}
                         </h3>
-                        <time className="mt-2 text-xs text-stone-500">
-                          {formatDate(post.pubDate)}
-                        </time>
                       </div>
-                    </Link>
-                  </article>
-                ))}
+                    </div>
+                  </Link>
+                </article>
+
+                {/* 右上 - 第3篇 */}
+                <article className="group">
+                  <Link href={`/blog/${featuredPosts[2].slug}`} className="block h-full">
+                    <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
+                      {featuredPosts[2].heroImage && (
+                        <img
+                          src={featuredPosts[2].heroImage}
+                          alt={featuredPosts[2].title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <span className="mb-1 block text-xs font-medium text-amber-400">
+                          {featuredPosts[2].tags[0]}
+                        </span>
+                        <h3 className="line-clamp-2 text-sm font-medium text-white lg:text-base">
+                          {featuredPosts[2].title}
+                        </h3>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+
+                {/* 右下 - 第4篇 */}
+                <article className="group">
+                  <Link href={`/blog/${featuredPosts[3].slug}`} className="block h-full">
+                    <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
+                      {featuredPosts[3].heroImage && (
+                        <img
+                          src={featuredPosts[3].heroImage}
+                          alt={featuredPosts[3].title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <span className="mb-1 block text-xs font-medium text-amber-400">
+                          {featuredPosts[3].tags[0]}
+                        </span>
+                        <h3 className="line-clamp-2 text-sm font-medium text-white lg:text-base">
+                          {featuredPosts[3].title}
+                        </h3>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+
+                {/* 右下 - 第5篇 */}
+                <article className="group">
+                  <Link href={`/blog/${featuredPosts[4].slug}`} className="block h-full">
+                    <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
+                      {featuredPosts[4].heroImage && (
+                        <img
+                          src={featuredPosts[4].heroImage}
+                          alt={featuredPosts[4].title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <span className="mb-1 block text-xs font-medium text-amber-400">
+                          {featuredPosts[4].tags[0]}
+                        </span>
+                        <h3 className="line-clamp-2 text-sm font-medium text-white lg:text-base">
+                          {featuredPosts[4].title}
+                        </h3>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
               </div>
             </section>
           )}
 
-          {/* All Posts - 清新卡片式 */}
+          {/* 所有文章 */}
           <section>
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-6 flex items-center gap-4">
               <h2 className="text-xs font-medium uppercase tracking-[0.15em] text-stone-500">
                 所有文章 · {posts.length} 篇
               </h2>
-              <div className="h-px flex-1 bg-stone-200 ml-6" />
+              <div className="h-px flex-1 bg-stone-200" />
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {regularPosts.map((post) => (
-                <article
-                  key={post.slug}
-                  className="group"
-                >
+                <article key={post.slug} className="group">
                   <Link href={`/blog/${post.slug}`} className="block">
                     {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-stone-200">
@@ -268,9 +317,8 @@ export default async function BlogPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="mt-5">
-                      {/* Tags */}
-                      <div className="mb-2 flex gap-2">
+                    <div className="mt-4">
+                      <div className="mb-1.5 flex gap-2">
                         {post.tags.slice(0, 2).map((tag) => (
                           <span
                             key={tag}
@@ -280,19 +328,13 @@ export default async function BlogPage() {
                           </span>
                         ))}
                       </div>
-
-                      {/* Title */}
-                      <h3 className="line-clamp-2 text-lg font-medium leading-snug text-stone-900 transition-colors group-hover:text-amber-600">
+                      <h3 className="line-clamp-2 text-base font-medium leading-snug text-stone-900 transition-colors group-hover:text-amber-600 lg:text-lg">
                         {post.title}
                       </h3>
-
-                      {/* Description */}
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-stone-600">
+                      <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-stone-600">
                         {post.description}
                       </p>
-
-                      {/* Date */}
-                      <time className="mt-3 block text-xs text-stone-500">
+                      <time className="mt-2 block text-xs text-stone-500">
                         {formatDate(post.pubDate)}
                       </time>
                     </div>
@@ -302,10 +344,9 @@ export default async function BlogPage() {
             </div>
           </section>
 
-          {/* Newsletter CTA - 精緻日式風格 */}
-          <section className="mt-24">
-            <div className="relative overflow-hidden rounded-3xl bg-stone-900 px-8 py-16 sm:px-16 lg:px-24 lg:py-20">
-              {/* Decorative elements */}
+          {/* Newsletter CTA */}
+          <section className="mt-20">
+            <div className="relative overflow-hidden rounded-2xl bg-stone-900 px-8 py-14 sm:px-14 lg:px-20 lg:py-16">
               <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-amber-500/20 blur-3xl" />
               <div className="absolute bottom-0 right-0 h-40 w-40 rounded-full bg-amber-500/10 blur-3xl" />
 
@@ -313,18 +354,18 @@ export default async function BlogPage() {
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber-400">
                   NEWSLETTER
                 </p>
-                <h2 className="mt-4 text-3xl font-light text-white sm:text-4xl">
+                <h2 className="mt-3 text-2xl font-light text-white sm:text-3xl">
                   每週精選，直達信箱
                 </h2>
-                <p className="mx-auto mt-4 max-w-md text-base text-stone-400">
-                  訂閱電子報，獲取最新的自由工作者經營心法、AI 工具應用技巧
+                <p className="mx-auto mt-3 max-w-md text-sm text-stone-400 sm:text-base">
+                  訂閱電子報，獲取最新的自由工作者經營心法與 AI 工具應用技巧
                 </p>
-                <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                   <Link
                     href="https://iamvista.substack.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center rounded-full bg-amber-500 px-8 text-sm font-medium text-stone-900 transition-all hover:bg-amber-400"
+                    className="inline-flex h-11 items-center rounded-full bg-amber-500 px-7 text-sm font-medium text-stone-900 transition-all hover:bg-amber-400"
                   >
                     免費訂閱
                     <svg
@@ -352,7 +393,7 @@ export default async function BlogPage() {
 
         {/* Footer */}
         <footer className="border-t border-stone-200 bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-12 text-center">
+          <div className="mx-auto max-w-7xl px-6 py-10 text-center">
             <p className="text-sm text-stone-500">
               自由人學院 — 幫助自由工作者把專業變成事業
             </p>

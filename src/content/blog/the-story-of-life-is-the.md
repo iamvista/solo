@@ -5,7 +5,7 @@ description: >-
   舞臺。你只需要有勇氣，願意開始。從和朋友閒聊的時候、從一場面試的開場白、從一則貼文的背後開始，把那些你以為沒人會在乎的故事說出來——因為，也許那正是某人等了一輩子才終於聽到的共鳴。
 pubDate: '2025-05-22T09:44:23.000Z'
 updatedDate: '2025-05-22T09:57:52.000Z'
-heroImage: >-
+heroImage: /images/blog/life-story-hero.jpg
 tags:
   - 個人品牌
   - 閱讀

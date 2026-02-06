@@ -5,7 +5,7 @@ description: >-
   優化與互動策略，幫助你提升內容影響力，吸引更多讀者，實現流量與商業轉換。
 pubDate: '2025-02-02T23:31:55.000Z'
 updatedDate: '2025-02-03T05:04:17.000Z'
-heroImage: >-
+heroImage: /images/blog/writing-strategies-hero.jpg
 tags:
   - 寫作策略
   - AI

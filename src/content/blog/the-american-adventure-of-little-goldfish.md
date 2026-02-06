@@ -6,7 +6,7 @@ description: >-
   翻轉商業模式的啟發，小金魚用真實案例點燃創作熱情。
 pubDate: '2025-06-28T13:37:26.000Z'
 updatedDate: '2025-06-28T13:37:26.000Z'
-heroImage: >-
+heroImage: /images/blog/goldfish-adventure-hero.jpg
 tags:
   - 個人品牌
   - 自媒體

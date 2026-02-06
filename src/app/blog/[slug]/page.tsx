@@ -137,70 +137,68 @@ export default async function BlogPostPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8 lg:py-20">
         {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+        <nav className="mb-10" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-sm text-stone-500">
             <li>
-              <Link href="/" className="hover:text-foreground">
+              <Link href="/" className="hover:text-stone-900 transition-colors">
                 首頁
               </Link>
             </li>
-            <li>/</li>
+            <li className="text-stone-300">/</li>
             <li>
-              <Link href="/blog" className="hover:text-foreground">
+              <Link href="/blog" className="hover:text-stone-900 transition-colors">
                 部落格
               </Link>
             </li>
-            <li>/</li>
-            <li className="text-foreground">{post.title.slice(0, 20)}...</li>
+            <li className="text-stone-300">/</li>
+            <li className="text-stone-700">{post.title.slice(0, 25)}...</li>
           </ol>
         </nav>
 
         <div className="lg:grid lg:grid-cols-12 lg:gap-8">
           {/* Main Content */}
           <article className="lg:col-span-8">
-            {/* Header */}
-            <header className="mb-8">
+            {/* Header - 更大的留白與層次感 */}
+            <header className="mb-12">
               {/* Tags */}
               {post.tags.length > 0 && (
-                <div className="mb-4 flex flex-wrap gap-2">
+                <div className="mb-5 flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Link key={tag} href={`/blog/tag/${encodeURIComponent(tag)}`}>
-                      <Badge
-                        variant="secondary"
-                        className="px-3 py-1 text-sm hover:bg-primary hover:text-primary-foreground"
-                      >
+                      <span className="inline-block rounded-full border border-stone-200 bg-stone-50 px-4 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:border-amber-400 hover:text-amber-600">
                         {tag}
-                      </Badge>
+                      </span>
                     </Link>
                   ))}
                 </div>
               )}
 
-              {/* Title */}
-              <h1 className="text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-[2.5rem] lg:leading-[1.2]">
+              {/* Title - 更大字體與更寬鬆的行高 */}
+              <h1 className="text-[1.75rem] font-semibold leading-[1.35] tracking-tight text-stone-900 sm:text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] lg:leading-[1.25]">
                 {post.title}
               </h1>
 
-              {/* Meta */}
-              <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-muted-foreground sm:text-base">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+              {/* Meta - 更多間距 */}
+              <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-stone-500">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-900 text-sm font-bold text-white">
                     V
                   </div>
-                  <span className="font-medium text-foreground">Vista Cheng</span>
+                  <span className="font-medium text-stone-700">Vista Cheng</span>
                 </div>
-                <span className="hidden sm:inline">•</span>
+                <span className="hidden text-stone-300 sm:inline">|</span>
                 <time dateTime={post.pubDate}>{formatDate(post.pubDate)}</time>
-                <span>•</span>
+                <span className="text-stone-300">|</span>
                 <span>{readingTime} 分鐘閱讀</span>
               </div>
             </header>
 
-            {/* Hero Image */}
+            {/* Hero Image - 更大的上下間距 */}
             {post.heroImage && (
-              <figure className="mb-10 overflow-hidden rounded-2xl">
+              <figure className="mb-14 overflow-hidden rounded-2xl shadow-lg">
                 <img
                   src={post.heroImage}
                   alt={post.title}
@@ -235,25 +233,28 @@ export default async function BlogPostPage({ params }: PageProps) {
               </details>
             )}
 
-            {/* Content */}
+            {/* Content - 日式排版：注重留白與節奏感 */}
             <div
-              className="prose prose-lg max-w-none dark:prose-invert
-                prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight
-                prose-h2:mt-12 prose-h2:mb-4 prose-h2:text-2xl prose-h2:border-b prose-h2:pb-2 sm:prose-h2:text-[1.75rem]
-                prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-xl sm:prose-h3:text-2xl
-                prose-p:text-base prose-p:leading-8 prose-p:text-muted-foreground sm:prose-p:text-lg sm:prose-p:leading-9
-                prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-                prose-strong:text-foreground prose-strong:font-semibold
-                prose-blockquote:border-l-primary prose-blockquote:bg-muted/30 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:not-italic prose-blockquote:rounded-r-lg
-                prose-ul:my-6 prose-ol:my-6 prose-li:my-2 prose-li:text-muted-foreground
-                prose-img:rounded-xl prose-img:shadow-md
-                prose-code:text-primary prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-                prose-pre:bg-slate-900 prose-pre:rounded-xl"
+              className="prose prose-stone max-w-none dark:prose-invert
+                prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-stone-900
+                prose-h2:mt-16 prose-h2:mb-6 prose-h2:text-[1.625rem] prose-h2:leading-snug sm:prose-h2:text-[1.875rem] prose-h2:border-l-4 prose-h2:border-amber-500 prose-h2:pl-4 prose-h2:border-b-0
+                prose-h3:mt-12 prose-h3:mb-5 prose-h3:text-xl sm:prose-h3:text-[1.375rem] prose-h3:text-stone-800
+                prose-p:text-[1.0625rem] prose-p:leading-[1.9] prose-p:tracking-wide prose-p:text-stone-600 prose-p:mb-6 sm:prose-p:text-lg sm:prose-p:leading-[2]
+                prose-a:text-amber-600 prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-amber-300 hover:prose-a:border-amber-500 hover:prose-a:text-amber-700
+                prose-strong:text-stone-800 prose-strong:font-semibold
+                prose-blockquote:border-l-4 prose-blockquote:border-stone-300 prose-blockquote:bg-stone-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-xl prose-blockquote:my-10 prose-blockquote:text-stone-600
+                prose-ul:my-8 prose-ul:space-y-3 prose-ol:my-8 prose-ol:space-y-3 prose-li:text-stone-600 prose-li:leading-relaxed prose-li:pl-2
+                prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-10
+                prose-figure:my-12
+                prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-stone-500 prose-figcaption:mt-3
+                prose-code:text-amber-700 prose-code:bg-amber-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.9em] prose-code:before:content-none prose-code:after:content-none
+                prose-pre:bg-stone-900 prose-pre:rounded-2xl prose-pre:my-10 prose-pre:shadow-xl
+                prose-hr:my-16 prose-hr:border-stone-200"
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
 
-            {/* Share & Actions */}
-            <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-b py-6">
+            {/* Share & Actions - 更多上方間距 */}
+            <div className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-b border-stone-200 py-8">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>分享文章：</span>
                 <a
@@ -298,8 +299,8 @@ export default async function BlogPostPage({ params }: PageProps) {
               </Link>
             </div>
 
-            {/* Author Box */}
-            <div className="mt-10 rounded-2xl border bg-gradient-to-br from-muted/50 to-muted/20 p-6 sm:p-8">
+            {/* Author Box - 更大間距 */}
+            <div className="mt-14 rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-50 to-white p-8 sm:p-10">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground sm:h-20 sm:w-20 sm:text-3xl">
                   V
@@ -331,10 +332,10 @@ export default async function BlogPostPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Related Posts */}
+            {/* Related Posts - 更大間距 */}
             {relatedPosts.length > 0 && (
-              <section className="mt-12">
-                <h2 className="mb-6 text-xl font-bold text-foreground sm:text-2xl">
+              <section className="mt-20">
+                <h2 className="mb-8 text-xl font-semibold text-stone-900 sm:text-2xl">
                   相關文章
                 </h2>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -465,6 +466,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           </aside>
         </div>
+      </div>
       </div>
     </>
   );
