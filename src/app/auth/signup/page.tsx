@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SignupPage() {
@@ -18,6 +19,7 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [subscribeNewsletter, setSubscribeNewsletter] = useState(true);
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,16 +28,28 @@ export default function SignupPage() {
 
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signUp({
+    const { error, data } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
           display_name: name,
+          subscribe_newsletter: subscribeNewsletter,
         },
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+
+    // 記錄電子報訂閱偏好到 profiles 表
+    if (data.user && !error) {
+      await supabase
+        .from("profiles")
+        .upsert({
+          id: data.user.id,
+          display_name: name,
+          subscribe_newsletter: subscribeNewsletter,
+        });
+    }
 
     if (error) {
       setError(error.message);
@@ -191,6 +205,28 @@ export default function SignupPage() {
                 disabled={loading}
                 className="h-11 text-base"
               />
+            </div>
+
+            {/* 電子報訂閱選項 */}
+            <div className="flex items-start space-x-3 rounded-lg border bg-muted/30 p-4">
+              <Checkbox
+                id="newsletter"
+                checked={subscribeNewsletter}
+                onCheckedChange={(checked) => setSubscribeNewsletter(checked as boolean)}
+                disabled={loading}
+                className="mt-0.5"
+              />
+              <div className="grid gap-1.5 leading-none">
+                <label
+                  htmlFor="newsletter"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                >
+                  訂閱《Vista 電子報》
+                </label>
+                <p className="text-sm text-muted-foreground">
+                  每週收到自由工作者成長心法、實用資源與最新課程資訊
+                </p>
+              </div>
             </div>
 
             {error && (

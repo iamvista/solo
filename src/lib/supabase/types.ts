@@ -37,6 +37,8 @@ export interface Profile {
   linkedin: string | null;
   membership_tier: MembershipTier;
   membership_expires_at: string | null;
+  subscribe_newsletter: boolean;
+  is_admin: boolean;
 }
 
 export interface NewsletterSubscriber {

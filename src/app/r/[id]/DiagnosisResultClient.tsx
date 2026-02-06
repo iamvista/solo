@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { RadarChart } from "@/components/ui/radar-chart";
 import { getRecommendedArticles, dimensionNames, type DimensionKey as RecDimensionKey } from "@/lib/article-recommendations";
+import { getRecommendedCourses, getLearningPathByType, type DimensionKey as CourseDimensionKey, type SoloTypeKey as CourseSoloTypeKey } from "@/lib/course-recommendations";
 
 // Solo 類型定義
 const soloTypes = {
@@ -142,6 +143,7 @@ interface DiagnosisResultClientProps {
 
 export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResultClientProps) {
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   if (!initialData) {
     return (
@@ -185,6 +187,30 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
       setTimeout(() => setCopySuccess(false), 2000);
     } catch {
       alert("複製失敗，請手動複製網址");
+    }
+  };
+
+  const handleDownloadImage = async () => {
+    setIsDownloading(true);
+    try {
+      // 使用 OG image route 來下載圖片
+      const imageUrl = `/r/${result.short_id || resultId}/og`;
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+
+      // 創建下載連結
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `solo-diagnosis-${result.solo_type}-${result.short_id || resultId}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch {
+      alert("下載失敗，請稍後再試");
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -382,6 +408,79 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
         );
       })()}
 
+      {/* Recommended Courses */}
+      {(() => {
+        const recommendedCourses = getRecommendedCourses(
+          dimensionScores as Record<CourseDimensionKey, number>,
+          result.solo_type as CourseSoloTypeKey,
+          3
+        );
+        const learningPath = getLearningPathByType(result.solo_type as CourseSoloTypeKey);
+
+        return (
+          <Card className="mt-8 border-primary/20">
+            <CardHeader className="p-5 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl">
+                <span className="text-2xl sm:text-3xl">🎓</span> 為你推薦的課程
+              </CardTitle>
+              <CardDescription className="text-base">
+                根據你的診斷結果，這些課程最能幫助你成長
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+              <div className="space-y-4">
+                {recommendedCourses.map((course, i) => (
+                  <Link
+                    key={i}
+                    href={course.url}
+                    className="block rounded-lg border p-4 transition-all hover:border-primary hover:bg-primary/5"
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="text-3xl sm:text-4xl">{course.emoji}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h4 className="font-medium text-foreground">{course.title}</h4>
+                          {course.isFree && (
+                            <Badge variant="secondary" className="text-xs bg-green-100 text-green-700">
+                              免費
+                            </Badge>
+                          )}
+                          <Badge variant="outline" className="text-xs">
+                            {course.level}
+                          </Badge>
+                        </div>
+                        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{course.description}</p>
+                      </div>
+                      <svg className="h-5 w-5 shrink-0 text-muted-foreground mt-1" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                      </svg>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* 學習路徑建議 */}
+              {learningPath.next.length > 0 && (
+                <div className="mt-6 rounded-lg bg-muted/50 p-4">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    💡 學習路徑建議
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    先從免費課程開始，再進階到「{learningPath.next[0]?.title}」會是最有效的成長路徑。
+                  </p>
+                </div>
+              )}
+
+              <div className="mt-4 text-center">
+                <Button variant="outline" asChild className="h-10">
+                  <Link href="/courses">瀏覽所有課程 →</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })()}
+
       {/* CTA */}
       <Card className="mt-8 bg-primary text-primary-foreground">
         <CardContent className="p-6 sm:p-8">
@@ -410,11 +509,11 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
               <>
                 <h3 className="text-xl font-bold sm:text-2xl">🎉 你完成了深度診斷！</h3>
                 <p className="mt-2 text-base text-primary-foreground/80 sm:text-lg">
-                  建議定期（每季）重新診斷，追蹤你的事業成長軌跡
+                  根據你的結果，我們推薦從免費課程開始，逐步提升你的事業體質
                 </p>
                 <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <Button variant="secondary" size="lg" asChild className="h-12 w-full px-6 text-base sm:w-auto">
-                    <Link href="/dashboard">查看診斷紀錄</Link>
+                    <Link href="/courses">查看推薦課程</Link>
                   </Button>
                   <Button
                     variant="ghost"
@@ -422,7 +521,7 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
                     asChild
                     className="h-12 w-full border border-white/40 bg-white/10 px-6 text-base text-white hover:bg-white/20 hover:text-white sm:w-auto"
                   >
-                    <Link href="/diagnose/full">再次深度診斷</Link>
+                    <Link href="/diagnose/full">三個月後再診斷</Link>
                   </Button>
                 </div>
               </>
@@ -480,6 +579,29 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                 </svg>
                 複製連結
+              </>
+            )}
+          </Button>
+          <Button
+            variant="outline"
+            className="h-11 px-4 text-base"
+            onClick={handleDownloadImage}
+            disabled={isDownloading}
+          >
+            {isDownloading ? (
+              <>
+                <svg className="mr-2 h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                下載中...
+              </>
+            ) : (
+              <>
+                <svg className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                下載圖片
               </>
             )}
           </Button>
