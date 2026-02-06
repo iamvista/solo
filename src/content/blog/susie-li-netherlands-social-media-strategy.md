@@ -2,8 +2,6 @@
 title: 異國生活與自媒體：李思萱老師的旅荷社群攻略分享會心得
 description: 時機比能力更重要，但能力是你抓住時機的門票。這是我參加李思萱老師「異國生活不只有數位遊牧」分享會的完整心得，談個人品牌、寫作心法與能量管理。
 pubDate: '2026-01-11'
-heroImage: >-
-  https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=2000
 tags:
   - 個人品牌
   - 內容行銷

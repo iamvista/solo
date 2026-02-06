@@ -6,7 +6,6 @@ description: >-
 pubDate: '2024-04-16'
 updatedDate: '2024-04-16'
 heroImage: >-
-  https://picsum.photos/seed/2024-04-16-building-a-personal-brand-teacher-hailis/1200/600
 tags:
   - Instagram
   - BNI

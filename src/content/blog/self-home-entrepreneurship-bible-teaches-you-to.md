@@ -6,7 +6,6 @@ description: >-
 pubDate: '2020-05-27'
 updatedDate: '2020-05-27'
 heroImage: >-
-  https://picsum.photos/seed/2020-05-27-self-home-entrepreneurship-bible-teaches-you-to/1200/600
 tags:
   - 創業
   - 職場

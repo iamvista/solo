@@ -7,7 +7,6 @@ description: >-
 pubDate: '2017-11-08'
 updatedDate: '2017-11-08'
 heroImage: >-
-  https://picsum.photos/seed/2017-11-08-social-marketing-branding-technique-after-class-experience/1200/600
 tags:
   - 鄭緯筌
   - 社群行銷

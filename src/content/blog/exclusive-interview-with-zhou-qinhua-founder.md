@@ -6,7 +6,6 @@ description: >-
 pubDate: '2018-02-21'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2018-02-21-exclusive-interview-with-zhou-qinhua-founder/1200/600
 tags:
   - 知識付費
   - 使用者體驗

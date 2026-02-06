@@ -7,7 +7,6 @@ description: >-
 pubDate: '2025-06-28T13:37:26.000Z'
 updatedDate: '2025-06-28T13:37:26.000Z'
 heroImage: >-
-  https://picsum.photos/seed/2025-06-28T13:37:26.000Z-小金魚的美國冒險：從獵人遊戲到電子報的創作啟示/1200/600
 tags:
   - 個人品牌
   - 自媒體

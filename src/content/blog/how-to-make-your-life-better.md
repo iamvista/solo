@@ -6,7 +6,6 @@ description: >-
 pubDate: '2025-05-27T12:45:50.000Z'
 updatedDate: '2025-05-27T12:56:11.000Z'
 heroImage: >-
-  https://picsum.photos/seed/2025-05-27T12:45:50.000Z-如何讓自己命變好？三個圓的交集，才是人生真正的富足/1200/600
 tags:
   - 個人品牌
   - 職涯

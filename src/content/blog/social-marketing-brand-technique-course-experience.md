@@ -7,7 +7,6 @@ description: >-
 pubDate: '2020-02-01'
 updatedDate: '2020-02-01'
 heroImage: >-
-  https://picsum.photos/seed/2020-02-01-social-marketing-brand-technique-course-experience/1200/600
 tags:
   - 實體課程
   - 社群行銷

@@ -7,7 +7,6 @@ description: >-
 pubDate: '2018-12-31'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2018-12-31-have-you-written-today-book-excerpt/1200/600
 tags:
   - 部落格
   - 書摘

@@ -2,7 +2,6 @@
 title: '2026 年最難賣的不是產品，而是「你」'
 description: '在注意力匱乏的時代，你講再多乾貨，都很像在對著一扇半掩的門說話。2026 年能賣的東西只剩一種：結果。更精準地說，是從零到結果的陪跑能力。'
 pubDate: '2026-01-28T22:00:00'
-heroImage: /images/blog/selling-yourself-2026-hero.webp
 tags: ['個人品牌', '內容經營', '創作者經濟', '信任經營', '銷售']
 layout: '../../layouts/BlogPost.astro'
 ---

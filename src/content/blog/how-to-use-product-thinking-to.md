@@ -5,7 +5,6 @@ description: >-
   必修的職涯指南！」，募資已經達到400%啦！這是承諾給各位的達標解鎖文章，也剛好利用這個機會跟各位分享一下，如何運用產品思維，打造個人在職場上的品牌。無論您是不是產品經理（PM），我相信這篇文章都會對您有幫助。
 pubDate: '2019-06-06'
 updatedDate: '2019-06-06'
-heroImage: 'https://picsum.photos/seed/2019-06-06-how-to-use-product-thinking-to/1200/600'
 tags:
   - 職場
   - 個人品牌

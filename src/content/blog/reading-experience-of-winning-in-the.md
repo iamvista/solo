@@ -5,7 +5,6 @@ description: >-
 pubDate: '2024-07-25'
 updatedDate: '2024-07-25'
 heroImage: >-
-  https://picsum.photos/seed/2024-07-25-reading-experience-of-winning-in-the/1200/600
 tags:
   - 價值主張
   - 讀書

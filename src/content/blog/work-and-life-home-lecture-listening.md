@@ -6,7 +6,6 @@ description: >-
 pubDate: '2023-06-26'
 updatedDate: '2023-06-29'
 heroImage: >-
-  https://picsum.photos/seed/2023-06-26-work-and-life-home-lecture-listening/1200/600
 tags:
   - 一人公司
   - 創業

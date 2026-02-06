@@ -6,7 +6,6 @@ description: >-
 pubDate: '2019-12-20'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2019-12-20-knowledge-paid-content-subscription-summit-you/1200/600
 tags:
   - 線上課程
   - 知識付費

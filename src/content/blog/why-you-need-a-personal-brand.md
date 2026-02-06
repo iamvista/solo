@@ -3,7 +3,6 @@ title: "為何你需要一位個人品牌教練"
 description: "最近，無論是「Vista 寫作陪伴計畫」的夥伴，抑或是產業界的朋友，突然有好多人想找我聊聊，諮詢有關打造個人品牌的議題。有些人會問我有關架設與經營部落格的問題，也有人問我如何透過個人品牌發揮影響力？"
 pubDate: "2025-10-25"
 updatedDate: "2025-10-25"
-heroImage: "https://picsum.photos/seed/2025-10-25-why-you-need-a-personal-brand/1200/600"
 tags: ["個人品牌"]
 ---
 

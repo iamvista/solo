@@ -7,7 +7,6 @@ description: >-
 pubDate: '2025-01-14'
 updatedDate: '2025-01-14'
 heroImage: >-
-  https://picsum.photos/seed/2025-01-14-i-read-the-practice-of-professional/1200/600
 tags:
   - 讀書心得
   - ai

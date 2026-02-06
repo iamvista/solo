@@ -7,7 +7,6 @@ description: >-
 pubDate: '2018-02-09'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2018-02-09-pressplays-attack-from-a-learning-platform/1200/600
 tags:
   - PressPlay
   - 知識付費

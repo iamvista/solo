@@ -6,7 +6,6 @@ description: >-
 pubDate: '2019-07-14'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2019-07-14-personal-brand-alchemy-from-0-1-course/1200/600
 tags:
   - 個人品牌
   - 課程心得

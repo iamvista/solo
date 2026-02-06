@@ -6,7 +6,6 @@ description: >-
 pubDate: '2025-02-02T23:31:55.000Z'
 updatedDate: '2025-02-03T05:04:17.000Z'
 heroImage: >-
-  https://picsum.photos/seed/2025-02-02T23:31:55.000Z-2025-年必學的寫作策略：如何讓你的內容脫穎而出？/1200/600
 tags:
   - 寫作策略
   - AI

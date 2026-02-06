@@ -6,7 +6,6 @@ description: >-
 pubDate: '2018-02-20'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2018-02-20-how-did-you-create-a-subscription/1200/600
 tags:
   - 訂閱服務
   - 知識付費

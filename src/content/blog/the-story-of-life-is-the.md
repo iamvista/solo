@@ -6,7 +6,6 @@ description: >-
 pubDate: '2025-05-22T09:44:23.000Z'
 updatedDate: '2025-05-22T09:57:52.000Z'
 heroImage: >-
-  https://picsum.photos/seed/2025-05-22T09:44:23.000Z-人生的故事，就是最好的簡報——我讀《請開始說你的故事》的五個領悟/1200/600
 tags:
   - 個人品牌
   - 閱讀

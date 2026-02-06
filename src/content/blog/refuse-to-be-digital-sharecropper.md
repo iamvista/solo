@@ -4,7 +4,6 @@ description: >-
   在平臺紅利消失的年代，內容創作者如何奪回數位主權？本文深入探討「數位佃農」困境，並介紹 2026 年最核心的競爭力—— Vibe
   Coding（氛圍程式設計）。
 pubDate: '2026-01-11'
-heroImage: /images/blog/digital-ownership-warm.webp
 tags:
   - Vibe Coding
   - 個人品牌

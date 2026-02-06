@@ -6,7 +6,6 @@ description: >-
 pubDate: '2024-03-20'
 updatedDate: '2024-03-20'
 heroImage: >-
-  https://picsum.photos/seed/2024-03-20-how-to-become-a-successful-content/1200/600
 tags:
   - 寫作
   - 個人品牌

@@ -7,7 +7,6 @@ description: >-
 pubDate: '2023-08-15'
 updatedDate: '2023-08-15'
 heroImage: >-
-  https://picsum.photos/seed/2023-08-15-go-linkedin-and-build-your-personal/1200/600
 tags:
   - 求職
   - 個人品牌

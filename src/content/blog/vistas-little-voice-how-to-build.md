@@ -7,7 +7,6 @@ description: >-
 pubDate: '2022-01-07'
 updatedDate: '2022-01-12'
 heroImage: >-
-  https://picsum.photos/seed/2022-01-07-vistas-little-voice-how-to-build/1200/600
 tags:
   - Podcast
   - 定位

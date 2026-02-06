@@ -7,7 +7,6 @@ description: >-
 pubDate: '2023-08-09'
 updatedDate: '2024-02-06'
 heroImage: >-
-  https://picsum.photos/seed/2023-08-09-workplace-improvement-techniques-in-the-intelligent/1200/600
 tags:
   - AI工具
   - 批判性思考

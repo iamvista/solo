@@ -6,7 +6,6 @@ description: >-
 pubDate: '2018-03-22'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2018-03-22-the-key-to-success-of-subscription-based/1200/600
 tags:
   - 訂閱服務
   - 知識付費

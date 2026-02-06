@@ -3,7 +3,6 @@ title: "【知識人航空俱樂部 EP.2】聽講心得：從米果文化到喜�
 description: "最近有一種感覺，不是我每天過著日子，而是日子飛快地催促自己前進，不知道是不是年紀大了的關係？彷彿才剛剛參加完【知識人航空俱樂部 EP.1】活動，涵涵的分享還言猶在耳，轉眼間就已迎來【知識人航空俱樂部 EP.2】活動，也看到更多的朋友前來參加這場活動。 多年來，我一直對音頻（Audio）感到癡迷。"
 pubDate: "2019-08-17"
 updatedDate: "2023-06-25"
-heroImage: "https://picsum.photos/seed/2019-08-17-knowledge-man-aviation-club-ep2-listening-experience/1200/600"
 tags: ["知識付費","知識產業","音頻","喜馬拉雅","米果文化"]
 ---
 

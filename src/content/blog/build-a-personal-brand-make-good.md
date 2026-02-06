@@ -7,7 +7,6 @@ description: >-
 pubDate: '2018-04-14'
 updatedDate: '2023-06-25'
 heroImage: >-
-  https://picsum.photos/seed/2018-04-14-build-a-personal-brand-make-good/1200/600
 tags:
   - 內容行銷
   - 部落格

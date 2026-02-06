@@ -7,7 +7,6 @@ description: >-
   說到模板（template），我想大家應該都很喜歡！
 pubDate: '2022-01-04'
 updatedDate: '2022-01-12'
-heroImage: 'https://picsum.photos/seed/2022-01-04-the-little-voice-of-vista-make/1200/600'
 tags:
   - Vista的小聲音
   - 模板

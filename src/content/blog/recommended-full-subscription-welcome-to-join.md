@@ -3,7 +3,6 @@ title: "推薦「完全訂閱制」：歡迎和我一起加入精進的行列"
 description: "生而為人，我們常在不知不覺之中被某些外界事物制約，有趣的是我們往往也從日常生活的積累之中，建立了不為人知的儀式。 好比每天早上八點，無論身處何地，我都會習慣性地檢查自己的電子郵件信箱，看看暢哥是否寄來了最新的「完全訂閱制」內容？ 什麼是「完全訂閱制」呢？"
 pubDate: "2020-05-26"
 updatedDate: "2020-05-26"
-heroImage: "https://picsum.photos/seed/2020-05-26-recommended-full-subscription-welcome-to-join/1200/600"
 tags: ["個人品牌","訂閱制"]
 ---
 
