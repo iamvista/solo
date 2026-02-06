@@ -224,7 +224,7 @@ export default function SignupPage() {
                   訂閱《Vista 電子報》
                 </label>
                 <p className="text-sm text-muted-foreground">
-                  每週收到自由工作者成長心法、實用資源與最新課程資訊
+                  每週收到 AI 應用、成長心法、實用資源與最新課程資訊
                 </p>
               </div>
             </div>
