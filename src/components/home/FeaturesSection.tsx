@@ -66,45 +66,45 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section className="bg-background py-20 sm:py-28">
+    <section className="bg-background py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             一站式解決方案
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
             不管你是剛起步還是想突破瓶頸，這裡有你需要的所有資源
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:mt-20 lg:grid-cols-3">
           {features.map((feature) => (
             <Card
               key={feature.title}
               className="group relative transition-all hover:border-primary/50 hover:shadow-lg"
             >
-              <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <CardHeader className="p-5 sm:p-6">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-14 sm:w-14">
                   {feature.icon}
                 </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-                <CardDescription className="text-base">
+                <CardTitle className="text-lg sm:text-xl">{feature.title}</CardTitle>
+                <CardDescription className="text-base leading-relaxed sm:text-lg">
                   {feature.description}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
                 <a
                   href={feature.href}
                   target={feature.external ? "_blank" : undefined}
                   rel={feature.external ? "noopener noreferrer" : undefined}
-                  className="inline-flex items-center text-sm font-medium text-primary transition-colors hover:text-primary/80"
+                  className="inline-flex items-center text-base font-medium text-primary transition-colors hover:text-primary/80"
                 >
                   {feature.external ? "加入社群" : "了解更多"}
                   {feature.external ? (
                     <svg
-                      className="ml-1 h-4 w-4"
+                      className="ml-1.5 h-4 w-4 sm:h-5 sm:w-5"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
@@ -118,7 +118,7 @@ export function FeaturesSection() {
                     </svg>
                   ) : (
                     <svg
-                      className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
+                      className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1 sm:h-5 sm:w-5"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="2"

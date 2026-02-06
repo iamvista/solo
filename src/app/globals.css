@@ -130,11 +130,29 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    /* 基礎字體大小：手機 16px，平板 17px，桌面 18px */
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    html {
+      font-size: 17px;
+    }
+  }
+  @media (min-width: 1024px) {
+    html {
+      font-size: 18px;
+    }
+  }
   body {
     @apply bg-background text-foreground antialiased;
+    @apply leading-relaxed;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
+  }
+  p, li {
+    @apply leading-relaxed;
   }
 }
 
@@ -145,5 +163,9 @@
   }
   .gradient-text {
     @apply bg-gradient-to-r from-[#E63946] to-[#FF5A67] bg-clip-text text-transparent;
+  }
+  /* 更大的觸控目標 */
+  .touch-target {
+    @apply min-h-11 min-w-11;
   }
 }

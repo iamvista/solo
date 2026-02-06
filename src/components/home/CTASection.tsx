@@ -3,25 +3,25 @@ import { Button } from "@/components/ui/button";
 
 export function CTASection() {
   return (
-    <section className="bg-primary py-16 sm:py-20">
+    <section className="bg-primary py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl md:text-5xl">
             準備好把專業變成事業了嗎？
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80 sm:mt-6 sm:text-xl">
             免費診斷只需 3 分鐘，馬上知道你的事業競爭力
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row sm:gap-6">
             <Button
               size="lg"
               variant="secondary"
               asChild
-              className="w-full sm:w-auto"
+              className="h-14 w-full px-8 text-base sm:w-auto sm:text-lg"
             >
               <Link href="/diagnose">
                 <svg
-                  className="mr-2 h-5 w-5"
+                  className="mr-2 h-5 w-5 sm:h-6 sm:w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth="2"
@@ -40,7 +40,7 @@ export function CTASection() {
               size="lg"
               variant="ghost"
               asChild
-              className="w-full border border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white sm:w-auto"
+              className="h-14 w-full border border-white/40 bg-white/10 px-8 text-base text-white hover:bg-white/20 hover:text-white sm:w-auto sm:text-lg"
             >
               <Link href="/about">了解更多</Link>
             </Button>
