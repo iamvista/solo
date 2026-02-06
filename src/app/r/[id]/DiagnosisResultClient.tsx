@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { RadarChart } from "@/components/ui/radar-chart";
+import { getRecommendedArticles, dimensionNames, type DimensionKey as RecDimensionKey } from "@/lib/article-recommendations";
 
 // Solo 類型定義
 const soloTypes = {
@@ -234,10 +236,33 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
         </CardContent>
       </Card>
 
+      {/* Radar Chart */}
+      <Card className="mt-8">
+        <CardHeader className="p-5 text-center sm:p-6">
+          <CardTitle className="text-xl sm:text-2xl">五維競爭力雷達圖</CardTitle>
+          <CardDescription className="text-base">
+            視覺化呈現你的事業體質
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+          <RadarChart
+            data={[
+              { label: "定位力", value: dimensionScores.positioning },
+              { label: "交付力", value: dimensionScores.delivery },
+              { label: "信任力", value: dimensionScores.trust },
+              { label: "變現力", value: dimensionScores.monetization },
+              { label: "永續力", value: dimensionScores.sustainability },
+            ]}
+            size={320}
+            className="mx-auto"
+          />
+        </CardContent>
+      </Card>
+
       {/* Dimension Scores */}
       <Card className="mt-8">
         <CardHeader className="p-5 sm:p-6">
-          <CardTitle className="text-xl sm:text-2xl">五維競爭力分析</CardTitle>
+          <CardTitle className="text-xl sm:text-2xl">維度分數詳情</CardTitle>
           <CardDescription className="text-base">
             每個維度滿分 100 分，了解你的強項與需要加強的地方
           </CardDescription>
@@ -310,6 +335,52 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
           </CardContent>
         </Card>
       </div>
+
+      {/* Recommended Articles */}
+      {(() => {
+        const recommendedArticles = getRecommendedArticles(dimensionScores as Record<RecDimensionKey, number>, 3);
+        return (
+          <Card className="mt-8">
+            <CardHeader className="p-5 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl">
+                <span className="text-2xl sm:text-3xl">📚</span> 推薦閱讀
+              </CardTitle>
+              <CardDescription className="text-base">
+                根據你的弱項，推薦這些文章幫助你成長
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+              <div className="space-y-4">
+                {recommendedArticles.map((article, i) => (
+                  <Link
+                    key={i}
+                    href={`/blog/${article.slug}`}
+                    className="block rounded-lg border p-4 transition-all hover:border-primary hover:bg-primary/5"
+                  >
+                    <div className="flex items-start gap-3">
+                      <Badge variant="outline" className="shrink-0 text-xs">
+                        {dimensionNames[article.dimension]}
+                      </Badge>
+                      <div className="flex-1">
+                        <h4 className="font-medium text-foreground line-clamp-1">{article.title}</h4>
+                        <p className="mt-1 text-sm text-muted-foreground line-clamp-1">{article.description}</p>
+                      </div>
+                      <svg className="h-5 w-5 shrink-0 text-muted-foreground" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                      </svg>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-4 text-center">
+                <Button variant="outline" asChild className="h-10">
+                  <Link href="/blog">瀏覽更多文章 →</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })()}
 
       {/* CTA */}
       <Card className="mt-8 bg-primary text-primary-foreground">

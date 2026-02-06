@@ -44,16 +44,24 @@ function generateTOC(content: string): { id: string; text: string; level: number
   const headings: { id: string; text: string; level: number }[] = [];
   const lines = content.split("\n");
 
+  // 移除 markdown 連結語法，保留連結文字
+  const stripMarkdownLinks = (text: string): string => {
+    // [連結文字](URL) -> 連結文字
+    return text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+  };
+
   lines.forEach((line) => {
     const h2Match = line.match(/^## (.+)$/);
     const h3Match = line.match(/^### (.+)$/);
 
     if (h2Match) {
-      const text = h2Match[1].trim();
+      const rawText = h2Match[1].trim();
+      const text = stripMarkdownLinks(rawText);
       const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
       headings.push({ id, text, level: 2 });
     } else if (h3Match) {
-      const text = h3Match[1].trim();
+      const rawText = h3Match[1].trim();
+      const text = stripMarkdownLinks(rawText);
       const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
       headings.push({ id, text, level: 3 });
     }
@@ -387,13 +395,19 @@ function markdownToHtml(markdown: string): string {
     return `__INLINE_CODE_${inlineCodes.length - 1}__`;
   });
 
-  // Headers with IDs
+  // Headers with IDs - 移除連結語法來生成乾淨的 ID
+  const stripLinksForId = (text: string): string => {
+    return text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+  };
+
   html = html.replace(/^### (.+)$/gim, (_, text) => {
-    const id = text.trim().toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+    const cleanText = stripLinksForId(text.trim());
+    const id = cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
     return `<h3 id="${id}">${text.trim()}</h3>`;
   });
   html = html.replace(/^## (.+)$/gim, (_, text) => {
-    const id = text.trim().toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+    const cleanText = stripLinksForId(text.trim());
+    const id = cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
     return `<h2 id="${id}">${text.trim()}</h2>`;
   });
 
