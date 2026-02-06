@@ -119,9 +119,9 @@ ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone can insert diagnosis" ON diagnosis_results
   FOR INSERT WITH CHECK (true);
 
--- 用戶只能看到自己的診斷結果
-CREATE POLICY "Users can view own diagnosis" ON diagnosis_results
-  FOR SELECT USING (auth.uid() = user_id);
+-- 任何人都可以透過 ID 查看診斷結果（分享功能需要）
+CREATE POLICY "Anyone can view diagnosis by id" ON diagnosis_results
+  FOR SELECT USING (true);
 
 -- profiles 政策
 -- 用戶只能看到和編輯自己的 profile

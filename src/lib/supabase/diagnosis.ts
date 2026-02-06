@@ -46,9 +46,11 @@ export async function saveDiagnosisResult(params: SaveDiagnosisParams) {
     utm_campaign: urlParams.get("utm_campaign"),
   };
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("diagnosis_results")
-    .insert(result);
+    .insert(result)
+    .select("id")
+    .single();
 
   if (error) {
     console.error("Error saving diagnosis:", error.message || error);
@@ -56,7 +58,24 @@ export async function saveDiagnosisResult(params: SaveDiagnosisParams) {
     return null;
   }
 
-  return { success: true };
+  return { success: true, id: data.id };
+}
+
+export async function getDiagnosisById(id: string) {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("diagnosis_results")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error("Error fetching diagnosis:", error);
+    return null;
+  }
+
+  return data;
 }
 
 export async function getUserDiagnosisHistory() {
