@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     icon: "/solo-icon.png",
     apple: "/solo-icon.png",
   },
+  metadataBase: new URL("https://solo.tw"),
   openGraph: {
     title: "solo.tw | 把專業變成事業",
     description: "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源。",
@@ -26,6 +27,20 @@ export const metadata: Metadata = {
     siteName: "solo.tw",
     locale: "zh_TW",
     type: "website",
+    images: [
+      {
+        url: "/og",
+        width: 1200,
+        height: 630,
+        alt: "solo.tw - 自由人學院",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "solo.tw | 把專業變成事業",
+    description: "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源。",
+    images: ["/og"],
   },
 };
 

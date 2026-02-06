@@ -139,44 +139,44 @@ const toolCategories = [
 
 export default function ToolsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       {/* Header */}
       <div className="text-center">
-        <Badge variant="secondary" className="mb-4">
+        <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
           🛠️ 實用資源
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
           Solo 工具箱
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
           為自由工作者精心準備的模板、計算器和指南，幫助你更有效率地經營事業
         </p>
       </div>
 
       {/* 診斷 CTA */}
-      <Card className="mt-12 border-primary/20 bg-primary/5">
-        <CardContent className="flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
+      <Card className="mt-10 border-primary/20 bg-primary/5 sm:mt-12">
+        <CardContent className="flex flex-col items-center justify-between gap-4 p-5 sm:flex-row sm:p-6">
           <div className="text-center sm:text-left">
-            <h3 className="font-semibold">還不確定該從哪裡開始？</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold">還不確定該從哪裡開始？</h3>
+            <p className="mt-1 text-base text-muted-foreground">
               先做個事業診斷，了解你最需要加強的面向
             </p>
           </div>
-          <Button asChild>
+          <Button asChild className="h-11 px-6 text-base">
             <Link href="/diagnose">免費診斷</Link>
           </Button>
         </CardContent>
       </Card>
 
       {/* 工具分類 */}
-      <div className="mt-16 space-y-16">
+      <div className="mt-14 space-y-14 sm:mt-16 sm:space-y-16">
         {toolCategories.map((category) => (
           <div key={category.id}>
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">{category.emoji}</span>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span className="text-4xl sm:text-5xl">{category.emoji}</span>
               <div>
-                <h2 className="text-2xl font-bold">{category.name}</h2>
-                <p className="text-muted-foreground">{category.description}</p>
+                <h2 className="text-xl font-bold sm:text-2xl">{category.name}</h2>
+                <p className="text-base text-muted-foreground sm:text-lg">{category.description}</p>
               </div>
             </div>
 
@@ -190,25 +190,25 @@ export default function ToolsPage() {
                       : "opacity-75"
                   }`}
                 >
-                  <CardHeader className="pb-2">
+                  <CardHeader className="p-5 pb-2 sm:p-6 sm:pb-2">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg">{tool.name}</CardTitle>
+                      <CardTitle className="text-lg sm:text-xl">{tool.name}</CardTitle>
                       {tool.status === "coming_soon" && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="secondary" className="ml-2 shrink-0 text-xs">
                           即將推出
                         </Badge>
                       )}
                       {tool.status === "available" && (
-                        <Badge variant="default" className="text-xs">
+                        <Badge variant="default" className="ml-2 shrink-0 text-xs">
                           可使用
                         </Badge>
                       )}
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <CardDescription>{tool.description}</CardDescription>
+                  <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+                    <CardDescription className="text-base">{tool.description}</CardDescription>
                     {tool.status === "available" && (
-                      <Button size="sm" className="mt-4" asChild>
+                      <Button size="sm" className="mt-4 h-10 px-4 text-base" asChild>
                         <Link href={`/tools/${tool.id}`}>使用工具</Link>
                       </Button>
                     )}
@@ -221,17 +221,17 @@ export default function ToolsPage() {
       </div>
 
       {/* 底部 CTA */}
-      <Card className="mt-16 bg-muted">
-        <CardContent className="py-8 text-center">
-          <h3 className="text-xl font-bold">想要更多工具？</h3>
-          <p className="mt-2 text-muted-foreground">
+      <Card className="mt-14 bg-muted sm:mt-16">
+        <CardContent className="p-6 text-center sm:p-8">
+          <h3 className="text-xl font-bold sm:text-2xl">想要更多工具？</h3>
+          <p className="mt-2 text-base text-muted-foreground sm:text-lg">
             我們正在持續開發更多實用工具，訂閱電子報第一時間收到通知
           </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button variant="outline" asChild>
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <Button variant="outline" asChild className="h-11 w-full px-6 text-base sm:w-auto">
               <Link href="/#newsletter">訂閱電子報</Link>
             </Button>
-            <Button variant="ghost" asChild>
+            <Button variant="ghost" asChild className="h-11 w-full px-6 text-base sm:w-auto">
               <a href="mailto:iamvista@gmail.com">
                 建議新工具
               </a>

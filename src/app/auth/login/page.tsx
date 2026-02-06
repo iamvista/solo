@@ -59,19 +59,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center px-4">
+    <div className="flex min-h-[80vh] items-center justify-center px-4 py-12 sm:py-16">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">歡迎回來</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-5 text-center sm:p-6">
+          <CardTitle className="text-2xl sm:text-3xl">歡迎回來</CardTitle>
+          <CardDescription className="text-base">
             登入你的自由人學院帳號
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
           {/* Google Login */}
           <Button
             variant="outline"
-            className="w-full"
+            className="h-11 w-full text-base"
             onClick={handleGoogleLogin}
             disabled={loading}
           >
@@ -106,7 +106,7 @@ export default function LoginPage() {
           {/* Email Login Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-base">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -115,12 +115,13 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
+                className="h-11 text-base"
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">密碼</Label>
+                <Label htmlFor="password" className="text-base">密碼</Label>
                 <Link
                   href="/auth/forgot-password"
                   className="text-sm text-primary hover:underline"
@@ -136,21 +137,22 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
+                className="h-11 text-base"
               />
             </div>
 
             {error && (
-              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+              <div className="rounded-md bg-destructive/10 p-3 text-base text-destructive">
                 {error}
               </div>
             )}
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="h-11 w-full text-base" disabled={loading}>
               {loading ? "登入中..." : "登入"}
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-muted-foreground">
+          <p className="mt-6 text-center text-base text-muted-foreground">
             還沒有帳號？{" "}
             <Link href="/auth/signup" className="text-primary hover:underline">
               立即註冊

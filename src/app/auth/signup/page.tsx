@@ -68,12 +68,12 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-[80vh] items-center justify-center px-4">
+      <div className="flex min-h-[80vh] items-center justify-center px-4 py-12 sm:py-16">
         <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+          <CardHeader className="p-5 text-center sm:p-6">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 sm:h-20 sm:w-20">
               <svg
-                className="h-8 w-8 text-green-600"
+                className="h-8 w-8 text-green-600 sm:h-10 sm:w-10"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="2"
@@ -86,15 +86,15 @@ export default function SignupPage() {
                 />
               </svg>
             </div>
-            <CardTitle className="text-2xl">確認你的 Email</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl sm:text-3xl">確認你的 Email</CardTitle>
+            <CardDescription className="text-base">
               我們已發送確認信到 <strong>{email}</strong>
               <br />
               請點擊信中的連結完成註冊
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Button asChild className="w-full">
+          <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+            <Button asChild className="h-11 w-full text-base">
               <Link href="/auth/login">返回登入頁</Link>
             </Button>
           </CardContent>
@@ -104,19 +104,19 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center px-4">
+    <div className="flex min-h-[80vh] items-center justify-center px-4 py-12 sm:py-16">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">加入自由人學院</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-5 text-center sm:p-6">
+          <CardTitle className="text-2xl sm:text-3xl">加入自由人學院</CardTitle>
+          <CardDescription className="text-base">
             建立帳號，開始你的自由事業之旅
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
           {/* Google Signup */}
           <Button
             variant="outline"
-            className="w-full"
+            className="h-11 w-full text-base"
             onClick={handleGoogleSignup}
             disabled={loading}
           >
@@ -151,7 +151,7 @@ export default function SignupPage() {
           {/* Email Signup Form */}
           <form onSubmit={handleEmailSignup} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">姓名</Label>
+              <Label htmlFor="name" className="text-base">姓名</Label>
               <Input
                 id="name"
                 type="text"
@@ -160,11 +160,12 @@ export default function SignupPage() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 disabled={loading}
+                className="h-11 text-base"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-base">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -173,11 +174,12 @@ export default function SignupPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
+                className="h-11 text-base"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">密碼</Label>
+              <Label htmlFor="password" className="text-base">密碼</Label>
               <Input
                 id="password"
                 type="password"
@@ -187,28 +189,29 @@ export default function SignupPage() {
                 required
                 minLength={6}
                 disabled={loading}
+                className="h-11 text-base"
               />
             </div>
 
             {error && (
-              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+              <div className="rounded-md bg-destructive/10 p-3 text-base text-destructive">
                 {error}
               </div>
             )}
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="h-11 w-full text-base" disabled={loading}>
               {loading ? "註冊中..." : "建立帳號"}
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-muted-foreground">
+          <p className="mt-6 text-center text-base text-muted-foreground">
             已經有帳號？{" "}
             <Link href="/auth/login" className="text-primary hover:underline">
               立即登入
             </Link>
           </p>
 
-          <p className="mt-4 text-center text-xs text-muted-foreground">
+          <p className="mt-4 text-center text-sm text-muted-foreground">
             註冊即表示你同意我們的{" "}
             <Link href="/terms" className="underline">
               服務條款

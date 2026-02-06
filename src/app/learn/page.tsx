@@ -179,23 +179,23 @@ const featuredResources = [
 
 export default function LearnPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       {/* Header */}
       <div className="text-center">
-        <Badge variant="secondary" className="mb-4">
+        <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
           📚 學習成長
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
           學習資源
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
           實戰導向的文章與指南，幫助你建立成功的自由事業
         </p>
       </div>
 
       {/* 精選資源 */}
-      <div className="mt-12">
-        <h2 className="text-xl font-bold">精選資源</h2>
+      <div className="mt-10 sm:mt-12">
+        <h2 className="text-xl font-bold sm:text-2xl">精選資源</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {featuredResources.map((resource) => (
             <Card
@@ -207,10 +207,10 @@ export default function LearnPage() {
                   <Badge variant="secondary" className="text-xs">即將推出</Badge>
                 </div>
               )}
-              <CardHeader>
-                <span className="text-4xl">{resource.emoji}</span>
-                <CardTitle className="mt-2">{resource.title}</CardTitle>
-                <CardDescription>{resource.description}</CardDescription>
+              <CardHeader className="p-5 sm:p-6">
+                <span className="text-4xl sm:text-5xl">{resource.emoji}</span>
+                <CardTitle className="mt-3 text-lg sm:text-xl">{resource.title}</CardTitle>
+                <CardDescription className="text-base">{resource.description}</CardDescription>
               </CardHeader>
             </Card>
           ))}
@@ -218,29 +218,29 @@ export default function LearnPage() {
       </div>
 
       {/* 診斷 CTA */}
-      <Card className="mt-12 border-primary/20 bg-primary/5">
-        <CardContent className="flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
+      <Card className="mt-10 border-primary/20 bg-primary/5 sm:mt-12">
+        <CardContent className="flex flex-col items-center justify-between gap-4 p-5 sm:flex-row sm:p-6">
           <div className="text-center sm:text-left">
-            <h3 className="font-semibold">不知道該學什麼？</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold">不知道該學什麼？</h3>
+            <p className="mt-1 text-base text-muted-foreground">
               做個診斷，找出你最需要加強的面向
             </p>
           </div>
-          <Button asChild>
+          <Button asChild className="h-11 px-6 text-base">
             <Link href="/diagnose">免費診斷</Link>
           </Button>
         </CardContent>
       </Card>
 
       {/* 學習主題 */}
-      <div className="mt-16 space-y-16">
+      <div className="mt-14 space-y-14 sm:mt-16 sm:space-y-16">
         {learningTopics.map((topic) => (
           <div key={topic.id}>
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">{topic.emoji}</span>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span className="text-4xl sm:text-5xl">{topic.emoji}</span>
               <div>
-                <h2 className="text-2xl font-bold">{topic.name}</h2>
-                <p className="text-muted-foreground">{topic.description}</p>
+                <h2 className="text-xl font-bold sm:text-2xl">{topic.name}</h2>
+                <p className="text-base text-muted-foreground sm:text-lg">{topic.description}</p>
               </div>
             </div>
 
@@ -254,9 +254,9 @@ export default function LearnPage() {
                       : "opacity-75"
                   }`}
                 >
-                  <CardHeader className="pb-2">
+                  <CardHeader className="p-5 pb-2 sm:p-6 sm:pb-2">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg leading-snug">
+                      <CardTitle className="text-lg leading-snug sm:text-xl">
                         {article.title}
                       </CardTitle>
                       {article.status === "coming_soon" && (
@@ -266,14 +266,14 @@ export default function LearnPage() {
                       )}
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <CardDescription>{article.description}</CardDescription>
+                  <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+                    <CardDescription className="text-base">{article.description}</CardDescription>
                     <div className="mt-4 flex items-center justify-between">
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-sm text-muted-foreground">
                         📖 {article.readTime}
                       </span>
                       {article.status === "published" && (
-                        <Button size="sm" variant="ghost" asChild>
+                        <Button size="sm" variant="ghost" asChild className="h-10 px-4 text-base">
                           <Link href={`/learn/${topic.id}/${article.id}`}>
                             閱讀 →
                           </Link>
@@ -289,13 +289,13 @@ export default function LearnPage() {
       </div>
 
       {/* 電子報訂閱 */}
-      <Card className="mt-16 bg-muted">
-        <CardContent className="py-8 text-center">
-          <h3 className="text-xl font-bold">每週收到最新內容</h3>
-          <p className="mt-2 text-muted-foreground">
+      <Card className="mt-14 bg-muted sm:mt-16">
+        <CardContent className="p-6 text-center sm:p-8">
+          <h3 className="text-xl font-bold sm:text-2xl">每週收到最新內容</h3>
+          <p className="mt-2 text-base text-muted-foreground sm:text-lg">
             訂閱電子報，第一時間收到新文章、工具和課程資訊
           </p>
-          <Button className="mt-6" asChild>
+          <Button className="mt-6 h-11 px-6 text-base" asChild>
             <Link href="/#newsletter">訂閱電子報</Link>
           </Button>
         </CardContent>

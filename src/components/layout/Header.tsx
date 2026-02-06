@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
 const navigation = [
-  { name: "診斷工具", href: "/diagnose" },
+  { name: "事業健檢", href: "/diagnose" },
   { name: "工具箱", href: "/tools" },
   { name: "學習資源", href: "/learn" },
   { name: "課程", href: "/courses" },

@@ -91,43 +91,43 @@ const freeCourses = [
 
 export default function CoursesPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       {/* Header */}
       <div className="text-center">
-        <Badge variant="secondary" className="mb-4">
+        <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
           🎓 系統化學習
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
           課程
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
           從新手到大師，為自由工作者設計的完整學習路徑
         </p>
       </div>
 
       {/* 診斷 CTA */}
-      <Card className="mt-12 border-primary/20 bg-primary/5">
-        <CardContent className="flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
+      <Card className="mt-10 border-primary/20 bg-primary/5 sm:mt-12">
+        <CardContent className="flex flex-col items-center justify-between gap-4 p-5 sm:flex-row sm:p-6">
           <div className="text-center sm:text-left">
-            <h3 className="font-semibold">不知道該上哪堂課？</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold">不知道該上哪堂課？</h3>
+            <p className="mt-1 text-base text-muted-foreground">
               先做個診斷，根據結果推薦最適合你的課程
             </p>
           </div>
-          <Button asChild>
+          <Button asChild className="h-11 px-6 text-base">
             <Link href="/diagnose">免費診斷</Link>
           </Button>
         </CardContent>
       </Card>
 
       {/* 免費迷你課程 */}
-      <div className="mt-16">
+      <div className="mt-14 sm:mt-16">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">免費迷你課程</h2>
-            <p className="mt-1 text-muted-foreground">先從這裡開始，零成本體驗</p>
+            <h2 className="text-xl font-bold sm:text-2xl">免費迷你課程</h2>
+            <p className="mt-1 text-base text-muted-foreground sm:text-lg">先從這裡開始，零成本體驗</p>
           </div>
-          <Badge variant="outline" className="hidden sm:block">免費</Badge>
+          <Badge variant="outline" className="hidden text-sm sm:block">免費</Badge>
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -140,18 +140,18 @@ export default function CoursesPage() {
                   : "opacity-80"
               }`}
             >
-              <CardHeader className="pb-2">
+              <CardHeader className="p-5 pb-2 sm:p-6 sm:pb-2">
                 <div className="flex items-start justify-between">
-                  <span className="text-3xl">{course.emoji}</span>
+                  <span className="text-4xl sm:text-5xl">{course.emoji}</span>
                   {course.status === "coming_soon" && (
                     <Badge variant="secondary" className="text-xs">即將推出</Badge>
                   )}
                 </div>
-                <CardTitle className="mt-2 text-lg">{course.title}</CardTitle>
+                <CardTitle className="mt-3 text-lg sm:text-xl">{course.title}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <CardDescription>{course.description}</CardDescription>
-                <p className="mt-3 text-sm text-muted-foreground">
+              <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+                <CardDescription className="text-base">{course.description}</CardDescription>
+                <p className="mt-3 text-base text-muted-foreground">
                   📚 {course.lessons} 堂課
                 </p>
               </CardContent>
@@ -161,13 +161,13 @@ export default function CoursesPage() {
       </div>
 
       {/* 完整課程 */}
-      <div className="mt-20">
+      <div className="mt-16 sm:mt-20">
         <div className="text-center">
-          <h2 className="text-2xl font-bold">完整課程</h2>
-          <p className="mt-1 text-muted-foreground">系統化的學習路徑，帶你一步步成長</p>
+          <h2 className="text-xl font-bold sm:text-2xl">完整課程</h2>
+          <p className="mt-1 text-base text-muted-foreground sm:text-lg">系統化的學習路徑，帶你一步步成長</p>
         </div>
 
-        <div className="mt-10 space-y-8">
+        <div className="mt-8 space-y-6 sm:mt-10 sm:space-y-8">
           {courses.map((course, index) => (
             <Card
               key={course.id}
@@ -178,15 +178,15 @@ export default function CoursesPage() {
               }`}
             >
               <div className="grid md:grid-cols-3">
-                <div className={`p-8 ${
+                <div className={`p-6 sm:p-8 ${
                   index === 0 ? "bg-green-50" :
                   index === 1 ? "bg-blue-50" :
                   "bg-purple-50"
                 }`}>
                   <div className="text-center">
-                    <span className="text-6xl">{course.emoji}</span>
+                    <span className="text-6xl sm:text-7xl">{course.emoji}</span>
                     <div className="mt-4">
-                      <Badge variant={
+                      <Badge className="text-sm" variant={
                         course.level === "入門" ? "secondary" :
                         course.level === "進階" ? "default" :
                         "outline"
@@ -196,29 +196,29 @@ export default function CoursesPage() {
                     </div>
                   </div>
                 </div>
-                <div className="col-span-2 p-8">
+                <div className="col-span-2 p-6 sm:p-8">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-xl font-bold">{course.title}</h3>
-                      <p className="text-muted-foreground">{course.subtitle}</p>
+                      <h3 className="text-xl font-bold sm:text-2xl">{course.title}</h3>
+                      <p className="text-base text-muted-foreground sm:text-lg">{course.subtitle}</p>
                     </div>
                     {course.status === "coming_soon" && (
-                      <Badge variant="secondary">即將推出</Badge>
+                      <Badge variant="secondary" className="ml-2 shrink-0">即將推出</Badge>
                     )}
                   </div>
-                  <p className="mt-4 text-muted-foreground">{course.description}</p>
+                  <p className="mt-4 text-base text-muted-foreground">{course.description}</p>
 
-                  <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
+                  <div className="mt-6 flex flex-wrap gap-4 text-base text-muted-foreground">
                     <span>⏱️ {course.duration}</span>
                     <span>📚 {course.lessons} 堂課</span>
                     <span>💰 {course.price}</span>
                   </div>
 
                   <div className="mt-6">
-                    <p className="text-sm font-medium mb-3">你將學到：</p>
+                    <p className="text-base font-medium mb-3">你將學到：</p>
                     <ul className="grid gap-2 sm:grid-cols-2">
                       {course.features.map((feature, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <li key={i} className="flex items-center gap-2 text-base text-muted-foreground">
                           <span className="text-primary">✓</span>
                           {feature}
                         </li>
@@ -227,11 +227,11 @@ export default function CoursesPage() {
                   </div>
 
                   {course.status === "available" ? (
-                    <Button className="mt-6" asChild>
+                    <Button className="mt-6 h-11 px-6 text-base" asChild>
                       <Link href={`/courses/${course.id}`}>了解更多</Link>
                     </Button>
                   ) : (
-                    <Button className="mt-6" variant="outline" disabled>
+                    <Button className="mt-6 h-11 px-6 text-base" variant="outline" disabled>
                       敬請期待
                     </Button>
                   )}
@@ -243,15 +243,15 @@ export default function CoursesPage() {
       </div>
 
       {/* 企業培訓 */}
-      <Card className="mt-20 bg-muted">
-        <CardContent className="py-8">
+      <Card className="mt-16 bg-muted sm:mt-20">
+        <CardContent className="p-6 sm:p-8">
           <div className="grid gap-6 md:grid-cols-2 items-center">
             <div>
-              <h3 className="text-xl font-bold">企業內訓 / 客製課程</h3>
-              <p className="mt-2 text-muted-foreground">
+              <h3 className="text-xl font-bold sm:text-2xl">企業內訓 / 客製課程</h3>
+              <p className="mt-2 text-base text-muted-foreground sm:text-lg">
                 為企業量身打造的培訓方案，幫助員工發展斜槓能力或培養內部講師
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <ul className="mt-4 space-y-3 text-base text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <span className="text-primary">✓</span>
                   根據企業需求客製內容
@@ -267,7 +267,7 @@ export default function CoursesPage() {
               </ul>
             </div>
             <div className="text-center md:text-right">
-              <Button asChild>
+              <Button asChild className="h-11 px-6 text-base">
                 <a href="mailto:iamvista@gmail.com">
                   聯繫洽談
                 </a>
@@ -278,11 +278,11 @@ export default function CoursesPage() {
       </Card>
 
       {/* 電子報訂閱 */}
-      <div className="mt-16 text-center">
-        <p className="text-muted-foreground">
+      <div className="mt-14 text-center sm:mt-16">
+        <p className="text-base text-muted-foreground sm:text-lg">
           想在新課程上線時第一時間收到通知？
         </p>
-        <Button variant="outline" className="mt-4" asChild>
+        <Button variant="outline" className="mt-4 h-11 px-6 text-base" asChild>
           <Link href="/#newsletter">訂閱電子報</Link>
         </Button>
       </div>

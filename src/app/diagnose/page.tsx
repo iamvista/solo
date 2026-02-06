@@ -214,34 +214,34 @@ export default function DiagnosePage() {
   // 介紹頁
   if (step === "intro") {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Solo 事業健檢
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
             診斷你的自由事業競爭力，獲得專屬成長建議
           </p>
         </div>
 
         {/* 診斷類型選擇 */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+        <div className="mt-10 grid gap-6 sm:mt-12 sm:grid-cols-2">
           {/* 快速診斷 */}
           <Card className="relative overflow-hidden transition-all hover:border-primary/50 hover:shadow-lg cursor-pointer" onClick={() => setStep("quiz")}>
             <div className="absolute right-4 top-4">
-              <Badge variant="secondary">推薦新手</Badge>
+              <Badge variant="secondary" className="text-sm">推薦新手</Badge>
             </div>
-            <CardHeader>
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+            <CardHeader className="p-5 sm:p-6">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl sm:h-16 sm:w-16 sm:text-4xl">
                 ⚡
               </div>
-              <CardTitle className="mt-4">快速診斷</CardTitle>
-              <CardDescription>
+              <CardTitle className="mt-4 text-xl sm:text-2xl">快速診斷</CardTitle>
+              <CardDescription className="text-base sm:text-lg">
                 3 分鐘完成，快速了解現況
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+            <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+              <ul className="space-y-3 text-base text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <span className="text-primary">✓</span> 7 道精選題目
                 </li>
@@ -255,10 +255,10 @@ export default function DiagnosePage() {
                   <span className="text-primary">✓</span> 行動建議
                 </li>
               </ul>
-              <Button className="mt-6 w-full" onClick={() => setStep("quiz")}>
+              <Button className="mt-6 h-12 w-full text-base" onClick={() => setStep("quiz")}>
                 開始快速診斷
                 <svg
-                  className="ml-2 h-4 w-4"
+                  className="ml-2 h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth="2"
@@ -277,19 +277,19 @@ export default function DiagnosePage() {
           {/* 深度診斷 */}
           <Card className="relative overflow-hidden border-2 border-primary/20 bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
             <div className="absolute right-4 top-4">
-              <Badge>完整版</Badge>
+              <Badge className="text-sm">完整版</Badge>
             </div>
-            <CardHeader>
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+            <CardHeader className="p-5 sm:p-6">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl sm:h-16 sm:w-16 sm:text-4xl">
                 🎯
               </div>
-              <CardTitle className="mt-4">深度診斷</CardTitle>
-              <CardDescription>
+              <CardTitle className="mt-4 text-xl sm:text-2xl">深度診斷</CardTitle>
+              <CardDescription className="text-base sm:text-lg">
                 8-10 分鐘，全面剖析事業體質
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+            <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+              <ul className="space-y-3 text-base text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <span className="text-primary">✓</span> 18 道專業題目
                 </li>
@@ -303,11 +303,11 @@ export default function DiagnosePage() {
                   <span className="text-primary">✓</span> 可追蹤歷次結果
                 </li>
               </ul>
-              <Button className="mt-6 w-full" variant="default" asChild>
+              <Button className="mt-6 h-12 w-full text-base" variant="default" asChild>
                 <a href="/diagnose/full">
                   開始深度診斷
                   <svg
-                    className="ml-2 h-4 w-4"
+                    className="ml-2 h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="2"
@@ -326,36 +326,36 @@ export default function DiagnosePage() {
         </div>
 
         {/* 你將獲得 */}
-        <Card className="mt-12">
-          <CardHeader className="text-center">
-            <CardTitle>你將獲得</CardTitle>
+        <Card className="mt-10 sm:mt-12">
+          <CardHeader className="text-center p-5 sm:p-6">
+            <CardTitle className="text-xl sm:text-2xl">你將獲得</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
             <div className="grid gap-6 sm:grid-cols-3">
               <div className="text-center">
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl">📊</span>
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 sm:h-16 sm:w-16">
+                  <span className="text-3xl sm:text-4xl">📊</span>
                 </div>
-                <h3 className="font-medium">競爭力雷達圖</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
+                <h3 className="text-base font-medium sm:text-lg">競爭力雷達圖</h3>
+                <p className="mt-1 text-base text-muted-foreground">
                   5 大維度的視覺化分析
                 </p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl">🦁</span>
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 sm:h-16 sm:w-16">
+                  <span className="text-3xl sm:text-4xl">🦁</span>
                 </div>
-                <h3 className="font-medium">Solo 類型診斷</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
+                <h3 className="text-base font-medium sm:text-lg">Solo 類型診斷</h3>
+                <p className="mt-1 text-base text-muted-foreground">
                   6 種類型，了解你的特質
                 </p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl">💡</span>
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 sm:h-16 sm:w-16">
+                  <span className="text-3xl sm:text-4xl">💡</span>
                 </div>
-                <h3 className="font-medium">行動建議</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
+                <h3 className="text-base font-medium sm:text-lg">行動建議</h3>
+                <p className="mt-1 text-base text-muted-foreground">
                   下一步該怎麼做
                 </p>
               </div>
@@ -363,7 +363,7 @@ export default function DiagnosePage() {
           </CardContent>
         </Card>
 
-        <p className="mt-8 text-center text-sm text-muted-foreground">
+        <p className="mt-8 text-center text-base text-muted-foreground">
           完全免費，結果可分享，登入後可儲存紀錄
         </p>
       </div>
@@ -376,38 +376,38 @@ export default function DiagnosePage() {
     const progress = ((currentQuestion + 1) / quickQuestions.length) * 100;
 
     return (
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         {/* Progress */}
         <div className="mb-8">
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <div className="flex items-center justify-between text-base text-muted-foreground">
             <span>問題 {currentQuestion + 1} / {quickQuestions.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <Progress value={progress} className="mt-2" />
+          <Progress value={progress} className="mt-3 h-2.5" />
         </div>
 
         {/* Question */}
         <Card>
-          <CardHeader>
-            <Badge variant="outline" className="w-fit">
+          <CardHeader className="p-5 sm:p-6">
+            <Badge variant="outline" className="w-fit text-sm">
               {dimensions[question.dimension as DimensionKey].fullName}
             </Badge>
-            <CardTitle className="mt-4 text-xl leading-relaxed">
+            <CardTitle className="mt-4 text-xl leading-relaxed sm:text-2xl">
               {question.question}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
             <div className="space-y-3">
               {question.options.map((option) => (
                 <button
                   key={option.value}
                   onClick={() => handleAnswer(question.id, option.value)}
-                  className="flex w-full items-center rounded-lg border p-4 text-left transition-all hover:border-primary hover:bg-primary/5"
+                  className="flex w-full items-center rounded-lg border p-4 text-left transition-all hover:border-primary hover:bg-primary/5 sm:p-5"
                 >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-medium">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-base font-medium sm:h-11 sm:w-11">
                     {option.value}
                   </span>
-                  <span className="ml-4">{option.label}</span>
+                  <span className="ml-4 text-base sm:text-lg">{option.label}</span>
                 </button>
               ))}
             </div>
@@ -419,6 +419,7 @@ export default function DiagnosePage() {
           <div className="mt-6 text-center">
             <Button
               variant="ghost"
+              className="h-11 px-6 text-base"
               onClick={() => setCurrentQuestion((prev) => prev - 1)}
             >
               ← 上一題
@@ -432,11 +433,11 @@ export default function DiagnosePage() {
   // 儲存中畫面
   if (step === "saving") {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex min-h-[60vh] items-center justify-center px-4">
         <div className="text-center">
-          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-          <p className="mt-6 text-lg font-medium">正在分析你的診斷結果...</p>
-          <p className="mt-2 text-muted-foreground">馬上就好</p>
+          <div className="inline-block h-14 w-14 animate-spin rounded-full border-4 border-primary border-t-transparent sm:h-16 sm:w-16"></div>
+          <p className="mt-6 text-xl font-medium sm:text-2xl">正在分析你的診斷結果...</p>
+          <p className="mt-2 text-base text-muted-foreground sm:text-lg">馬上就好</p>
         </div>
       </div>
     );

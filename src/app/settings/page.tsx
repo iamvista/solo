@@ -211,17 +211,17 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">帳號設定</h1>
-        <p className="mt-2 text-muted-foreground">
+        <h1 className="text-2xl font-bold sm:text-3xl">帳號設定</h1>
+        <p className="mt-2 text-base text-muted-foreground">
           管理你的個人資料和偏好設定
         </p>
       </div>
 
       {message && (
         <div
-          className={`mb-6 rounded-lg p-4 ${
+          className={`mb-6 rounded-lg p-4 text-base ${
             message.type === "success"
               ? "bg-green-50 text-green-800 border border-green-200"
               : "bg-red-50 text-red-800 border border-red-200"
@@ -234,19 +234,19 @@ export default function SettingsPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* 頭像設定 */}
         <Card>
-          <CardHeader>
-            <CardTitle>頭像</CardTitle>
-            <CardDescription>
+          <CardHeader className="p-5 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">頭像</CardTitle>
+            <CardDescription className="text-base">
               點擊頭像更換你的個人照片（會自動壓縮）
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-6">
+          <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
               <button
                 type="button"
                 onClick={handleAvatarClick}
                 disabled={uploading}
-                className="relative h-24 w-24 overflow-hidden rounded-full bg-muted transition-opacity hover:opacity-80 disabled:opacity-50"
+                className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full bg-muted transition-opacity hover:opacity-80 disabled:opacity-50 sm:h-28 sm:w-28"
               >
                 {avatarUrl ? (
                   <img
@@ -255,7 +255,7 @@ export default function SettingsPage() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-3xl font-bold text-muted-foreground">
+                  <div className="flex h-full w-full items-center justify-center text-3xl font-bold text-muted-foreground sm:text-4xl">
                     {displayName?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || "?"}
                   </div>
                 )}
@@ -272,7 +272,7 @@ export default function SettingsPage() {
                 onChange={handleAvatarUpload}
                 className="hidden"
               />
-              <div className="text-sm text-muted-foreground">
+              <div className="text-center text-sm text-muted-foreground sm:text-left sm:text-base">
                 <p>支援 JPG、PNG、GIF 格式</p>
                 <p>圖片會自動壓縮優化</p>
               </div>
@@ -282,29 +282,30 @@ export default function SettingsPage() {
 
         {/* 基本資料 */}
         <Card>
-          <CardHeader>
-            <CardTitle>基本資料</CardTitle>
-            <CardDescription>
+          <CardHeader className="p-5 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">基本資料</CardTitle>
+            <CardDescription className="text-base">
               設定你的顯示名稱和自我介紹
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-5 p-5 pt-0 sm:space-y-6 sm:p-6 sm:pt-0">
             <div className="space-y-2">
-              <Label htmlFor="displayName">顯示名稱</Label>
+              <Label htmlFor="displayName" className="text-base">顯示名稱</Label>
               <Input
                 id="displayName"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="輸入你想顯示的名稱"
                 maxLength={50}
+                className="h-11 text-base"
               />
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 這個名稱會顯示在控制臺和你的診斷結果上
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bio">自我介紹</Label>
+              <Label htmlFor="bio" className="text-base">自我介紹</Label>
               <textarea
                 id="bio"
                 value={bio}
@@ -312,9 +313,9 @@ export default function SettingsPage() {
                 placeholder="簡單介紹一下你自己..."
                 maxLength={200}
                 rows={3}
-                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex w-full rounded-md border border-input bg-background px-3 py-3 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 {bio.length}/200 字元
               </p>
             </div>
@@ -323,42 +324,43 @@ export default function SettingsPage() {
 
         {/* 帳號資訊（唯讀） */}
         <Card>
-          <CardHeader>
-            <CardTitle>帳號資訊</CardTitle>
-            <CardDescription>
+          <CardHeader className="p-5 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">帳號資訊</CardTitle>
+            <CardDescription className="text-base">
               你的登入資訊
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-5 p-5 pt-0 sm:space-y-6 sm:p-6 sm:pt-0">
             <div className="space-y-2">
-              <Label>Email</Label>
+              <Label className="text-base">Email</Label>
               <Input
                 value={user?.email || ""}
                 disabled
-                className="bg-muted"
+                className="h-11 bg-muted text-base"
               />
             </div>
             <div className="space-y-2">
-              <Label>登入方式</Label>
+              <Label className="text-base">登入方式</Label>
               <Input
                 value={user?.app_metadata?.provider === "google" ? "Google 帳號" : "Email"}
                 disabled
-                className="bg-muted"
+                className="h-11 bg-muted text-base"
               />
             </div>
           </CardContent>
         </Card>
 
         {/* 儲存按鈕 */}
-        <div className="flex justify-end gap-4">
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end sm:gap-4">
           <Button
             type="button"
             variant="outline"
             onClick={() => router.push("/dashboard")}
+            className="h-11 w-full text-base sm:w-auto sm:px-6"
           >
             取消
           </Button>
-          <Button type="submit" disabled={saving}>
+          <Button type="submit" disabled={saving} className="h-11 w-full text-base sm:w-auto sm:px-6">
             {saving ? "儲存中..." : "儲存設定"}
           </Button>
         </div>
