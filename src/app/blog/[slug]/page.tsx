@@ -436,8 +436,17 @@ function markdownToHtml(markdown: string): string {
   // Horizontal rules
   html = html.replace(/^---$/gim, "<hr />");
 
-  // Lists
-  html = html.replace(/^[-*+]\s+(.+)$/gim, "<li>$1</li>");
+  // Lists - 處理連續的列表項目
+  html = html.replace(
+    /(^[-*+]\s+.+$(\n[-*+]\s+.+$)*)/gim,
+    (match) => {
+      const items = match
+        .split("\n")
+        .map((line) => line.replace(/^[-*+]\s+(.+)$/, "<li>$1</li>"))
+        .join("\n");
+      return `<ul class="list-disc pl-6 space-y-1">\n${items}\n</ul>`;
+    }
+  );
 
   // Paragraphs
   const blocks = html.split(/\n\n+/);
@@ -462,8 +471,8 @@ function markdownToHtml(markdown: string): string {
   html = html.replace(/<p>(<pre)/g, "$1");
   html = html.replace(/(<\/pre>)<\/p>/g, "$1");
   html = html.replace(/<p>(<hr)/g, "$1");
-  html = html.replace(/<p>(<li>)/g, "<ul>$1");
-  html = html.replace(/(<\/li>)<\/p>/g, "$1</ul>");
+  html = html.replace(/<p>(<ul)/g, "$1");
+  html = html.replace(/(<\/ul>)<\/p>/g, "$1");
 
   // Restore
   codeBlocks.forEach((block, i) => {

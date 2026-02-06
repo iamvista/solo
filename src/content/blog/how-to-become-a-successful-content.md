@@ -41,6 +41,7 @@ heroImage: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvSnIcP4Ll
 
 [個人品牌](https://www.yottau.com.tw/course/intro/982#intro)：透過獨特的寫作風格、專注的主題範圍來打造個人品牌，使讀者一看到相關內容就能聯想到你。好比一提到SEO，很多人會立刻聯想到[連啓佑](https://www.lianchiyu.com)或[邱韜誠](https://frankchiu.io)兩位老師！噢，對了，當然還有[Jemmy Ko](https://www.youtube.com/watch?v=7ZTsyGIaW9c)。
 
+
 視覺統一性：從部落格的設計、LOGO到你所使用的圖片風格等，都應該保持一致，如此一來可強化品牌形象。
 
 ### 合作和連結
