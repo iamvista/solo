@@ -15,11 +15,12 @@ export default async function DashboardPage() {
     redirect("/auth/login");
   }
 
-  // 取得用戶的診斷歷史
+  // 取得用戶的診斷歷史（不包含已刪除的）
   const { data: diagnosisHistory } = await supabase
     .from("diagnosis_results")
     .select("*")
     .eq("user_id", user.id)
+    .or("is_deleted.is.null,is_deleted.eq.false")
     .order("created_at", { ascending: false })
     .limit(5);
 
@@ -135,10 +136,17 @@ export default async function DashboardPage() {
       {/* Diagnosis History */}
       <Card>
         <CardHeader className="p-5 sm:p-6">
-          <CardTitle className="text-xl sm:text-2xl">你的診斷紀錄</CardTitle>
-          <CardDescription className="text-base">
-            追蹤你的事業成長軌跡
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl sm:text-2xl">你的診斷紀錄</CardTitle>
+              <CardDescription className="text-base">
+                追蹤你的事業成長軌跡
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm" asChild className="h-9 px-3 text-sm">
+              <Link href="/dashboard/history">管理紀錄 →</Link>
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
           {diagnosisHistory && diagnosisHistory.length > 0 ? (

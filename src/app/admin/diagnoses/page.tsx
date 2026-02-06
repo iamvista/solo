@@ -43,7 +43,7 @@ export default async function AdminDiagnosesPage({
           </p>
         </div>
         <Button variant="outline" asChild className="h-11 px-4 text-base">
-          <Link href="/admin">← 返回後台</Link>
+          <Link href="/admin">← 返回後臺</Link>
         </Button>
       </div>
 
@@ -57,12 +57,13 @@ export default async function AdminDiagnosesPage({
         </CardHeader>
         <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
           {/* 表格標題 */}
-          <div className="hidden lg:grid lg:grid-cols-8 gap-4 p-4 bg-muted rounded-lg mb-4 font-medium text-sm">
+          <div className="hidden lg:grid lg:grid-cols-9 gap-4 p-4 bg-muted rounded-lg mb-4 font-medium text-sm">
             <div>類型</div>
             <div className="col-span-2">Email / ID</div>
             <div>診斷類型</div>
             <div>總分</div>
             <div>來源</div>
+            <div>狀態</div>
             <div>日期</div>
             <div>操作</div>
           </div>
@@ -72,7 +73,9 @@ export default async function AdminDiagnosesPage({
             {diagnoses.map((diagnosis) => (
               <div
                 key={diagnosis.id}
-                className="grid grid-cols-1 lg:grid-cols-8 gap-4 p-4 rounded-lg border hover:bg-muted/30 transition-colors"
+                className={`grid grid-cols-1 lg:grid-cols-9 gap-4 p-4 rounded-lg border hover:bg-muted/30 transition-colors ${
+                  diagnosis.is_deleted ? "opacity-60 bg-red-50/50" : ""
+                }`}
               >
                 {/* Solo 類型 */}
                 <div className="flex items-center gap-2">
@@ -114,21 +117,54 @@ export default async function AdminDiagnosesPage({
                   )}
                 </div>
 
+                {/* 狀態 */}
+                <div className="flex items-center">
+                  {diagnosis.is_deleted ? (
+                    <Badge variant="destructive" className="text-xs">
+                      已刪除
+                    </Badge>
+                  ) : (
+                    <Badge variant="outline" className="text-xs bg-green-50 text-green-700 border-green-200">
+                      正常
+                    </Badge>
+                  )}
+                </div>
+
                 {/* 日期 */}
-                <div className="flex items-center text-sm text-muted-foreground">
-                  {new Date(diagnosis.created_at).toLocaleDateString("zh-TW", {
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                <div className="flex flex-col text-sm text-muted-foreground">
+                  <span>
+                    {new Date(diagnosis.created_at).toLocaleDateString("zh-TW", {
+                      month: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                  {diagnosis.deleted_at && (
+                    <span className="text-xs text-red-500">
+                      刪除於 {new Date(diagnosis.deleted_at).toLocaleDateString("zh-TW", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  )}
                 </div>
 
                 {/* 操作 */}
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                   <Button variant="ghost" size="sm" asChild>
                     <Link href={`/r/${diagnosis.short_id}`} target="_blank">
                       查看 →
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className="text-xs"
+                  >
+                    <Link href={`/api/diagnosis/pdf?id=${diagnosis.short_id}`} target="_blank">
+                      📄
                     </Link>
                   </Button>
                 </div>

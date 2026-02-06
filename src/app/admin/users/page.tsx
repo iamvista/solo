@@ -33,7 +33,7 @@ export default async function AdminUsersPage({
           </p>
         </div>
         <Button variant="outline" asChild className="h-11 px-4 text-base">
-          <Link href="/admin">← 返回後台</Link>
+          <Link href="/admin">← 返回後臺</Link>
         </Button>
       </div>
 

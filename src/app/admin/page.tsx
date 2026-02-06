@@ -50,7 +50,7 @@ export default async function AdminPage() {
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <Badge variant="outline" className="mb-2">🔐 管理員專區</Badge>
-          <h1 className="text-2xl font-bold sm:text-3xl">後台管理</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">後臺管理</h1>
           <p className="mt-1 text-base text-muted-foreground sm:text-lg">
             查看用戶數據、診斷紀錄與流量分析
           </p>

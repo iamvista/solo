@@ -180,12 +180,12 @@ export async function getUserList(page: number = 1, limit: number = 20) {
   };
 }
 
-// 獲取診斷列表
-export async function getDiagnosisList(page: number = 1, limit: number = 20) {
+// 獲取診斷列表（管理員專用，包含已刪除的紀錄）
+export async function getDiagnosisList(page: number = 1, limit: number = 20, includeDeleted: boolean = true) {
   const supabase = await createClient();
   const offset = (page - 1) * limit;
 
-  const { data: diagnoses, count } = await supabase
+  let query = supabase
     .from("diagnosis_results")
     .select(`
       id,
@@ -202,10 +202,19 @@ export async function getDiagnosisList(page: number = 1, limit: number = 20) {
       score_sustainability,
       utm_source,
       utm_medium,
-      utm_campaign
+      utm_campaign,
+      is_deleted,
+      deleted_at
     `, { count: "exact" })
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
+
+  // 如果不包含已刪除的，加上過濾條件
+  if (!includeDeleted) {
+    query = query.or("is_deleted.is.null,is_deleted.eq.false");
+  }
+
+  const { data: diagnoses, count } = await query;
 
   return {
     diagnoses: diagnoses || [],
