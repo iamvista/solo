@@ -7,7 +7,7 @@ export default function TermsPage() {
         </h1>
 
         <div className="prose prose-lg max-w-none">
-          <p className="text-gray-600 mb-6">最後更新日期：2024 年 2 月</p>
+          <p className="text-gray-600 mb-6">最後更新日期：2026 年 2 月</p>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
@@ -156,7 +156,7 @@ export default function TermsPage() {
               13. 準據法與管轄
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              本條款受中華民國法律管轄。因本條款產生的任何爭議，雙方同意以台灣台北地方法院為第一審管轄法院。
+              本條款受中華民國法律管轄。因本條款產生的任何爭議，雙方同意以臺灣臺北地方法院為第一審管轄法院。
             </p>
           </section>
 
@@ -170,7 +170,7 @@ export default function TermsPage() {
             <p className="text-gray-700 mt-4">
               <strong>自由人學院</strong>
               <br />
-              電子郵件：support@solo.tw
+              電子郵件：iamvista@gmail.com
             </p>
           </section>
         </div>

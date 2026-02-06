@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   title: "solo.tw | 把專業變成事業",
   description: "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源，幫助講師、顧問、教練建立穩定的個人事業。",
   keywords: ["自由工作者", "講師", "顧問", "教練", "個人品牌", "接案", "freelancer"],
+  icons: {
+    icon: "/solo-icon.png",
+    apple: "/solo-icon.png",
+  },
   openGraph: {
     title: "solo.tw | 把專業變成事業",
     description: "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源。",
