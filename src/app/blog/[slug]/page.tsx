@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
 import "./article.css";
+import { TOCHighlight } from "./TOCHighlight";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -297,7 +298,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Sidebar */}
             <aside className="hidden lg:col-span-4 lg:block">
               <div className="sticky top-24 space-y-8">
-                {/* TOC */}
+                {/* TOC with Highlight */}
                 {toc.length > 2 && (
                   <div className="rounded-xl border border-stone-200 bg-white p-6">
                     <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
@@ -306,20 +307,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       </svg>
                       文章目錄
                     </h3>
-                    <nav>
-                      <ul className="space-y-2 text-sm">
-                        {toc.map((item) => (
-                          <li key={item.id} className={item.level === 3 ? "ml-4" : ""}>
-                            <a
-                              href={`#${item.id}`}
-                              className="block py-1 text-stone-600 hover:text-[#d13a3a]"
-                            >
-                              {item.text}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </nav>
+                    <TOCHighlight toc={toc} />
                   </div>
                 )}
 
@@ -374,7 +362,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   );
 }
 
-// Markdown to HTML - 保留已存在的 HTML 標籤
+// Markdown to HTML - 修復圖片解析順序
 function markdownToHtml(markdown: string): string {
   let html = markdown;
 
@@ -414,16 +402,17 @@ function markdownToHtml(markdown: string): string {
   html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
 
-  // Links (markdown format)
+  // ⚠️ 重要：圖片必須在連結之前處理！
+  // Images - 處理 ![alt](url) 格式
+  html = html.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)/g,
+    '<figure class="my-8"><img src="$2" alt="$1" loading="lazy" class="w-full rounded-lg" /><figcaption class="mt-2 text-center text-sm text-stone-500">$1</figcaption></figure>'
+  );
+
+  // Links (markdown format) - 在圖片之後處理
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
     '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-  );
-
-  // Images
-  html = html.replace(
-    /!\[([^\]]*)\]\(([^)]+)\)/g,
-    '<figure><img src="$2" alt="$1" loading="lazy" /><figcaption>$1</figcaption></figure>'
   );
 
   // Blockquotes
@@ -454,7 +443,7 @@ function markdownToHtml(markdown: string): string {
   html = html.replace(/(<\/h[1-6]>)<\/p>/g, "$1");
   html = html.replace(/<p>(<blockquote>)/g, "$1");
   html = html.replace(/(<\/blockquote>)<\/p>/g, "$1");
-  html = html.replace(/<p>(<figure>)/g, "$1");
+  html = html.replace(/<p>(<figure)/g, "$1");
   html = html.replace(/(<\/figure>)<\/p>/g, "$1");
   html = html.replace(/<p>(<pre)/g, "$1");
   html = html.replace(/(<\/pre>)<\/p>/g, "$1");

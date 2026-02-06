@@ -1,6 +1,25 @@
 # Solo.tw 開發日誌
 
-## [2026-02-06] 部落格圖片修復與架構整理
+## [2026-02-06 18:30] Markdown 圖片解析修復 & TOC 高亮功能
+
+### 問題修復
+1. **圖片無法顯示**：Markdown 解析器的正則表達式順序錯誤
+   - 原因：連結 `[text](url)` 的正則在圖片 `![alt](url)` 之前執行
+   - 結果：圖片被錯誤解析成 `!<a href="...">alt</a>`
+   - 修復：調整順序，先處理圖片再處理連結
+
+2. **TOC 目錄高亮**：新增 `TOCHighlight.tsx` 組件
+   - 使用 IntersectionObserver 監聽標題進入視窗
+   - 左側紅色指示條標示當前閱讀位置
+   - 平滑的 CSS 過渡動畫
+
+### 修改的檔案
+- `src/app/blog/[slug]/page.tsx` - 修復 markdownToHtml 函數順序
+- `src/app/blog/[slug]/TOCHighlight.tsx` - 新增 TOC 高亮組件（Client Component）
+
+---
+
+## [2026-02-06 18:15] 部落格圖片修復與架構整理
 
 ### 時間戳記
 - 開始時間：2026-02-06 17:00 (UTC+8)
