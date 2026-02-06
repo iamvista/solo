@@ -52,7 +52,7 @@ X 的內容獎勵機制（像收益分享），當然會帶來另一面：為了
 
 > 「如果社群平臺開始獎勵內容，那我更要獎勵我自己：獎勵深度、獎勵誠實，也獎勵自己把一件事想得更通透，寫得更透徹。」
 
-所以這次回歸，我不打算把 X 當成每天必須發文的打卡任務，而是把它當成一個新的[寫作現場](/blog/be-the-best-version-of-yourself)。某種程度上，這也是我對自己的一個提醒，回到 2006 年那個最初的起點。
+所以這次回歸，我不打算把 X 當成每天必須發文的打卡任務，而是把它當成一個新的[寫作現場](/blog/have-you-written-today-book-excerpt-1)。某種程度上，這也是我對自己的一個提醒，回到 2006 年那個最初的起點。
 
 ——不是追熱門，不是追流量，而是追問：我寫下這段文字，是否真的讓人更理解世界一點點？
 
@@ -64,8 +64,8 @@ X 的內容獎勵機制（像收益分享），當然會帶來另一面：為了
 
 - [打造個人品牌：善用內容行銷思維，經營你的部落格](/blog/build-a-personal-brand-make-good)
 - [淺談創作者經濟 feat. AnyoneLab 聯合創辦人刁思宇](/blog/a-brief-discussion-on-the-creator)
-- [動筆寫作前，請先擬定內容策略](/blog/before-you-start-writing-develop-a)
-- [給新手的部落格經營指南](/blog/a-guide-to-running-a-blog)
+- [2025 年必學的寫作策略：如何讓你的內容脫穎而出？](/blog/must-learn-writing-strategies-in-2025-how)
+- [如何成為一位成功的內容創作者](/blog/how-to-become-a-successful-content)
 
 ---
 
