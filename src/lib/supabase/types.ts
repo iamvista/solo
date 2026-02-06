@@ -6,6 +6,7 @@ export type MembershipTier = "free" | "pro" | "premium";
 
 export interface DiagnosisResult {
   id: string;
+  short_id: string;
   created_at: string;
   user_id: string | null;
   email: string | null;

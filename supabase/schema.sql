@@ -6,6 +6,7 @@
 -- =====================
 CREATE TABLE IF NOT EXISTS diagnosis_results (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  short_id TEXT UNIQUE NOT NULL,  -- 短網址用的 ID（8 字元）
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 
   -- 用戶資訊（可選，未登入也能做診斷）
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS diagnosis_results (
 CREATE INDEX IF NOT EXISTS idx_diagnosis_user_id ON diagnosis_results(user_id);
 CREATE INDEX IF NOT EXISTS idx_diagnosis_created_at ON diagnosis_results(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_diagnosis_solo_type ON diagnosis_results(solo_type);
+CREATE INDEX IF NOT EXISTS idx_diagnosis_short_id ON diagnosis_results(short_id);
 
 -- =====================
 -- 2. 用戶資料表（擴展 auth.users）

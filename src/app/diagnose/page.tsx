@@ -148,7 +148,7 @@ export default function DiagnosePage() {
       });
 
       if (result?.id) {
-        router.push(`/diagnose/result/${result.id}`);
+        router.push(`/r/${result.id}`);
       } else {
         // 如果儲存失敗，仍導向一個通用結果頁
         console.error("儲存失敗，無法取得 ID");

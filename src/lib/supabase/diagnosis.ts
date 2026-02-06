@@ -1,5 +1,6 @@
 import { createClient } from "./client";
 import type { DiagnosisResultInsert, SoloType } from "./types";
+import { nanoid } from "nanoid";
 
 interface DiagnosisScores {
   positioning: number;
@@ -29,6 +30,9 @@ export async function saveDiagnosisResult(params: SaveDiagnosisParams) {
   // 取得 UTM 參數
   const urlParams = new URLSearchParams(window.location.search);
 
+  // 產生短 ID（8 字元，URL-safe）
+  const shortId = nanoid(8);
+
   const result: DiagnosisResultInsert = {
     user_id: user?.id || null,
     email: params.email || user?.email || null,
@@ -44,12 +48,13 @@ export async function saveDiagnosisResult(params: SaveDiagnosisParams) {
     utm_source: urlParams.get("utm_source"),
     utm_medium: urlParams.get("utm_medium"),
     utm_campaign: urlParams.get("utm_campaign"),
+    short_id: shortId,
   };
 
   const { data, error } = await supabase
     .from("diagnosis_results")
     .insert(result)
-    .select("id")
+    .select("short_id")
     .single();
 
   if (error) {
@@ -58,16 +63,19 @@ export async function saveDiagnosisResult(params: SaveDiagnosisParams) {
     return null;
   }
 
-  return { success: true, id: data.id };
+  return { success: true, id: data.short_id };
 }
 
 export async function getDiagnosisById(id: string) {
   const supabase = createClient();
 
+  // 先嘗試用 short_id 查詢，如果失敗再用 UUID
+  const isShortId = id.length <= 10;
+
   const { data, error } = await supabase
     .from("diagnosis_results")
     .select("*")
-    .eq("id", id)
+    .eq(isShortId ? "short_id" : "id", id)
     .single();
 
   if (error) {

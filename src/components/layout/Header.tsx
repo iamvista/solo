@@ -23,7 +23,7 @@ export function Header() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
               <span className="text-lg font-bold text-primary-foreground">S</span>
             </div>
-            <span className="text-xl font-bold text-foreground">solo.tw</span>
+            <span className="text-xl font-bold text-foreground">自由人學院</span>
           </Link>
         </div>
 

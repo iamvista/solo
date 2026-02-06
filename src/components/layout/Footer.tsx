@@ -32,7 +32,7 @@ export function Footer() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                 <span className="text-lg font-bold text-primary-foreground">S</span>
               </div>
-              <span className="text-xl font-bold">solo.tw</span>
+              <span className="text-xl font-bold">自由人學院</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
               把專業變成事業
@@ -97,7 +97,7 @@ export function Footer() {
         <div className="mt-12 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} solo.tw. All rights reserved.
+              © {new Date().getFullYear()} 自由人學院. All rights reserved.
             </p>
             <div className="flex gap-6">
               <a
