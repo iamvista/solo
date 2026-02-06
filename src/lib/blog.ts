@@ -14,6 +14,39 @@ export interface BlogPost {
   content: string;
 }
 
+// Extract first image from markdown content
+function extractFirstImage(content: string): string | undefined {
+  // Match markdown image: ![alt](url)
+  const mdImageMatch = content.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/);
+  if (mdImageMatch) {
+    return mdImageMatch[1];
+  }
+
+  // Match HTML img tag: <img src="url" or src='url'
+  const htmlImageMatch = content.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (htmlImageMatch) {
+    return htmlImageMatch[1];
+  }
+
+  // Match markdown link with image: [![alt](imgUrl)](linkUrl)
+  const linkedImageMatch = content.match(/\[!\[.*?\]\((https?:\/\/[^)]+)\)/);
+  if (linkedImageMatch) {
+    return linkedImageMatch[1];
+  }
+
+  return undefined;
+}
+
+// Check if heroImage is valid (local path or accessible URL)
+function isValidHeroImage(heroImage: string | undefined): boolean {
+  if (!heroImage) return false;
+  // Local images are always considered valid
+  if (heroImage.startsWith('/')) return true;
+  // External URLs - we'll trust them but could add validation later
+  if (heroImage.startsWith('http')) return true;
+  return false;
+}
+
 // Blog directory path
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
@@ -32,13 +65,19 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
 
+    // Use heroImage from frontmatter, or extract from content if not valid
+    let heroImage = data.heroImage;
+    if (!isValidHeroImage(heroImage)) {
+      heroImage = extractFirstImage(content);
+    }
+
     return {
       slug,
       title: data.title || "Untitled",
       description: data.description || "",
       pubDate: data.pubDate || new Date().toISOString(),
       updatedDate: data.updatedDate,
-      heroImage: data.heroImage,
+      heroImage,
       tags: data.tags || [],
       content,
     };
@@ -65,13 +104,19 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
+  // Use heroImage from frontmatter, or extract from content if not valid
+  let heroImage = data.heroImage;
+  if (!isValidHeroImage(heroImage)) {
+    heroImage = extractFirstImage(content);
+  }
+
   return {
     slug,
     title: data.title || "Untitled",
     description: data.description || "",
     pubDate: data.pubDate || new Date().toISOString(),
     updatedDate: data.updatedDate,
-    heroImage: data.heroImage,
+    heroImage,
     tags: data.tags || [],
     content,
   };

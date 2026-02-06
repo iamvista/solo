@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, getAllTags, formatDate } from "@/lib/blog";
-import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "部落格 | 自由人學院 - 自由工作者的成長指南",
@@ -35,14 +34,13 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD 結構化資料
+// JSON-LD
 function generateBlogListingSchema(postCount: number) {
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "自由人學院部落格",
-    description:
-      "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容",
+    description: "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容",
     url: "https://solo.tw/blog",
     publisher: {
       "@type": "Organization",
@@ -58,9 +56,8 @@ function generateBlogListingSchema(postCount: number) {
 
 export default async function BlogPage() {
   const posts = await getAllPosts();
-  const allTags = await getAllTags();
 
-  // 取得熱門標籤（按文章數量排序）
+  // 計算標籤統計
   const tagCounts: Record<string, number> = {};
   posts.forEach((post) => {
     post.tags.forEach((tag) => {
@@ -69,43 +66,21 @@ export default async function BlogPage() {
   });
   const popularTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
+    .slice(0, 8)
     .map(([tag]) => tag);
 
-  // 精選文章（最新的 3 篇有圖片的文章）
-  const featuredPosts = posts.filter((post) => post.heroImage).slice(0, 3);
-  const regularPosts = posts.filter(
-    (post) => !featuredPosts.includes(post)
-  );
+  // 精選文章（有圖片的前 4 篇）
+  const featuredPosts = posts.filter((post) => post.heroImage).slice(0, 4);
+  const regularPosts = posts.slice(4);
 
-  // 如果沒有文章
   if (posts.length === 0) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div className="mb-12 text-center">
-          <h1 className="text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+      <div className="min-h-screen bg-stone-50">
+        <div className="mx-auto max-w-4xl px-6 py-24 text-center">
+          <h1 className="text-4xl font-light tracking-tight text-stone-900">
             部落格
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
-            自由工作者的經營心法與實戰經驗
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-muted-foreground/20 py-20">
-          <span className="text-6xl">📝</span>
-          <h2 className="mt-4 text-xl font-semibold text-foreground">
-            文章即將上線
-          </h2>
-          <p className="mt-2 text-center text-muted-foreground">
-            我們正在準備精彩的內容，請稍後再來！
-          </p>
-          <Link
-            href="https://iamvista.substack.com"
-            target="_blank"
-            className="mt-6 inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            先訂閱電子報 →
-          </Link>
+          <p className="mt-4 text-stone-600">文章即將上線，敬請期待</p>
         </div>
       </div>
     );
@@ -113,7 +88,6 @@ export default async function BlogPage() {
 
   return (
     <>
-      {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -121,193 +95,240 @@ export default async function BlogPage() {
         }}
       />
 
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-        {/* Header Section */}
-        <header className="mb-12 text-center lg:mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-              />
-            </svg>
-            共 {posts.length} 篇文章
+      <div className="min-h-screen bg-stone-50">
+        {/* Hero Header - 日式極簡風格 */}
+        <header className="border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+            <div className="text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
+                SOLO ACADEMY BLOG
+              </p>
+              <h1 className="mt-4 text-4xl font-light tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+                自由工作者的
+                <span className="font-normal text-amber-600">成長指南</span>
+              </h1>
+              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
+                個人品牌 · 知識變現 · AI 工具應用
+              </p>
+            </div>
+
+            {/* Tags - 膠囊式設計 */}
+            <nav className="mt-12 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/blog"
+                className="rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+              >
+                全部
+              </Link>
+              {popularTags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/blog/tag/${encodeURIComponent(tag)}`}
+                  className="rounded-full border border-stone-300 bg-white px-5 py-2 text-sm text-stone-700 transition-all hover:border-amber-500 hover:text-amber-600"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </nav>
           </div>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-            自由工作者的
-            <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-              成長指南
-            </span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            探索個人品牌經營、知識變現策略、AI 工具應用
-            <br className="hidden sm:block" />
-            幫助你把專業變成事業
-          </p>
         </header>
 
-        {/* Tags Navigation */}
-        <nav className="mb-12 lg:mb-16" aria-label="文章分類">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <Link
-              href="/blog"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:shadow-md"
-            >
-              全部文章
-            </Link>
-            {popularTags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/blog/tag/${encodeURIComponent(tag)}`}
-                className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-muted-foreground transition-all hover:border-primary hover:text-primary"
-              >
-                {tag}
-                <span className="ml-1 text-xs opacity-60">
-                  ({tagCounts[tag]})
-                </span>
-              </Link>
-            ))}
-          </div>
-        </nav>
+        <main className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          {/* Featured Posts - 雜誌式 Bento Grid */}
+          {featuredPosts.length > 0 && (
+            <section className="mb-20">
+              <div className="mb-8 flex items-center justify-between">
+                <h2 className="text-xs font-medium uppercase tracking-[0.15em] text-stone-500">
+                  精選文章
+                </h2>
+                <div className="h-px flex-1 bg-stone-200 ml-6" />
+              </div>
 
-        {/* Featured Posts */}
-        {featuredPosts.length > 0 && (
-          <section className="mb-16" aria-labelledby="featured-heading">
-            <h2 id="featured-heading" className="sr-only">
-              精選文章
-            </h2>
-            <div className="grid gap-6 lg:grid-cols-3">
-              {/* Main Featured Post */}
-              <article className="group relative lg:col-span-2 lg:row-span-2">
-                <Link
-                  href={`/blog/${featuredPosts[0].slug}`}
-                  className="block overflow-hidden rounded-2xl"
-                >
-                  <div className="relative aspect-[16/9] lg:aspect-[16/10]">
-                    <img
-                      src={featuredPosts[0].heroImage}
-                      alt={featuredPosts[0].title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                      <div className="mb-3 flex flex-wrap gap-2">
-                        {featuredPosts[0].tags.slice(0, 2).map((tag) => (
-                          <Badge
-                            key={tag}
-                            className="bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                      <h3 className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">
-                        {featuredPosts[0].title}
-                      </h3>
-                      <p className="mt-2 line-clamp-2 text-sm text-white/80 sm:text-base">
-                        {featuredPosts[0].description}
-                      </p>
-                      <time
-                        className="mt-3 block text-sm text-white/60"
-                        dateTime={featuredPosts[0].pubDate}
-                      >
-                        {formatDate(featuredPosts[0].pubDate)}
-                      </time>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-
-              {/* Secondary Featured Posts */}
-              {featuredPosts.slice(1, 3).map((post) => (
-                <article key={post.slug} className="group">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="block overflow-hidden rounded-xl"
-                  >
-                    <div className="relative aspect-video">
-                      <img
-                        src={post.heroImage}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <div className="mb-2 flex gap-2">
-                          {post.tags.slice(0, 1).map((tag) => (
-                            <Badge
+              <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-2">
+                {/* Main Feature */}
+                <article className="group lg:col-span-7 lg:row-span-2">
+                  <Link href={`/blog/${featuredPosts[0].slug}`} className="block">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-stone-200 lg:aspect-[4/5]">
+                      {featuredPosts[0].heroImage && (
+                        <img
+                          src={featuredPosts[0].heroImage}
+                          alt={featuredPosts[0].title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-8">
+                        <div className="mb-3 flex gap-2">
+                          {featuredPosts[0].tags.slice(0, 2).map((tag) => (
+                            <span
                               key={tag}
-                              className="bg-white/20 text-xs text-white backdrop-blur-sm"
+                              className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
                             >
                               {tag}
-                            </Badge>
+                            </span>
                           ))}
                         </div>
-                        <h3 className="line-clamp-2 text-base font-semibold text-white sm:text-lg">
+                        <h3 className="text-2xl font-medium leading-tight text-white lg:text-3xl">
+                          {featuredPosts[0].title}
+                        </h3>
+                        <p className="mt-3 line-clamp-2 text-sm text-white/80">
+                          {featuredPosts[0].description}
+                        </p>
+                        <time className="mt-4 block text-xs text-white/60">
+                          {formatDate(featuredPosts[0].pubDate)}
+                        </time>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+
+                {/* Secondary Features */}
+                {featuredPosts.slice(1, 4).map((post, index) => (
+                  <article
+                    key={post.slug}
+                    className="group lg:col-span-5"
+                  >
+                    <Link href={`/blog/${post.slug}`} className="flex gap-5">
+                      <div className="relative aspect-square w-28 flex-shrink-0 overflow-hidden rounded-xl bg-stone-200 sm:w-36">
+                        {post.heroImage && (
+                          <img
+                            src={post.heroImage}
+                            alt={post.title}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        )}
+                      </div>
+                      <div className="flex flex-col justify-center py-1">
+                        <div className="mb-2 flex gap-2">
+                          {post.tags.slice(0, 1).map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-xs font-medium text-amber-600"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <h3 className="line-clamp-2 text-base font-medium leading-snug text-stone-900 transition-colors group-hover:text-amber-600 sm:text-lg">
                           {post.title}
                         </h3>
-                        <time
-                          className="mt-1 block text-xs text-white/60"
-                          dateTime={post.pubDate}
-                        >
+                        <time className="mt-2 text-xs text-stone-500">
                           {formatDate(post.pubDate)}
                         </time>
                       </div>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* All Posts - 清新卡片式 */}
+          <section>
+            <div className="mb-8 flex items-center justify-between">
+              <h2 className="text-xs font-medium uppercase tracking-[0.15em] text-stone-500">
+                所有文章 · {posts.length} 篇
+              </h2>
+              <div className="h-px flex-1 bg-stone-200 ml-6" />
+            </div>
+
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {regularPosts.map((post) => (
+                <article
+                  key={post.slug}
+                  className="group"
+                >
+                  <Link href={`/blog/${post.slug}`} className="block">
+                    {/* Image */}
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-stone-200">
+                      {post.heroImage ? (
+                        <img
+                          src={post.heroImage}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-stone-100 to-stone-200">
+                          <svg
+                            className="h-10 w-10 text-stone-400"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1}
+                              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="mt-5">
+                      {/* Tags */}
+                      <div className="mb-2 flex gap-2">
+                        {post.tags.slice(0, 2).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs font-medium text-amber-600"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="line-clamp-2 text-lg font-medium leading-snug text-stone-900 transition-colors group-hover:text-amber-600">
+                        {post.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-stone-600">
+                        {post.description}
+                      </p>
+
+                      {/* Date */}
+                      <time className="mt-3 block text-xs text-stone-500">
+                        {formatDate(post.pubDate)}
+                      </time>
                     </div>
                   </Link>
                 </article>
               ))}
             </div>
           </section>
-        )}
 
-        {/* All Posts Grid */}
-        <section aria-labelledby="all-posts-heading">
-          <div className="mb-8 flex items-center justify-between">
-            <h2
-              id="all-posts-heading"
-              className="text-xl font-bold text-foreground sm:text-2xl"
-            >
-              所有文章
-            </h2>
-            <span className="text-sm text-muted-foreground">
-              共 {regularPosts.length} 篇
-            </span>
-          </div>
+          {/* Newsletter CTA - 精緻日式風格 */}
+          <section className="mt-24">
+            <div className="relative overflow-hidden rounded-3xl bg-stone-900 px-8 py-16 sm:px-16 lg:px-24 lg:py-20">
+              {/* Decorative elements */}
+              <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-amber-500/20 blur-3xl" />
+              <div className="absolute bottom-0 right-0 h-40 w-40 rounded-full bg-amber-500/10 blur-3xl" />
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {regularPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="group flex flex-col overflow-hidden rounded-xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                {/* Hero Image */}
-                {post.heroImage ? (
+              <div className="relative text-center">
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber-400">
+                  NEWSLETTER
+                </p>
+                <h2 className="mt-4 text-3xl font-light text-white sm:text-4xl">
+                  每週精選，直達信箱
+                </h2>
+                <p className="mx-auto mt-4 max-w-md text-base text-stone-400">
+                  訂閱電子報，獲取最新的自由工作者經營心法、AI 工具應用技巧
+                </p>
+                <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                   <Link
-                    href={`/blog/${post.slug}`}
-                    className="aspect-video overflow-hidden"
+                    href="https://iamvista.substack.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-12 items-center rounded-full bg-amber-500 px-8 text-sm font-medium text-stone-900 transition-all hover:bg-amber-400"
                   >
-                    <img
-                      src={post.heroImage}
-                      alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </Link>
-                ) : (
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="flex aspect-video items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900"
-                  >
+                    免費訂閱
                     <svg
-                      className="h-12 w-12 text-slate-400"
+                      className="ml-2 h-4 w-4"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -315,142 +336,25 @@ export default async function BlogPage() {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
                       />
                     </svg>
                   </Link>
-                )}
-
-                <div className="flex flex-1 flex-col p-4 sm:p-5">
-                  {/* Tags */}
-                  {post.tags.length > 0 && (
-                    <div className="mb-2 flex flex-wrap gap-1.5">
-                      {post.tags.slice(0, 2).map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Title */}
-                  <h3 className="mb-2 line-clamp-2 text-base font-semibold text-foreground transition-colors group-hover:text-primary sm:text-lg">
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h3>
-
-                  {/* Description */}
-                  <p className="mb-3 line-clamp-2 flex-1 text-sm text-muted-foreground">
-                    {post.description}
-                  </p>
-
-                  {/* Date */}
-                  <time
-                    className="text-xs text-muted-foreground"
-                    dateTime={post.pubDate}
-                  >
-                    {formatDate(post.pubDate)}
-                  </time>
+                  <span className="text-sm text-stone-500">
+                    已有 16,000+ 訂閱者
+                  </span>
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Newsletter CTA */}
-        <section className="mt-20" aria-labelledby="newsletter-heading">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 sm:p-12 lg:p-16">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern
-                    id="grid"
-                    width="32"
-                    height="32"
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <path
-                      d="M0 32V0h32"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1"
-                    />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-              </svg>
-            </div>
-
-            <div className="relative text-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-amber-400/20 px-4 py-1.5 text-sm font-medium text-amber-400">
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                免費訂閱
-              </div>
-              <h2
-                id="newsletter-heading"
-                className="mt-4 text-2xl font-bold text-white sm:text-3xl lg:text-4xl"
-              >
-                想收到更多實用內容？
-              </h2>
-              <p className="mx-auto mt-3 max-w-xl text-base text-slate-300 sm:text-lg">
-                訂閱電子報，每週直送你的信箱。獲取最新的自由工作者經營心法、AI
-                工具應用技巧，以及獨家的變現策略。
-              </p>
-              <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <Link
-                  href="https://iamvista.substack.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-amber-400 px-8 text-base font-semibold text-slate-900 shadow-lg transition-all hover:bg-amber-300 hover:shadow-xl"
-                >
-                  立即訂閱
-                  <svg
-                    className="ml-2 h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </Link>
-                <span className="text-sm text-slate-400">
-                  已有 2,000+ 訂閱者
-                </span>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
 
-        {/* SEO Footer Text */}
-        <footer className="mt-16 border-t pt-8">
-          <div className="text-center text-sm text-muted-foreground">
-            <p>
-              自由人學院部落格提供自由工作者、一人公司創業者所需的經營知識與實戰經驗。
-            </p>
-            <p className="mt-2">
-              涵蓋個人品牌打造、知識付費策略、AI 工具應用、內容創作技巧等主題。
+        {/* Footer */}
+        <footer className="border-t border-stone-200 bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-12 text-center">
+            <p className="text-sm text-stone-500">
+              自由人學院 — 幫助自由工作者把專業變成事業
             </p>
           </div>
         </footer>
