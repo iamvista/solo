@@ -201,7 +201,7 @@ Dan Koe 在他的文章中提出一個有趣的觀點：我們正在經歷一場
 **延伸閱讀：**
 - <a href="/blog/ai-freelance-survival-guide" target="_blank">AI 時代的自由工作者生存指南</a>
 - <a href="/blog/turn-teaching-into-long-term-assets-with-ai" target="_blank">講師的數位資產管理術：用 AI 把授課經驗變成可複利的系統</a>
-- <a href="/services/consulting" target="_blank">Vista 一對一顧問諮詢</a>
+- <a href="https://www.vista.tw/services/consulting" target="_blank">Vista 一對一顧問諮詢</a>
 
 > 本文改寫自 <a href="https://iamvista.substack.com/p/vista-no101" target="_blank" rel="noopener noreferrer">Vista 電子報 No.101</a>，原始靈感來自 Dan Koe 的創作者經濟理論。
 

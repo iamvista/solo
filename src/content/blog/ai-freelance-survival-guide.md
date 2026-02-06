@@ -314,7 +314,7 @@ AI 還在快速進化，市場也在持續變化。保持開放心態，願意�
 
 ---
 
-如果你也正在尋找自我升級的方法與契機，歡迎了解更多[課程與服務內容](/services)。
+如果你也正在尋找自我升級的方法與契機，歡迎了解更多[課程與服務內容](https://www.vista.tw/services)。
 
 [![Buy Me a Coffee](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAp_cz-ZWqNAN760xKmO_Brxkf_JK5vU4ENlnNHQL22llZOH-xAI2c918PBODswSrmCCJkVzGg8s-Jlch4ZGwiXS12ZU86BnRb4evM28GT5TOHIHgcvvAAQPxzUAyhQ-s8bipBwwhFIpzQ/s320/coffee.png?v=0)](https://vista.im/coffee)
 
