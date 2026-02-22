@@ -495,7 +495,7 @@ export default function InnovationWorkshopPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>📍</span>
-                    <span>台北市區・捷運站步行可達</span>
+                    <span>臺北市區・捷運站步行可達（報名後告知教室地址）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>👥</span>
