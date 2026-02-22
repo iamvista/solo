@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import StepGallery from "./StepGallery";
 
 export const metadata: Metadata = {
   title: "創新實戰工作坊 | solo.tw",
@@ -239,30 +240,7 @@ export default function InnovationWorkshopPage() {
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             課程方法｜創新方程式 6 步驟
           </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {steps.map((step) => (
-              <div
-                key={step.number}
-                className="overflow-hidden rounded-xl border bg-card transition-colors hover:border-primary/30"
-              >
-                <div className="relative aspect-[4/3] w-full">
-                  <Image
-                    src={step.image}
-                    alt={`步驟 ${step.number}：${step.title}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="flex items-center gap-3 p-4">
-                  <span className="text-2xl font-bold text-primary/30">
-                    {step.number}
-                  </span>
-                  <span className="text-base font-medium">{step.title}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <StepGallery steps={steps} />
           <p className="mt-6 text-center text-base text-muted-foreground">
             課堂會完整走完一次流程。
           </p>
