@@ -533,44 +533,6 @@ export default function InnovationWorkshopPage() {
           </Card>
         </section>
 
-        {/* 報名前準備 */}
-        <section className="border-t py-14 sm:py-16">
-          <h2 className="text-center text-xl font-bold sm:text-2xl">
-            報名後請先做兩個功課
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <Card>
-              <CardContent className="p-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
-                  1
-                </div>
-                <p className="mt-3 text-base font-semibold">
-                  你想升級的核心技能
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  想一想，什麼能力升級後會讓你最有突破？
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
-                  2
-                </div>
-                <p className="mt-3 text-base font-semibold">
-                  你目前最卡的一個工作難題
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  帶一個具體的問題來，課堂上直接拿來實作。
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-          <p className="mt-6 text-center text-lg font-medium text-foreground">
-            你帶問題來，我讓你帶著解決方案走。
-          </p>
-        </section>
-
         {/* 返回課程列表 */}
         <div className="border-t pt-10 pb-16 text-center sm:pb-20">
           <Button variant="outline" asChild>
