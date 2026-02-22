@@ -1,260 +1,252 @@
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Metadata } from "next";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { workshops } from "@/lib/workshops";
+import type { Workshop } from "@/lib/workshops";
 
-// 課程列表
-const courses = [
-  {
-    id: "solo-starter",
-    emoji: "🚀",
-    title: "Solo 新手起步班",
-    subtitle: "從零開始的自由工作者入門",
-    description: "為想成為自由工作者的你設計。學習如何找到定位、設定價格、獲得第一個客戶。",
-    duration: "4 週",
-    lessons: 12,
-    level: "入門",
-    price: "即將公佈",
-    status: "coming_soon",
-    features: [
-      "找到你的利基市場",
-      "設計你的服務方案",
-      "定價策略與報價技巧",
-      "獲得第一個付費客戶",
-    ],
+export const metadata: Metadata = {
+  title: "課程與工作坊 | solo.tw",
+  description:
+    "精選實戰工作坊，與頂尖講師一起升級你的專業能力。小班制、重產出、即學即用。",
+  openGraph: {
+    title: "課程與工作坊 | solo.tw",
+    description:
+      "精選實戰工作坊，與頂尖講師一起升級你的專業能力。小班制、重產出、即學即用。",
   },
-  {
-    id: "solo-growth",
-    emoji: "📈",
-    title: "Solo 事業成長班",
-    subtitle: "穩定收入到規模化",
-    description: "適合已有穩定接案但想突破的你。學習如何提升單價、建立被動收入、打造可擴展的事業模式。",
-    duration: "6 週",
-    lessons: 18,
-    level: "進階",
-    price: "即將公佈",
-    status: "coming_soon",
-    features: [
-      "從時間計費到價值定價",
-      "建立多元收入來源",
-      "打造可規模化的服務",
-      "建立個人品牌影響力",
-    ],
-  },
-  {
-    id: "solo-mastery",
-    emoji: "🏆",
-    title: "Solo 大師班",
-    subtitle: "成為業界意見領袖",
-    description: "為資深自由工作者設計。學習如何建立團隊、授權經營、成為領域專家。",
-    duration: "8 週",
-    lessons: 24,
-    level: "專家",
-    price: "即將公佈",
-    status: "coming_soon",
-    features: [
-      "從獨自一人到小團隊",
-      "建立授權與聯盟模式",
-      "出版與媒體曝光策略",
-      "打造長青的個人事業",
-    ],
-  },
-];
+};
 
-// 免費迷你課程
-const freeCourses = [
-  {
-    id: "pricing-101",
-    emoji: "💰",
-    title: "定價入門：停止賤賣自己",
-    description: "3 堂課學會如何制定讓客戶願意付、自己也滿意的價格",
-    lessons: 3,
-    status: "coming_soon",
-  },
-  {
-    id: "first-client",
-    emoji: "🤝",
-    title: "第一個客戶：從 0 到 1",
-    description: "5 堂課帶你獲得第一個付費客戶",
-    lessons: 5,
-    status: "coming_soon",
-  },
-  {
-    id: "personal-brand",
-    emoji: "✨",
-    title: "個人品牌基礎班",
-    description: "4 堂課建立你的專業形象",
-    lessons: 4,
-    status: "coming_soon",
-  },
-];
+function formatPrice(price: number): string {
+  return `NT$${price.toLocaleString()}`;
+}
+
+const statusLabels: Record<Workshop["status"], { text: string; variant: "default" | "secondary" | "outline" }> = {
+  open: { text: "熱烈報名中", variant: "default" },
+  filling: { text: "即將額滿", variant: "default" },
+  full: { text: "已額滿", variant: "secondary" },
+  coming_soon: { text: "即將開放", variant: "outline" },
+};
+
+function WorkshopCard({ workshop }: { workshop: Workshop }) {
+  const status = statusLabels[workshop.status];
+  const LinkWrapper = workshop.isExternal ? "a" : Link;
+  const linkProps = workshop.isExternal
+    ? { href: workshop.url, target: "_blank" as const, rel: "noopener noreferrer" }
+    : { href: workshop.url };
+
+  return (
+    <Card className="flex flex-col overflow-hidden transition-all hover:border-primary/40 hover:shadow-lg">
+      {/* 卡片頂部色塊 */}
+      <div className="bg-gradient-to-br from-primary/5 to-primary/10 px-5 pt-5 pb-4 sm:px-6 sm:pt-6">
+        <div className="flex items-start justify-between">
+          <span className="text-4xl sm:text-5xl">{workshop.emoji}</span>
+          <Badge variant={status.variant} className="text-xs shrink-0">
+            {status.text}
+          </Badge>
+        </div>
+        <CardTitle className="mt-3 text-lg leading-tight sm:text-xl">
+          {workshop.title}
+        </CardTitle>
+        <CardDescription className="mt-1.5 text-sm text-muted-foreground">
+          {workshop.subtitle}
+        </CardDescription>
+      </div>
+
+      <CardContent className="flex flex-1 flex-col p-5 sm:p-6">
+        {/* 講師 */}
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">
+            {workshop.instructor.name}
+          </span>
+          <span className="text-muted-foreground/60">|</span>
+          <span>{workshop.instructor.title}</span>
+        </div>
+
+        {/* 標籤 */}
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {workshop.tags.map((tag) => (
+            <Badge key={tag} variant="secondary" className="text-xs font-normal">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+
+        {/* Meta 資訊 */}
+        <div className="mt-4 space-y-1.5 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span>📅</span>
+            <span>{workshop.date}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>🕘</span>
+            <span>{workshop.time}（{workshop.duration}）</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>📍</span>
+            <span>{workshop.location}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>👥</span>
+            <span>限 {workshop.capacity} 名</span>
+          </div>
+        </div>
+
+        {/* 亮點 */}
+        <ul className="mt-4 space-y-1.5">
+          {workshop.highlights.map((highlight, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-2 text-sm text-muted-foreground"
+            >
+              <span className="mt-0.5 text-primary">✓</span>
+              <span>{highlight}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* 價格 + CTA */}
+        <div className="mt-auto pt-5">
+          <div className="mb-3">
+            {workshop.price.earlyBird ? (
+              <div className="flex items-baseline gap-2">
+                <span className="text-xl font-bold text-foreground">
+                  {formatPrice(workshop.price.earlyBird)}
+                </span>
+                <span className="text-sm text-muted-foreground line-through">
+                  {formatPrice(workshop.price.original)}
+                </span>
+                {workshop.price.earlyBirdDeadline && (
+                  <Badge variant="outline" className="text-xs">
+                    早鳥 {workshop.price.earlyBirdDeadline}
+                  </Badge>
+                )}
+              </div>
+            ) : (
+              <span className="text-xl font-bold text-foreground">
+                {formatPrice(workshop.price.original)}
+              </span>
+            )}
+          </div>
+
+          {workshop.status === "full" ? (
+            <Button className="h-11 w-full text-base" disabled>
+              已額滿
+            </Button>
+          ) : (
+            <Button className="h-11 w-full text-base" asChild>
+              <LinkWrapper {...linkProps}>
+                {workshop.isExternal ? (
+                  <span className="flex items-center gap-1.5">
+                    前往報名
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="shrink-0"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </span>
+                ) : (
+                  "了解更多"
+                )}
+              </LinkWrapper>
+            </Button>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function CoursesPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-      {/* Header */}
+      {/* Hero */}
       <div className="text-center">
         <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
-          🎓 系統化學習
+          🎓 課程與工作坊
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-          課程
+          與頂尖講師一起
+          <br className="sm:hidden" />
+          <span className="gradient-text">升級你的專業能力</span>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-          從新手到大師，為自由工作者設計的完整學習路徑
+          精選實戰工作坊，小班制、重產出、即學即用
         </p>
       </div>
 
-      {/* 診斷 CTA */}
-      <Card className="mt-10 border-primary/20 bg-primary/5 sm:mt-12">
-        <CardContent className="flex flex-col items-center justify-between gap-4 p-5 sm:flex-row sm:p-6">
-          <div className="text-center sm:text-left">
-            <h3 className="text-lg font-semibold">不知道該上哪堂課？</h3>
-            <p className="mt-1 text-base text-muted-foreground">
-              先做個診斷，根據結果推薦最適合你的課程
+      {/* 工作坊卡片 */}
+      <div className="mt-12 grid gap-6 sm:mt-14 md:grid-cols-2 lg:grid-cols-3">
+        {workshops.map((workshop) => (
+          <WorkshopCard key={workshop.id} workshop={workshop} />
+        ))}
+      </div>
+
+      {/* 特色區 */}
+      <div className="mt-16 sm:mt-20">
+        <div className="grid gap-8 sm:grid-cols-3">
+          <div className="text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+              👥
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">小班制教學</h3>
+            <p className="mt-2 text-base text-muted-foreground">
+              每班限額 10 人，確保每位學員都能獲得充分的指導與互動
             </p>
           </div>
-          <Button asChild className="h-11 px-6 text-base">
-            <Link href="/diagnose">免費診斷</Link>
-          </Button>
-        </CardContent>
-      </Card>
-
-      {/* 免費迷你課程 */}
-      <div className="mt-14 sm:mt-16">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-bold sm:text-2xl">免費迷你課程</h2>
-            <p className="mt-1 text-base text-muted-foreground sm:text-lg">先從這裡開始，零成本體驗</p>
+          <div className="text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+              🛠️
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">實戰導向</h3>
+            <p className="mt-2 text-base text-muted-foreground">
+              不只教理論，現場動手做。帶著你的問題來，帶著成果走
+            </p>
           </div>
-          <Badge variant="outline" className="hidden text-sm sm:block">免費</Badge>
-        </div>
-
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {freeCourses.map((course) => (
-            <Card
-              key={course.id}
-              className={`transition-all ${
-                course.status === "available"
-                  ? "hover:border-primary/50 hover:shadow-md cursor-pointer"
-                  : "opacity-80"
-              }`}
-            >
-              <CardHeader className="p-5 pb-2 sm:p-6 sm:pb-2">
-                <div className="flex items-start justify-between">
-                  <span className="text-4xl sm:text-5xl">{course.emoji}</span>
-                  {course.status === "coming_soon" && (
-                    <Badge variant="secondary" className="text-xs">即將推出</Badge>
-                  )}
-                </div>
-                <CardTitle className="mt-3 text-lg sm:text-xl">{course.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
-                <CardDescription className="text-base">{course.description}</CardDescription>
-                <p className="mt-3 text-base text-muted-foreground">
-                  📚 {course.lessons} 堂課
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+          <div className="text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+              🌟
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">多元講師陣容</h3>
+            <p className="mt-2 text-base text-muted-foreground">
+              匯聚各領域專家，從 AI 應用到創新思維，提供全方位學習體驗
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* 完整課程 */}
-      <div className="mt-16 sm:mt-20">
-        <div className="text-center">
-          <h2 className="text-xl font-bold sm:text-2xl">完整課程</h2>
-          <p className="mt-1 text-base text-muted-foreground sm:text-lg">系統化的學習路徑，帶你一步步成長</p>
-        </div>
-
-        <div className="mt-8 space-y-6 sm:mt-10 sm:space-y-8">
-          {courses.map((course, index) => (
-            <Card
-              key={course.id}
-              className={`overflow-hidden ${
-                course.status === "available"
-                  ? "hover:border-primary/50 hover:shadow-lg"
-                  : ""
-              }`}
-            >
-              <div className="grid md:grid-cols-3">
-                <div className={`p-6 sm:p-8 ${
-                  index === 0 ? "bg-green-50" :
-                  index === 1 ? "bg-blue-50" :
-                  "bg-purple-50"
-                }`}>
-                  <div className="text-center">
-                    <span className="text-6xl sm:text-7xl">{course.emoji}</span>
-                    <div className="mt-4">
-                      <Badge className="text-sm" variant={
-                        course.level === "入門" ? "secondary" :
-                        course.level === "進階" ? "default" :
-                        "outline"
-                      }>
-                        {course.level}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-2 p-6 sm:p-8">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold sm:text-2xl">{course.title}</h3>
-                      <p className="text-base text-muted-foreground sm:text-lg">{course.subtitle}</p>
-                    </div>
-                    {course.status === "coming_soon" && (
-                      <Badge variant="secondary" className="ml-2 shrink-0">即將推出</Badge>
-                    )}
-                  </div>
-                  <p className="mt-4 text-base text-muted-foreground">{course.description}</p>
-
-                  <div className="mt-6 flex flex-wrap gap-4 text-base text-muted-foreground">
-                    <span>⏱️ {course.duration}</span>
-                    <span>📚 {course.lessons} 堂課</span>
-                    <span>💰 {course.price}</span>
-                  </div>
-
-                  <div className="mt-6">
-                    <p className="text-base font-medium mb-3">你將學到：</p>
-                    <ul className="grid gap-2 sm:grid-cols-2">
-                      {course.features.map((feature, i) => (
-                        <li key={i} className="flex items-center gap-2 text-base text-muted-foreground">
-                          <span className="text-primary">✓</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {course.status === "available" ? (
-                    <Button className="mt-6 h-11 px-6 text-base" asChild>
-                      <Link href={`/courses/${course.id}`}>了解更多</Link>
-                    </Button>
-                  ) : (
-                    <Button className="mt-6 h-11 px-6 text-base" variant="outline" disabled>
-                      敬請期待
-                    </Button>
-                  )}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* 企業培訓 */}
+      {/* 企業內訓 */}
       <Card className="mt-16 bg-muted sm:mt-20">
         <CardContent className="p-6 sm:p-8">
-          <div className="grid gap-6 md:grid-cols-2 items-center">
+          <div className="grid items-center gap-6 md:grid-cols-2">
             <div>
-              <h3 className="text-xl font-bold sm:text-2xl">企業內訓 / 客製課程</h3>
+              <h3 className="text-xl font-bold sm:text-2xl">
+                企業內訓 / 客製工作坊
+              </h3>
               <p className="mt-2 text-base text-muted-foreground sm:text-lg">
-                為企業量身打造的培訓方案，幫助員工發展斜槓能力或培養內部講師
+                為團隊量身打造的培訓方案，涵蓋 AI 應用、創新思維、內容經營等主題
               </p>
               <ul className="mt-4 space-y-3 text-base text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <span className="text-primary">✓</span>
-                  根據企業需求客製內容
+                  根據團隊需求客製內容
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="text-primary">✓</span>
@@ -268,19 +260,17 @@ export default function CoursesPage() {
             </div>
             <div className="text-center md:text-right">
               <Button asChild className="h-11 px-6 text-base">
-                <a href="mailto:iamvista@gmail.com">
-                  聯繫洽談
-                </a>
+                <a href="mailto:iamvista@gmail.com">聯繫洽談</a>
               </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* 電子報訂閱 */}
+      {/* 電子報 */}
       <div className="mt-14 text-center sm:mt-16">
         <p className="text-base text-muted-foreground sm:text-lg">
-          想在新課程上線時第一時間收到通知？
+          想在新工作坊上線時第一時間收到通知？
         </p>
         <Button variant="outline" className="mt-4 h-11 px-6 text-base" asChild>
           <Link href="/#newsletter">訂閱電子報</Link>
