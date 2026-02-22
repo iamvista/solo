@@ -112,9 +112,9 @@ export const workshops: Workshop[] = [
   {
     id: "innovation-workshop",
     title: "創新實戰工作坊",
-    subtitle: "6 個小時，讓你卡住的問題迎刃而解",
+    subtitle: "透過 6 個小時的工作坊教學，協助你逐一解決卡住的工作難題！",
     description:
-      "不是來聽課，是現場把你的問題做完。用「創新方程式」六步驟，帶你從真實工作難題走到可執行方案。",
+      "不光是來聽課，而是現場就讓你的問題迎刃而解！用「創新方程式」六步驟，帶你從真實工作難題走到可執行方案。",
     instructor: jianming,
     emoji: "💡",
     date: "2026/3/14 (六)",
@@ -123,9 +123,9 @@ export const workshops: Workshop[] = [
     location: "台北市區・捷運站步行可達",
     capacity: 10,
     price: {
-      original: 5980,
-      earlyBird: 3280,
-      earlyBirdDeadline: "3/7 前",
+      original: 7200,
+      earlyBird: 3600,
+      earlyBirdDeadline: "3 月 7 日前",
     },
     tags: ["創新", "問題解決", "實作"],
     status: "open",

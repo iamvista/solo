@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,13 +8,16 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "創新實戰工作坊 | solo.tw",
   description:
-    "6 個小時，讓你卡住的問題迎刃而解。用創新方程式六步驟，從真實工作難題走到可執行方案。",
+    "透過 6 個小時的工作坊教學，協助你逐一解決卡住的工作難題！用創新方程式六步驟，從真實工作難題走到可執行方案。",
   openGraph: {
     title: "創新實戰工作坊 | solo.tw",
     description:
-      "6 個小時，讓你卡住的問題迎刃而解。用創新方程式六步驟，從真實工作難題走到可執行方案。",
+      "透過 6 個小時的工作坊教學，協助你逐一解決卡住的工作難題！用創新方程式六步驟，從真實工作難題走到可執行方案。",
   },
 };
+
+const REGISTER_URL =
+  "https://vista.oen.tw/good/3A0vLGJeh45LWOmtSbkdW9Ph3wi";
 
 const painPoints = [
   {
@@ -22,15 +26,15 @@ const painPoints = [
   },
   {
     emoji: "📊",
-    text: "明明做得不差，卻總是排在 60～70 分，升遷名單永遠差一點",
+    text: "明明自認做得不差，卻總是得不到長官青睞，升遷名單永遠沒自己的份",
   },
   {
     emoji: "💬",
-    text: "你其實有想法，可是提案一開口就散、最後變成加班修修補補",
+    text: "你其實有想法，可是提案一送出就被打槍，擺脫不了加班的命運",
   },
   {
     emoji: "😤",
-    text: "客戶／主管一直「比價、挑毛病、要你再快一點」",
+    text: "客戶一直在雞蛋裡挑骨頭，或是要你再多讓利一點",
   },
 ];
 
@@ -63,12 +67,12 @@ const outcomes = [
 ];
 
 const steps = [
-  { number: "01", title: "看見真正的問題" },
-  { number: "02", title: "找到關鍵需求" },
-  { number: "03", title: "提出新的問題" },
-  { number: "04", title: "重組元素" },
-  { number: "05", title: "創造清晰畫面" },
-  { number: "06", title: "寫出實現計畫" },
+  { number: "01", title: "看見真正的問題", image: "/images/workshops/step-1.webp" },
+  { number: "02", title: "找到關鍵需求", image: "/images/workshops/step-2.webp" },
+  { number: "03", title: "提出新的問題", image: "/images/workshops/step-3.webp" },
+  { number: "04", title: "重組元素", image: "/images/workshops/step-4.webp" },
+  { number: "05", title: "創造清晰畫面", image: "/images/workshops/step-5.webp" },
+  { number: "06", title: "寫出實現計畫", image: "/images/workshops/step-6.webp" },
 ];
 
 const experiences = [
@@ -114,19 +118,33 @@ export default function InnovationWorkshopPage() {
             創新實戰工作坊
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-            6 個小時，讓你卡住的問題
-            <span className="font-semibold text-foreground">迎刃而解</span>
+            透過 6 個小時的工作坊教學，協助你逐一
+            <span className="font-semibold text-foreground">解決卡住的工作難題！</span>
           </p>
           <p className="mt-3 text-base text-muted-foreground">
-            不是來聽課，是現場把你的問題做完。
+            不光是來聽課，而是現場就讓你的問題迎刃而解！
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#register">立即報名</a>
+              <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
+                立即報名
+              </a>
             </Button>
             <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
               <a href="#method">查看課程內容</a>
             </Button>
+          </div>
+
+          {/* Hero Image */}
+          <div className="mt-10 overflow-hidden rounded-2xl shadow-lg">
+            <Image
+              src="/images/workshops/innovation-hero.webp"
+              alt="創新實戰工作坊"
+              width={1200}
+              height={630}
+              className="w-full h-auto"
+              priority
+            />
           </div>
         </div>
       </section>
@@ -135,7 +153,7 @@ export default function InnovationWorkshopPage() {
         {/* 痛點共鳴 */}
         <section className="py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            你可能很熟這種感覺
+            以下的場景，你是否感到熟悉呢？
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {painPoints.map((point, i) => (
@@ -154,8 +172,8 @@ export default function InnovationWorkshopPage() {
             <p className="mt-1 text-lg text-muted-foreground">
               而在你一直用同一種方式解題。
               <br />
-              換工具、換資料來源、換更多工時。但
-              <span className="font-medium text-foreground">解法邏輯沒有升級</span>。
+              換工具、補資料來源以及增加更多工時，但
+              <span className="font-medium text-foreground">一直找不到理想的解決方案！</span>
             </p>
           </div>
         </section>
@@ -163,7 +181,7 @@ export default function InnovationWorkshopPage() {
         {/* 課程說明 */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            這堂課在做什麼？
+            這堂課主要在教什麼？
           </h2>
           <p className="mt-4 text-center text-lg text-muted-foreground">
             只做一件事：
@@ -221,16 +239,27 @@ export default function InnovationWorkshopPage() {
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             課程方法｜創新方程式 6 步驟
           </h2>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {steps.map((step) => (
               <div
                 key={step.number}
-                className="flex items-center gap-3 rounded-xl border bg-card p-4 transition-colors hover:border-primary/30"
+                className="overflow-hidden rounded-xl border bg-card transition-colors hover:border-primary/30"
               >
-                <span className="text-2xl font-bold text-primary/30">
-                  {step.number}
-                </span>
-                <span className="text-base font-medium">{step.title}</span>
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src={step.image}
+                    alt={`步驟 ${step.number}：${step.title}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="flex items-center gap-3 p-4">
+                  <span className="text-2xl font-bold text-primary/30">
+                    {step.number}
+                  </span>
+                  <span className="text-base font-medium">{step.title}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -245,7 +274,7 @@ export default function InnovationWorkshopPage() {
             這 6 小時你會經歷什麼？
           </h2>
           <p className="mt-3 text-center text-base text-muted-foreground">
-            這不是演講型課程。
+            這不是講師單向講授的課程，需要你手腦並用。
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -434,27 +463,32 @@ export default function InnovationWorkshopPage() {
                     <span>👥</span>
                     <span>限 10 名</span>
                   </div>
+                  <p className="pl-7 text-sm text-muted-foreground">
+                    含精美午餐餐盒與咖啡
+                  </p>
                 </div>
 
                 <div className="space-y-3">
                   <div>
                     <p className="text-sm text-muted-foreground">原價</p>
                     <p className="text-lg text-muted-foreground line-through">
-                      NT$5,980
+                      NT$7,200
                     </p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">
-                      早鳥價（3/7 前）
+                      早鳥價（3 月 7 日前）
                     </p>
-                    <p className="text-3xl font-bold text-primary">NT$3,280</p>
+                    <p className="text-3xl font-bold text-primary">NT$3,600</p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-6 text-center">
-                <Button size="lg" className="h-12 w-full max-w-sm px-8 text-base">
-                  立即報名
+                <Button size="lg" className="h-12 w-full max-w-sm px-8 text-base" asChild>
+                  <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
+                    立即報名
+                  </a>
                 </Button>
               </div>
             </CardContent>
@@ -464,7 +498,7 @@ export default function InnovationWorkshopPage() {
         {/* 報名前準備 */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            報名後請準備兩件事
+            報名後請先做兩個功課
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <Card>
@@ -495,7 +529,7 @@ export default function InnovationWorkshopPage() {
             </Card>
           </div>
           <p className="mt-6 text-center text-lg font-medium text-foreground">
-            你帶問題來。你帶藍圖走。
+            你帶問題來，我讓你帶著解決方案走。
           </p>
         </section>
 
