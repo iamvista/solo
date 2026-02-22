@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "創新實戰工作坊 | solo.tw",
   description:
-    "6 小時，把你卡住的問題做成一張「可落地的解法藍圖」。用創新方程式六步驟，從真實工作難題走到可執行方案。",
+    "6 個小時，讓你卡住的問題迎刃而解。用創新方程式六步驟，從真實工作難題走到可執行方案。",
   openGraph: {
     title: "創新實戰工作坊 | solo.tw",
     description:
-      "6 小時，把你卡住的問題做成一張「可落地的解法藍圖」。用創新方程式六步驟，從真實工作難題走到可執行方案。",
+      "6 個小時，讓你卡住的問題迎刃而解。用創新方程式六步驟，從真實工作難題走到可執行方案。",
   },
 };
 
@@ -114,8 +114,8 @@ export default function InnovationWorkshopPage() {
             創新實戰工作坊
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-            6 小時，把你卡住的問題做成一張
-            <span className="font-semibold text-foreground">「可落地的解法藍圖」</span>
+            6 個小時，讓你卡住的問題
+            <span className="font-semibold text-foreground">迎刃而解</span>
           </p>
           <p className="mt-3 text-base text-muted-foreground">
             不是來聽課，是現場把你的問題做完。

@@ -112,7 +112,7 @@ export const workshops: Workshop[] = [
   {
     id: "innovation-workshop",
     title: "創新實戰工作坊",
-    subtitle: "6 小時，把你卡住的問題做成一張「可落地的解法藍圖」",
+    subtitle: "6 個小時，讓你卡住的問題迎刃而解",
     description:
       "不是來聽課，是現場把你的問題做完。用「創新方程式」六步驟，帶你從真實工作難題走到可執行方案。",
     instructor: jianming,
