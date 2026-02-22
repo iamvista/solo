@@ -343,8 +343,14 @@ export default function InnovationWorkshopPage() {
           <Card className="mt-8">
             <CardContent className="p-6 sm:p-8">
               <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary/10 text-4xl">
-                  💡
+                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full">
+                  <Image
+                    src="/images/workshops/instructor-jianming.webp"
+                    alt="陳建銘老師"
+                    width={80}
+                    height={80}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
