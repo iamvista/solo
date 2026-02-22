@@ -9,11 +9,11 @@ import StepGallery from "./StepGallery";
 export const metadata: Metadata = {
   title: "創新實戰工作坊 | solo.tw",
   description:
-    "透過 6 個小時的工作坊教學，協助你逐一解決卡住的工作難題！用創新方程式六步驟，從真實工作難題走到可執行方案。",
+    "6 個小時，用創新思維解決職場三大問題。用創新方程式六步驟，從真實工作難題走到可執行方案。",
   openGraph: {
     title: "創新實戰工作坊 | solo.tw",
     description:
-      "透過 6 個小時的工作坊教學，協助你逐一解決卡住的工作難題！用創新方程式六步驟，從真實工作難題走到可執行方案。",
+      "6 個小時，用創新思維解決職場三大問題。用創新方程式六步驟，從真實工作難題走到可執行方案。",
   },
 };
 
@@ -119,8 +119,8 @@ export default function InnovationWorkshopPage() {
             創新實戰工作坊
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-            透過 6 個小時的工作坊教學，協助你逐一
-            <span className="font-semibold text-foreground">解決卡住的工作難題！</span>
+            6 個小時，用創新思維
+            <span className="font-semibold text-foreground">解決職場三大問題</span>
           </p>
           <p className="mt-3 text-base text-muted-foreground">
             不光是來聽課，而是現場就讓你的問題迎刃而解！
@@ -137,7 +137,7 @@ export default function InnovationWorkshopPage() {
           </div>
 
           {/* Hero Image */}
-          <div className="mt-10 overflow-hidden rounded-2xl shadow-lg">
+          <div className="mt-10 overflow-hidden rounded-2xl border border-black/5 shadow-xl ring-1 ring-black/5">
             <Image
               src="/images/workshops/innovation-hero.webp"
               alt="創新實戰工作坊"
@@ -188,18 +188,72 @@ export default function InnovationWorkshopPage() {
             只做一件事：
           </p>
           <p className="mt-1 text-center text-lg font-medium text-foreground">
-            帶你用「創新方程式」把你的真實工作難題走完一輪。
+            帶你用「創新方程式」，解決職場三大問題
           </p>
+          <div className="mx-auto mt-6 max-w-lg space-y-3">
+            <div className="flex items-start gap-3 rounded-lg border p-4">
+              <span className="text-lg">1️⃣</span>
+              <p className="text-base text-muted-foreground">很努力做事情，卻還是沒有把事情做好。</p>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg border p-4">
+              <span className="text-lg">2️⃣</span>
+              <p className="text-base text-muted-foreground">很努力提出想法，卻還是沒有讓人買單。</p>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg border p-4">
+              <span className="text-lg">3️⃣</span>
+              <p className="text-base text-muted-foreground">很努力做專案，卻還是沒有被看見與肯定。</p>
+            </div>
+          </div>
           <Card className="mt-8 border-primary/20 bg-primary/5">
-            <CardContent className="p-6 text-center sm:p-8">
-              <p className="text-lg font-semibold text-foreground">
+            <CardContent className="p-6 sm:p-8">
+              <p className="text-center text-lg font-semibold text-foreground">
                 最後，你會帶走一份：
               </p>
-              <p className="mt-2 text-2xl font-bold text-primary sm:text-3xl">
-                《解法設計藍圖》
+              <p className="mt-2 text-center text-2xl font-bold text-primary sm:text-3xl">
+                「想像畫面圖」
+              </p>
+              <p className="mt-3 text-base text-muted-foreground">
+                一頁式 ＋ 行動計畫。不是靈感，是可執行方案。
               </p>
               <p className="mt-2 text-base text-muted-foreground">
-                一頁式 ＋ 行動計畫。不是靈感，是可執行方案。
+                舉例，我們會實際操作，將你腦海中的想像畫面創造出來。如下左圖是當時「動一動左右腦遊戲 APP」腦海中的想像畫面，右圖是完成後的畫面。
+              </p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2 text-center">
+                  <div className="overflow-hidden rounded-xl border-2 border-primary/15 shadow-lg ring-1 ring-black/5 transition-shadow hover:shadow-xl">
+                    <Image
+                      src="/images/workshops/brain-game-sketch.webp"
+                      alt="動一動左右腦遊戲 APP — 手繪想像畫面圖"
+                      width={720}
+                      height={528}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-muted-foreground">✏️ 腦海中的想像畫面（手繪圖）</p>
+                </div>
+                <div className="space-y-2 text-center">
+                  <div className="overflow-hidden rounded-xl border-2 border-primary/15 shadow-lg ring-1 ring-black/5 transition-shadow hover:shadow-xl">
+                    <Image
+                      src="/images/workshops/brain-game-app.webp"
+                      alt="動一動左右腦遊戲 APP — 完成後畫面"
+                      width={904}
+                      height={628}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-muted-foreground">📱 完成後的畫面</p>
+                </div>
+              </div>
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                動一動左右腦遊戲 App —{" "}
+                <a
+                  href="https://left-and-right-brain-game.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  作品連結
+                </a>
               </p>
             </CardContent>
           </Card>
@@ -283,7 +337,7 @@ export default function InnovationWorkshopPage() {
           </div>
 
           <p className="mt-6 text-center text-base text-muted-foreground">
-            你會卡住。但你<span className="font-medium text-foreground">不會空手離開</span>。
+            在過程中也許你會卡住，但我們<span className="font-medium text-foreground">不會讓你空手離開</span>。
           </p>
         </section>
 
