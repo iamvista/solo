@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL = "#";
+const REGISTER_URL = "https://forms.gle/2ckobGmbQWz1iTK5";
 
 const realStories = [
   {
@@ -210,6 +210,17 @@ export default function SeniorAssetSafetyPage() {
           <p className="mt-1 text-center text-base text-muted-foreground">
             我們會一起梳理三件最重要的事：
           </p>
+
+          {/* Steps overview image */}
+          <div className="mt-8 overflow-hidden rounded-xl">
+            <Image
+              src="/images/workshops/senior-steps-overview.webp"
+              alt="課程三大步驟：梳理現況、法律存證、信託執行"
+              width={1200}
+              height={670}
+              className="w-full"
+            />
+          </div>
 
           <div className="mt-10 space-y-12">
             {threePillars.map((pillar) => (
