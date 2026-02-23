@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL = "https://forms.gle/2ckobGmbQWz1iTK5";
+const REGISTER_URL = "https://forms.gle/2ckobGmbQWz1iTK58";
 
 const realStories = [
   {
