@@ -32,6 +32,8 @@ export interface Workshop {
   url: string;
   isExternal: boolean;
   highlights: string[];
+  category: "ai" | "finance" | "innovation";
+  featured?: boolean;
 }
 
 // 講師資料
@@ -46,6 +48,21 @@ const jianming: Instructor = {
   title: "創新先生・職場創新顧問",
   url: "https://www.innovators.tw",
 };
+
+const runsheng: Instructor = {
+  name: "駱潤生",
+  title: "CFP® 國際認證理財規劃顧問",
+  avatar: "/images/workshops/instructor-runsheng-avatar.webp",
+};
+
+// 課程分類
+export const categories = {
+  ai: { label: "AI 應用系列", emoji: "🤖" },
+  finance: { label: "樂齡理財系列", emoji: "🔒" },
+  innovation: { label: "創新思維系列", emoji: "💡" },
+} as const;
+
+export type WorkshopCategory = keyof typeof categories;
 
 // 工作坊列表
 export const workshops: Workshop[] = [
@@ -78,6 +95,7 @@ export const workshops: Workshop[] = [
       "學會 AI 溝通與 Prompt 技巧",
       "含部署、分析、設計全流程",
     ],
+    category: "ai",
   },
   {
     id: "ai-content",
@@ -108,6 +126,7 @@ export const workshops: Workshop[] = [
       "用 Claude Code 實作完整系統",
       "含 30 分鐘課後一對一諮詢",
     ],
+    category: "ai",
   },
   {
     id: "innovation-workshop",
@@ -137,5 +156,38 @@ export const workshops: Workshop[] = [
       "創新方程式六步驟完整走一輪",
       "小組協作 + 遊戲化引導思考",
     ],
+    category: "innovation",
+  },
+  {
+    id: "senior-asset-safety",
+    title: "樂齡資產安全與傳承實戰課",
+    subtitle: "3 小時打造你的資產安全藍圖",
+    description:
+      "不是談理論，而是教你如何真正守住資產、守住家人。退休不是終點，真正的風險，才正要開始。",
+    instructor: runsheng,
+    emoji: "🔒",
+    date: "2026/4/19（日）",
+    time: "14:00–17:00",
+    duration: "3 小時",
+    location: "台北市區（報名後通知地點）",
+    capacity: 10,
+    price: {
+      original: 2800,
+      earlyBird: 2000,
+      earlyBirdDeadline: "開課前 14 天",
+      dual: 1800,
+    },
+    tags: ["資產安全", "信託規劃", "傳承"],
+    status: "open",
+    url: "/courses/senior-asset-safety",
+    isExternal: false,
+    highlights: [
+      "全面檢視資產現況與風險缺口",
+      "了解遺囑、醫療決定、意定監護",
+      "掌握信託規劃的基本架構",
+      "真實案例解析，回家就能開始行動",
+    ],
+    category: "finance",
+    featured: true,
   },
 ];

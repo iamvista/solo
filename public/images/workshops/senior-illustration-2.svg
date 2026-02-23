@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" rx="16" fill="#F8F6F3"/>
+
+  <!-- Main document -->
+  <rect x="135" y="35" width="130" height="170" rx="6" fill="white" stroke="#1E3A5F" stroke-width="2"/>
+
+  <!-- Document header line -->
+  <rect x="155" y="52" width="90" height="3" rx="1.5" fill="#1E3A5F" opacity="0.6"/>
+
+  <!-- Document content lines -->
+  <rect x="155" y="68" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.5"/>
+  <rect x="155" y="78" width="70" height="2" rx="1" fill="#9CA3AF" opacity="0.5"/>
+  <rect x="155" y="88" width="85" height="2" rx="1" fill="#9CA3AF" opacity="0.5"/>
+  <rect x="155" y="98" width="60" height="2" rx="1" fill="#9CA3AF" opacity="0.5"/>
+
+  <!-- Divider -->
+  <line x1="155" y1="112" x2="245" y2="112" stroke="#E5E7EB" stroke-width="1"/>
+
+  <!-- Three document types with icons -->
+  <!-- Will / 遺囑 -->
+  <g transform="translate(150, 120)">
+    <rect width="28" height="28" rx="6" fill="#1E3A5F" opacity="0.08"/>
+    <text x="14" y="19" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">📜</text>
+  </g>
+  <text x="186" y="139" font-family="system-ui, sans-serif" font-size="10" fill="#1E3A5F" font-weight="500">遺囑</text>
+
+  <!-- Medical directive / 預立醫療 -->
+  <g transform="translate(150, 152)">
+    <rect width="28" height="28" rx="6" fill="#1E3A5F" opacity="0.08"/>
+    <text x="14" y="19" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">🏥</text>
+  </g>
+  <text x="186" y="171" font-family="system-ui, sans-serif" font-size="10" fill="#1E3A5F" font-weight="500">預立醫療決定</text>
+
+  <!-- Guardianship / 意定監護 -->
+  <rect x="218" y="120" width="28" height="28" rx="6" fill="#1E3A5F" opacity="0.08"/>
+  <text x="232" y="139" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">🤝</text>
+  <text x="232" y="159" font-family="system-ui, sans-serif" font-size="10" fill="#1E3A5F" font-weight="500" text-anchor="middle">意定監護</text>
+
+  <!-- Pen writing -->
+  <g transform="translate(250, 100) rotate(-30)">
+    <rect x="0" y="0" width="8" height="50" rx="2" fill="#C8953D"/>
+    <polygon points="0,50 4,-2 8,50" fill="#C8953D" opacity="0.7" transform="translate(0,48)"/>
+    <rect x="1" y="2" width="6" height="12" rx="1" fill="#E5C07B"/>
+  </g>
+
+  <!-- Protective hands -->
+  <path d="M120 160 C100 140 85 155 95 175 C105 195 130 210 150 215"
+        stroke="#C8953D" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M280 160 C300 140 315 155 305 175 C295 195 270 210 250 215"
+        stroke="#C8953D" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Seal/stamp -->
+  <circle cx="240" cy="178" r="14" fill="#C8953D" opacity="0.15" stroke="#C8953D" stroke-width="1.5"/>
+  <text x="240" y="183" font-family="system-ui, sans-serif" font-size="10" fill="#C8953D" font-weight="700" text-anchor="middle">印</text>
+
+  <!-- Title -->
+  <text x="200" y="250" font-family="system-ui, sans-serif" font-size="16" fill="#1E3A5F" font-weight="600" text-anchor="middle">把意願寫下來</text>
+  <text x="200" y="272" font-family="system-ui, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">用法律文件守護你的決定</text>
+</svg>

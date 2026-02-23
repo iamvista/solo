@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" rx="16" fill="#F8F6F3"/>
+
+  <!-- Shield -->
+  <path d="M200 40 L260 70 L260 150 C260 200 200 240 200 240 C200 240 140 200 140 150 L140 70 Z"
+        fill="#1E3A5F" opacity="0.08" stroke="#1E3A5F" stroke-width="2"/>
+  <path d="M200 55 L248 79 L248 148 C248 190 200 224 200 224 C200 224 152 190 152 148 L152 79 Z"
+        fill="white" stroke="#1E3A5F" stroke-width="1.5"/>
+
+  <!-- Magnifying glass over shield -->
+  <circle cx="210" cy="130" r="35" fill="none" stroke="#C8953D" stroke-width="3"/>
+  <line x1="236" y1="156" x2="258" y2="178" stroke="#C8953D" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- House icon inside magnifying glass -->
+  <path d="M195 140 L210 125 L225 140 L225 148 L195 148 Z" fill="#1E3A5F" opacity="0.15" stroke="#1E3A5F" stroke-width="1.2"/>
+  <rect x="205" y="140" width="10" height="8" fill="#1E3A5F" opacity="0.3"/>
+
+  <!-- Document/Insurance icon -->
+  <rect x="165" y="105" width="22" height="28" rx="2" fill="white" stroke="#1E3A5F" stroke-width="1.2"/>
+  <line x1="170" y1="113" x2="182" y2="113" stroke="#C8953D" stroke-width="1"/>
+  <line x1="170" y1="118" x2="182" y2="118" stroke="#9CA3AF" stroke-width="0.8"/>
+  <line x1="170" y1="123" x2="179" y2="123" stroke="#9CA3AF" stroke-width="0.8"/>
+
+  <!-- Coins/savings icon -->
+  <ellipse cx="228" cy="112" rx="12" ry="4" fill="#C8953D" opacity="0.2" stroke="#C8953D" stroke-width="1"/>
+  <ellipse cx="228" cy="108" rx="12" ry="4" fill="#C8953D" opacity="0.3" stroke="#C8953D" stroke-width="1"/>
+  <ellipse cx="228" cy="104" rx="12" ry="4" fill="#C8953D" opacity="0.5" stroke="#C8953D" stroke-width="1"/>
+
+  <!-- Checkmarks -->
+  <g transform="translate(138, 165)">
+    <circle cx="10" cy="10" r="10" fill="#1E3A5F" opacity="0.1"/>
+    <path d="M6 10 L9 13 L15 7" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(190, 165)">
+    <circle cx="10" cy="10" r="10" fill="#1E3A5F" opacity="0.1"/>
+    <path d="M6 10 L9 13 L15 7" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(242, 165)">
+    <circle cx="10" cy="10" r="10" fill="#1E3A5F" opacity="0.1"/>
+    <path d="M6 10 L9 13 L15 7" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Labels -->
+  <text x="148" y="200" font-family="system-ui, sans-serif" font-size="11" fill="#1E3A5F" font-weight="500" text-anchor="middle">醫療照護</text>
+  <text x="200" y="200" font-family="system-ui, sans-serif" font-size="11" fill="#1E3A5F" font-weight="500" text-anchor="middle">現金流</text>
+  <text x="252" y="200" font-family="system-ui, sans-serif" font-size="11" fill="#1E3A5F" font-weight="500" text-anchor="middle">保障規劃</text>
+
+  <!-- Title -->
+  <text x="200" y="250" font-family="system-ui, sans-serif" font-size="16" fill="#1E3A5F" font-weight="600" text-anchor="middle">看清你的現況</text>
+  <text x="200" y="272" font-family="system-ui, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">全面檢視資產、保障與風險</text>
+</svg>
