@@ -28,6 +28,12 @@ const organizationSchema = {
     "https://x.com/vista",
     "https://www.youtube.com/@vistacheng",
   ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "iamvista@gmail.com",
+    contactType: "customer service",
+    availableLanguage: ["zh-TW", "en"],
+  },
 };
 
 const websiteSchema = {
