@@ -21,10 +21,12 @@ const organizationSchema = {
     url: "https://www.vista.tw",
   },
   sameAs: [
-    "https://www.facebook.com/iamvista",
-    "https://www.instagram.com/iamvista/",
+    "https://www.facebook.com/vista.tw",
+    "https://www.instagram.com/vista",
+    "https://www.threads.com/@vista",
+    "https://www.linkedin.com/in/vistacheng/",
+    "https://x.com/vista",
     "https://www.youtube.com/@vistacheng",
-    "https://www.threads.net/@vista",
   ],
 };
 
