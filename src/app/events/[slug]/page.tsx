@@ -243,20 +243,11 @@ export default async function EventPage({
                       {event.venue_address}
                     </p>
                   )}
-                {(event.format === "online" || event.format === "hybrid") &&
-                  event.online_url && (
-                    <p className="text-sm text-muted-foreground">
-                      🔗{" "}
-                      <a
-                        href={event.online_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        線上會議連結
-                      </a>
-                    </p>
-                  )}
+                {(event.format === "online" || event.format === "hybrid") && (
+                  <p className="text-sm text-muted-foreground">
+                    報名後將透過確認信提供線上會議連結
+                  </p>
+                )}
               </div>
             </div>
             <div className="space-y-3">
