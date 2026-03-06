@@ -11,6 +11,7 @@ import type {
   EventStatus,
   EventCategory,
 } from "@/lib/supabase/types";
+import MarkdownEditor from "@/components/admin/MarkdownEditor";
 
 interface EventFormProps {
   event?: Event & { ticket_types?: TicketType[] };
@@ -468,13 +469,8 @@ export default function EventForm({ event, mode }: EventFormProps) {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className={labelClass}>活動說明（支援 Markdown）</label>
-              <textarea
-                className={`${inputClass} min-h-[300px]`}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="詳細的活動說明..."
-              />
+              <label className={labelClass}>活動說明</label>
+              <MarkdownEditor value={description} onChange={setDescription} />
             </div>
             <div>
               <label className={labelClass}>YouTube 連結</label>
