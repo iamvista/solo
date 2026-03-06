@@ -80,12 +80,21 @@ export default function RegistrationTable({ registrations, eventId }: Props) {
   };
 
   const exportCSV = () => {
-    const headers = ["姓名", "Email", "電話", "票種", "狀態", "報名時間"];
+    const headers = [
+      "姓名",
+      "Email",
+      "電話",
+      "票種",
+      "備註",
+      "狀態",
+      "報名時間",
+    ];
     const rows = registrations.map((r) => [
       r.name,
       r.email,
       r.phone || "",
       r.ticket_types?.name || "",
+      r.note || "",
       statusConfig[r.status]?.label || r.status,
       new Intl.DateTimeFormat("zh-TW", {
         dateStyle: "short",
@@ -177,6 +186,7 @@ export default function RegistrationTable({ registrations, eventId }: Props) {
                 <th className="p-2">Email</th>
                 <th className="p-2">電話</th>
                 <th className="p-2">票種</th>
+                <th className="p-2">備註</th>
                 <th className="p-2">狀態</th>
                 <th className="p-2">報名時間</th>
               </tr>
@@ -198,6 +208,18 @@ export default function RegistrationTable({ registrations, eventId }: Props) {
                     <td className="p-2">{reg.email}</td>
                     <td className="p-2">{reg.phone || "—"}</td>
                     <td className="p-2">{reg.ticket_types?.name || "—"}</td>
+                    <td className="p-2 max-w-[200px]">
+                      {reg.note ? (
+                        <span
+                          className="text-xs text-muted-foreground line-clamp-2"
+                          title={reg.note}
+                        >
+                          {reg.note}
+                        </span>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                     <td className="p-2">
                       <Badge variant={status.variant}>{status.label}</Badge>
                     </td>
@@ -214,7 +236,7 @@ export default function RegistrationTable({ registrations, eventId }: Props) {
               {filtered.length === 0 && (
                 <tr>
                   <td
-                    colSpan={7}
+                    colSpan={8}
                     className="p-8 text-center text-muted-foreground"
                   >
                     沒有找到報名紀錄
