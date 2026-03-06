@@ -13,7 +13,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const event = await getEventBySlug(slug);
   if (!event) return {};
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw").trim();
+  const eventUrl = `${baseUrl}/events/${slug}`;
+  const eventImage = event.cover_image || `${baseUrl}/events/${slug}/og`;
 
   return {
     title: `${event.title} | 自由人學院`,
@@ -21,9 +23,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: event.title,
       description: event.subtitle || "",
-      images: event.cover_image ? [{ url: event.cover_image }] : [`${baseUrl}/events/${slug}/og`],
-      url: `${baseUrl}/events/${slug}`,
+      images: [{ url: eventImage, width: 1200, height: 630 }],
+      url: eventUrl,
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: event.title,
+      description: event.subtitle || event.description?.slice(0, 150) || "",
+      images: [eventImage],
     },
   };
 }
@@ -52,7 +60,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const timeStr = startDate.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })
     + (endDate ? ` – ${endDate.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })}` : "");
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw").trim();
   const eventUrl = `${baseUrl}/events/${slug}`;
 
   // Google Calendar URL
