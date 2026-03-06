@@ -100,6 +100,14 @@ export default function RegistrationForm({
   const inputClass =
     "w-full rounded-md border border-input bg-background px-3 py-2 text-sm";
 
+  // Find the currently selected ticket to show remaining count
+  const currentTicket = ticketTypes.find((t) => t.id === selectedTicket);
+  const remaining =
+    currentTicket && currentTicket.capacity > 0
+      ? Math.max(0, currentTicket.capacity - currentTicket.confirmed_count)
+      : null;
+  const isFull = remaining !== null && remaining <= 0;
+
   return (
     <Card>
       <CardContent className="p-6">
@@ -128,6 +136,22 @@ export default function RegistrationForm({
                   </option>
                 ))}
               </select>
+            </div>
+          )}
+          {/* Always show remaining count prominently */}
+          {remaining !== null && (
+            <div
+              className={`rounded-md px-3 py-2 text-sm font-medium ${
+                isFull
+                  ? "bg-yellow-50 text-yellow-700"
+                  : remaining <= 5
+                    ? "bg-orange-50 text-orange-700"
+                    : "bg-green-50 text-green-700"
+              }`}
+            >
+              {isFull
+                ? "🔔 名額已滿，報名將加入候補名單"
+                : `✅ 剩餘 ${remaining} 個名額`}
             </div>
           )}
           <div className="grid gap-4 sm:grid-cols-2">
