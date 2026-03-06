@@ -1,6 +1,14 @@
 import {
-  Body, Container, Head, Heading, Hr, Html, Link,
-  Preview, Section, Text,
+  Body,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Link,
+  Preview,
+  Section,
+  Text,
 } from "@react-email/components";
 
 interface Props {
@@ -14,11 +22,21 @@ interface Props {
   calendarUrl: string;
   cancelUrl: string;
   isOnline: boolean;
+  onlineUrl?: string;
 }
 
 export function RegistrationConfirmEmail({
-  name, eventTitle, eventDate, eventTime, venue,
-  ticketType, eventUrl, calendarUrl, cancelUrl, isOnline,
+  name,
+  eventTitle,
+  eventDate,
+  eventTime,
+  venue,
+  ticketType,
+  eventUrl,
+  calendarUrl,
+  cancelUrl,
+  isOnline,
+  onlineUrl,
 }: Props) {
   return (
     <Html>
@@ -31,18 +49,35 @@ export function RegistrationConfirmEmail({
           <Text style={text}>你已成功報名以下活動：</Text>
           <Section style={infoBox}>
             <Text style={eventTitleStyle}>《{eventTitle}》</Text>
-            <Text style={infoText}>📅 {eventDate} {eventTime}</Text>
+            <Text style={infoText}>
+              📅 {eventDate} {eventTime}
+            </Text>
             <Text style={infoText}>📍 {venue}</Text>
+            {isOnline && onlineUrl && (
+              <Text style={infoText}>
+                🔗 線上連結：<Link href={onlineUrl}>{onlineUrl}</Link>
+              </Text>
+            )}
             <Text style={infoText}>🎫 票種：{ticketType}</Text>
           </Section>
           <Section style={buttonSection}>
-            <Link href={eventUrl} style={button}>查看活動詳情</Link>
+            {isOnline && onlineUrl ? (
+              <Link href={onlineUrl} style={button}>
+                進入線上會議室
+              </Link>
+            ) : (
+              <Link href={eventUrl} style={button}>
+                查看活動詳情
+              </Link>
+            )}
           </Section>
-          <Text style={text}>📎 <Link href={calendarUrl}>加入 Google 日曆</Link></Text>
+          <Text style={text}>
+            📎 <Link href={calendarUrl}>加入 Google 日曆</Link>
+          </Text>
           <Hr style={hr} />
           <Text style={smallText}>
             {isOnline
-              ? "【入場說明】線上活動請於開始前 10 分鐘進入會議室。"
+              ? `【入場說明】線上活動請於開始前 10 分鐘進入會議室。${onlineUrl ? "" : "會議連結將於活動前另行通知。"}`
               : "【入場說明】實體活動請攜帶此信件作為報名憑證。"}
           </Text>
           <Text style={smallText}>
@@ -56,15 +91,64 @@ export function RegistrationConfirmEmail({
   );
 }
 
-const main = { backgroundColor: "#f6f9fc", fontFamily: "'Noto Sans TC', sans-serif" };
-const container = { backgroundColor: "#ffffff", margin: "0 auto", padding: "40px 20px", maxWidth: "560px" };
-const h1 = { color: "#1a1a1a", fontSize: "24px", fontWeight: "bold" as const, margin: "0 0 20px" };
-const text = { color: "#333", fontSize: "16px", lineHeight: "26px", margin: "0 0 10px" };
-const infoBox = { backgroundColor: "#f0f4f8", borderRadius: "8px", padding: "20px", margin: "20px 0" };
-const eventTitleStyle = { color: "#1a1a1a", fontSize: "18px", fontWeight: "bold" as const, margin: "0 0 12px" };
-const infoText = { color: "#555", fontSize: "15px", lineHeight: "24px", margin: "0 0 4px" };
+const main = {
+  backgroundColor: "#f6f9fc",
+  fontFamily: "'Noto Sans TC', sans-serif",
+};
+const container = {
+  backgroundColor: "#ffffff",
+  margin: "0 auto",
+  padding: "40px 20px",
+  maxWidth: "560px",
+};
+const h1 = {
+  color: "#1a1a1a",
+  fontSize: "24px",
+  fontWeight: "bold" as const,
+  margin: "0 0 20px",
+};
+const text = {
+  color: "#333",
+  fontSize: "16px",
+  lineHeight: "26px",
+  margin: "0 0 10px",
+};
+const infoBox = {
+  backgroundColor: "#f0f4f8",
+  borderRadius: "8px",
+  padding: "20px",
+  margin: "20px 0",
+};
+const eventTitleStyle = {
+  color: "#1a1a1a",
+  fontSize: "18px",
+  fontWeight: "bold" as const,
+  margin: "0 0 12px",
+};
+const infoText = {
+  color: "#555",
+  fontSize: "15px",
+  lineHeight: "24px",
+  margin: "0 0 4px",
+};
 const buttonSection = { textAlign: "center" as const, margin: "24px 0" };
-const button = { backgroundColor: "#0f172a", borderRadius: "6px", color: "#fff", fontSize: "16px", padding: "12px 24px", textDecoration: "none" };
+const button = {
+  backgroundColor: "#0f172a",
+  borderRadius: "6px",
+  color: "#fff",
+  fontSize: "16px",
+  padding: "12px 24px",
+  textDecoration: "none",
+};
 const hr = { borderColor: "#e6ebf1", margin: "20px 0" };
-const smallText = { color: "#8898aa", fontSize: "13px", lineHeight: "20px", margin: "0 0 6px" };
-const footer = { color: "#8898aa", fontSize: "12px", textAlign: "center" as const };
+const smallText = {
+  color: "#8898aa",
+  fontSize: "13px",
+  lineHeight: "20px",
+  margin: "0 0 6px",
+};
+const footer = {
+  color: "#8898aa",
+  fontSize: "12px",
+  textAlign: "center" as const,
+};

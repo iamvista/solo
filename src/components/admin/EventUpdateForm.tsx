@@ -2,12 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 interface EventData {
@@ -78,9 +73,14 @@ function buildTemplate(
           `📅 日期：${dateStr}`,
           `⏰ 時間：${timeStr}`,
           `📍 地點：${venue}`,
+          event.format === "online" && event.online_url
+            ? `🔗 線上連結：${event.online_url}`
+            : "",
           "",
           event.format === "online"
-            ? "線上活動連結將於活動前一天寄出，請留意信箱。"
+            ? event.online_url
+              ? "請於活動開始前 10 分鐘點擊上方連結進入會議室。"
+              : "線上活動連結將於活動前另行通知，請留意信箱。"
             : "請攜帶此信件作為報名憑證。建議提早 10 分鐘入場。",
           "",
           "如有任何疑問，歡迎回覆此信。",
@@ -117,6 +117,9 @@ function buildTemplate(
           `📅 日期：${dateStr}`,
           `⏰ 時間：${timeStr}`,
           `📍 地點：${venue}`,
+          event.format === "online" && event.online_url
+            ? `🔗 線上連結：${event.online_url}`
+            : "",
           "",
           "造成不便敬請見諒，如有疑問歡迎回覆此信。",
         ].join("\n"),

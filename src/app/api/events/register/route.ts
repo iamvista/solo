@@ -109,6 +109,7 @@ export async function POST(request: NextRequest) {
           ),
           cancelUrl: `${baseUrl}/dashboard/events`,
           isOnline: event.format === "online",
+          onlineUrl: event.online_url || undefined,
         }),
       });
     }
