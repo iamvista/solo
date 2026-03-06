@@ -1,0 +1,88 @@
+import { NextRequest, NextResponse } from "next/server";
+import { isAdmin } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
+import { createEventUpdate, getEventRegistrations } from "@/lib/supabase/events";
+import { sendEmail } from "@/lib/email";
+import { EventUpdateEmail } from "@/components/emails/event-update-email";
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  if (!(await isAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { id: eventId } = await params;
+    const body = await request.json();
+    const { title, content, target } = body;
+
+    if (!title) {
+      return NextResponse.json({ error: "請填寫公告標題" }, { status: 400 });
+    }
+
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const update = await createEventUpdate({
+      event_id: eventId,
+      title,
+      content: content || null,
+      created_by: user?.id || null,
+    });
+
+    if (!update) {
+      return NextResponse.json({ error: "公告建立失敗" }, { status: 500 });
+    }
+
+    // Get event info for email
+    const { data: event } = await supabase
+      .from("events")
+      .select("title, slug")
+      .eq("id", eventId)
+      .single();
+
+    // Get registrations to send emails
+    const { registrations } = await getEventRegistrations(eventId, 1, 1000);
+
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+
+    // Filter by target audience
+    const targetRegs = registrations.filter((r: any) => {
+      if (target === "confirmed") return r.status === "confirmed";
+      if (target === "waitlisted") return r.status === "waitlisted";
+      return r.status !== "cancelled"; // "all" = confirmed + waitlisted
+    });
+
+    // Send emails (fire and forget)
+    for (const reg of targetRegs) {
+      sendEmail({
+        to: reg.email,
+        subject: `活動公告：${event?.title} — ${title}`,
+        react: EventUpdateEmail({
+          name: reg.name,
+          eventTitle: event?.title || "",
+          updateTitle: title,
+          updateContent: content || "",
+          eventUrl: `${baseUrl}/events/${event?.slug}`,
+        }),
+      });
+    }
+
+    // Mark as sent
+    await supabase
+      .from("event_updates")
+      .update({ sent_at: new Date().toISOString() })
+      .eq("id", update.id);
+
+    return NextResponse.json({
+      success: true,
+      update,
+      emailsSent: targetRegs.length,
+    });
+  } catch (err) {
+    console.error("Create event update error:", err);
+    return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
+  }
+}
