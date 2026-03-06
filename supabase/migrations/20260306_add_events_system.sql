@@ -225,8 +225,8 @@ CREATE POLICY "Admins can manage all ticket types" ON ticket_types
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
   );
 
-CREATE POLICY "Admins can view all registrations" ON registrations
-  FOR SELECT USING (
+CREATE POLICY "Admins can manage all registrations" ON registrations
+  FOR ALL USING (
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
   );
 
