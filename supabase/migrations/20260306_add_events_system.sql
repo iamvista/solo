@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS events (
   registration_ends_at TIMESTAMPTZ,
   capacity INTEGER DEFAULT 0,
   status TEXT NOT NULL CHECK (status IN ('draft', 'published', 'cancelled', 'archived')) DEFAULT 'draft',
-  organizer_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-  category TEXT,
+  organizer_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  category TEXT CHECK (category IN ('workshop', 'lecture', 'meetup', 'conference')),
   tags TEXT[] DEFAULT '{}',
   youtube_embed TEXT,
   is_featured BOOLEAN DEFAULT false,
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS registrations (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   event_id UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
   ticket_type_id UUID NOT NULL REFERENCES ticket_types(id) ON DELETE CASCADE,
-  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
   phone TEXT,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS event_updates (
   title TEXT NOT NULL,
   content TEXT,
   sent_at TIMESTAMPTZ,
-  created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -139,7 +139,8 @@ CREATE POLICY "Organizers can delete own events" ON events
 
 CREATE POLICY "Anyone can view ticket types" ON ticket_types
   FOR SELECT USING (
-    EXISTS (
+    is_active = true
+    AND EXISTS (
       SELECT 1 FROM events
       WHERE events.id = ticket_types.event_id
         AND events.status IN ('published', 'archived')
@@ -195,4 +196,41 @@ CREATE POLICY "Organizers can manage event updates" ON event_updates
       WHERE events.id = event_updates.event_id
         AND events.organizer_id = auth.uid()
     )
+  );
+
+-- ----- admin policies -----
+
+CREATE POLICY "Admins can select all events" ON events
+  FOR SELECT USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
+  );
+
+CREATE POLICY "Admins can insert events" ON events
+  FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
+  );
+
+CREATE POLICY "Admins can update all events" ON events
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
+  );
+
+CREATE POLICY "Admins can delete all events" ON events
+  FOR DELETE USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
+  );
+
+CREATE POLICY "Admins can manage all ticket types" ON ticket_types
+  FOR ALL USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
+  );
+
+CREATE POLICY "Admins can view all registrations" ON registrations
+  FOR SELECT USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
+  );
+
+CREATE POLICY "Admins can manage all event updates" ON event_updates
+  FOR ALL USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND is_admin = true)
   );
