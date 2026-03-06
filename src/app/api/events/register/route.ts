@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { registerForEvent, cancelRegistration } from "@/lib/supabase/events";
 import { sendEmail } from "@/lib/email";
@@ -120,6 +121,11 @@ export async function POST(request: NextRequest) {
           onlineUrl: event.online_url || undefined,
         }),
       });
+    }
+
+    // Invalidate page cache so ticket counts refresh
+    if (event?.slug) {
+      revalidatePath(`/events/${event.slug}`);
     }
 
     return NextResponse.json({
