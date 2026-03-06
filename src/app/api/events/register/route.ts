@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { registerForEvent } from "@/lib/supabase/events";
+import { registerForEvent, cancelRegistration } from "@/lib/supabase/events";
 import { sendEmail } from "@/lib/email";
 import { RegistrationConfirmEmail } from "@/components/emails/registration-confirm";
 
@@ -108,4 +108,34 @@ function buildGoogleCalendarUrl(title: string, start: string, end: string | null
   });
 
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "請先登入" }, { status: 401 });
+    }
+
+    const { registrationId } = await request.json();
+
+    if (!registrationId) {
+      return NextResponse.json({ error: "缺少報名 ID" }, { status: 400 });
+    }
+
+    const success = await cancelRegistration(registrationId, user.id);
+
+    if (!success) {
+      return NextResponse.json({ error: "取消失敗" }, { status: 400 });
+    }
+
+    return NextResponse.json({ success: true, message: "已取消報名" });
+  } catch (err) {
+    console.error("Cancel registration error:", err);
+    return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
+  }
 }
