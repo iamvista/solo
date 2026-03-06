@@ -12,6 +12,7 @@ const navigation = [
   { name: "工具箱", href: "/tools" },
   { name: "學習資源", href: "/learn" },
   { name: "課程", href: "/courses" },
+  { name: "活動", href: "/events" },
 ];
 
 export function Header() {

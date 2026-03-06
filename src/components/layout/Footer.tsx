@@ -6,6 +6,7 @@ const footerLinks = {
     { name: "工具箱", href: "/tools" },
     { name: "模板下載", href: "/templates" },
     { name: "課程中心", href: "/courses" },
+    { name: "活動", href: "/events" },
   ],
   learn: [
     { name: "學習資源", href: "/learn" },
