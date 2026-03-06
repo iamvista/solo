@@ -248,7 +248,13 @@ export default function EventForm({ event, mode }: EventFormProps) {
 
   const inputClass =
     "w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
-  const numberInputClass = `${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`;
+  /** Shared props for numeric-only text inputs (no scroll / arrow key side-effects) */
+  const numericProps = {
+    type: "text" as const,
+    inputMode: "numeric" as const,
+    pattern: "[0-9]*",
+    className: inputClass,
+  };
   const labelClass = "block text-sm font-medium mb-1.5";
 
   return (
@@ -442,14 +448,13 @@ export default function EventForm({ event, mode }: EventFormProps) {
             <div>
               <label className={labelClass}>總容量（0 = 無限制）</label>
               <input
-                type="number"
-                className={numberInputClass}
-                value={capacity}
-                onChange={(e) =>
-                  setCapacity(Math.min(parseInt(e.target.value) || 0, 5000))
-                }
-                min={0}
-                max={5000}
+                {...numericProps}
+                value={capacity || ""}
+                placeholder="0"
+                onChange={(e) => {
+                  const v = e.target.value.replace(/\D/g, "");
+                  setCapacity(Math.min(parseInt(v) || 0, 5000));
+                }}
               />
             </div>
           </CardContent>
@@ -528,35 +533,33 @@ export default function EventForm({ event, mode }: EventFormProps) {
                   <div>
                     <label className={labelClass}>容量（0 = 無限制）</label>
                     <input
-                      type="number"
-                      className={numberInputClass}
-                      value={ticket.capacity}
-                      onChange={(e) =>
+                      {...numericProps}
+                      value={ticket.capacity || ""}
+                      placeholder="0"
+                      onChange={(e) => {
+                        const v = e.target.value.replace(/\D/g, "");
                         updateTicketType(
                           index,
                           "capacity",
-                          Math.min(parseInt(e.target.value) || 0, 5000),
-                        )
-                      }
-                      min={0}
-                      max={5000}
+                          Math.min(parseInt(v) || 0, 5000),
+                        );
+                      }}
                     />
                   </div>
                   <div>
                     <label className={labelClass}>價格（TWD，0 = 免費）</label>
                     <input
-                      type="number"
-                      className={numberInputClass}
-                      value={ticket.price}
-                      onChange={(e) =>
+                      {...numericProps}
+                      value={ticket.price || ""}
+                      placeholder="0"
+                      onChange={(e) => {
+                        const v = e.target.value.replace(/\D/g, "");
                         updateTicketType(
                           index,
                           "price",
-                          Math.min(parseInt(e.target.value) || 0, 999999),
-                        )
-                      }
-                      min={0}
-                      max={999999}
+                          Math.min(parseInt(v) || 0, 999999),
+                        );
+                      }}
                     />
                   </div>
                   <div>
