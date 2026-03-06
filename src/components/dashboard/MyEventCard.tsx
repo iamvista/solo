@@ -18,6 +18,7 @@ interface RegistrationWithEvent {
     ends_at: string | null;
     format: string;
     venue_name: string | null;
+    venue_address: string | null;
     online_url: string | null;
     cover_image: string | null;
     status: string;
@@ -181,6 +182,10 @@ export default function MyEventCard({
               ? "線上活動"
               : event.venue_name || "待通知"}
           </p>
+          {event.venue_address &&
+            (event.format === "offline" || event.format === "hybrid") && (
+              <p className="text-xs">{event.venue_address}</p>
+            )}
           {registration.ticket_types?.name && (
             <p>票種：{registration.ticket_types.name}</p>
           )}

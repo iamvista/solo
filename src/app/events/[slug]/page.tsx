@@ -108,7 +108,13 @@ export default async function EventPage({
         .replace(/[-:]/g, "")
         .replace(/\.\d{3}/, "")
     : calStart;
-  const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${calStart}/${calEnd}&location=${encodeURIComponent(event.venue_name || "線上")}`;
+  // Build calendar location: include address for venue events, online URL for online events
+  const calendarLocation =
+    event.format === "online"
+      ? event.online_url || "線上"
+      : [event.venue_name, event.venue_address].filter(Boolean).join(" ") ||
+        "待通知";
+  const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${calStart}/${calEnd}&location=${encodeURIComponent(calendarLocation)}`;
 
   // JSON-LD structured data
   const jsonLd = {
@@ -127,11 +133,23 @@ export default async function EventPage({
     location:
       event.format === "online"
         ? { "@type": "VirtualLocation", url: event.online_url || eventUrl }
-        : {
-            "@type": "Place",
-            name: event.venue_name || "",
-            address: event.venue_address || "",
-          },
+        : event.format === "hybrid"
+          ? [
+              {
+                "@type": "Place",
+                name: event.venue_name || "",
+                address: event.venue_address || "",
+              },
+              {
+                "@type": "VirtualLocation",
+                url: event.online_url || eventUrl,
+              },
+            ]
+          : {
+              "@type": "Place",
+              name: event.venue_name || "",
+              address: event.venue_address || "",
+            },
     image: event.cover_image || undefined,
     organizer: event.organizer
       ? {
@@ -219,11 +237,26 @@ export default async function EventPage({
                     ? "線上活動"
                     : event.venue_name || "待通知"}
                 </p>
-                {event.venue_address && (
-                  <p className="text-sm text-muted-foreground">
-                    {event.venue_address}
-                  </p>
-                )}
+                {event.venue_address &&
+                  (event.format === "offline" || event.format === "hybrid") && (
+                    <p className="text-sm text-muted-foreground">
+                      {event.venue_address}
+                    </p>
+                  )}
+                {(event.format === "online" || event.format === "hybrid") &&
+                  event.online_url && (
+                    <p className="text-sm text-muted-foreground">
+                      🔗{" "}
+                      <a
+                        href={event.online_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        線上會議連結
+                      </a>
+                    </p>
+                  )}
               </div>
             </div>
             <div className="space-y-3">

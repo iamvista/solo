@@ -204,7 +204,7 @@ export async function getUserRegistrations(userId: string) {
     .select(
       `
       *,
-      events:event_id (id, slug, title, starts_at, ends_at, format, venue_name, online_url, cover_image, status),
+      events:event_id (id, slug, title, starts_at, ends_at, format, venue_name, venue_address, online_url, cover_image, status),
       ticket_types:ticket_type_id (name)
     `,
     )

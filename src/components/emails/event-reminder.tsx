@@ -16,8 +16,9 @@ interface Props {
   eventTitle: string;
   eventTime: string;
   venue: string;
+  venueAddress?: string;
   eventUrl: string;
-  isOnline: boolean;
+  format: "online" | "offline" | "hybrid";
   onlineUrl?: string;
 }
 
@@ -26,10 +27,14 @@ export function EventReminderEmail({
   eventTitle,
   eventTime,
   venue,
+  venueAddress,
   eventUrl,
-  isOnline,
+  format,
   onlineUrl,
 }: Props) {
+  const hasOnline = format === "online" || format === "hybrid";
+  const hasVenue = format === "offline" || format === "hybrid";
+
   return (
     <Html>
       <Head />
@@ -44,20 +49,31 @@ export function EventReminderEmail({
             <Text style={eventTitleStyle}>《{eventTitle}》</Text>
             <Text style={infoText}>📅 明天 {eventTime}</Text>
             <Text style={infoText}>📍 {venue}</Text>
-            {isOnline && onlineUrl && (
+            {hasVenue && venueAddress && (
+              <Text style={infoText}>📮 地址：{venueAddress}</Text>
+            )}
+            {hasOnline && onlineUrl && (
               <Text style={infoText}>
                 🔗 線上連結：<Link href={onlineUrl}>{onlineUrl}</Link>
               </Text>
             )}
           </Section>
           <Section style={buttonSection}>
-            <Link
-              href={isOnline && onlineUrl ? onlineUrl : eventUrl}
-              style={button}
-            >
-              {isOnline ? "進入活動" : "查看活動詳情"}
-            </Link>
+            {hasOnline && onlineUrl ? (
+              <Link href={onlineUrl} style={button}>
+                進入線上會議室
+              </Link>
+            ) : (
+              <Link href={eventUrl} style={button}>
+                查看活動詳情
+              </Link>
+            )}
           </Section>
+          {hasOnline && !onlineUrl && (
+            <Text style={text}>
+              ⚠️ 線上會議連結請至活動頁面確認。
+            </Text>
+          )}
           <Text style={text}>建議提早 5-10 分鐘入場</Text>
           <Text style={text}>期待在活動中見到你！</Text>
           <Hr style={hr} />

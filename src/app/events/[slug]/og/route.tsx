@@ -30,7 +30,9 @@ export async function GET(
 
   const { data: event } = await supabase
     .from("events")
-    .select("title, subtitle, starts_at, format, category, venue_name")
+    .select(
+      "title, subtitle, starts_at, format, category, venue_name, venue_address",
+    )
     .eq("slug", slug)
     .single();
 
@@ -104,17 +106,26 @@ export async function GET(
       <div
         style={{
           display: "flex",
-          gap: "32px",
+          flexDirection: "column",
+          gap: "8px",
           color: "#cbd5e1",
           fontSize: "24px",
         }}
       >
-        <span>{dateStr}</span>
-        <span>
-          {event.format === "online"
-            ? "線上活動"
-            : event.venue_name || "待通知"}
-        </span>
+        <div style={{ display: "flex", gap: "32px" }}>
+          <span>{dateStr}</span>
+          <span>
+            {event.format === "online"
+              ? "線上活動"
+              : event.venue_name || "待通知"}
+          </span>
+        </div>
+        {event.venue_address &&
+          (event.format === "offline" || event.format === "hybrid") && (
+            <span style={{ fontSize: "18px", color: "#94a3b8" }}>
+              {event.venue_address}
+            </span>
+          )}
       </div>
       <div
         style={{

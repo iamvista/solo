@@ -89,6 +89,10 @@ export default function EventCard({ event }: { event: EventWithCounts }) {
               ? "線上活動"
               : event.venue_name || "待通知"}
           </p>
+          {event.venue_address &&
+            (event.format === "offline" || event.format === "hybrid") && (
+              <p className="text-xs">{event.venue_address}</p>
+            )}
           <p>{event.registration_count} 人已報名</p>
         </div>
 

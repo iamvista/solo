@@ -50,7 +50,9 @@ export async function POST(request: NextRequest) {
     // Fetch event and ticket info for email
     const { data: event } = await supabase
       .from("events")
-      .select("title, starts_at, ends_at, format, venue_name, online_url, slug")
+      .select(
+        "title, starts_at, ends_at, format, venue_name, venue_address, online_url, slug",
+      )
       .eq("id", event_id)
       .single();
 
@@ -81,10 +83,15 @@ export async function POST(request: NextRequest) {
         timeFmt.format(startDate) +
         (endDate ? `–${timeFmt.format(endDate)}` : "");
 
-      const venue =
-        event.format === "online" ? "線上活動" : event.venue_name || "待通知";
+      const hasVenue = event.format === "offline" || event.format === "hybrid";
+      const venue = hasVenue ? event.venue_name || "待通知" : "線上活動";
 
       const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+
+      // Build calendar location with address
+      const calendarLocation = hasVenue
+        ? [event.venue_name, event.venue_address].filter(Boolean).join(" ")
+        : event.online_url || "線上";
 
       // Send confirmation email (fire and forget)
       sendEmail({
@@ -99,16 +106,17 @@ export async function POST(request: NextRequest) {
           eventDate: dateStr,
           eventTime: timeStr,
           venue,
+          venueAddress: event.venue_address || undefined,
           ticketType: ticketType?.name || "",
           eventUrl: `${baseUrl}/events/${event.slug}`,
           calendarUrl: buildGoogleCalendarUrl(
             event.title,
             event.starts_at,
             event.ends_at,
-            venue,
+            calendarLocation,
           ),
           cancelUrl: `${baseUrl}/dashboard/events`,
-          isOnline: event.format === "online",
+          format: event.format as "online" | "offline" | "hybrid",
           onlineUrl: event.online_url || undefined,
         }),
       });

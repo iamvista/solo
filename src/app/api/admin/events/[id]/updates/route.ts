@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import { createEventUpdate, getEventRegistrations } from "@/lib/supabase/events";
+import {
+  createEventUpdate,
+  getEventRegistrations,
+} from "@/lib/supabase/events";
 import { sendEmail } from "@/lib/email";
 import { EventUpdateEmail } from "@/components/emails/event-update-email";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   if (!(await isAdmin())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -23,7 +26,9 @@ export async function POST(
     }
 
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     const update = await createEventUpdate({
       event_id: eventId,
@@ -39,7 +44,9 @@ export async function POST(
     // Get event info for email
     const { data: event } = await supabase
       .from("events")
-      .select("title, slug")
+      .select(
+        "title, slug, starts_at, ends_at, format, venue_name, venue_address, online_url",
+      )
       .eq("id", eventId)
       .single();
 
@@ -55,6 +62,33 @@ export async function POST(
       return r.status !== "cancelled"; // "all" = confirmed + waitlisted
     });
 
+    // Build event info for email
+    const TZ = "Asia/Taipei";
+    const eventDate = event?.starts_at
+      ? new Intl.DateTimeFormat("zh-TW", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          weekday: "short",
+          timeZone: TZ,
+        }).format(new Date(event.starts_at))
+      : undefined;
+    const timeFmt = new Intl.DateTimeFormat("zh-TW", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: TZ,
+    });
+    const eventTime = event?.starts_at
+      ? timeFmt.format(new Date(event.starts_at)) +
+        (event.ends_at ? `–${timeFmt.format(new Date(event.ends_at))}` : "")
+      : undefined;
+    const hasVenue = event?.format === "offline" || event?.format === "hybrid";
+    const venue = hasVenue
+      ? event?.venue_name || "待通知"
+      : event?.format === "online"
+        ? "線上活動"
+        : undefined;
+
     // Send emails (fire and forget)
     for (const reg of targetRegs) {
       sendEmail({
@@ -66,6 +100,11 @@ export async function POST(
           updateTitle: title,
           updateContent: content || "",
           eventUrl: `${baseUrl}/events/${event?.slug}`,
+          eventDate,
+          eventTime,
+          venue,
+          venueAddress: event?.venue_address || undefined,
+          onlineUrl: event?.online_url || undefined,
         }),
       });
     }

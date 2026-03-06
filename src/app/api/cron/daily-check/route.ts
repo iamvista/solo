@@ -40,6 +40,9 @@ export async function GET(request: NextRequest) {
       .eq("event_id", event.id)
       .eq("status", "confirmed");
 
+    const hasVenue = event.format === "offline" || event.format === "hybrid";
+    const venue = hasVenue ? event.venue_name || "待通知" : "線上活動";
+
     for (const reg of registrations || []) {
       await sendEmail({
         to: reg.email,
@@ -52,12 +55,10 @@ export async function GET(request: NextRequest) {
             minute: "2-digit",
             timeZone: "Asia/Taipei",
           }).format(new Date(event.starts_at)),
-          venue:
-            event.format === "online"
-              ? "線上活動"
-              : event.venue_name || "待通知",
+          venue,
+          venueAddress: event.venue_address || undefined,
           eventUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/events/${event.slug}`,
-          isOnline: event.format === "online",
+          format: event.format as "online" | "offline" | "hybrid",
           onlineUrl: event.online_url || undefined,
         }),
       });

@@ -17,11 +17,12 @@ interface Props {
   eventDate: string;
   eventTime: string;
   venue: string;
+  venueAddress?: string;
   ticketType: string;
   eventUrl: string;
   calendarUrl: string;
   cancelUrl: string;
-  isOnline: boolean;
+  format: "online" | "offline" | "hybrid";
   onlineUrl?: string;
 }
 
@@ -31,13 +32,17 @@ export function RegistrationConfirmEmail({
   eventDate,
   eventTime,
   venue,
+  venueAddress,
   ticketType,
   eventUrl,
   calendarUrl,
   cancelUrl,
-  isOnline,
+  format,
   onlineUrl,
 }: Props) {
+  const hasOnline = format === "online" || format === "hybrid";
+  const hasVenue = format === "offline" || format === "hybrid";
+
   return (
     <Html>
       <Head />
@@ -53,7 +58,10 @@ export function RegistrationConfirmEmail({
               📅 {eventDate} {eventTime}
             </Text>
             <Text style={infoText}>📍 {venue}</Text>
-            {isOnline && onlineUrl && (
+            {hasVenue && venueAddress && (
+              <Text style={infoText}>📮 地址：{venueAddress}</Text>
+            )}
+            {hasOnline && onlineUrl && (
               <Text style={infoText}>
                 🔗 線上連結：<Link href={onlineUrl}>{onlineUrl}</Link>
               </Text>
@@ -61,7 +69,7 @@ export function RegistrationConfirmEmail({
             <Text style={infoText}>🎫 票種：{ticketType}</Text>
           </Section>
           <Section style={buttonSection}>
-            {isOnline && onlineUrl ? (
+            {hasOnline && onlineUrl ? (
               <Link href={onlineUrl} style={button}>
                 進入線上會議室
               </Link>
@@ -71,14 +79,21 @@ export function RegistrationConfirmEmail({
               </Link>
             )}
           </Section>
+          {hasOnline && !onlineUrl && (
+            <Text style={text}>
+              ⚠️ 線上會議連結將於活動前另行通知，請留意信箱。
+            </Text>
+          )}
           <Text style={text}>
             📎 <Link href={calendarUrl}>加入 Google 日曆</Link>
           </Text>
           <Hr style={hr} />
           <Text style={smallText}>
-            {isOnline
-              ? `【入場說明】線上活動請於開始前 10 分鐘進入會議室。${onlineUrl ? "" : "會議連結將於活動前另行通知。"}`
-              : "【入場說明】實體活動請攜帶此信件作為報名憑證。"}
+            {format === "online"
+              ? "【入場說明】線上活動請於開始前 10 分鐘進入會議室。"
+              : format === "hybrid"
+                ? "【入場說明】混合活動可選擇現場出席或線上參加。現場請攜帶此信件作為憑證。"
+                : "【入場說明】實體活動請攜帶此信件作為報名憑證。"}
           </Text>
           <Text style={smallText}>
             如需取消報名，請<Link href={cancelUrl}>點此連結</Link>。

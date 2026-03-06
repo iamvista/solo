@@ -11,6 +11,7 @@ interface EventData {
   ends_at: string | null;
   format: string;
   venue_name: string | null;
+  venue_address: string | null;
   online_url: string | null;
   slug: string;
 }
@@ -41,7 +42,16 @@ function formatTime(iso: string) {
 }
 
 function getVenue(event: EventData) {
-  return event.format === "online" ? "線上活動" : event.venue_name || "待通知";
+  const hasVenue = event.format === "offline" || event.format === "hybrid";
+  return hasVenue ? event.venue_name || "待通知" : "線上活動";
+}
+
+function getVenueWithAddress(event: EventData) {
+  const venue = getVenue(event);
+  if (event.venue_address && event.format !== "online") {
+    return `${venue}\n📮 地址：${event.venue_address}`;
+  }
+  return venue;
 }
 
 type TemplateKey = "confirm" | "reminder" | "change" | "custom";
@@ -62,6 +72,25 @@ function buildTemplate(
   const endTime = event.ends_at ? formatTime(event.ends_at) : null;
   const timeStr = endTime ? `${startTime}–${endTime}` : startTime;
   const venue = getVenue(event);
+  const hasVenue = event.format === "offline" || event.format === "hybrid";
+  const hasOnline = event.format === "online" || event.format === "hybrid";
+
+  // Build location lines
+  const locationLines = [
+    `📍 地點：${venue}`,
+    hasVenue && event.venue_address ? `📮 地址：${event.venue_address}` : "",
+    hasOnline && event.online_url ? `🔗 線上連結：${event.online_url}` : "",
+  ].filter(Boolean);
+
+  // Build entrance instructions
+  const entranceInstructions =
+    event.format === "hybrid"
+      ? "混合活動可選擇現場出席或線上參加。現場請攜帶此信件作為憑證，線上請於開始前 10 分鐘進入會議室。"
+      : event.format === "online"
+        ? event.online_url
+          ? "請於活動開始前 10 分鐘點擊上方連結進入會議室。"
+          : "線上活動連結將於活動前另行通知，請留意信箱。"
+        : "請攜帶此信件作為報名憑證。建議提早 10 分鐘入場。";
 
   switch (key) {
     case "confirm":
@@ -72,16 +101,9 @@ function buildTemplate(
           "",
           `📅 日期：${dateStr}`,
           `⏰ 時間：${timeStr}`,
-          `📍 地點：${venue}`,
-          event.format === "online" && event.online_url
-            ? `🔗 線上連結：${event.online_url}`
-            : "",
+          ...locationLines,
           "",
-          event.format === "online"
-            ? event.online_url
-              ? "請於活動開始前 10 分鐘點擊上方連結進入會議室。"
-              : "線上活動連結將於活動前另行通知，請留意信箱。"
-            : "請攜帶此信件作為報名憑證。建議提早 10 分鐘入場。",
+          entranceInstructions,
           "",
           "如有任何疑問，歡迎回覆此信。",
         ].join("\n"),
@@ -94,15 +116,10 @@ function buildTemplate(
           "",
           `📅 日期：${dateStr}`,
           `⏰ 時間：${timeStr}`,
-          `📍 地點：${venue}`,
+          ...locationLines,
           "",
-          event.format === "online" && event.online_url
-            ? `🔗 線上連結：${event.online_url}`
-            : "",
           "建議提早 5-10 分鐘進入，期待在活動中見到你！",
-        ]
-          .filter(Boolean)
-          .join("\n"),
+        ].join("\n"),
       };
     case "change":
       return {
@@ -116,10 +133,7 @@ function buildTemplate(
           "更新後的活動資訊如下：",
           `📅 日期：${dateStr}`,
           `⏰ 時間：${timeStr}`,
-          `📍 地點：${venue}`,
-          event.format === "online" && event.online_url
-            ? `🔗 線上連結：${event.online_url}`
-            : "",
+          ...locationLines,
           "",
           "造成不便敬請見諒，如有疑問歡迎回覆此信。",
         ].join("\n"),

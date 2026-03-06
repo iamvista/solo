@@ -19,7 +19,9 @@ export default async function AdminUpdatesPage({
 
   const { data: event } = await supabase
     .from("events")
-    .select("title, slug, starts_at, ends_at, format, venue_name, online_url")
+    .select(
+      "title, slug, starts_at, ends_at, format, venue_name, venue_address, online_url",
+    )
     .eq("id", id)
     .single();
   if (!event) notFound();
