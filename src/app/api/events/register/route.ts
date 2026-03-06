@@ -1,0 +1,111 @@
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { registerForEvent } from "@/lib/supabase/events";
+import { sendEmail } from "@/lib/email";
+import { RegistrationConfirmEmail } from "@/components/emails/registration-confirm";
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { event_id, ticket_type_id, name, email, phone, note, utm_source, utm_medium, utm_campaign } = body;
+
+    if (!event_id || !ticket_type_id || !name || !email) {
+      return NextResponse.json({ error: "缺少必填欄位" }, { status: 400 });
+    }
+
+    // Get current user if logged in
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { registration, error } = await registerForEvent({
+      event_id,
+      ticket_type_id,
+      user_id: user?.id || null,
+      name,
+      email,
+      phone: phone || null,
+      status: "confirmed", // registerForEvent will override based on capacity
+      note: note || null,
+      utm_source: utm_source || null,
+      utm_medium: utm_medium || null,
+      utm_campaign: utm_campaign || null,
+    });
+
+    if (error) {
+      return NextResponse.json({ error }, { status: 400 });
+    }
+
+    // Fetch event and ticket info for email
+    const { data: event } = await supabase
+      .from("events")
+      .select("title, starts_at, ends_at, format, venue_name, online_url, slug")
+      .eq("id", event_id)
+      .single();
+
+    const { data: ticketType } = await supabase
+      .from("ticket_types")
+      .select("name")
+      .eq("id", ticket_type_id)
+      .single();
+
+    if (event && registration) {
+      const startDate = new Date(event.starts_at);
+      const endDate = event.ends_at ? new Date(event.ends_at) : null;
+
+      const dateStr = startDate.toLocaleDateString("zh-TW", { year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" });
+      const timeStr = startDate.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })
+        + (endDate ? `–${endDate.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })}` : "");
+
+      const venue = event.format === "online"
+        ? "線上活動"
+        : event.venue_name || "待通知";
+
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+
+      // Send confirmation email (fire and forget)
+      sendEmail({
+        to: email,
+        subject: registration.status === "confirmed"
+          ? `報名確認：${event.title}`
+          : `候補通知：${event.title}`,
+        react: RegistrationConfirmEmail({
+          name,
+          eventTitle: event.title,
+          eventDate: dateStr,
+          eventTime: timeStr,
+          venue,
+          ticketType: ticketType?.name || "",
+          eventUrl: `${baseUrl}/events/${event.slug}`,
+          calendarUrl: buildGoogleCalendarUrl(event.title, event.starts_at, event.ends_at, venue),
+          cancelUrl: `${baseUrl}/dashboard/events`,
+          isOnline: event.format === "online",
+        }),
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      registration,
+      message: registration?.status === "confirmed" ? "報名成功！" : "已加入候補名單",
+    });
+  } catch (err) {
+    console.error("Registration error:", err);
+    return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
+  }
+}
+
+function buildGoogleCalendarUrl(title: string, start: string, end: string | null, location: string): string {
+  const startDate = new Date(start).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const endDate = end
+    ? new Date(end).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")
+    : startDate;
+
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: title,
+    dates: `${startDate}/${endDate}`,
+    location,
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
