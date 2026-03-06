@@ -174,7 +174,7 @@ export default function MyEventCard({
           <Button variant="outline" asChild className="flex-1">
             <Link href={`/events/${event.slug}`}>查看活動</Link>
           </Button>
-          {isUpcoming && (
+          {isUpcoming && registration.status === "confirmed" && (
             <Button
               variant="destructive"
               className="flex-1"
