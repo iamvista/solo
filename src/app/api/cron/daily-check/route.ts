@@ -65,16 +65,16 @@ export async function GET(request: NextRequest) {
   }
 
   // 2. Auto-archive past events
-  const { count: archived } = await supabase
+  const { data: archivedData } = await supabase
     .from("events")
     .update({ status: "archived" })
     .eq("status", "published")
     .lt("ends_at", now.toISOString())
-    .select("*", { count: "exact", head: true });
+    .select();
 
   return NextResponse.json({
     success: true,
     remindersSent,
-    archived: archived || 0,
+    archived: archivedData?.length || 0,
   });
 }
