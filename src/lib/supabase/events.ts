@@ -29,9 +29,10 @@ export async function getPublishedEvents(): Promise<EventWithCounts[]> {
 
   if (!events || events.length === 0) return [];
 
-  // Get registration counts per event
+  // Get registration counts per event (use service client to bypass RLS — anonymous visitors can't read registrations)
   const eventIds = events.map((e) => e.id);
-  const { data: regCounts } = await supabase
+  const serviceClient = createServiceClient();
+  const { data: regCounts } = await serviceClient
     .from("registrations")
     .select("event_id, status")
     .in("event_id", eventIds)
@@ -78,7 +79,9 @@ export async function getEventBySlug(
     .eq("is_active", true)
     .order("sort_order", { ascending: true });
 
-  const { data: regs } = await supabase
+  // Use service client to bypass RLS — anonymous visitors can't read registrations
+  const serviceClient = createServiceClient();
+  const { data: regs } = await serviceClient
     .from("registrations")
     .select("ticket_type_id, status")
     .eq("event_id", event.id)
