@@ -252,7 +252,7 @@ export default async function EventPage({
 
         {/* Description */}
         {event.description && (
-          <div className="prose prose-neutral mb-8 max-w-none">
+          <div className="mb-8">
             <MarkdownContent content={event.description} />
           </div>
         )}

@@ -7,7 +7,17 @@ import { RegistrationConfirmEmail } from "@/components/emails/registration-confi
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { event_id, ticket_type_id, name, email, phone, note, utm_source, utm_medium, utm_campaign } = body;
+    const {
+      event_id,
+      ticket_type_id,
+      name,
+      email,
+      phone,
+      note,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+    } = body;
 
     if (!event_id || !ticket_type_id || !name || !email) {
       return NextResponse.json({ error: "缺少必填欄位" }, { status: 400 });
@@ -15,7 +25,9 @@ export async function POST(request: NextRequest) {
 
     // Get current user if logged in
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     const { registration, error } = await registerForEvent({
       event_id,
@@ -52,22 +64,35 @@ export async function POST(request: NextRequest) {
       const startDate = new Date(event.starts_at);
       const endDate = event.ends_at ? new Date(event.ends_at) : null;
 
-      const dateStr = startDate.toLocaleDateString("zh-TW", { year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" });
-      const timeStr = startDate.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })
-        + (endDate ? `–${endDate.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })}` : "");
+      const TZ = "Asia/Taipei";
+      const dateStr = new Intl.DateTimeFormat("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        weekday: "short",
+        timeZone: TZ,
+      }).format(startDate);
+      const timeFmt = new Intl.DateTimeFormat("zh-TW", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: TZ,
+      });
+      const timeStr =
+        timeFmt.format(startDate) +
+        (endDate ? `–${timeFmt.format(endDate)}` : "");
 
-      const venue = event.format === "online"
-        ? "線上活動"
-        : event.venue_name || "待通知";
+      const venue =
+        event.format === "online" ? "線上活動" : event.venue_name || "待通知";
 
       const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
 
       // Send confirmation email (fire and forget)
       sendEmail({
         to: email,
-        subject: registration.status === "confirmed"
-          ? `報名確認：${event.title}`
-          : `候補通知：${event.title}`,
+        subject:
+          registration.status === "confirmed"
+            ? `報名確認：${event.title}`
+            : `候補通知：${event.title}`,
         react: RegistrationConfirmEmail({
           name,
           eventTitle: event.title,
@@ -76,7 +101,12 @@ export async function POST(request: NextRequest) {
           venue,
           ticketType: ticketType?.name || "",
           eventUrl: `${baseUrl}/events/${event.slug}`,
-          calendarUrl: buildGoogleCalendarUrl(event.title, event.starts_at, event.ends_at, venue),
+          calendarUrl: buildGoogleCalendarUrl(
+            event.title,
+            event.starts_at,
+            event.ends_at,
+            venue,
+          ),
           cancelUrl: `${baseUrl}/dashboard/events`,
           isOnline: event.format === "online",
         }),
@@ -86,7 +116,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       registration,
-      message: registration?.status === "confirmed" ? "報名成功！" : "已加入候補名單",
+      message:
+        registration?.status === "confirmed" ? "報名成功！" : "已加入候補名單",
     });
   } catch (err) {
     console.error("Registration error:", err);
@@ -94,10 +125,21 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function buildGoogleCalendarUrl(title: string, start: string, end: string | null, location: string): string {
-  const startDate = new Date(start).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+function buildGoogleCalendarUrl(
+  title: string,
+  start: string,
+  end: string | null,
+  location: string,
+): string {
+  const startDate = new Date(start)
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "");
   const endDate = end
-    ? new Date(end).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")
+    ? new Date(end)
+        .toISOString()
+        .replace(/[-:]/g, "")
+        .replace(/\.\d{3}/, "")
     : startDate;
 
   const params = new URLSearchParams({

@@ -59,15 +59,18 @@ export default function MyEventCard({
   if (!event) return null;
 
   const startDate = new Date(event.starts_at);
-  const dateStr = startDate.toLocaleDateString("zh-TW", {
+  const TZ = "Asia/Taipei";
+  const dateStr = new Intl.DateTimeFormat("zh-TW", {
     month: "long",
     day: "numeric",
     weekday: "short",
-  });
-  const timeStr = startDate.toLocaleTimeString("zh-TW", {
+    timeZone: TZ,
+  }).format(startDate);
+  const timeStr = new Intl.DateTimeFormat("zh-TW", {
     hour: "2-digit",
     minute: "2-digit",
-  });
+    timeZone: TZ,
+  }).format(startDate);
 
   async function handleCancel() {
     if (!confirm("確定要取消報名嗎？")) return;
@@ -100,8 +103,18 @@ export default function MyEventCard({
       <Card className="overflow-hidden border-dashed opacity-60">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
-            <svg className="mx-auto mb-2 h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            <svg
+              className="mx-auto mb-2 h-8 w-8 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
             </svg>
             <p className="font-medium text-green-600">已取消報名</p>
           </div>
@@ -111,7 +124,9 @@ export default function MyEventCard({
   }
 
   return (
-    <Card className={`overflow-hidden transition-shadow hover:shadow-lg ${!isUpcoming ? "opacity-70" : ""}`}>
+    <Card
+      className={`overflow-hidden transition-shadow hover:shadow-lg ${!isUpcoming ? "opacity-70" : ""}`}
+    >
       {event.cover_image && (
         <div className="aspect-video w-full overflow-hidden bg-muted">
           <img
@@ -158,7 +173,9 @@ export default function MyEventCard({
 
         {/* Event info */}
         <div className="mb-4 space-y-1 text-sm text-muted-foreground">
-          <p>{dateStr} {timeStr}</p>
+          <p>
+            {dateStr} {timeStr}
+          </p>
           <p>
             {event.format === "online"
               ? "線上活動"

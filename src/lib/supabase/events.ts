@@ -1,9 +1,18 @@
 import { createClient } from "./server";
 import type {
-  Event, EventInsert, EventUpdateData, EventWithCounts, EventDetail,
-  TicketType, TicketTypeInsert, TicketTypeWithCount,
-  Registration, RegistrationInsert, RegistrationStatus,
-  EventUpdate, EventUpdateInsert,
+  Event,
+  EventInsert,
+  EventUpdateData,
+  EventWithCounts,
+  EventDetail,
+  TicketType,
+  TicketTypeInsert,
+  TicketTypeWithCount,
+  Registration,
+  RegistrationInsert,
+  RegistrationStatus,
+  EventUpdate,
+  EventUpdateInsert,
 } from "./types";
 
 // ─── Public Queries ───
@@ -27,9 +36,13 @@ export async function getPublishedEvents(): Promise<EventWithCounts[]> {
     .in("event_id", eventIds)
     .neq("status", "cancelled");
 
-  const countMap: Record<string, { total: number; confirmed: number; waitlisted: number }> = {};
+  const countMap: Record<
+    string,
+    { total: number; confirmed: number; waitlisted: number }
+  > = {};
   regCounts?.forEach((r) => {
-    if (!countMap[r.event_id]) countMap[r.event_id] = { total: 0, confirmed: 0, waitlisted: 0 };
+    if (!countMap[r.event_id])
+      countMap[r.event_id] = { total: 0, confirmed: 0, waitlisted: 0 };
     countMap[r.event_id].total++;
     if (r.status === "confirmed") countMap[r.event_id].confirmed++;
     if (r.status === "waitlisted") countMap[r.event_id].waitlisted++;
@@ -43,7 +56,9 @@ export async function getPublishedEvents(): Promise<EventWithCounts[]> {
   }));
 }
 
-export async function getEventBySlug(slug: string): Promise<EventDetail | null> {
+export async function getEventBySlug(
+  slug: string,
+): Promise<EventDetail | null> {
   const supabase = await createClient();
 
   const { data: event } = await supabase
@@ -68,18 +83,24 @@ export async function getEventBySlug(slug: string): Promise<EventDetail | null> 
     .eq("event_id", event.id)
     .neq("status", "cancelled");
 
-  const ticketCounts: Record<string, { confirmed: number; waitlisted: number }> = {};
+  const ticketCounts: Record<
+    string,
+    { confirmed: number; waitlisted: number }
+  > = {};
   regs?.forEach((r) => {
-    if (!ticketCounts[r.ticket_type_id]) ticketCounts[r.ticket_type_id] = { confirmed: 0, waitlisted: 0 };
+    if (!ticketCounts[r.ticket_type_id])
+      ticketCounts[r.ticket_type_id] = { confirmed: 0, waitlisted: 0 };
     if (r.status === "confirmed") ticketCounts[r.ticket_type_id].confirmed++;
     if (r.status === "waitlisted") ticketCounts[r.ticket_type_id].waitlisted++;
   });
 
-  const ticketTypesWithCounts: TicketTypeWithCount[] = (ticketTypes || []).map((t) => ({
-    ...t,
-    confirmed_count: ticketCounts[t.id]?.confirmed || 0,
-    waitlisted_count: ticketCounts[t.id]?.waitlisted || 0,
-  }));
+  const ticketTypesWithCounts: TicketTypeWithCount[] = (ticketTypes || []).map(
+    (t) => ({
+      ...t,
+      confirmed_count: ticketCounts[t.id]?.confirmed || 0,
+      waitlisted_count: ticketCounts[t.id]?.waitlisted || 0,
+    }),
+  );
 
   // Get updates
   const { data: updates } = await supabase
@@ -109,7 +130,9 @@ export async function getEventBySlug(slug: string): Promise<EventDetail | null> 
 
 // ─── Registration ───
 
-export async function registerForEvent(data: RegistrationInsert): Promise<{ registration: Registration | null; error: string | null }> {
+export async function registerForEvent(
+  data: RegistrationInsert,
+): Promise<{ registration: Registration | null; error: string | null }> {
   const supabase = await createClient();
 
   // Check if ticket type has capacity
@@ -142,9 +165,10 @@ export async function registerForEvent(data: RegistrationInsert): Promise<{ regi
 
   // Determine status based on capacity
   const confirmedCount = count || 0;
-  const status: RegistrationStatus = ticketType.capacity > 0 && confirmedCount >= ticketType.capacity
-    ? "waitlisted"
-    : "confirmed";
+  const status: RegistrationStatus =
+    ticketType.capacity > 0 && confirmedCount >= ticketType.capacity
+      ? "waitlisted"
+      : "confirmed";
 
   const { data: registration, error } = await supabase
     .from("registrations")
@@ -157,7 +181,10 @@ export async function registerForEvent(data: RegistrationInsert): Promise<{ regi
   return { registration, error: null };
 }
 
-export async function cancelRegistration(registrationId: string, userId: string): Promise<boolean> {
+export async function cancelRegistration(
+  registrationId: string,
+  userId: string,
+): Promise<boolean> {
   const supabase = await createClient();
 
   const { error } = await supabase
@@ -174,11 +201,13 @@ export async function getUserRegistrations(userId: string) {
 
   const { data } = await supabase
     .from("registrations")
-    .select(`
+    .select(
+      `
       *,
       events:event_id (id, slug, title, starts_at, ends_at, format, venue_name, online_url, cover_image, status),
       ticket_types:ticket_type_id (name)
-    `)
+    `,
+    )
     .eq("user_id", userId)
     .neq("status", "cancelled")
     .order("created_at", { ascending: false });
@@ -208,9 +237,11 @@ export async function getAdminEventList(page: number = 1, limit: number = 20) {
     .in("event_id", eventIds)
     .neq("status", "cancelled");
 
-  const countMap: Record<string, { confirmed: number; waitlisted: number }> = {};
+  const countMap: Record<string, { confirmed: number; waitlisted: number }> =
+    {};
   regCounts?.forEach((r) => {
-    if (!countMap[r.event_id]) countMap[r.event_id] = { confirmed: 0, waitlisted: 0 };
+    if (!countMap[r.event_id])
+      countMap[r.event_id] = { confirmed: 0, waitlisted: 0 };
     if (r.status === "confirmed") countMap[r.event_id].confirmed++;
     if (r.status === "waitlisted") countMap[r.event_id].waitlisted++;
   });
@@ -219,7 +250,8 @@ export async function getAdminEventList(page: number = 1, limit: number = 20) {
     ...e,
     confirmed_count: countMap[e.id]?.confirmed || 0,
     waitlisted_count: countMap[e.id]?.waitlisted || 0,
-    registration_count: (countMap[e.id]?.confirmed || 0) + (countMap[e.id]?.waitlisted || 0),
+    registration_count:
+      (countMap[e.id]?.confirmed || 0) + (countMap[e.id]?.waitlisted || 0),
   }));
 
   return {
@@ -233,15 +265,33 @@ export async function getAdminEventList(page: number = 1, limit: number = 20) {
 
 export async function createEvent(data: EventInsert): Promise<Event | null> {
   const supabase = await createClient();
-  const { data: event, error } = await supabase.from("events").insert(data).select().single();
-  if (error) { console.error("createEvent error:", error); return null; }
+  const { data: event, error } = await supabase
+    .from("events")
+    .insert(data)
+    .select()
+    .single();
+  if (error) {
+    console.error("createEvent error:", error);
+    return null;
+  }
   return event;
 }
 
-export async function updateEvent(id: string, data: EventUpdateData): Promise<Event | null> {
+export async function updateEvent(
+  id: string,
+  data: EventUpdateData,
+): Promise<Event | null> {
   const supabase = await createClient();
-  const { data: event, error } = await supabase.from("events").update(data).eq("id", id).select().single();
-  if (error) { console.error("updateEvent error:", error); return null; }
+  const { data: event, error } = await supabase
+    .from("events")
+    .update(data)
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) {
+    console.error("updateEvent error:", error);
+    return null;
+  }
   return event;
 }
 
@@ -251,7 +301,10 @@ export async function deleteEvent(id: string): Promise<boolean> {
   return !error;
 }
 
-export async function upsertTicketTypes(eventId: string, ticketTypes: Omit<TicketTypeInsert, "event_id">[]): Promise<boolean> {
+export async function upsertTicketTypes(
+  eventId: string,
+  ticketTypes: Omit<TicketTypeInsert, "event_id">[],
+): Promise<boolean> {
   const supabase = await createClient();
 
   // Delete existing ticket types for this event
@@ -268,16 +321,23 @@ export async function upsertTicketTypes(eventId: string, ticketTypes: Omit<Ticke
   return !error;
 }
 
-export async function getEventRegistrations(eventId: string, page: number = 1, limit: number = 50) {
+export async function getEventRegistrations(
+  eventId: string,
+  page: number = 1,
+  limit: number = 50,
+) {
   const supabase = await createClient();
   const offset = (page - 1) * limit;
 
   const { data, count } = await supabase
     .from("registrations")
-    .select(`
+    .select(
+      `
       *,
       ticket_types:ticket_type_id (name)
-    `, { count: "exact" })
+    `,
+      { count: "exact" },
+    )
     .eq("event_id", eventId)
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
@@ -291,15 +351,43 @@ export async function getEventRegistrations(eventId: string, page: number = 1, l
   };
 }
 
-export async function updateRegistrationStatus(registrationId: string, status: RegistrationStatus): Promise<boolean> {
+export async function updateRegistrationStatus(
+  registrationId: string,
+  status: RegistrationStatus,
+): Promise<boolean> {
   const supabase = await createClient();
-  const { error } = await supabase.from("registrations").update({ status }).eq("id", registrationId);
+  const { error } = await supabase
+    .from("registrations")
+    .update({ status })
+    .eq("id", registrationId);
   return !error;
 }
 
-export async function createEventUpdate(data: EventUpdateInsert): Promise<EventUpdate | null> {
+export async function deleteRegistrations(
+  registrationIds: string[],
+): Promise<number> {
   const supabase = await createClient();
-  const { data: update, error } = await supabase.from("event_updates").insert(data).select().single();
+  const { data, error } = await supabase
+    .from("registrations")
+    .delete()
+    .in("id", registrationIds)
+    .select("id");
+  if (error) {
+    console.error("Delete registrations error:", error);
+    return 0;
+  }
+  return data?.length || 0;
+}
+
+export async function createEventUpdate(
+  data: EventUpdateInsert,
+): Promise<EventUpdate | null> {
+  const supabase = await createClient();
+  const { data: update, error } = await supabase
+    .from("event_updates")
+    .insert(data)
+    .select()
+    .single();
   if (error) return null;
   return update;
 }

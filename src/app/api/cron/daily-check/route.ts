@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
   const now = new Date();
@@ -47,10 +47,11 @@ export async function GET(request: NextRequest) {
         react: EventReminderEmail({
           name: reg.name,
           eventTitle: event.title,
-          eventTime: new Date(event.starts_at).toLocaleTimeString("zh-TW", {
+          eventTime: new Intl.DateTimeFormat("zh-TW", {
             hour: "2-digit",
             minute: "2-digit",
-          }),
+            timeZone: "Asia/Taipei",
+          }).format(new Date(event.starts_at)),
           venue:
             event.format === "online"
               ? "線上活動"
