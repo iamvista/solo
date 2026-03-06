@@ -416,6 +416,21 @@ export async function updateRegistrationStatus(
   return !error;
 }
 
+export async function updateRegistrationFields(
+  registrationId: string,
+  fields: { name?: string; email?: string; phone?: string; note?: string },
+): Promise<boolean> {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("registrations")
+    .update(fields)
+    .eq("id", registrationId);
+  if (error) {
+    console.error("updateRegistrationFields error:", error);
+  }
+  return !error;
+}
+
 export async function deleteRegistrations(
   registrationIds: string[],
 ): Promise<number> {

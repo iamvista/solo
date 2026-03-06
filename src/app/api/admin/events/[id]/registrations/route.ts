@@ -3,6 +3,7 @@ import { isAdmin } from "@/lib/supabase/admin";
 import {
   getEventRegistrations,
   updateRegistrationStatus,
+  updateRegistrationFields,
   deleteRegistrations,
 } from "@/lib/supabase/events";
 import type { RegistrationStatus } from "@/lib/supabase/types";
@@ -39,6 +40,26 @@ export async function PATCH(
 
   try {
     const body = await request.json();
+
+    // Single registration field update (inline edit)
+    if (body.registration_id && body.fields) {
+      const { registration_id, fields } = body as {
+        registration_id: string;
+        fields: {
+          name?: string;
+          email?: string;
+          phone?: string;
+          note?: string;
+        };
+      };
+      const success = await updateRegistrationFields(registration_id, fields);
+      if (!success) {
+        return NextResponse.json({ error: "更新失敗" }, { status: 500 });
+      }
+      return NextResponse.json({ success: true });
+    }
+
+    // Bulk status update
     const { registration_ids, status } = body as {
       registration_ids: string[];
       status: RegistrationStatus;

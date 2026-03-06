@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +21,85 @@ const statusConfig: Record<
 interface Props {
   registrations: any[];
   eventId: string;
+}
+
+/** Inline‑editable cell — click to edit, Enter/blur to save */
+function EditableCell({
+  value,
+  field,
+  registrationId,
+  eventId,
+  onSaved,
+  className = "",
+}: {
+  value: string;
+  field: "name" | "email" | "phone" | "note";
+  registrationId: string;
+  eventId: string;
+  onSaved: () => void;
+  className?: string;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(value);
+  const [saving, setSaving] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editing) inputRef.current?.focus();
+  }, [editing]);
+
+  const save = async () => {
+    const trimmed = draft.trim();
+    if (trimmed === value) {
+      setEditing(false);
+      return;
+    }
+    setSaving(true);
+    await fetch(`/api/admin/events/${eventId}/registrations`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        registration_id: registrationId,
+        fields: { [field]: trimmed || null },
+      }),
+    });
+    setSaving(false);
+    setEditing(false);
+    onSaved();
+  };
+
+  if (editing) {
+    return (
+      <input
+        ref={inputRef}
+        className="w-full rounded border px-1.5 py-0.5 text-sm"
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={save}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") save();
+          if (e.key === "Escape") {
+            setDraft(value);
+            setEditing(false);
+          }
+        }}
+        disabled={saving}
+      />
+    );
+  }
+
+  return (
+    <span
+      className={`cursor-pointer rounded px-1 hover:bg-muted ${className}`}
+      onClick={() => {
+        setDraft(value);
+        setEditing(true);
+      }}
+      title="點擊編輯"
+    >
+      {value || "—"}
+    </span>
+  );
 }
 
 export default function RegistrationTable({ registrations, eventId }: Props) {
@@ -116,6 +195,8 @@ export default function RegistrationTable({ registrations, eventId }: Props) {
     URL.revokeObjectURL(url);
   };
 
+  const handleSaved = () => router.refresh();
+
   return (
     <Card>
       <CardContent className="p-4">
@@ -204,21 +285,43 @@ export default function RegistrationTable({ registrations, eventId }: Props) {
                         onChange={() => toggleSelect(reg.id)}
                       />
                     </td>
-                    <td className="p-2 font-medium">{reg.name}</td>
-                    <td className="p-2">{reg.email}</td>
-                    <td className="p-2">{reg.phone || "—"}</td>
+                    <td className="p-2 font-medium">
+                      <EditableCell
+                        value={reg.name}
+                        field="name"
+                        registrationId={reg.id}
+                        eventId={eventId}
+                        onSaved={handleSaved}
+                      />
+                    </td>
+                    <td className="p-2">
+                      <EditableCell
+                        value={reg.email}
+                        field="email"
+                        registrationId={reg.id}
+                        eventId={eventId}
+                        onSaved={handleSaved}
+                      />
+                    </td>
+                    <td className="p-2">
+                      <EditableCell
+                        value={reg.phone || ""}
+                        field="phone"
+                        registrationId={reg.id}
+                        eventId={eventId}
+                        onSaved={handleSaved}
+                      />
+                    </td>
                     <td className="p-2">{reg.ticket_types?.name || "—"}</td>
                     <td className="p-2 max-w-[200px]">
-                      {reg.note ? (
-                        <span
-                          className="text-xs text-muted-foreground line-clamp-2"
-                          title={reg.note}
-                        >
-                          {reg.note}
-                        </span>
-                      ) : (
-                        "—"
-                      )}
+                      <EditableCell
+                        value={reg.note || ""}
+                        field="note"
+                        registrationId={reg.id}
+                        eventId={eventId}
+                        onSaved={handleSaved}
+                        className="text-xs text-muted-foreground"
+                      />
                     </td>
                     <td className="p-2">
                       <Badge variant={status.variant}>{status.label}</Badge>
