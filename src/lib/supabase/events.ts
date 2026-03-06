@@ -1,4 +1,5 @@
 import { createClient } from "./server";
+import { createServiceClient } from "./service";
 import type {
   Event,
   EventInsert,
@@ -133,7 +134,8 @@ export async function getEventBySlug(
 export async function registerForEvent(
   data: RegistrationInsert,
 ): Promise<{ registration: Registration | null; error: string | null }> {
-  const supabase = await createClient();
+  // Use service role client to bypass RLS — registration is a public action
+  const supabase = createServiceClient();
 
   // Check if ticket type has capacity
   const { data: ticketType } = await supabase

@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
         ? [event.venue_name, event.venue_address].filter(Boolean).join(" ")
         : event.online_url || "線上";
 
-      // Send confirmation email (fire and forget)
-      sendEmail({
+      // Send confirmation email (must await on Vercel serverless)
+      await sendEmail({
         to: email,
         subject:
           registration.status === "confirmed"
