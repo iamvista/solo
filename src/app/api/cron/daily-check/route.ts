@@ -1,0 +1,80 @@
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
+import { sendEmail } from "@/lib/email";
+import { EventReminderEmail } from "@/components/emails/event-reminder";
+
+export async function GET(request: NextRequest) {
+  // Verify cron secret
+  const authHeader = request.headers.get("authorization");
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  const now = new Date();
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  // 1. Send reminders for tomorrow's events
+  const tomorrowStart = new Date(tomorrow);
+  tomorrowStart.setHours(0, 0, 0, 0);
+  const tomorrowEnd = new Date(tomorrow);
+  tomorrowEnd.setHours(23, 59, 59, 999);
+
+  const { data: tomorrowEvents } = await supabase
+    .from("events")
+    .select("*")
+    .eq("status", "published")
+    .gte("starts_at", tomorrowStart.toISOString())
+    .lte("starts_at", tomorrowEnd.toISOString());
+
+  let remindersSent = 0;
+  for (const event of tomorrowEvents || []) {
+    const { data: registrations } = await supabase
+      .from("registrations")
+      .select("name, email")
+      .eq("event_id", event.id)
+      .eq("status", "confirmed");
+
+    for (const reg of registrations || []) {
+      await sendEmail({
+        to: reg.email,
+        subject: `明天見！提醒你參加《${event.title}》`,
+        react: EventReminderEmail({
+          name: reg.name,
+          eventTitle: event.title,
+          eventTime: new Date(event.starts_at).toLocaleTimeString("zh-TW", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          venue:
+            event.format === "online"
+              ? "線上活動"
+              : event.venue_name || "待通知",
+          eventUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/events/${event.slug}`,
+          isOnline: event.format === "online",
+          onlineUrl: event.online_url || undefined,
+        }),
+      });
+      remindersSent++;
+    }
+  }
+
+  // 2. Auto-archive past events
+  const { count: archived } = await supabase
+    .from("events")
+    .update({ status: "archived" })
+    .eq("status", "published")
+    .lt("ends_at", now.toISOString())
+    .select("*", { count: "exact", head: true });
+
+  return NextResponse.json({
+    success: true,
+    remindersSent,
+    archived: archived || 0,
+  });
+}
