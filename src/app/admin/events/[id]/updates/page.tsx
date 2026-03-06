@@ -7,13 +7,21 @@ import { isAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import EventUpdateForm from "@/components/admin/EventUpdateForm";
 
-export default async function AdminUpdatesPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function AdminUpdatesPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   if (!(await isAdmin())) redirect("/");
 
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: event } = await supabase.from("events").select("title, slug").eq("id", id).single();
+  const { data: event } = await supabase
+    .from("events")
+    .select("title, slug, starts_at, ends_at, format, venue_name, online_url")
+    .eq("id", id)
+    .single();
   if (!event) notFound();
 
   const { data: updates } = await supabase
@@ -26,7 +34,9 @@ export default async function AdminUpdatesPage({ params }: { params: Promise<{ i
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <Badge variant="outline" className="mb-2">活動公告</Badge>
+          <Badge variant="outline" className="mb-2">
+            活動公告
+          </Badge>
           <h1 className="text-2xl font-bold">{event.title}</h1>
         </div>
         <Button variant="outline" asChild>
@@ -34,7 +44,7 @@ export default async function AdminUpdatesPage({ params }: { params: Promise<{ i
         </Button>
       </div>
 
-      <EventUpdateForm eventId={id} />
+      <EventUpdateForm eventId={id} event={event} />
 
       {/* History */}
       {updates && updates.length > 0 && (
@@ -47,11 +57,25 @@ export default async function AdminUpdatesPage({ params }: { params: Promise<{ i
                   <div className="flex items-start justify-between">
                     <div>
                       <h3 className="font-medium">{update.title}</h3>
-                      {update.content && <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{update.content}</p>}
+                      {update.content && (
+                        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                          {update.content}
+                        </p>
+                      )}
                     </div>
                     <div className="text-right text-xs text-muted-foreground">
-                      <p>{new Date(update.created_at).toLocaleString("zh-TW")}</p>
-                      {update.sent_at && <Badge variant="outline" className="mt-1">已寄出</Badge>}
+                      <p>
+                        {new Intl.DateTimeFormat("zh-TW", {
+                          dateStyle: "short",
+                          timeStyle: "short",
+                          timeZone: "Asia/Taipei",
+                        }).format(new Date(update.created_at))}
+                      </p>
+                      {update.sent_at && (
+                        <Badge variant="outline" className="mt-1">
+                          已寄出
+                        </Badge>
+                      )}
                     </div>
                   </div>
                 </CardContent>
