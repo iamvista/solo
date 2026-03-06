@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { isAdmin, getUserStats, getDiagnosisStats, getTrafficAnalysis } from "@/lib/supabase/admin";
+import { getEventStats } from "@/lib/supabase/events";
 
 // Solo 類型資料
 const soloTypes: Record<string, { emoji: string; name: string }> = {
@@ -24,10 +25,11 @@ export default async function AdminPage() {
   }
 
   // 獲取所有統計數據
-  const [userStats, diagnosisStats, trafficAnalysis] = await Promise.all([
+  const [userStats, diagnosisStats, trafficAnalysis, eventStats] = await Promise.all([
     getUserStats(),
     getDiagnosisStats(),
     getTrafficAnalysis(),
+    getEventStats(),
   ]);
 
   // 計算訂閱率
@@ -56,6 +58,9 @@ export default async function AdminPage() {
           </p>
         </div>
         <div className="flex gap-3">
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin/events">活動管理</Link>
+          </Button>
           <Button variant="outline" asChild className="h-11 px-4 text-base">
             <Link href="/admin/users">用戶管理</Link>
           </Button>
@@ -113,6 +118,62 @@ export default async function AdminPage() {
             <CardContent className="p-5 pt-0">
               <p className="text-sm text-muted-foreground">
                 日均 {Math.round(userStats.newUsersLast7Days / 7 * 10) / 10} 人
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* 活動統計 */}
+      <div className="mb-8">
+        <h2 className="mb-4 text-xl font-bold">📅 活動統計</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="p-5 pb-2">
+              <CardDescription className="text-sm">進行中活動</CardDescription>
+              <CardTitle className="text-3xl">{eventStats.activeEvents}</CardTitle>
+            </CardHeader>
+            <CardContent className="p-5 pt-0">
+              <p className="text-sm text-muted-foreground">
+                已發布的活動數
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-200 bg-blue-50">
+            <CardHeader className="p-5 pb-2">
+              <CardDescription className="text-sm">確認報名數</CardDescription>
+              <CardTitle className="text-3xl text-blue-700">{eventStats.totalRegistrations}</CardTitle>
+            </CardHeader>
+            <CardContent className="p-5 pt-0">
+              <p className="text-sm text-muted-foreground">
+                所有活動累計
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="p-5 pb-2">
+              <CardDescription className="text-sm">本月活動</CardDescription>
+              <CardTitle className="text-3xl">{eventStats.monthlyEvents}</CardTitle>
+            </CardHeader>
+            <CardContent className="p-5 pt-0">
+              <p className="text-sm text-muted-foreground">
+                本月舉辦的活動
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="p-5 pb-2">
+              <CardDescription className="text-sm">最新活動</CardDescription>
+              <CardTitle className="truncate text-lg">
+                {eventStats.topEvent?.title || "—"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-5 pt-0">
+              <p className="text-sm text-muted-foreground">
+                {eventStats.topEvent ? `${eventStats.topEvent.count} 人報名` : "尚無活動"}
               </p>
             </CardContent>
           </Card>
