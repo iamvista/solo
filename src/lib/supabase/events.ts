@@ -305,22 +305,73 @@ export async function deleteEvent(id: string): Promise<boolean> {
 
 export async function upsertTicketTypes(
   eventId: string,
-  ticketTypes: Omit<TicketTypeInsert, "event_id">[],
+  ticketTypes: (Omit<TicketTypeInsert, "event_id"> & { id?: string })[],
 ): Promise<boolean> {
   const supabase = await createClient();
 
-  // Delete existing ticket types for this event
-  await supabase.from("ticket_types").delete().eq("event_id", eventId);
+  // Fetch existing ticket type IDs for this event
+  const { data: existing } = await supabase
+    .from("ticket_types")
+    .select("id")
+    .eq("event_id", eventId);
 
-  // Insert new ones
-  const inserts = ticketTypes.map((t, i) => ({
-    ...t,
-    event_id: eventId,
-    sort_order: i,
-  }));
+  const existingIds = new Set((existing || []).map((t) => t.id));
+  const incomingIds = new Set(
+    ticketTypes.filter((t) => t.id).map((t) => t.id!),
+  );
 
-  const { error } = await supabase.from("ticket_types").insert(inserts);
-  return !error;
+  // 1. Only delete ticket types that were explicitly removed by the user
+  //    (exist in DB but not in the incoming list)
+  //    IMPORTANT: ON DELETE CASCADE on registrations means careless deletion
+  //    will destroy all registration records!
+  const toDelete = [...existingIds].filter((id) => !incomingIds.has(id));
+  if (toDelete.length > 0) {
+    const { error } = await supabase
+      .from("ticket_types")
+      .delete()
+      .in("id", toDelete);
+    if (error) {
+      console.error("delete ticket types error:", error);
+      return false;
+    }
+  }
+
+  // 2. Update existing ticket types in place (preserves their IDs and
+  //    therefore keeps registrations intact)
+  for (let i = 0; i < ticketTypes.length; i++) {
+    const t = ticketTypes[i];
+    if (t.id && existingIds.has(t.id)) {
+      const { id, ...updateData } = t;
+      const { error } = await supabase
+        .from("ticket_types")
+        .update({ ...updateData, event_id: eventId, sort_order: i })
+        .eq("id", id);
+      if (error) {
+        console.error("update ticket type error:", error);
+        return false;
+      }
+    }
+  }
+
+  // 3. Insert genuinely new ticket types (ones without an existing ID)
+  const newTickets = ticketTypes
+    .filter((t) => !t.id || !existingIds.has(t.id))
+    .map((t, _idx, arr) => {
+      const { id, ...rest } = t;
+      // Calculate correct sort_order based on position in original array
+      const originalIdx = ticketTypes.indexOf(t);
+      return { ...rest, event_id: eventId, sort_order: originalIdx };
+    });
+
+  if (newTickets.length > 0) {
+    const { error } = await supabase.from("ticket_types").insert(newTickets);
+    if (error) {
+      console.error("insert ticket types error:", error);
+      return false;
+    }
+  }
+
+  return true;
 }
 
 export async function getEventRegistrations(

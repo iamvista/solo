@@ -19,6 +19,7 @@ interface EventFormProps {
 }
 
 interface TicketTypeForm {
+  id?: string; // existing ticket type ID — must be preserved to avoid cascade-deleting registrations
   name: string;
   description: string;
   capacity: number;
@@ -111,6 +112,7 @@ export default function EventForm({ event, mode }: EventFormProps) {
   // Ticket types
   const [ticketTypes, setTicketTypes] = useState<TicketTypeForm[]>(
     event?.ticket_types?.map((t) => ({
+      id: t.id,
       name: t.name,
       description: t.description || "",
       capacity: t.capacity,
