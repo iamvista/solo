@@ -9,6 +9,50 @@ import { EventUpdateEmail } from "@/components/emails/event-update-email";
 // Allow up to 120 seconds for sending many emails
 export const maxDuration = 120;
 
+// ─── Helper: build event info for email ───
+function buildEventEmailInfo(event: {
+  starts_at: string | null;
+  ends_at: string | null;
+  format: string | null;
+  venue_name: string | null;
+  venue_address: string | null;
+  online_url: string | null;
+}) {
+  const TZ = "Asia/Taipei";
+  const eventDate = event?.starts_at
+    ? new Intl.DateTimeFormat("zh-TW", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        weekday: "short",
+        timeZone: TZ,
+      }).format(new Date(event.starts_at))
+    : undefined;
+  const timeFmt = new Intl.DateTimeFormat("zh-TW", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: TZ,
+  });
+  const eventTime = event?.starts_at
+    ? timeFmt.format(new Date(event.starts_at)) +
+      (event.ends_at ? `–${timeFmt.format(new Date(event.ends_at))}` : "")
+    : undefined;
+  const hasVenue = event?.format === "offline" || event?.format === "hybrid";
+  const venue = hasVenue
+    ? event?.venue_name || "待通知"
+    : event?.format === "online"
+      ? "線上活動"
+      : undefined;
+
+  return {
+    eventDate,
+    eventTime,
+    venue,
+    venueAddress: event?.venue_address || undefined,
+    onlineUrl: event?.online_url || undefined,
+  };
+}
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -41,36 +85,10 @@ export async function POST(
       .single();
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+    const emailInfo = buildEventEmailInfo(event || ({} as any));
 
     // ─── Test mode: send to a single email, skip DB insert ───
     if (target === "test" && testEmail) {
-      const TZ = "Asia/Taipei";
-      const eventDate = event?.starts_at
-        ? new Intl.DateTimeFormat("zh-TW", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            weekday: "short",
-            timeZone: TZ,
-          }).format(new Date(event.starts_at))
-        : undefined;
-      const timeFmt = new Intl.DateTimeFormat("zh-TW", {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: TZ,
-      });
-      const eventTime = event?.starts_at
-        ? timeFmt.format(new Date(event.starts_at)) +
-          (event.ends_at ? `–${timeFmt.format(new Date(event.ends_at))}` : "")
-        : undefined;
-      const hasVenue =
-        event?.format === "offline" || event?.format === "hybrid";
-      const venue = hasVenue
-        ? event?.venue_name || "待通知"
-        : event?.format === "online"
-          ? "線上活動"
-          : undefined;
-
       const result = await sendEmail({
         to: testEmail,
         subject: `[測試] 活動公告：${event?.title} — ${title}`,
@@ -80,11 +98,7 @@ export async function POST(
           updateTitle: title,
           updateContent: content || "",
           eventUrl: `${baseUrl}/events/${event?.slug}`,
-          eventDate,
-          eventTime,
-          venue,
-          venueAddress: event?.venue_address || undefined,
-          onlineUrl: event?.online_url || undefined,
+          ...emailInfo,
         }),
       });
 
@@ -129,40 +143,24 @@ export async function POST(
     );
 
     // Filter by target audience
-    const targetRegs = (allRegs || []).filter((r) => {
+    const filteredRegs = (allRegs || []).filter((r) => {
       if (target === "confirmed") return r.status === "confirmed";
       if (target === "waitlisted") return r.status === "waitlisted";
       return true; // "all" = confirmed + waitlisted (cancelled already excluded)
     });
 
-    console.log(`[Event Update] targetRegs=${targetRegs.length}`);
-
-    // Build event info for email
-    const TZ = "Asia/Taipei";
-    const eventDate = event?.starts_at
-      ? new Intl.DateTimeFormat("zh-TW", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          weekday: "short",
-          timeZone: TZ,
-        }).format(new Date(event.starts_at))
-      : undefined;
-    const timeFmt = new Intl.DateTimeFormat("zh-TW", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: TZ,
+    // Deduplicate by email (same person may have multiple registrations)
+    const seenEmails = new Set<string>();
+    const targetRegs = filteredRegs.filter((r) => {
+      const key = r.email.toLowerCase();
+      if (seenEmails.has(key)) return false;
+      seenEmails.add(key);
+      return true;
     });
-    const eventTime = event?.starts_at
-      ? timeFmt.format(new Date(event.starts_at)) +
-        (event.ends_at ? `–${timeFmt.format(new Date(event.ends_at))}` : "")
-      : undefined;
-    const hasVenue = event?.format === "offline" || event?.format === "hybrid";
-    const venue = hasVenue
-      ? event?.venue_name || "待通知"
-      : event?.format === "online"
-        ? "線上活動"
-        : undefined;
+
+    console.log(
+      `[Event Update] filtered=${filteredRegs.length}, deduplicated=${targetRegs.length}`,
+    );
 
     // Send emails in small batches with delay to respect Resend rate limit (2/sec)
     const BATCH_SIZE = 2;
@@ -184,11 +182,7 @@ export async function POST(
               updateTitle: title,
               updateContent: content || "",
               eventUrl: `${baseUrl}/events/${event?.slug}`,
-              eventDate,
-              eventTime,
-              venue,
-              venueAddress: event?.venue_address || undefined,
-              onlineUrl: event?.online_url || undefined,
+              ...emailInfo,
             }),
           }),
         ),
@@ -223,11 +217,13 @@ export async function POST(
       `[Event Update] Done: ${emailsSent} sent, ${emailsFailed} failed`,
     );
 
-    // Mark as sent
-    await supabase
-      .from("event_updates")
-      .update({ sent_at: new Date().toISOString() })
-      .eq("id", update.id);
+    // Mark as sent only if at least one email was sent successfully
+    if (emailsSent > 0) {
+      await serviceClient
+        .from("event_updates")
+        .update({ sent_at: new Date().toISOString() })
+        .eq("id", update.id);
+    }
 
     return NextResponse.json({
       success: true,

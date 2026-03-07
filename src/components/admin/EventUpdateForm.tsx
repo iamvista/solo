@@ -46,14 +46,6 @@ function getVenue(event: EventData) {
   return hasVenue ? event.venue_name || "待通知" : "線上活動";
 }
 
-function getVenueWithAddress(event: EventData) {
-  const venue = getVenue(event);
-  if (event.venue_address && event.format !== "online") {
-    return `${venue}\n📮 地址：${event.venue_address}`;
-  }
-  return venue;
-}
-
 type TemplateKey = "confirm" | "reminder" | "change" | "custom";
 
 const templateList: { key: TemplateKey; label: string; emoji: string }[] = [
@@ -169,6 +161,13 @@ export default function EventUpdateForm({ eventId, event }: Props) {
     setShowPreview(false);
   };
 
+  const targetLabel = (t: string) => {
+    if (t === "all") return "全部報名者（已確認 + 候補）";
+    if (t === "confirmed") return "已確認的報名者";
+    if (t === "waitlisted") return "候補中的報名者";
+    return "";
+  };
+
   const handleSend = async () => {
     if (!title) {
       setResult("請填寫標題");
@@ -178,8 +177,19 @@ export default function EventUpdateForm({ eventId, event }: Props) {
       setResult("請輸入測試用 Email");
       return;
     }
+
+    // Confirmation for mass send (non-test)
+    if (target !== "test") {
+      const ok = window.confirm(
+        `確定要將此公告寄送給「${targetLabel(target)}」嗎？\n\n主旨：${title}\n\n寄出後無法撤回。`,
+      );
+      if (!ok) return;
+    }
+
     setSending(true);
-    setResult("");
+    setResult(
+      target === "test" ? "" : "⏳ 寄送中，每秒約寄出 2 封，請耐心等候...",
+    );
 
     try {
       const res = await fetch(`/api/admin/events/${eventId}/updates`, {
@@ -212,7 +222,7 @@ export default function EventUpdateForm({ eventId, event }: Props) {
         setResult(`❌ 錯誤：${data.error}`);
       }
     } catch {
-      setResult("❌ 網路錯誤");
+      setResult("❌ 網路錯誤，請檢查 Vercel logs 確認寄送狀態");
     }
     setSending(false);
   };
@@ -359,7 +369,13 @@ export default function EventUpdateForm({ eventId, event }: Props) {
         {/* Status message */}
         {result && (
           <p
-            className={`text-sm font-medium ${result.startsWith("✅") ? "text-green-600" : "text-red-600"}`}
+            className={`text-sm font-medium ${
+              result.startsWith("✅")
+                ? "text-green-600"
+                : result.startsWith("⏳")
+                  ? "text-amber-600 animate-pulse"
+                  : "text-red-600"
+            }`}
           >
             {result}
           </p>

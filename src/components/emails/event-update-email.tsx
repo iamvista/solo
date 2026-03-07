@@ -25,9 +25,10 @@ interface Props {
   onlineUrl?: string;
 }
 
-// Auto-linkify URLs in plain text
+// Auto-linkify URLs in plain text (strips trailing punctuation like ）、。)
 function renderLineWithLinks(line: string) {
-  const parts = line.split(/(https?:\/\/[^\s]+)/g);
+  const urlRegex = /(https?:\/\/[^\s<>]+[^\s<>.,;!?'")\]）。，、])/g;
+  const parts = line.split(urlRegex);
   if (parts.length === 1) return line;
   return parts.map((part, j) =>
     part.startsWith("http://") || part.startsWith("https://") ? (
@@ -66,16 +67,18 @@ export function EventUpdateEmail({
           <Text style={subtext}>
             關於你報名的《{eventTitle}》，主辦人有新的公告：
           </Text>
-          <Section style={contentBox}>
-            <Text style={contentText}>
-              {updateContent.split("\n").map((line, i, arr) => (
-                <React.Fragment key={i}>
-                  {renderLineWithLinks(line)}
-                  {i < arr.length - 1 && <br />}
-                </React.Fragment>
-              ))}
-            </Text>
-          </Section>
+          {updateContent.trim() && (
+            <Section style={contentBox}>
+              <Text style={contentText}>
+                {updateContent.split("\n").map((line, i, arr) => (
+                  <React.Fragment key={i}>
+                    {renderLineWithLinks(line)}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </Text>
+            </Section>
+          )}
           {(eventDate || venue) && (
             <Section style={infoBox}>
               <Text style={infoTitle}>📋 活動資訊</Text>
