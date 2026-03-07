@@ -198,7 +198,11 @@ export default function EventUpdateForm({ eventId, event }: Props) {
         if (target === "test") {
           setResult(`✅ 測試信已寄出至 ${testEmail.trim()}`);
         } else {
-          setResult(`✅ 公告已送出，共寄出 ${data.emailsSent} 封信`);
+          const failInfo =
+            data.emailsFailed > 0 ? `（${data.emailsFailed} 封失敗）` : "";
+          setResult(
+            `✅ 公告已送出，找到 ${data.totalRegistrations} 位報名者，成功寄出 ${data.emailsSent} 封信${failInfo}`,
+          );
           setTitle("");
           setContent("");
           setActiveTemplate(null);

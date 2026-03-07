@@ -6,6 +6,9 @@ import { createEventUpdate } from "@/lib/supabase/events";
 import { sendEmail } from "@/lib/email";
 import { EventUpdateEmail } from "@/components/emails/event-update-email";
 
+// Allow up to 120 seconds for sending many emails
+export const maxDuration = 120;
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -111,11 +114,19 @@ export async function POST(
 
     // Get registrations to send emails (bypass RLS with service client)
     const serviceClient = createServiceClient();
-    const { data: allRegs } = await serviceClient
+    const { data: allRegs, error: regsError } = await serviceClient
       .from("registrations")
       .select("name, email, status")
       .eq("event_id", eventId)
       .neq("status", "cancelled");
+
+    if (regsError) {
+      console.error("Fetch registrations error:", regsError);
+    }
+
+    console.log(
+      `[Event Update] eventId=${eventId}, allRegs=${allRegs?.length ?? 0}, target=${target}`,
+    );
 
     // Filter by target audience
     const targetRegs = (allRegs || []).filter((r) => {
@@ -123,6 +134,8 @@ export async function POST(
       if (target === "waitlisted") return r.status === "waitlisted";
       return true; // "all" = confirmed + waitlisted (cancelled already excluded)
     });
+
+    console.log(`[Event Update] targetRegs=${targetRegs.length}`);
 
     // Build event info for email
     const TZ = "Asia/Taipei";
@@ -151,43 +164,55 @@ export async function POST(
         ? "線上活動"
         : undefined;
 
-    // Send emails — MUST await on Vercel serverless (otherwise function dies before emails send)
-    const emailResults = await Promise.allSettled(
-      targetRegs.map((reg: any) =>
-        sendEmail({
-          to: reg.email,
-          subject: `活動公告：${event?.title} — ${title}`,
-          react: EventUpdateEmail({
-            name: reg.name,
-            eventTitle: event?.title || "",
-            updateTitle: title,
-            updateContent: content || "",
-            eventUrl: `${baseUrl}/events/${event?.slug}`,
-            eventDate,
-            eventTime,
-            venue,
-            venueAddress: event?.venue_address || undefined,
-            onlineUrl: event?.online_url || undefined,
-          }),
-        }),
-      ),
-    );
+    // Send emails in batches of 10 to avoid Resend rate limits
+    const BATCH_SIZE = 10;
+    let emailsSent = 0;
+    let emailsFailed = 0;
+    const failedEmails: string[] = [];
 
-    const emailsSent = emailResults.filter(
-      (r) => r.status === "fulfilled",
-    ).length;
-    const emailsFailed = emailResults.filter(
-      (r) => r.status === "rejected",
-    ).length;
+    for (let i = 0; i < targetRegs.length; i += BATCH_SIZE) {
+      const batch = targetRegs.slice(i, i + BATCH_SIZE);
+      const batchResults = await Promise.all(
+        batch.map((reg) =>
+          sendEmail({
+            to: reg.email,
+            subject: `活動公告：${event?.title} — ${title}`,
+            react: EventUpdateEmail({
+              name: reg.name,
+              eventTitle: event?.title || "",
+              updateTitle: title,
+              updateContent: content || "",
+              eventUrl: `${baseUrl}/events/${event?.slug}`,
+              eventDate,
+              eventTime,
+              venue,
+              venueAddress: event?.venue_address || undefined,
+              onlineUrl: event?.online_url || undefined,
+            }),
+          }),
+        ),
+      );
+
+      for (let j = 0; j < batchResults.length; j++) {
+        if (batchResults[j].success) {
+          emailsSent++;
+        } else {
+          emailsFailed++;
+          failedEmails.push(batch[j].email);
+        }
+      }
+    }
 
     if (emailsFailed > 0) {
       console.error(
-        `Event update emails: ${emailsSent} sent, ${emailsFailed} failed`,
-        emailResults
-          .filter((r) => r.status === "rejected")
-          .map((r) => (r as PromiseRejectedResult).reason),
+        `[Event Update] ${emailsSent} sent, ${emailsFailed} failed. Failed emails:`,
+        failedEmails,
       );
     }
+
+    console.log(
+      `[Event Update] Done: ${emailsSent} sent, ${emailsFailed} failed`,
+    );
 
     // Mark as sent
     await supabase
@@ -198,6 +223,7 @@ export async function POST(
     return NextResponse.json({
       success: true,
       update,
+      totalRegistrations: targetRegs.length,
       emailsSent,
       emailsFailed,
     });
