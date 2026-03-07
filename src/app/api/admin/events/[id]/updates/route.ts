@@ -164,11 +164,12 @@ export async function POST(
         ? "線上活動"
         : undefined;
 
-    // Send emails in batches of 10 to avoid Resend rate limits
-    const BATCH_SIZE = 10;
+    // Send emails in small batches with delay to respect Resend rate limit (2/sec)
+    const BATCH_SIZE = 2;
+    const BATCH_DELAY_MS = 1200; // 1.2s between batches
     let emailsSent = 0;
     let emailsFailed = 0;
-    const failedEmails: string[] = [];
+    const failedEmails: { email: string; error: unknown }[] = [];
 
     for (let i = 0; i < targetRegs.length; i += BATCH_SIZE) {
       const batch = targetRegs.slice(i, i + BATCH_SIZE);
@@ -198,15 +199,23 @@ export async function POST(
           emailsSent++;
         } else {
           emailsFailed++;
-          failedEmails.push(batch[j].email);
+          failedEmails.push({
+            email: batch[j].email,
+            error: batchResults[j].error,
+          });
         }
+      }
+
+      // Rate limit: wait between batches (skip after last batch)
+      if (i + BATCH_SIZE < targetRegs.length) {
+        await new Promise((resolve) => setTimeout(resolve, BATCH_DELAY_MS));
       }
     }
 
     if (emailsFailed > 0) {
       console.error(
-        `[Event Update] ${emailsSent} sent, ${emailsFailed} failed. Failed emails:`,
-        failedEmails,
+        `[Event Update] ${emailsSent} sent, ${emailsFailed} failed. Errors:`,
+        JSON.stringify(failedEmails.slice(0, 5)),
       );
     }
 
