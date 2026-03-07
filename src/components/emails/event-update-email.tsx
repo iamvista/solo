@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Body,
   Container,
@@ -51,23 +52,31 @@ export function EventUpdateEmail({
             關於你報名的《{eventTitle}》，主辦人有新的公告：
           </Text>
           <Section style={contentBox}>
-            <Text style={text}>{updateContent}</Text>
+            <Text style={contentText}>
+              {updateContent.split("\n").map((line, i, arr) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </Text>
           </Section>
           {(eventDate || venue) && (
-            <Section style={eventInfoBox}>
-              <Text style={eventInfoTitle}>📋 活動資訊</Text>
+            <Section style={infoBox}>
+              <Text style={infoTitle}>📋 活動資訊</Text>
               {eventDate && (
-                <Text style={eventInfoText}>
+                <Text style={infoText}>
                   📅 {eventDate} {eventTime || ""}
                 </Text>
               )}
-              {venue && <Text style={eventInfoText}>📍 {venue}</Text>}
-              {venueAddress && (
-                <Text style={eventInfoText}>📮 地址：{venueAddress}</Text>
-              )}
+              {venue && <Text style={infoText}>📍 {venue}</Text>}
+              {venueAddress && <Text style={infoText}>📮 {venueAddress}</Text>}
               {onlineUrl && (
-                <Text style={eventInfoText}>
-                  🔗 線上連結：<Link href={onlineUrl}>{onlineUrl}</Link>
+                <Text style={infoText}>
+                  🔗 線上連結：
+                  <Link href={onlineUrl} style={link}>
+                    {onlineUrl}
+                  </Link>
                 </Text>
               )}
             </Section>
@@ -85,33 +94,39 @@ export function EventUpdateEmail({
   );
 }
 
+// ─── Styles ───
+
 const main = {
   backgroundColor: "#f6f9fc",
-  fontFamily: "'Noto Sans TC', sans-serif",
+  fontFamily:
+    "'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
 };
 const container = {
   backgroundColor: "#ffffff",
   margin: "0 auto",
-  padding: "40px 20px",
+  padding: "40px 24px",
   maxWidth: "560px",
+  borderRadius: "8px",
 };
 const tag = {
   color: "#6366f1",
   fontSize: "13px",
   fontWeight: "600" as const,
+  letterSpacing: "0.5px",
   margin: "0 0 8px",
 };
 const h1 = {
   color: "#1a1a1a",
   fontSize: "22px",
   fontWeight: "bold" as const,
-  margin: "0 0 20px",
+  margin: "0 0 16px",
+  lineHeight: "30px",
 };
 const text = {
   color: "#333",
-  fontSize: "16px",
+  fontSize: "15px",
   lineHeight: "26px",
-  margin: "0 0 10px",
+  margin: "0 0 12px",
 };
 const subtext = {
   color: "#666",
@@ -124,33 +139,47 @@ const contentBox = {
   borderLeft: "3px solid #6366f1",
   padding: "16px 20px",
   margin: "16px 0",
+  borderRadius: "0 6px 6px 0",
 };
-const eventInfoBox = {
-  backgroundColor: "#f0f4f8",
+const contentText = {
+  color: "#333",
+  fontSize: "15px",
+  lineHeight: "26px",
+  margin: "0",
+};
+const infoBox = {
+  backgroundColor: "#f8fafc",
+  border: "1px solid #e2e8f0",
   borderRadius: "8px",
-  padding: "16px 20px",
-  margin: "16px 0",
+  padding: "20px",
+  margin: "20px 0",
 };
-const eventInfoTitle = {
+const infoTitle = {
   color: "#1a1a1a",
   fontSize: "14px",
   fontWeight: "600" as const,
-  margin: "0 0 8px",
+  margin: "0 0 12px",
 };
-const eventInfoText = {
+const infoText = {
   color: "#555",
   fontSize: "14px",
-  lineHeight: "22px",
-  margin: "0 0 4px",
+  lineHeight: "24px",
+  margin: "0 0 6px",
 };
 const buttonSection = { textAlign: "center" as const, margin: "24px 0" };
 const button = {
   backgroundColor: "#0f172a",
   borderRadius: "6px",
   color: "#fff",
-  fontSize: "16px",
-  padding: "12px 24px",
+  fontSize: "15px",
+  fontWeight: "600" as const,
+  padding: "12px 28px",
   textDecoration: "none",
+  display: "inline-block",
+};
+const link = {
+  color: "#2563eb",
+  textDecoration: "underline",
 };
 const hr = { borderColor: "#e6ebf1", margin: "20px 0" };
 const footer = {
