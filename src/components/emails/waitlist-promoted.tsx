@@ -24,10 +24,9 @@ interface Props {
   cancelUrl: string;
   format: "online" | "offline" | "hybrid";
   onlineUrl?: string;
-  status: "confirmed" | "waitlisted";
 }
 
-export function RegistrationConfirmEmail({
+export function WaitlistPromotedEmail({
   name,
   eventTitle,
   eventDate,
@@ -40,74 +39,21 @@ export function RegistrationConfirmEmail({
   cancelUrl,
   format,
   onlineUrl,
-  status,
 }: Props) {
   const hasOnline = format === "online" || format === "hybrid";
   const hasVenue = format === "offline" || format === "hybrid";
-  const isConfirmed = status === "confirmed";
 
-  if (!isConfirmed) {
-    // ─── Waitlisted Email ───
-    return (
-      <Html>
-        <Head />
-        <Preview>候補通知：《{eventTitle}》</Preview>
-        <Body style={main}>
-          <Container style={container}>
-            <Heading style={h1}>候補通知</Heading>
-            <Text style={text}>哈囉，{name}</Text>
-            <Text style={text}>
-              感謝你報名《{eventTitle}》！由於名額有限，你目前排在候補名單中。
-            </Text>
-            <Text style={text}>
-              若有名額釋出，我們會第一時間通知你並寄送確認信，請留意信箱。
-            </Text>
-            <Section style={infoBox}>
-              <Text style={eventTitleStyle}>《{eventTitle}》</Text>
-              <Text style={infoText}>
-                📅 {eventDate} {eventTime}
-              </Text>
-              <Text style={infoText}>
-                📍 {hasVenue ? venue : "線上活動"}
-              </Text>
-              {hasVenue && venueAddress && (
-                <Text style={infoText}>📮 地址：{venueAddress}</Text>
-              )}
-              <Text style={infoText}>🎫 票種：{ticketType}</Text>
-            </Section>
-            <Section style={buttonSection}>
-              <Link href={eventUrl} style={button}>
-                查看活動詳情
-              </Link>
-            </Section>
-            <Text style={text}>
-              📎 <Link href={calendarUrl}>先加入 Google 日曆</Link>
-              （佔位提醒）
-            </Text>
-            <Hr style={hr} />
-            <Text style={smallText}>
-              如果確定無法參加，歡迎
-              <Link href={cancelUrl}>取消候補</Link>
-              ，讓名額留給其他人。
-            </Text>
-            <Hr style={hr} />
-            <Text style={footer}>© 自由人學院 solo.tw</Text>
-          </Container>
-        </Body>
-      </Html>
-    );
-  }
-
-  // ─── Confirmed Email ───
   return (
     <Html>
       <Head />
-      <Preview>你已成功報名《{eventTitle}》</Preview>
+      <Preview>好消息！你的《{eventTitle}》報名已確認</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={h1}>報名確認</Heading>
+          <Heading style={h1}>🎉 報名已確認</Heading>
           <Text style={text}>哈囉，{name}</Text>
-          <Text style={text}>你已成功報名以下活動：</Text>
+          <Text style={text}>
+            好消息！你報名的《{eventTitle}》已從候補轉為確認，歡迎參加！
+          </Text>
           <Section style={infoBox}>
             <Text style={eventTitleStyle}>《{eventTitle}》</Text>
             <Text style={infoText}>

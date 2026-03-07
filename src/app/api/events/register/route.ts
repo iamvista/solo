@@ -119,6 +119,7 @@ export async function POST(request: NextRequest) {
           cancelUrl: `${baseUrl}/dashboard/events`,
           format: event.format as "online" | "offline" | "hybrid",
           onlineUrl: event.online_url || undefined,
+          status: registration.status as "confirmed" | "waitlisted",
         }),
       });
     }
