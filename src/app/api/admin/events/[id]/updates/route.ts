@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import {
-  createEventUpdate,
-  getEventRegistrations,
-} from "@/lib/supabase/events";
+import { createServiceClient } from "@/lib/supabase/service";
+import { createEventUpdate } from "@/lib/supabase/events";
 import { sendEmail } from "@/lib/email";
 import { EventUpdateEmail } from "@/components/emails/event-update-email";
 
@@ -111,14 +109,19 @@ export async function POST(
       return NextResponse.json({ error: "公告建立失敗" }, { status: 500 });
     }
 
-    // Get registrations to send emails
-    const { registrations } = await getEventRegistrations(eventId, 1, 1000);
+    // Get registrations to send emails (bypass RLS with service client)
+    const serviceClient = createServiceClient();
+    const { data: allRegs } = await serviceClient
+      .from("registrations")
+      .select("name, email, status")
+      .eq("event_id", eventId)
+      .neq("status", "cancelled");
 
     // Filter by target audience
-    const targetRegs = registrations.filter((r: any) => {
+    const targetRegs = (allRegs || []).filter((r) => {
       if (target === "confirmed") return r.status === "confirmed";
       if (target === "waitlisted") return r.status === "waitlisted";
-      return r.status !== "cancelled"; // "all" = confirmed + waitlisted
+      return true; // "all" = confirmed + waitlisted (cancelled already excluded)
     });
 
     // Build event info for email
