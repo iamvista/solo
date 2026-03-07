@@ -19,7 +19,7 @@ export async function POST(
   try {
     const { id: eventId } = await params;
     const body = await request.json();
-    const { title, content, target } = body;
+    const { title, content, target, testEmail } = body;
 
     if (!title) {
       return NextResponse.json({ error: "請填寫公告標題" }, { status: 400 });
@@ -29,6 +29,76 @@ export async function POST(
     const {
       data: { user },
     } = await supabase.auth.getUser();
+
+    // Get event info for email
+    const { data: event } = await supabase
+      .from("events")
+      .select(
+        "title, slug, starts_at, ends_at, format, venue_name, venue_address, online_url",
+      )
+      .eq("id", eventId)
+      .single();
+
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
+
+    // ─── Test mode: send to a single email, skip DB insert ───
+    if (target === "test" && testEmail) {
+      const TZ = "Asia/Taipei";
+      const eventDate = event?.starts_at
+        ? new Intl.DateTimeFormat("zh-TW", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            weekday: "short",
+            timeZone: TZ,
+          }).format(new Date(event.starts_at))
+        : undefined;
+      const timeFmt = new Intl.DateTimeFormat("zh-TW", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: TZ,
+      });
+      const eventTime = event?.starts_at
+        ? timeFmt.format(new Date(event.starts_at)) +
+          (event.ends_at ? `–${timeFmt.format(new Date(event.ends_at))}` : "")
+        : undefined;
+      const hasVenue =
+        event?.format === "offline" || event?.format === "hybrid";
+      const venue = hasVenue
+        ? event?.venue_name || "待通知"
+        : event?.format === "online"
+          ? "線上活動"
+          : undefined;
+
+      const result = await sendEmail({
+        to: testEmail,
+        subject: `[測試] 活動公告：${event?.title} — ${title}`,
+        react: EventUpdateEmail({
+          name: "測試收件人",
+          eventTitle: event?.title || "",
+          updateTitle: title,
+          updateContent: content || "",
+          eventUrl: `${baseUrl}/events/${event?.slug}`,
+          eventDate,
+          eventTime,
+          venue,
+          venueAddress: event?.venue_address || undefined,
+          onlineUrl: event?.online_url || undefined,
+        }),
+      });
+
+      if (!result.success) {
+        return NextResponse.json({ error: "測試信寄送失敗" }, { status: 500 });
+      }
+
+      return NextResponse.json({
+        success: true,
+        emailsSent: 1,
+        emailsFailed: 0,
+      });
+    }
+
+    // ─── Normal mode: create DB record + send to registrants ───
 
     const update = await createEventUpdate({
       event_id: eventId,
@@ -41,19 +111,8 @@ export async function POST(
       return NextResponse.json({ error: "公告建立失敗" }, { status: 500 });
     }
 
-    // Get event info for email
-    const { data: event } = await supabase
-      .from("events")
-      .select(
-        "title, slug, starts_at, ends_at, format, venue_name, venue_address, online_url",
-      )
-      .eq("id", eventId)
-      .single();
-
     // Get registrations to send emails
     const { registrations } = await getEventRegistrations(eventId, 1, 1000);
-
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw";
 
     // Filter by target audience
     const targetRegs = registrations.filter((r: any) => {

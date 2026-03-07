@@ -152,6 +152,7 @@ export default function EventUpdateForm({ eventId, event }: Props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [target, setTarget] = useState("all");
+  const [testEmail, setTestEmail] = useState("");
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState("");
   const [activeTemplate, setActiveTemplate] = useState<TemplateKey | null>(
@@ -173,6 +174,10 @@ export default function EventUpdateForm({ eventId, event }: Props) {
       setResult("請填寫標題");
       return;
     }
+    if (target === "test" && !testEmail.trim()) {
+      setResult("請輸入測試用 Email");
+      return;
+    }
     setSending(true);
     setResult("");
 
@@ -180,15 +185,24 @@ export default function EventUpdateForm({ eventId, event }: Props) {
       const res = await fetch(`/api/admin/events/${eventId}/updates`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content, target }),
+        body: JSON.stringify({
+          title,
+          content,
+          target,
+          ...(target === "test" && { testEmail: testEmail.trim() }),
+        }),
       });
 
       const data = await res.json();
       if (res.ok) {
-        setResult(`✅ 公告已送出，共寄出 ${data.emailsSent} 封信`);
-        setTitle("");
-        setContent("");
-        setActiveTemplate(null);
+        if (target === "test") {
+          setResult(`✅ 測試信已寄出至 ${testEmail.trim()}`);
+        } else {
+          setResult(`✅ 公告已送出，共寄出 ${data.emailsSent} 封信`);
+          setTitle("");
+          setContent("");
+          setActiveTemplate(null);
+        }
         router.refresh();
       } else {
         setResult(`❌ 錯誤：${data.error}`);
@@ -247,10 +261,20 @@ export default function EventUpdateForm({ eventId, event }: Props) {
             value={target}
             onChange={(e) => setTarget(e.target.value)}
           >
+            <option value="test">🧪 測試寄送（指定 Email）</option>
             <option value="all">全部報名者（已確認 + 候補）</option>
             <option value="confirmed">僅已確認</option>
             <option value="waitlisted">僅候補中</option>
           </select>
+          {target === "test" && (
+            <input
+              className={`${inputClass} mt-2`}
+              type="email"
+              value={testEmail}
+              onChange={(e) => setTestEmail(e.target.value)}
+              placeholder="輸入測試 Email，例如 you@example.com"
+            />
+          )}
         </div>
 
         {/* Subject */}
@@ -340,13 +364,21 @@ export default function EventUpdateForm({ eventId, event }: Props) {
         {/* Send button */}
         <div className="flex items-center gap-3">
           <Button onClick={handleSend} disabled={sending || !title}>
-            {sending ? "發送中..." : "發送通知信"}
+            {sending
+              ? "發送中..."
+              : target === "test"
+                ? "寄送測試信"
+                : "發送通知信"}
           </Button>
-          {target === "all" && (
-            <span className="text-xs text-muted-foreground">
-              將寄給所有未取消的報名者
-            </span>
-          )}
+          <span className="text-xs text-muted-foreground">
+            {target === "test"
+              ? "僅寄送一封測試信，不會建立公告紀錄"
+              : target === "all"
+                ? "將寄給所有未取消的報名者"
+                : target === "confirmed"
+                  ? "僅寄給已確認的報名者"
+                  : "僅寄給候補中的報名者"}
+          </span>
         </div>
       </CardContent>
     </Card>
