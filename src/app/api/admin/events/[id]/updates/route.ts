@@ -3,7 +3,7 @@ import { isAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { createEventUpdate } from "@/lib/supabase/events";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, sendBatchEmails } from "@/lib/email";
 import { EventUpdateEmail } from "@/components/emails/event-update-email";
 
 // Allow up to 120 seconds for sending many emails
@@ -162,54 +162,42 @@ export async function POST(
       `[Event Update] filtered=${filteredRegs.length}, deduplicated=${targetRegs.length}`,
     );
 
-    // Send emails in small batches with delay to respect Resend rate limit (2/sec)
-    const BATCH_SIZE = 2;
-    const BATCH_DELAY_MS = 1200; // 1.2s between batches
+    // Send emails via Resend Batch API (up to 100 per call, Resend handles rate limiting)
+    const BATCH_SIZE = 50;
     let emailsSent = 0;
     let emailsFailed = 0;
-    const failedEmails: { email: string; error: unknown }[] = [];
+    let lastError: unknown = null;
 
     for (let i = 0; i < targetRegs.length; i += BATCH_SIZE) {
       const batch = targetRegs.slice(i, i + BATCH_SIZE);
-      const batchResults = await Promise.all(
-        batch.map((reg) =>
-          sendEmail({
-            to: reg.email,
-            subject: `活動公告：${event?.title} — ${title}`,
-            react: EventUpdateEmail({
-              name: reg.name,
-              eventTitle: event?.title || "",
-              updateTitle: title,
-              updateContent: content || "",
-              eventUrl: `${baseUrl}/events/${event?.slug}`,
-              ...emailInfo,
-            }),
+      const result = await sendBatchEmails(
+        batch.map((reg) => ({
+          to: reg.email,
+          subject: `活動公告：${event?.title} — ${title}`,
+          react: EventUpdateEmail({
+            name: reg.name,
+            eventTitle: event?.title || "",
+            updateTitle: title,
+            updateContent: content || "",
+            eventUrl: `${baseUrl}/events/${event?.slug}`,
+            ...emailInfo,
           }),
-        ),
+        })),
       );
 
-      for (let j = 0; j < batchResults.length; j++) {
-        if (batchResults[j].success) {
-          emailsSent++;
-        } else {
-          emailsFailed++;
-          failedEmails.push({
-            email: batch[j].email,
-            error: batchResults[j].error,
-          });
-        }
-      }
+      emailsSent += result.sent;
+      emailsFailed += result.failed;
+      if (result.error) lastError = result.error;
 
-      // Rate limit: wait between batches (skip after last batch)
-      if (i + BATCH_SIZE < targetRegs.length) {
-        await new Promise((resolve) => setTimeout(resolve, BATCH_DELAY_MS));
-      }
+      console.log(
+        `[Event Update] Batch ${Math.floor(i / BATCH_SIZE) + 1}: sent=${result.sent}, failed=${result.failed}`,
+      );
     }
 
     if (emailsFailed > 0) {
       console.error(
-        `[Event Update] ${emailsSent} sent, ${emailsFailed} failed. Errors:`,
-        JSON.stringify(failedEmails.slice(0, 5)),
+        `[Event Update] ${emailsSent} sent, ${emailsFailed} failed. Last error:`,
+        JSON.stringify(lastError),
       );
     }
 
