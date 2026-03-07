@@ -2,10 +2,10 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { isAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import EventUpdateForm from "@/components/admin/EventUpdateForm";
+import EventUpdateHistory from "@/components/admin/EventUpdateHistory";
 
 export default async function AdminUpdatesPage({
   params,
@@ -50,41 +50,7 @@ export default async function AdminUpdatesPage({
 
       {/* History */}
       {updates && updates.length > 0 && (
-        <div className="mt-8">
-          <h2 className="mb-4 text-lg font-bold">歷史公告</h2>
-          <div className="space-y-3">
-            {updates.map((update: any) => (
-              <Card key={update.id}>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="font-medium">{update.title}</h3>
-                      {update.content && (
-                        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                          {update.content}
-                        </p>
-                      )}
-                    </div>
-                    <div className="text-right text-xs text-muted-foreground">
-                      <p>
-                        {new Intl.DateTimeFormat("zh-TW", {
-                          dateStyle: "short",
-                          timeStyle: "short",
-                          timeZone: "Asia/Taipei",
-                        }).format(new Date(update.created_at))}
-                      </p>
-                      {update.sent_at && (
-                        <Badge variant="outline" className="mt-1">
-                          已寄出
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        <EventUpdateHistory eventId={id} updates={updates} />
       )}
     </div>
   );

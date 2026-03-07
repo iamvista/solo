@@ -70,9 +70,7 @@ export function RegistrationConfirmEmail({
               <Text style={infoText}>
                 📅 {eventDate} {eventTime}
               </Text>
-              <Text style={infoText}>
-                📍 {hasVenue ? venue : "線上活動"}
-              </Text>
+              <Text style={infoText}>📍 {hasVenue ? venue : "線上活動"}</Text>
               {hasVenue && venueAddress && (
                 <Text style={infoText}>📮 {venueAddress}</Text>
               )}
@@ -277,6 +275,7 @@ const button = {
 const link = {
   color: "#2563eb",
   textDecoration: "underline",
+  wordBreak: "break-all" as const,
 };
 const hr = { borderColor: "#e6ebf1", margin: "20px 0" };
 const smallText = {

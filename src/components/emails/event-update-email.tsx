@@ -25,6 +25,21 @@ interface Props {
   onlineUrl?: string;
 }
 
+// Auto-linkify URLs in plain text
+function renderLineWithLinks(line: string) {
+  const parts = line.split(/(https?:\/\/[^\s]+)/g);
+  if (parts.length === 1) return line;
+  return parts.map((part, j) =>
+    part.startsWith("http://") || part.startsWith("https://") ? (
+      <Link key={j} href={part} style={link}>
+        {part}
+      </Link>
+    ) : (
+      <React.Fragment key={j}>{part}</React.Fragment>
+    ),
+  );
+}
+
 export function EventUpdateEmail({
   name,
   eventTitle,
@@ -55,7 +70,7 @@ export function EventUpdateEmail({
             <Text style={contentText}>
               {updateContent.split("\n").map((line, i, arr) => (
                 <React.Fragment key={i}>
-                  {line}
+                  {renderLineWithLinks(line)}
                   {i < arr.length - 1 && <br />}
                 </React.Fragment>
               ))}
@@ -140,12 +155,16 @@ const contentBox = {
   padding: "16px 20px",
   margin: "16px 0",
   borderRadius: "0 6px 6px 0",
+  overflowWrap: "break-word" as const,
+  wordBreak: "break-word" as const,
 };
 const contentText = {
   color: "#333",
   fontSize: "15px",
   lineHeight: "26px",
   margin: "0",
+  overflowWrap: "break-word" as const,
+  wordBreak: "break-word" as const,
 };
 const infoBox = {
   backgroundColor: "#f8fafc",
@@ -165,6 +184,8 @@ const infoText = {
   fontSize: "14px",
   lineHeight: "24px",
   margin: "0 0 6px",
+  overflowWrap: "break-word" as const,
+  wordBreak: "break-word" as const,
 };
 const buttonSection = { textAlign: "center" as const, margin: "24px 0" };
 const button = {
@@ -180,6 +201,7 @@ const button = {
 const link = {
   color: "#2563eb",
   textDecoration: "underline",
+  wordBreak: "break-all" as const,
 };
 const hr = { borderColor: "#e6ebf1", margin: "20px 0" };
 const footer = {

@@ -144,3 +144,46 @@ export async function POST(
     return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
   }
 }
+
+// ─── PATCH: Update an existing event update (title / content) ───
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  if (!(await isAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { id: eventId } = await params;
+    const body = await request.json();
+    const { updateId, title, content } = body;
+
+    if (!updateId) {
+      return NextResponse.json({ error: "缺少公告 ID" }, { status: 400 });
+    }
+    if (!title) {
+      return NextResponse.json({ error: "請填寫公告標題" }, { status: 400 });
+    }
+
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("event_updates")
+      .update({ title, content: content || null })
+      .eq("id", updateId)
+      .eq("event_id", eventId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Update event update error:", error);
+      return NextResponse.json({ error: "更新失敗" }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, update: data });
+  } catch (err) {
+    console.error("Patch event update error:", err);
+    return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
+  }
+}

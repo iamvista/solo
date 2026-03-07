@@ -178,6 +178,7 @@ const button = {
 const link = {
   color: "#2563eb",
   textDecoration: "underline",
+  wordBreak: "break-all" as const,
 };
 const hr = { borderColor: "#e6ebf1", margin: "20px 0" };
 const footer = {
