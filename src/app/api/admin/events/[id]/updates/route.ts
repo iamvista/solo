@@ -89,24 +89,42 @@ export async function POST(
         ? "線上活動"
         : undefined;
 
-    // Send emails (fire and forget)
-    for (const reg of targetRegs) {
-      sendEmail({
-        to: reg.email,
-        subject: `活動公告：${event?.title} — ${title}`,
-        react: EventUpdateEmail({
-          name: reg.name,
-          eventTitle: event?.title || "",
-          updateTitle: title,
-          updateContent: content || "",
-          eventUrl: `${baseUrl}/events/${event?.slug}`,
-          eventDate,
-          eventTime,
-          venue,
-          venueAddress: event?.venue_address || undefined,
-          onlineUrl: event?.online_url || undefined,
+    // Send emails — MUST await on Vercel serverless (otherwise function dies before emails send)
+    const emailResults = await Promise.allSettled(
+      targetRegs.map((reg: any) =>
+        sendEmail({
+          to: reg.email,
+          subject: `活動公告：${event?.title} — ${title}`,
+          react: EventUpdateEmail({
+            name: reg.name,
+            eventTitle: event?.title || "",
+            updateTitle: title,
+            updateContent: content || "",
+            eventUrl: `${baseUrl}/events/${event?.slug}`,
+            eventDate,
+            eventTime,
+            venue,
+            venueAddress: event?.venue_address || undefined,
+            onlineUrl: event?.online_url || undefined,
+          }),
         }),
-      });
+      ),
+    );
+
+    const emailsSent = emailResults.filter(
+      (r) => r.status === "fulfilled",
+    ).length;
+    const emailsFailed = emailResults.filter(
+      (r) => r.status === "rejected",
+    ).length;
+
+    if (emailsFailed > 0) {
+      console.error(
+        `Event update emails: ${emailsSent} sent, ${emailsFailed} failed`,
+        emailResults
+          .filter((r) => r.status === "rejected")
+          .map((r) => (r as PromiseRejectedResult).reason),
+      );
     }
 
     // Mark as sent
@@ -118,7 +136,8 @@ export async function POST(
     return NextResponse.json({
       success: true,
       update,
-      emailsSent: targetRegs.length,
+      emailsSent,
+      emailsFailed,
     });
   } catch (err) {
     console.error("Create event update error:", err);
