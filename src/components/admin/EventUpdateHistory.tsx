@@ -26,10 +26,11 @@ export default function EventUpdateHistory({ eventId, updates }: Props) {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const [saveResult, setSaveResult] = useState("");
 
   const toggleExpand = (id: string) => {
-    if (editingId === id) return; // don't collapse while editing
+    if (editingId === id) return;
     setExpandedId(expandedId === id ? null : id);
     setEditingId(null);
     setSaveResult("");
@@ -80,6 +81,33 @@ export default function EventUpdateHistory({ eventId, updates }: Props) {
     setSaving(false);
   };
 
+  const handleDelete = async (update: EventUpdateItem) => {
+    const confirm = window.confirm(
+      `確定要刪除公告「${update.title}」嗎？\n\n此操作無法復原。`,
+    );
+    if (!confirm) return;
+
+    setDeleting(update.id);
+    try {
+      const res = await fetch(
+        `/api/admin/events/${eventId}/updates?updateId=${update.id}`,
+        { method: "DELETE" },
+      );
+
+      if (res.ok) {
+        setExpandedId(null);
+        setEditingId(null);
+        router.refresh();
+      } else {
+        const data = await res.json();
+        alert(`刪除失敗：${data.error}`);
+      }
+    } catch {
+      alert("刪除失敗：網路錯誤");
+    }
+    setDeleting(null);
+  };
+
   const inputClass =
     "w-full rounded-md border border-input bg-background px-3 py-2 text-sm";
 
@@ -88,11 +116,16 @@ export default function EventUpdateHistory({ eventId, updates }: Props) {
       <h2 className="mb-4 text-lg font-bold">歷史公告</h2>
       <div className="space-y-3">
         {updates.map((update) => {
-          const isExpanded = expandedId === update.id || editingId === update.id;
+          const isExpanded =
+            expandedId === update.id || editingId === update.id;
           const isEditing = editingId === update.id;
+          const isDeleting = deleting === update.id;
 
           return (
-            <Card key={update.id} className="transition-shadow hover:shadow-md">
+            <Card
+              key={update.id}
+              className={`transition-shadow hover:shadow-md ${isDeleting ? "opacity-50" : ""}`}
+            >
               <CardContent className="p-4">
                 {/* Header row — always visible, clickable */}
                 <div
@@ -101,13 +134,13 @@ export default function EventUpdateHistory({ eventId, updates }: Props) {
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-muted-foreground transition-transform text-xs">
+                      <span className="text-xs text-muted-foreground transition-transform">
                         {isExpanded ? "▼" : "▶"}
                       </span>
                       <h3 className="font-medium">{update.title}</h3>
                     </div>
                     {!isExpanded && update.content && (
-                      <p className="ml-5 mt-1 text-sm text-muted-foreground line-clamp-1">
+                      <p className="ml-5 mt-1 line-clamp-1 text-sm text-muted-foreground">
                         {update.content}
                       </p>
                     )}
@@ -140,7 +173,7 @@ export default function EventUpdateHistory({ eventId, updates }: Props) {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-sm text-muted-foreground italic">
+                      <p className="text-sm italic text-muted-foreground">
                         （無內容）
                       </p>
                     )}
@@ -154,6 +187,18 @@ export default function EventUpdateHistory({ eventId, updates }: Props) {
                         }}
                       >
                         ✏️ 編輯
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="text-destructive hover:bg-destructive/10"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(update);
+                        }}
+                        disabled={isDeleting}
+                      >
+                        {isDeleting ? "刪除中..." : "🗑️ 刪除"}
                       </Button>
                     </div>
                   </div>

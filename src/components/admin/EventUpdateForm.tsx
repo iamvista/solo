@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ContentEditorToolbar from "./ContentEditorToolbar";
 
 interface EventData {
   title: string;
@@ -151,6 +152,7 @@ export default function EventUpdateForm({ eventId, event }: Props) {
     null,
   );
   const [showPreview, setShowPreview] = useState(false);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const applyTemplate = (key: TemplateKey) => {
     if (!event) return;
@@ -187,9 +189,7 @@ export default function EventUpdateForm({ eventId, event }: Props) {
     }
 
     setSending(true);
-    setResult(
-      target === "test" ? "" : "⏳ 寄送中，每秒約寄出 2 封，請耐心等候...",
-    );
+    setResult(target === "test" ? "" : "⏳ 寄送中，請稍候...");
 
     try {
       const res = await fetch(`/api/admin/events/${eventId}/updates`, {
@@ -302,11 +302,17 @@ export default function EventUpdateForm({ eventId, event }: Props) {
           />
         </div>
 
-        {/* Content */}
+        {/* Content with editor toolbar */}
         <div>
           <label className={labelClass}>信件內容</label>
+          <ContentEditorToolbar
+            textareaRef={contentRef}
+            value={content}
+            onChange={setContent}
+          />
           <textarea
-            className={`${inputClass} min-h-[220px]`}
+            ref={contentRef}
+            className={`${inputClass} mt-2 min-h-[220px]`}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="輸入通知內容..."

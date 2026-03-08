@@ -268,3 +268,41 @@ export async function PATCH(
     return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
   }
 }
+
+// ─── DELETE: Delete an event update ───
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  if (!(await isAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { id: eventId } = await params;
+    const { searchParams } = new URL(request.url);
+    const updateId = searchParams.get("updateId");
+
+    if (!updateId) {
+      return NextResponse.json({ error: "缺少公告 ID" }, { status: 400 });
+    }
+
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("event_updates")
+      .delete()
+      .eq("id", updateId)
+      .eq("event_id", eventId);
+
+    if (error) {
+      console.error("Delete event update error:", error);
+      return NextResponse.json({ error: "刪除失敗" }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("Delete event update error:", err);
+    return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });
+  }
+}
