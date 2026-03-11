@@ -546,6 +546,88 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
+        {/* 口碑證言 */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            學員怎麼說
+          </h2>
+          <p className="mt-3 text-center text-base text-muted-foreground">
+            來自不同領域的真實回饋
+          </p>
+
+          <div className="mt-10 grid gap-8 sm:grid-cols-2">
+            {/* 證言 1 */}
+            <Card className="relative overflow-hidden">
+              <CardContent className="p-6 sm:p-8">
+                <div className="mb-5 text-3xl leading-none text-primary/20">
+                  &ldquo;
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">
+                  我是臨床心理師，聽到「你也可以用 Claude Code
+                  建自己的工作流系統」的時候，心裡想你在開我玩笑吧？結果在余老師手把手的引導下，我從覺得「這種東西我不可能學得會」，到現在用一成的時間完成拖了大半年的雜事，剩下九成拿來思考品牌和產品。
+                </p>
+                <p className="mt-3 text-[15px] font-medium text-foreground">
+                  用 AI 打造自己的工作流，才是真正的改變。
+                </p>
+                <div className="mt-6 flex items-center gap-4 border-t pt-5">
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full">
+                    <Image
+                      src="/images/workshops/testimonial-jack.jpg"
+                      alt="暖流人心規劃顧問 執行長"
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">
+                      暖流人心規劃顧問 執行長
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      暖陽身心診所 心理科主任
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 證言 2 */}
+            <Card className="relative overflow-hidden">
+              <CardContent className="p-6 sm:p-8">
+                <div className="mb-5 text-3xl leading-none text-primary/20">
+                  &ldquo;
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">
+                  做品牌策略，手上永遠同時跑好幾個專案，以前進度散在不同工具裡，靠自己搬來搬去，常常漏掉東西。我用過
+                  ChatGPT，但它就是另一個聊天視窗，問完還是要自己動手。Claude
+                  Code 完全不同 ——
+                  它直接讀我電腦裡的檔案，跟我討論策略、規劃排程，然後直接幫我執行。
+                </p>
+                <p className="mt-3 text-[15px] font-medium text-foreground">
+                  它不只是我的策略夥伴，也是我的執行秘書。這才是 AI 該有的樣子。
+                </p>
+                <div className="mt-6 flex items-center gap-4 border-t pt-5">
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full">
+                    <Image
+                      src="/images/workshops/testimonial-dinglun.png"
+                      alt="林鼎倫"
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">林鼎倫</p>
+                    <p className="text-xs text-muted-foreground">
+                      卡佶特品牌策略有限公司 品牌總監
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* 適合誰 */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
