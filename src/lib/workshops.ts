@@ -81,7 +81,7 @@ export const workshops: Workshop[] = [
     instructor: vista,
     emoji: "🚀",
     date: "2026/5/16（六）",
-    time: "9:30–16:00",
+    time: "9:00–16:00",
     duration: "6 小時",
     location: "台北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 20,

@@ -97,7 +97,7 @@ const deliverables = [
 
 const schedule = [
   {
-    time: "09:30–10:30",
+    time: "09:00–10:00",
     module: "AI 助理建置",
     content: "安裝 Claude Code，建立個人化 AI 助理設定檔",
     deliverable: "完成安裝 + 個人化設定檔",
@@ -607,7 +607,7 @@ export default function AICommandCenterPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
-                    <span>9:30–16:00（含休息與午餐）</span>
+                    <span>9:00–16:00（含休息與午餐）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>📍</span>
