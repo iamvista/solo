@@ -689,7 +689,7 @@ export default function AICommandCenterPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>📍</span>
-                    <span>台北市區・捷運站步行可達（報名後告知地址）</span>
+                    <span>臺北市區・捷運站步行可達（報名後告知地址）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>👥</span>
