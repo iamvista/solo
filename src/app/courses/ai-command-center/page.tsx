@@ -16,7 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL = "#register";
+const REGISTER_URL =
+  "https://vista.oen.tw/good/3AnmvRTr81l3LbH0J3UWYvqmwuO?from=vista_good";
 
 const painPoints = [
   {
@@ -751,7 +752,7 @@ export default function AICommandCenterPage() {
                   className="h-12 w-full max-w-sm px-8 text-base"
                   asChild
                 >
-                  <a href="mailto:iamvista@gmail.com">立即報名（名額有限）</a>
+                  <a href={REGISTER_URL}>立即報名（名額有限）</a>
                 </Button>
                 <p className="mt-3 text-sm text-muted-foreground">
                   點擊報名後將寄送詳細資訊至您的信箱
