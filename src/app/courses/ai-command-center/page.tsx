@@ -580,11 +580,9 @@ export default function AICommandCenterPage() {
                     />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold">
-                      暖流人心規劃顧問 執行長
-                    </p>
+                    <p className="text-sm font-semibold">劉子維</p>
                     <p className="text-xs text-muted-foreground">
-                      暖陽身心診所 心理科主任
+                      暖流人心規劃顧問 執行長・暖陽身心診所 心理科主任
                     </p>
                   </div>
                 </div>
