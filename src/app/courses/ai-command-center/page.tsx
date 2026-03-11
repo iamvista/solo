@@ -78,11 +78,7 @@ const deliverables = [
   {
     icon: "🤖",
     title: "Claude Code AI 助理",
-    items: [
-      "完成安裝與個人化設定",
-      "AI 懂你的工作習慣與偏好",
-      "課後立即可用",
-    ],
+    items: ["完成安裝與個人化設定", "AI 懂你的工作習慣與偏好", "課後立即可用"],
   },
   {
     icon: "⚡",
@@ -238,27 +234,19 @@ export default function AICommandCenterPage() {
           <div className="mt-10 flex justify-center gap-8 sm:gap-12">
             <div className="text-center">
               <p className="text-2xl font-bold text-primary sm:text-3xl">6hr</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                全天實作
-              </p>
+              <p className="mt-1 text-sm text-muted-foreground">全天實作</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-primary sm:text-3xl">20</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                人限額
-              </p>
+              <p className="mt-1 text-sm text-muted-foreground">人限額</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-primary sm:text-3xl">4</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                套系統帶回家
-              </p>
+              <p className="mt-1 text-sm text-muted-foreground">套系統帶回家</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-primary sm:text-3xl">0</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                程式基礎要求
-              </p>
+              <p className="mt-1 text-sm text-muted-foreground">程式基礎要求</p>
             </div>
           </div>
         </div>
@@ -399,9 +387,7 @@ export default function AICommandCenterPage() {
                         {s.content}
                       </p>
                       <div className="mt-2 flex items-start gap-1.5">
-                        <span className="text-primary text-sm shrink-0">
-                          →
-                        </span>
+                        <span className="text-primary text-sm shrink-0">→</span>
                         <span className="text-sm font-medium text-foreground">
                           {s.deliverable}
                         </span>
@@ -473,11 +459,22 @@ export default function AICommandCenterPage() {
             {/* Vista */}
             <Card>
               <CardContent className="p-6">
-                <div className="text-center">
-                  <h3 className="text-xl font-bold">Vista</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    內容策略｜個人品牌經營
-                  </p>
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full">
+                    <Image
+                      src="/images/workshops/instructor-vista.webp"
+                      alt="Vista"
+                      width={64}
+                      height={64}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Vista</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      內容策略｜個人品牌經營
+                    </p>
+                  </div>
                 </div>
                 <div className="mt-5 space-y-2.5 text-sm text-muted-foreground">
                   <div className="flex items-start gap-2">
@@ -637,9 +634,7 @@ export default function AICommandCenterPage() {
                     <p className="text-sm text-muted-foreground">
                       早鳥價（4 月 10 日前）
                     </p>
-                    <p className="text-3xl font-bold text-primary">
-                      NT$6,000
-                    </p>
+                    <p className="text-3xl font-bold text-primary">NT$6,000</p>
                   </div>
                   <Badge variant="outline" className="text-xs">
                     省下 NT$6,800
@@ -670,9 +665,7 @@ export default function AICommandCenterPage() {
                   className="h-12 w-full max-w-sm px-8 text-base"
                   asChild
                 >
-                  <a href="mailto:iamvista@gmail.com">
-                    立即報名（名額有限）
-                  </a>
+                  <a href="mailto:iamvista@gmail.com">立即報名（名額有限）</a>
                 </Button>
                 <p className="mt-3 text-sm text-muted-foreground">
                   點擊報名後將寄送詳細資訊至您的信箱

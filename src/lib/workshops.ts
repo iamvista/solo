@@ -40,6 +40,7 @@ export interface Workshop {
 const vista: Instructor = {
   name: "Vista",
   title: "AI 應用培訓師・內容策略顧問",
+  avatar: "/images/workshops/instructor-vista.webp",
   url: "https://www.vista.tw",
 };
 
