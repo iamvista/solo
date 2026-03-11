@@ -161,7 +161,7 @@ const comparison = [
     label: "費用",
     selfStudy: "免費（但花時間）",
     consultant: "NT$3,000–5,000/hr",
-    workshop: "NT$6,000（早鳥）",
+    workshop: "NT$6,000–9,800",
   },
   {
     label: "時間成本",
@@ -711,14 +711,20 @@ export default function AICommandCenterPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">
-                      早鳥價（4 月 10 日前）
+                    <p className="text-sm text-muted-foreground">定價</p>
+                    <p className="text-xl font-semibold text-foreground">
+                      NT$9,800
+                    </p>
+                  </div>
+                  <div className="rounded-lg border-2 border-primary/20 bg-primary/5 p-3">
+                    <p className="text-sm font-medium text-primary">
+                      🔥 早鳥價（4 月 10 日前）
                     </p>
                     <p className="text-3xl font-bold text-primary">NT$6,000</p>
+                    <Badge variant="outline" className="mt-1 text-xs">
+                      省下 NT$6,800
+                    </Badge>
                   </div>
-                  <Badge variant="outline" className="text-xs">
-                    省下 NT$6,800
-                  </Badge>
                 </div>
               </div>
 

@@ -9,6 +9,7 @@ export interface Instructor {
 
 export interface WorkshopPrice {
   original: number;
+  regular?: number;
   earlyBird?: number;
   earlyBirdDeadline?: string;
   dual?: number;
@@ -88,6 +89,7 @@ export const workshops: Workshop[] = [
     capacity: 20,
     price: {
       original: 12800,
+      regular: 9800,
       earlyBird: 6000,
       earlyBirdDeadline: "4 月 10 日前",
     },
