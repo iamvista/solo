@@ -93,7 +93,7 @@ const deliverables = [
 
 const schedule = [
   {
-    time: "09:00–10:00",
+    time: "09:00–10:30",
     module: "AI 助理建置",
     content: "安裝 Claude Code，建立個人化 AI 助理設定檔",
     deliverable: "完成安裝 + 個人化設定檔",
@@ -399,7 +399,7 @@ export default function AICommandCenterPage() {
             ))}
           </div>
           <div className="mt-4 text-center text-sm text-muted-foreground">
-            <p>10:30–10:45 及 14:15–14:30 各有 15 分鐘休息｜12:00–13:00 午餐</p>
+            <p>10:30–10:45 上午茶歇｜12:00–13:00 午餐｜14:15–14:30 下午茶歇</p>
           </div>
         </section>
 
