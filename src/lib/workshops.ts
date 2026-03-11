@@ -49,6 +49,12 @@ const jianming: Instructor = {
   url: "https://www.innovators.tw",
 };
 
+const wenhao: Instructor = {
+  name: "余文皓",
+  title: "AI 工作流設計師・全端開發者",
+  avatar: "/images/workshops/instructor-wenhao.webp",
+};
+
 const runsheng: Instructor = {
   name: "駱潤生",
   title: "CFP® 國際認證理財規劃顧問",
@@ -66,6 +72,37 @@ export type WorkshopCategory = keyof typeof categories;
 
 // 工作坊列表
 export const workshops: Workshop[] = [
+  {
+    id: "ai-command-center",
+    title: "用 AI 建你的個人指揮中心",
+    subtitle: "6 小時帶走一套能跑的目標管理 × 知識管理 × AI 自動化系統",
+    description:
+      "用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流。不用寫程式，帶著能跑的系統回家。",
+    instructor: vista,
+    emoji: "🚀",
+    date: "2026/5/16（六）",
+    time: "9:30–16:00",
+    duration: "6 小時",
+    location: "台北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 20,
+    price: {
+      original: 12800,
+      earlyBird: 6000,
+      earlyBirdDeadline: "4 月 10 日前",
+    },
+    tags: ["AI", "生產力", "系統化", "實作"],
+    status: "open",
+    url: "/courses/ai-command-center",
+    isExternal: false,
+    highlights: [
+      "帶走 12 週目標追蹤表 + 知識庫 + 2 個自動化腳本",
+      "Claude Code + Obsidian 全實作，不需寫程式",
+      "兩位講師聯手：內容策略 × AI 工作流",
+      "限 20 名，現場完成一套可立即使用的系統",
+    ],
+    category: "ai",
+    featured: true,
+  },
   {
     id: "vibe-coding",
     title: "Vibe Coding 實戰工作坊",
@@ -188,6 +225,5 @@ export const workshops: Workshop[] = [
       "真實案例解析，回家就能開始行動",
     ],
     category: "finance",
-    featured: true,
   },
 ];
