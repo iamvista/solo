@@ -573,7 +573,7 @@ export default function AICommandCenterPage() {
                 <div className="mt-6 flex items-center gap-4 border-t pt-5">
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full">
                     <Image
-                      src="/images/workshops/testimonial-jack.jpg"
+                      src="/images/workshops/testimonial-jack.webp"
                       alt="暖流人心規劃顧問 執行長"
                       width={56}
                       height={56}
@@ -608,7 +608,7 @@ export default function AICommandCenterPage() {
                 <div className="mt-6 flex items-center gap-4 border-t pt-5">
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full">
                     <Image
-                      src="/images/workshops/testimonial-dinglun.png"
+                      src="/images/workshops/testimonial-dinglun.webp"
                       alt="林鼎倫"
                       width={56}
                       height={56}
