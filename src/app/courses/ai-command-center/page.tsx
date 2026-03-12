@@ -759,7 +759,7 @@ export default function AICommandCenterPage() {
           </div>
 
           <p className="mt-6 text-center text-lg font-semibold text-foreground">
-            我們不打算收你四萬。
+            我們不打算收你三萬。
             <br />
             <span className="text-muted-foreground text-base font-normal">
               往下看報名方案 ↓
