@@ -325,6 +325,24 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
+        {/* ====== Big Domino Statement ====== */}
+        <section className="bg-foreground text-background py-10 sm:py-12 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-base leading-relaxed sm:text-lg">
+              這堂課只要你相信一件事：
+              <br className="sm:hidden" />
+              <span className="font-bold text-primary">
+                只要你有一套系統，AI 就能幫你拿回每週浪費的 5–8 小時
+              </span>
+              <br className="hidden sm:block" />
+              ——而且你不需要會寫程式就能建起來。
+            </p>
+            <p className="mt-4 text-sm text-background/60">
+              接下來的內容，會讓你看到這件事怎麼發生。
+            </p>
+          </div>
+        </section>
+
         {/* ====== 4. Origin Story ====== */}
         <section className="border-t py-14 sm:py-16">
           <div className="mx-auto max-w-2xl">
@@ -358,6 +376,38 @@ export default function AICommandCenterPage() {
                   6 小時的實作工作坊
                 </span>
                 ——讓你不用像我們一樣走冤枉路。
+              </p>
+            </div>
+
+            {/* 余文皓 Origin Story */}
+            <div className="mt-10 rounded-xl border bg-muted/30 p-6 sm:p-8">
+              <h3 className="text-lg font-bold text-foreground">
+                你有五個工具，但零個系統
+              </h3>
+              <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
+                <p>
+                  開完客戶會議，你要把筆記整理成紀錄、從紀錄抽出待辦、把待辦排進日曆、再寫
+                  email 跟進。五次搬運，每一次都可能漏。隔天才發現忘記寄報價單。
+                </p>
+                <p className="text-base font-semibold text-foreground">
+                  這不是工作流。這是人工搬運。
+                </p>
+                <p>
+                  我離開全職後，一個人同時推 5
+                  個產品。靠手動管理撐了一個月就知道不行——每天光是「整理今天要做什麼」就花掉一個多小時，真正動手的時間被壓縮到下午。我試過
+                  Notion、Trello、Google Keep，工具越裝越多，資料越散越開。
+                </p>
+                <p>
+                  直到有一天我把 Claude Code 接上 Obsidian，讓 AI
+                  直接讀我的筆記、查我的行事曆、幫我整理工作清單。第一次跑起來的那個早上，我打了兩個字「開工」，3
+                  分鐘後它把今天該做什麼全列好了。我盯著螢幕想：這三個月的踩坑，值了。
+                </p>
+                <p className="text-base font-semibold text-foreground">
+                  這堂課，就是把三個月的踩坑濃縮成 6 小時。
+                </p>
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground/70">
+                — 余文皓，技術講師
               </p>
             </div>
 
@@ -796,26 +846,7 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
-        {/* ====== 12. FAQ ====== */}
-        <section className="border-t py-14 sm:py-16">
-          <h2 className="text-center text-xl font-bold sm:text-2xl">
-            常見問題
-          </h2>
-          <div className="mt-8 space-y-4">
-            {faqs.map((faq, i) => (
-              <Card key={i}>
-                <CardContent className="p-5 sm:p-6">
-                  <h3 className="text-base font-semibold text-foreground">
-                    Q：{faq.q}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{faq.a}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* ====== 13. Registration — 報名資訊 ====== */}
+        {/* ====== 12. Registration — 報名資訊 ====== */}
         <section id="register" className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             報名資訊
@@ -944,6 +975,89 @@ export default function AICommandCenterPage() {
               </p>
             </CardContent>
           </Card>
+        </section>
+
+        {/* ====== Two Choices Close ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            你現在有兩條路
+          </h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {/* 左：維持現狀 */}
+            <Card className="border-muted bg-muted/30">
+              <CardContent className="p-6 sm:p-8">
+                <h3 className="text-lg font-bold text-muted-foreground">
+                  繼續現在的方式
+                </h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  每天花一小時「準備開始工作」。工具裝了六個，資料散落各處。年初的目標三月就不記得了。偶爾用
+                  ChatGPT 寫點東西，但工作流還是自己手動跑。
+                </p>
+                <p className="mt-4 text-sm italic text-muted-foreground/70">
+                  半年後回頭看，一切跟今天一樣。
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* 右：建一套系統 */}
+            <Card className="border-primary/30 bg-primary/5">
+              <CardContent className="p-6 sm:p-8">
+                <h3 className="text-lg font-bold text-primary">
+                  花 6 小時，建一套系統
+                </h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  明天早上打開電腦，打「開工」。AI
+                  自動回顧昨天進度、查本週目標、掃信箱、拉行事曆。3
+                  分鐘後你已經在做最重要的事。
+                </p>
+                <p className="mt-4 text-sm font-semibold text-foreground">
+                  你帶走的不是筆記，是一套隔天就能跑的工作系統。
+                </p>
+                <Button size="sm" className="mt-5 h-9 px-6" asChild>
+                  <a href="#register">立即報名 →</a>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* ====== FAQ ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            常見問題
+          </h2>
+          <div className="mt-8 space-y-4">
+            {faqs.map((faq, i) => (
+              <Card key={i}>
+                <CardContent className="p-5 sm:p-6">
+                  <h3 className="text-base font-semibold text-foreground">
+                    Q：{faq.q}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{faq.a}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* 最終 CTA */}
+          <div className="mt-10 text-center">
+            <p className="text-base text-muted-foreground">
+              還有其他問題？直接寫信問我們。準備好了？
+            </p>
+            <div className="mt-5 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <Button size="lg" className="h-12 px-8 text-base" asChild>
+                <a href="#register">立即報名</a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 px-8 text-base"
+                asChild
+              >
+                <a href="mailto:hi@solo.tw">寫信給我們</a>
+              </Button>
+            </div>
+          </div>
         </section>
 
         {/* 返回課程列表 */}
