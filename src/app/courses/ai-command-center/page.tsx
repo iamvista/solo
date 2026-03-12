@@ -192,8 +192,8 @@ const valueStack = [
   },
   {
     item: "知識管理系統建置（參考 Ideaverse Pro 定價）",
-    reference: "Nick Milo 課程售價 US$497",
-    value: "≈ NT$16,000",
+    reference: "Nick Milo 課程售價 US$299",
+    value: "≈ NT$9,700",
   },
   {
     item: "Obsidian 模板 + 2 個自動化腳本",
@@ -306,8 +306,7 @@ export default function AICommandCenterPage() {
               <p>
                 你裝過 Notion、試過 Trello、研究過各種生產力 App。
                 <br className="hidden sm:block" />
-                你看過 YouTube 教學，甚至問過 ChatGPT
-                要怎麼安排一天的工作。
+                你看過 YouTube 教學，甚至問過 ChatGPT 要怎麼安排一天的工作。
               </p>
               <p>
                 但工具越裝越多，資料越來越散。
@@ -704,12 +703,8 @@ export default function AICommandCenterPage() {
               </div>
             ))}
             <div className="rounded-lg border-2 border-primary/20 bg-primary/5 p-4 text-center">
-              <p className="text-sm text-muted-foreground">
-                合計市場價值
-              </p>
-              <p className="text-2xl font-bold text-primary">
-                超過 NT$40,000
-              </p>
+              <p className="text-sm text-muted-foreground">合計市場價值</p>
+              <p className="text-2xl font-bold text-primary">超過 NT$30,000</p>
             </div>
           </div>
 
