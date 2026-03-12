@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 
 const REGISTER_URL =
   "https://vista.oen.tw/good/3AnmvRTr81l3LbH0J3UWYvqmwuO?from=vista_good";
+const DUO_REGISTER_URL =
+  "https://vista.oen.tw/good/3ApCF3xTnBrWxLSSoEiFtbhYYHo?from=vista&m=cash";
 
 const painPoints = [
   {
@@ -219,7 +221,7 @@ export default function AICommandCenterPage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href={REGISTER_URL}>立即報名</a>
+              <a href="#register">立即報名</a>
             </Button>
             <Button
               size="lg"
@@ -704,7 +706,7 @@ export default function AICommandCenterPage() {
                   </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div>
                     <p className="text-sm text-muted-foreground">原價</p>
                     <p className="text-lg text-muted-foreground line-through">
@@ -716,15 +718,6 @@ export default function AICommandCenterPage() {
                     <p className="text-xl font-semibold text-foreground">
                       NT$9,800
                     </p>
-                  </div>
-                  <div className="rounded-lg border-2 border-primary/20 bg-primary/5 p-3">
-                    <p className="text-sm font-medium text-primary">
-                      🔥 早鳥價（4 月 10 日前）
-                    </p>
-                    <p className="text-3xl font-bold text-primary">NT$6,000</p>
-                    <Badge variant="outline" className="mt-1 text-xs">
-                      省下 NT$6,800
-                    </Badge>
                   </div>
                 </div>
               </div>
@@ -746,18 +739,65 @@ export default function AICommandCenterPage() {
                 </ul>
               </div>
 
-              <div className="mt-6 text-center">
-                <Button
-                  size="lg"
-                  className="h-12 w-full max-w-sm px-8 text-base"
-                  asChild
-                >
-                  <a href={REGISTER_URL}>立即報名（名額有限）</a>
-                </Button>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  點擊報名後將寄送詳細資訊至您的信箱
-                </p>
+              {/* 方案選擇 */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* 早鳥方案 */}
+                <div className="flex flex-col rounded-xl border-2 border-primary/30 bg-primary/5 p-5">
+                  <div className="mb-4">
+                    <p className="text-sm font-medium text-primary">
+                      🔥 早鳥優惠（4 月 10 日前）
+                    </p>
+                    <p className="mt-1 text-3xl font-bold text-primary">
+                      NT$6,000
+                    </p>
+                    <Badge variant="outline" className="mt-1.5 text-xs">
+                      省下 NT$6,800
+                    </Badge>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      單人報名
+                    </p>
+                  </div>
+                  <Button
+                    size="lg"
+                    className="mt-auto h-11 w-full text-base"
+                    asChild
+                  >
+                    <a href={REGISTER_URL}>立即報名</a>
+                  </Button>
+                </div>
+
+                {/* 雙人同行方案 */}
+                <div className="flex flex-col rounded-xl border-2 border-amber-500/30 bg-amber-50/50 p-5 dark:bg-amber-950/20">
+                  <div className="mb-4">
+                    <p className="text-sm font-medium text-amber-700 dark:text-amber-400">
+                      👥 雙人同行
+                    </p>
+                    <p className="mt-1 text-3xl font-bold text-amber-700 dark:text-amber-400">
+                      NT$10,800
+                    </p>
+                    <Badge
+                      variant="outline"
+                      className="mt-1.5 border-amber-300 text-xs text-amber-700 dark:text-amber-400"
+                    >
+                      平均每人 NT$5,400
+                    </Badge>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      兩人一起報名更划算
+                    </p>
+                  </div>
+                  <Button
+                    size="lg"
+                    className="mt-auto h-11 w-full border-amber-500/30 bg-amber-600 text-base text-white hover:bg-amber-700"
+                    asChild
+                  >
+                    <a href={DUO_REGISTER_URL}>雙人報名</a>
+                  </Button>
+                </div>
               </div>
+
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                點擊報名後將寄送詳細資訊至您的信箱
+              </p>
             </CardContent>
           </Card>
         </section>
