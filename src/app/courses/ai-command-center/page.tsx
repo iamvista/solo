@@ -159,65 +159,78 @@ const faqs = [
   },
 ];
 
-const comparison = [
+const beliefs = [
   {
-    label: "費用",
-    selfStudy: "免費（但花時間）",
-    consultant: "NT$3,000–5,000/hr",
-    workshop: "NT$6,000–9,800",
+    myth: "AI 不就是聊天機器人？",
+    answer:
+      "ChatGPT 是對話框，問完還是要自己動手。Claude Code 完全不同——它直接讀你電腦裡的檔案，幫你執行任務、管理專案。",
+    quote: "它不只是我的策略夥伴，也是我的執行秘書。",
+    quoter: "林鼎倫，品牌策略總監",
   },
   {
-    label: "時間成本",
-    selfStudy: "3–6 個月摸索",
-    consultant: "看顧問排程",
-    workshop: "6 小時，當天完成",
+    myth: "我不是工程師，學得會嗎？",
+    answer:
+      "Claude Code 看得懂中文，你只需要打字。工作坊全程手把手帶著做，不需要任何程式背景。",
+    quote:
+      "我是臨床心理師，從覺得「不可能學得會」，到現在用一成的時間完成拖了大半年的雜事。",
+    quoter: "劉子維，臨床心理師",
   },
   {
-    label: "產出",
-    selfStudy: "不確定，可能半途放棄",
-    consultant: "建議 + 規劃",
-    workshop: "一套能跑的系統",
+    myth: "6 小時真的學得會嗎？",
+    answer:
+      "這不是講座，是實作工作坊。每個模組都有明確產出——你帶走的是能跑的系統，不是筆記。",
+    quote: null,
+    quoter: null,
+  },
+];
+
+const valueStack = [
+  {
+    item: "AI 工作流顧問 1 對 1 諮詢 6 小時",
+    reference: "市場行情 NT$3,000–5,000/hr",
+    value: "NT$18,000–30,000",
   },
   {
-    label: "明天就能用？",
-    selfStudy: "不行",
-    consultant: "通常不行",
-    workshop: "可以",
+    item: "知識管理系統建置（參考 Ideaverse Pro 定價）",
+    reference: "Nick Milo 課程售價 US$497",
+    value: "≈ NT$16,000",
   },
   {
-    label: "後續支援",
-    selfStudy: "沒有",
-    consultant: "另外收費",
-    workshop: "社群 + 電子報持續更新",
+    item: "Obsidian 模板 + 2 個自動化腳本",
+    reference: "市場模板包價格",
+    value: "NT$3,000–5,000",
+  },
+  {
+    item: "課後社群 + 電子報持續更新",
+    reference: "",
+    value: "持續價值",
   },
 ];
 
 export default function AICommandCenterPage() {
   return (
     <div>
-      {/* Hero */}
+      {/* ====== 1. Hero — Hook ====== */}
       <section className="bg-gradient-to-b from-primary/5 to-background">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
           <Badge
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            🚀 一日實作工作坊
+            🚀 一日實作工作坊 — 2026/5/16（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            用 AI 建你的
-            <br className="sm:hidden" />
-            <span className="gradient-text">個人指揮中心</span>
+            你每天花多少時間
+            <br />
+            才真正
+            <span className="gradient-text">開始工作</span>？
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-            6 小時實作工作坊 — 用 Claude Code + Obsidian 打造
+            整理待辦、翻找資料、回覆訊息⋯⋯一小時就過去了。
             <br className="hidden sm:block" />
             <span className="font-semibold text-foreground">
-              目標管理 × 知識管理 × AI 自動化工作流
+              如果 AI 能在 3 分鐘內幫你搞定這些呢？
             </span>
-          </p>
-          <p className="mt-3 text-base text-muted-foreground">
-            不需要會寫程式。帶著能跑的系統回家。
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
@@ -256,10 +269,10 @@ export default function AICommandCenterPage() {
       </section>
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        {/* 痛點 */}
+        {/* ====== 2. Pain Points — 痛點 ====== */}
         <section className="py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            這些場景，是不是很熟悉？
+            這些場景，是不是每天都在上演？
           </h2>
           <p className="mt-3 text-center text-base text-muted-foreground">
             如果你中了三項以上，這堂課就是為你設計的。
@@ -283,7 +296,140 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
-        {/* 解法願景 */}
+        {/* ====== 3. Amplify Pain — 放大痛感 ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-xl font-bold sm:text-2xl">
+              更痛的是——你已經試過很多方法了
+            </h2>
+            <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
+              <p>
+                你裝過 Notion、試過 Trello、研究過各種生產力 App。
+                <br className="hidden sm:block" />
+                你看過 YouTube 教學，甚至問過 ChatGPT
+                要怎麼安排一天的工作。
+              </p>
+              <p>
+                但工具越裝越多，資料越來越散。
+                <br className="hidden sm:block" />
+                問題從來沒有真正被解決——因為
+                <span className="font-semibold text-foreground">
+                  工具不會自己變成系統
+                </span>
+                。
+              </p>
+            </div>
+            <p className="mt-6 text-lg font-semibold text-foreground">
+              你缺的不是另一個工具，是
+              <span className="text-primary">一套能串起來的系統</span>。
+            </p>
+          </div>
+        </section>
+
+        {/* ====== 4. Origin Story ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <div className="mx-auto max-w-2xl">
+            <h2 className="text-center text-xl font-bold sm:text-2xl">
+              我搬了五次家，才學會打包
+            </h2>
+            <div className="mt-8 space-y-4 text-base leading-relaxed text-muted-foreground">
+              <p>
+                我搬過五次家。前四次，都是把東西一件件搬上車，到了新家再一件件擺好。每次都累得半死，每次都覺得「下次會更快」——但從來沒有。
+              </p>
+              <p>
+                直到第五次，我才學會：
+                <span className="font-semibold text-foreground">
+                  先分類、先打包、先建立系統，搬起來才會快。
+                </span>
+              </p>
+              <p>
+                經營生產力工具也是一樣。一個個裝、一個個學，但從來沒有人教你怎麼把它們「串成一套系統」。
+              </p>
+              <p>
+                直到我遇見余文皓。他用 Claude Code + Obsidian 同時管理 5
+                個產品線，從目標規劃、知識整理到任務執行，全部串在一起。我看到的時候心想：
+                <span className="font-semibold text-foreground">
+                  原來有人已經跑通了。
+                </span>
+              </p>
+              <p>
+                我們花了三個月反覆測試、踩坑、優化，把這套方法濃縮成
+                <span className="font-semibold text-foreground">
+                  {" "}
+                  6 小時的實作工作坊
+                </span>
+                ——讓你不用像我們一樣走冤枉路。
+              </p>
+            </div>
+
+            {/* Epiphany Bridge — 劉子維見證 */}
+            <Card className="mt-8 border-primary/20 bg-primary/5">
+              <CardContent className="p-6 sm:p-8">
+                <div className="mb-4 text-2xl leading-none text-primary/30">
+                  &ldquo;
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">
+                  我是臨床心理師，聽到「你也可以用 Claude Code
+                  建自己的工作流系統」的時候，心裡想你在開我玩笑吧？結果在余老師手把手的引導下，我從覺得「這種東西我不可能學得會」，到現在
+                  <span className="font-semibold text-foreground">
+                    用一成的時間完成拖了大半年的雜事，剩下九成拿來思考品牌和產品
+                  </span>
+                  。
+                </p>
+                <div className="mt-5 flex items-center gap-4">
+                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full">
+                    <Image
+                      src="/images/workshops/testimonial-jack.webp"
+                      alt="劉子維"
+                      width={48}
+                      height={48}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">劉子維</p>
+                    <p className="text-xs text-muted-foreground">
+                      臨床心理師・暖流人心規劃顧問 執行長
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* ====== 5. Break 3 Beliefs — 解除疑慮 ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            你可能還在猶豫⋯⋯
+          </h2>
+          <div className="mt-8 space-y-5">
+            {beliefs.map((b, i) => (
+              <Card key={i}>
+                <CardContent className="p-5 sm:p-6">
+                  <p className="text-base font-semibold text-foreground">
+                    ❓「{b.myth}」
+                  </p>
+                  <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+                    {b.answer}
+                  </p>
+                  {b.quote && (
+                    <div className="mt-3 rounded-lg bg-muted/50 px-4 py-3">
+                      <p className="text-sm italic text-muted-foreground">
+                        「{b.quote}」
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground/70">
+                        — {b.quoter}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* ====== 6. Solution + Vision — 解法願景 ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             上完課後，你的早晨會變成這樣
@@ -319,13 +465,11 @@ export default function AICommandCenterPage() {
               </div>
             </CardContent>
           </Card>
-        </section>
 
-        {/* 四大帶走成果 */}
-        <section className="border-t py-14 sm:py-16">
-          <h2 className="text-center text-xl font-bold sm:text-2xl">
+          {/* 四大帶走成果 */}
+          <h3 className="mt-12 text-center text-lg font-bold sm:text-xl">
             你會帶走的 4 套系統
-          </h2>
+          </h3>
           <p className="mt-3 text-center text-base text-muted-foreground">
             不是筆記、不是講義，是能在你電腦上跑的完整系統。
           </p>
@@ -354,7 +498,7 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
-        {/* 課程時間表 */}
+        {/* ====== 7. Curriculum — 課程時間表 ====== */}
         <section id="curriculum" className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             6 小時課程安排
@@ -406,50 +550,30 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
-        {/* 比較表 */}
+        {/* ====== 8. Target Audience — 適合誰 ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            自學 vs. 請顧問 vs. 這堂課
+            這堂課適合誰？
           </h2>
-          <div className="mt-8 overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-3 pr-4 text-left font-medium text-muted-foreground"></th>
-                  <th className="py-3 px-4 text-left font-medium text-muted-foreground">
-                    自學
-                  </th>
-                  <th className="py-3 px-4 text-left font-medium text-muted-foreground">
-                    請顧問
-                  </th>
-                  <th className="py-3 pl-4 text-left font-semibold text-primary">
-                    這堂課
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparison.map((row, i) => (
-                  <tr key={i} className="border-b last:border-0">
-                    <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap">
-                      {row.label}
-                    </td>
-                    <td className="py-3 px-4 text-muted-foreground">
-                      {row.selfStudy}
-                    </td>
-                    <td className="py-3 px-4 text-muted-foreground">
-                      {row.consultant}
-                    </td>
-                    <td className="py-3 pl-4 font-medium text-foreground">
-                      {row.workshop}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <p className="mt-3 text-center text-base text-muted-foreground">
+            不需要任何程式基礎。符合以下任一項就適合參加。
+          </p>
+          <div className="mx-auto mt-8 max-w-lg space-y-3">
+            {targetAudience.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-3 rounded-lg border p-4"
+              >
+                <span className="text-xl shrink-0">{item.icon}</span>
+                <span className="text-base text-muted-foreground">
+                  {item.text}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* 講師 */}
+        {/* ====== 9. Instructors — 講師 ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             兩位講師聯手授課
@@ -549,7 +673,56 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
-        {/* 口碑證言 */}
+        {/* ====== 10. Value Stack — 價值堆疊 ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            這些東西加起來值多少？
+          </h2>
+          <p className="mt-3 text-center text-base text-muted-foreground">
+            用可查證的市場行情算給你看
+          </p>
+
+          <div className="mt-8 space-y-3">
+            {valueStack.map((v, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-1 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    {v.item}
+                  </p>
+                  {v.reference && (
+                    <p className="text-xs text-muted-foreground">
+                      {v.reference}
+                    </p>
+                  )}
+                </div>
+                <p className="text-base font-semibold text-foreground sm:text-right">
+                  {v.value}
+                </p>
+              </div>
+            ))}
+            <div className="rounded-lg border-2 border-primary/20 bg-primary/5 p-4 text-center">
+              <p className="text-sm text-muted-foreground">
+                合計市場價值
+              </p>
+              <p className="text-2xl font-bold text-primary">
+                超過 NT$40,000
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-6 text-center text-lg font-semibold text-foreground">
+            我們不打算收你四萬。
+            <br />
+            <span className="text-muted-foreground text-base font-normal">
+              往下看報名方案 ↓
+            </span>
+          </p>
+        </section>
+
+        {/* ====== 11. Testimonials — 見證 ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             學員怎麼說
@@ -559,40 +732,7 @@ export default function AICommandCenterPage() {
           </p>
 
           <div className="mt-10 grid gap-8 sm:grid-cols-2">
-            {/* 證言 1 */}
-            <Card className="relative overflow-hidden">
-              <CardContent className="p-6 sm:p-8">
-                <div className="mb-5 text-3xl leading-none text-primary/20">
-                  &ldquo;
-                </div>
-                <p className="text-[15px] leading-relaxed text-muted-foreground">
-                  我是臨床心理師，聽到「你也可以用 Claude Code
-                  建自己的工作流系統」的時候，心裡想你在開我玩笑吧？結果在余老師手把手的引導下，我從覺得「這種東西我不可能學得會」，到現在用一成的時間完成拖了大半年的雜事，剩下九成拿來思考品牌和產品。
-                </p>
-                <p className="mt-3 text-[15px] font-medium text-foreground">
-                  用 AI 打造自己的工作流，才是真正的改變。
-                </p>
-                <div className="mt-6 flex items-center gap-4 border-t pt-5">
-                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full">
-                    <Image
-                      src="/images/workshops/testimonial-jack.webp"
-                      alt="暖流人心規劃顧問 執行長"
-                      width={56}
-                      height={56}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">劉子維</p>
-                    <p className="text-xs text-muted-foreground">
-                      暖流人心規劃顧問 執行長・暖陽身心診所 心理科主任
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 證言 2 */}
+            {/* 林鼎倫 */}
             <Card className="relative overflow-hidden">
               <CardContent className="p-6 sm:p-8">
                 <div className="mb-5 text-3xl leading-none text-primary/20">
@@ -626,33 +766,42 @@ export default function AICommandCenterPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* 劉子維 — 精華版 */}
+            <Card className="relative overflow-hidden">
+              <CardContent className="p-6 sm:p-8">
+                <div className="mb-5 text-3xl leading-none text-primary/20">
+                  &ldquo;
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">
+                  我從覺得「這種東西我不可能學得會」，到現在用一成的時間完成拖了大半年的雜事，剩下九成拿來思考品牌和產品。
+                </p>
+                <p className="mt-3 text-[15px] font-medium text-foreground">
+                  用 AI 打造自己的工作流，才是真正的改變。
+                </p>
+                <div className="mt-6 flex items-center gap-4 border-t pt-5">
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full">
+                    <Image
+                      src="/images/workshops/testimonial-jack.webp"
+                      alt="劉子維"
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">劉子維</p>
+                    <p className="text-xs text-muted-foreground">
+                      臨床心理師・暖流人心規劃顧問 執行長
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
-        {/* 適合誰 */}
-        <section className="border-t py-14 sm:py-16">
-          <h2 className="text-center text-xl font-bold sm:text-2xl">
-            這堂課適合誰？
-          </h2>
-          <p className="mt-3 text-center text-base text-muted-foreground">
-            不需要任何程式基礎。符合以下任一項就適合參加。
-          </p>
-          <div className="mx-auto mt-8 max-w-lg space-y-3">
-            {targetAudience.map((item, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 rounded-lg border p-4"
-              >
-                <span className="text-xl shrink-0">{item.icon}</span>
-                <span className="text-base text-muted-foreground">
-                  {item.text}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* FAQ */}
+        {/* ====== 12. FAQ ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             常見問題
@@ -671,7 +820,7 @@ export default function AICommandCenterPage() {
           </div>
         </section>
 
-        {/* 報名資訊 */}
+        {/* ====== 13. Registration — 報名資訊 ====== */}
         <section id="register" className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             報名資訊
