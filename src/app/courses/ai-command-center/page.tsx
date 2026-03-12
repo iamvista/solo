@@ -328,17 +328,14 @@ export default function AICommandCenterPage() {
         {/* ====== Big Domino Statement ====== */}
         <section className="bg-foreground text-background py-10 sm:py-12 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-base leading-relaxed sm:text-lg">
-              這堂課只要你相信一件事：
-              <br className="sm:hidden" />
-              <span className="font-bold text-primary">
-                只要你有一套系統，AI 就能幫你拿回每週浪費的 5–8 小時
+            <p className="text-lg font-bold leading-relaxed sm:text-xl">
+              <span className="text-primary">
+                有了這套系統，AI 能幫你拿回每週浪費的 5–8 小時
               </span>
-              <br className="hidden sm:block" />
-              ——而且你不需要會寫程式就能建起來。
-            </p>
-            <p className="mt-4 text-sm text-background/60">
-              接下來的內容，會讓你看到這件事怎麼發生。
+              <br />
+              <span className="font-normal text-background/80">
+                ——而且不用會寫程式就能建起來。
+              </span>
             </p>
           </div>
         </section>
@@ -759,7 +756,7 @@ export default function AICommandCenterPage() {
           </div>
 
           <p className="mt-6 text-center text-lg font-semibold text-foreground">
-            我們不打算收你三萬。
+            但這堂課不用三萬。
             <br />
             <span className="text-muted-foreground text-base font-normal">
               往下看報名方案 ↓
