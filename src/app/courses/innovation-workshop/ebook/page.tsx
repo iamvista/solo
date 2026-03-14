@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -81,45 +82,26 @@ const faqs = [
   },
 ];
 
-export default function InnovationEbookPage() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [errorMsg, setErrorMsg] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus("loading");
-    try {
-      const res = await fetch("https://www.vista.tw/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          name: name || undefined,
-          leadMagnetSlug: "innovation-ebook",
-          sourcePage: window.location.href,
-          newsletter: true,
-        }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "送出失敗，請稍後再試");
-      }
-
-      setStatus("success");
-    } catch (err) {
-      setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "送出失敗，請稍後再試");
-    }
-  }
-
-  const EmailForm = ({ id }: { id?: string }) => (
+function EmailForm({
+  id,
+  email,
+  setEmail,
+  name,
+  setName,
+  status,
+  errorMsg,
+  onSubmit,
+}: {
+  id?: string;
+  email: string;
+  setEmail: (v: string) => void;
+  name: string;
+  setName: (v: string) => void;
+  status: "idle" | "loading" | "success" | "error";
+  errorMsg: string;
+  onSubmit: (e: React.FormEvent) => void;
+}) {
+  return (
     <div id={id}>
       {status === "success" ? (
         <Card className="border-green-200 bg-green-50">
@@ -142,17 +124,18 @@ export default function InnovationEbookPage() {
           </CardContent>
         </Card>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={onSubmit} className="space-y-3">
           <Input
             type="text"
-            placeholder="你的名字（選填）"
+            placeholder="你的名字"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
             disabled={status === "loading"}
           />
           <Input
             type="email"
-            placeholder="你的 Email *"
+            placeholder="你的 Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -176,57 +159,117 @@ export default function InnovationEbookPage() {
       )}
     </div>
   );
+}
+
+export default function InnovationEbookPage() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email || !name) return;
+
+    setStatus("loading");
+    try {
+      const res = await fetch("https://www.vista.tw/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          name,
+          leadMagnetSlug: "innovation-ebook",
+          sourcePage: window.location.href,
+          newsletter: true,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "送出失敗，請稍後再試");
+      }
+
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "送出失敗，請稍後再試");
+    }
+  }
 
   return (
     <div>
       {/* Hero */}
       <section className="bg-gradient-to-b from-amber-50 to-background">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
-          <Badge
-            variant="secondary"
-            className="mb-4 px-4 py-2 text-sm sm:text-base"
-          >
-            免費電子書
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            創新不是天才，是方法
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-            把問題變點子，把點子變成果
-          </p>
-          <p className="mt-3 text-base text-muted-foreground">
-            創新先生 陳建銘 著｜44 頁圖文｜完全免費
-          </p>
+        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
+            {/* Book Cover */}
+            <div className="shrink-0">
+              <div className="relative w-48 sm:w-56">
+                <div className="rounded-lg shadow-2xl overflow-hidden">
+                  <Image
+                    src="/images/workshops/innovation-ebook-cover.webp"
+                    alt="《創新不是天才，是方法》電子書封面"
+                    width={618}
+                    height={800}
+                    className="w-full h-auto"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
 
-          {/* Stats */}
-          <div className="mx-auto mt-8 grid max-w-lg grid-cols-3 gap-4">
-            <div className="rounded-lg border bg-white/80 p-3">
-              <p className="text-2xl font-bold text-primary">20+</p>
-              <p className="text-xs text-muted-foreground">年創新實戰經驗</p>
-            </div>
-            <div className="rounded-lg border bg-white/80 p-3">
-              <p className="text-2xl font-bold text-primary">14</p>
-              <p className="text-xs text-muted-foreground">章精華內容</p>
-            </div>
-            <div className="rounded-lg border bg-white/80 p-3">
-              <p className="text-2xl font-bold text-primary">30</p>
-              <p className="text-xs text-muted-foreground">個企業創新題目</p>
+            {/* Text Content */}
+            <div className="text-center sm:text-left">
+              <Badge
+                variant="secondary"
+                className="mb-4 px-4 py-2 text-sm sm:text-base"
+              >
+                免費電子書
+              </Badge>
+              <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                創新不是天才，是方法
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
+                把問題變點子，把點子變成果
+              </p>
+              <p className="mt-3 text-base text-muted-foreground">
+                創新先生 陳建銘 著｜44 頁圖文｜完全免費
+              </p>
+
+              {/* CTA */}
+              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-start">
+                <Button size="lg" className="h-12 px-8 text-base" asChild>
+                  <a href="#download">立即免費下載</a>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 px-8 text-base"
+                  asChild
+                >
+                  <a href="#content">看看書裡有什麼</a>
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#download">立即免費下載</a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-12 px-8 text-base"
-              asChild
-            >
-              <a href="#content">看看書裡有什麼</a>
-            </Button>
+          {/* Stats */}
+          <div className="mx-auto mt-10 grid max-w-lg grid-cols-3 gap-4">
+            <div className="rounded-lg border bg-white/80 p-3 text-center">
+              <p className="text-2xl font-bold text-primary">20+</p>
+              <p className="text-xs text-muted-foreground">年創新實戰經驗</p>
+            </div>
+            <div className="rounded-lg border bg-white/80 p-3 text-center">
+              <p className="text-2xl font-bold text-primary">14</p>
+              <p className="text-xs text-muted-foreground">章精華內容</p>
+            </div>
+            <div className="rounded-lg border bg-white/80 p-3 text-center">
+              <p className="text-2xl font-bold text-primary">30</p>
+              <p className="text-xs text-muted-foreground">個企業創新題目</p>
+            </div>
           </div>
         </div>
       </section>
@@ -330,7 +373,15 @@ export default function InnovationEbookPage() {
               </div>
 
               <div className="mx-auto mt-6 max-w-sm">
-                <EmailForm />
+                <EmailForm
+                  email={email}
+                  setEmail={setEmail}
+                  name={name}
+                  setName={setName}
+                  status={status}
+                  errorMsg={errorMsg}
+                  onSubmit={handleSubmit}
+                />
               </div>
             </CardContent>
           </Card>
@@ -523,7 +574,16 @@ export default function InnovationEbookPage() {
           </div>
 
           <div className="mx-auto mt-8 max-w-sm">
-            <EmailForm id="download-bottom" />
+            <EmailForm
+              id="download-bottom"
+              email={email}
+              setEmail={setEmail}
+              name={name}
+              setName={setName}
+              status={status}
+              errorMsg={errorMsg}
+              onSubmit={handleSubmit}
+            />
           </div>
         </section>
 
