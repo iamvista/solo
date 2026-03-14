@@ -30,36 +30,47 @@ const painPoints = [
 ];
 
 const chapters = [
-  { title: "為什麼多數人誤會了創新？", desc: "拆掉對創新的常見誤解" },
-  { title: "AI 時代，更要看懂人類真正的優勢", desc: "人類觀察力 vs AI 的差別" },
-  { title: "想像力，不是天馬行空", desc: "從生活中找回想像力的三個練習" },
-  {
-    title: "設計思考的起點，不是點子，而是感受",
-    desc: "創新不是炫技，而是回應人心",
-  },
-  { title: "從問題中找靈感：創新的第一個入口", desc: "三個問題，打開創新的門" },
-  {
-    title: "創新方程式：把靈感變成果的實戰流程",
-    desc: "五步驟可複製的工作流程",
-  },
+  { title: "序章｜為什麼多數人誤會了創新？", desc: "拆掉對創新的常見誤解，重新定義創新" },
+  { title: "AI 時代，更要看懂人類真正的優勢", desc: "人類觀察力 vs AI 的關鍵差別" },
+  { title: "想像力，不是天馬行空，而是從生活長出來", desc: "找回被自己關掉的想像力" },
+  { title: "設計思考的起點，不是點子，而是感受", desc: "創新不是炫技，而是回應人心" },
+  { title: "從問題中找靈感：創新的第一個入口", desc: "好問題，比好答案更重要" },
+  { title: "創意與創新：差一個落地，結果就完全不同", desc: "從想法到價值的關鍵一步" },
+  { title: "創新方程式：把靈感變成果的實戰流程", desc: "五步驟可複製的工作流程" },
+  { title: "角色扮演法：讓大腦分工，創意更容易出現", desc: "四個角色，四種思考功能" },
+  { title: "ChatGPT 與 AI，怎麼成為你的創意助手", desc: "會問，比只會用工具更重要" },
+  { title: "把抽象變有趣：創新教學與課程設計的秘密", desc: "讓人記得的教學設計法" },
+  { title: "行動，才是創意真正啟動的那一刻", desc: "先行動，再優化" },
+  { title: "把創新用在職場：從自我介紹到團隊會議", desc: "創新進入日常工作的方法" },
+  { title: "企業裡最值得練習的三十個創新題目", desc: "從流程、業績到文化的實戰清單" },
+  { title: "創新也可以很溫暖：真誠、感動與專業的影響力", desc: "有溫度的創新，才走得遠" },
+  { title: "結語：把事情做得更好，就是你今天就能開始的創新", desc: "從今天就能開始" },
 ];
 
 const bookHighlights = [
   {
     title: "創新方程式",
-    description: "一套五步驟的實戰流程，讓你在沒有靈感時也知道下一步該怎麼做",
+    description: "五步驟實戰流程：找痛點→找需求→提新問題→尋找元素→想像畫面，沒有靈感也知道下一步",
   },
   {
     title: "角色扮演法",
-    description: "讓大腦分工，讓不同思考角色依序出場，創意就不容易被過早否決",
+    description: "四個角色讓大腦分工——偵探、畫家、裁判、戰士，創意不再被過早否決",
   },
   {
     title: "AI + 創新思維",
-    description: "如何用 ChatGPT 當創意助手，讓 AI 放大你的想像，而不是取代你",
+    description: "用 ChatGPT 當創意助手，學會「帶感受提問」，讓 AI 放大你的想像",
+  },
+  {
+    title: "職場創新應用",
+    description: "從自我介紹、團隊會議到跨部門合作，創新不只是口號，而是每天的工作升級",
   },
   {
     title: "30 個企業創新題目",
-    description: "從流程、業績、顧客體驗到團隊合作，直接帶回去練",
+    description: "涵蓋流程效率、業績市場、顧客體驗、產品服務、團隊合作、組織文化六大面向",
+  },
+  {
+    title: "創新教學設計",
+    description: "以終為始的兩段式教學法，把抽象概念轉成看得見、玩得起來的體驗",
   },
 ];
 
@@ -70,7 +81,7 @@ const faqs = [
   },
   {
     q: "電子書是什麼格式？",
-    a: "PDF 格式，共 44 頁，可在手機、平板、電腦上閱讀。圖文並茂，閱讀體驗佳。",
+    a: "PDF 格式，共 63 頁，可在手機、平板、電腦上閱讀。圖文並茂，閱讀體驗佳。",
   },
   {
     q: "真的完全免費嗎？",
@@ -236,7 +247,7 @@ export default function InnovationEbookPage() {
                 把問題變點子，把點子變成果
               </p>
               <p className="mt-3 text-base text-muted-foreground">
-                創新先生 陳建銘 著｜44 頁圖文｜完全免費
+                創新先生 陳建銘 著｜63 頁圖文｜完全免費
               </p>
 
               {/* CTA */}
@@ -263,7 +274,7 @@ export default function InnovationEbookPage() {
               <p className="text-xs text-muted-foreground">年創新實戰經驗</p>
             </div>
             <div className="rounded-lg border bg-white/80 p-3 text-center">
-              <p className="text-2xl font-bold text-primary">14</p>
+              <p className="text-2xl font-bold text-primary">15</p>
               <p className="text-xs text-muted-foreground">章精華內容</p>
             </div>
             <div className="rounded-lg border bg-white/80 p-3 text-center">
@@ -352,8 +363,7 @@ export default function InnovationEbookPage() {
               </div>
             ))}
             <p className="pt-2 text-center text-sm text-muted-foreground">
-              ⋯⋯以及更多：ChatGPT 與 AI 創意助手、角色扮演法、30
-              個企業創新題目等
+              共 15 章完整內容，63 頁圖文並茂
             </p>
           </div>
         </section>
@@ -368,7 +378,7 @@ export default function InnovationEbookPage() {
                   免費下載《創新不是天才，是方法》
                 </h2>
                 <p className="mt-2 text-base text-muted-foreground">
-                  44 頁完整圖文電子書，填寫 Email 立即寄送到你的信箱
+                  63 頁完整圖文電子書，填寫 Email 立即寄送到你的信箱
                 </p>
               </div>
 
