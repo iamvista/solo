@@ -17,8 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL =
-  "https://vista.oen.tw/good/3A0vLGJeh45LWOmtSbkdW9Ph3wi";
+const REGISTER_URL = "https://vista.oen.tw/good/3A0vLGJeh45LWOmtSbkdW9Ph3wi";
 
 const painPoints = [
   {
@@ -68,12 +67,32 @@ const outcomes = [
 ];
 
 const steps = [
-  { number: "01", title: "看見真正的問題", image: "/images/workshops/step-1.webp" },
-  { number: "02", title: "找到關鍵需求", image: "/images/workshops/step-2.webp" },
-  { number: "03", title: "提出新的問題", image: "/images/workshops/step-3.webp" },
+  {
+    number: "01",
+    title: "看見真正的問題",
+    image: "/images/workshops/step-1.webp",
+  },
+  {
+    number: "02",
+    title: "找到關鍵需求",
+    image: "/images/workshops/step-2.webp",
+  },
+  {
+    number: "03",
+    title: "提出新的問題",
+    image: "/images/workshops/step-3.webp",
+  },
   { number: "04", title: "重組元素", image: "/images/workshops/step-4.webp" },
-  { number: "05", title: "創造清晰畫面", image: "/images/workshops/step-5.webp" },
-  { number: "06", title: "寫出實現計畫", image: "/images/workshops/step-6.webp" },
+  {
+    number: "05",
+    title: "創造清晰畫面",
+    image: "/images/workshops/step-5.webp",
+  },
+  {
+    number: "06",
+    title: "寫出實現計畫",
+    image: "/images/workshops/step-6.webp",
+  },
 ];
 
 const experiences = [
@@ -112,7 +131,10 @@ export default function InnovationWorkshopPage() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary/5 to-background">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
-          <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
+          <Badge
+            variant="secondary"
+            className="mb-4 px-4 py-2 text-sm sm:text-base"
+          >
             💡 實戰工作坊
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
@@ -120,7 +142,9 @@ export default function InnovationWorkshopPage() {
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
             6 個小時，用創新思維
-            <span className="font-semibold text-foreground">解決職場三大問題</span>
+            <span className="font-semibold text-foreground">
+              解決職場三大問題
+            </span>
           </p>
           <p className="mt-3 text-base text-muted-foreground">
             不光是來聽課，而是現場就讓你的問題迎刃而解！
@@ -131,7 +155,12 @@ export default function InnovationWorkshopPage() {
                 立即報名
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
+            <Button
+              size="lg"
+              variant="outline"
+              className="h-12 px-8 text-base"
+              asChild
+            >
               <a href="#method">查看課程內容</a>
             </Button>
           </div>
@@ -161,7 +190,9 @@ export default function InnovationWorkshopPage() {
               <Card key={i} className="border-muted">
                 <CardContent className="flex items-start gap-3 p-5">
                   <span className="text-2xl shrink-0">{point.emoji}</span>
-                  <p className="text-base text-muted-foreground">{point.text}</p>
+                  <p className="text-base text-muted-foreground">
+                    {point.text}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -174,7 +205,9 @@ export default function InnovationWorkshopPage() {
               而在你一直用同一種方式解題。
               <br />
               換工具、補資料來源以及增加更多工時，但
-              <span className="font-medium text-foreground">一直找不到理想的解決方案！</span>
+              <span className="font-medium text-foreground">
+                一直找不到理想的解決方案！
+              </span>
             </p>
           </div>
         </section>
@@ -193,15 +226,21 @@ export default function InnovationWorkshopPage() {
           <div className="mx-auto mt-6 max-w-lg space-y-3">
             <div className="flex items-start gap-3 rounded-lg border p-4">
               <span className="text-lg">1️⃣</span>
-              <p className="text-base text-muted-foreground">很努力做事情，卻還是沒有把事情做好。</p>
+              <p className="text-base text-muted-foreground">
+                很努力做事情，卻還是沒有把事情做好。
+              </p>
             </div>
             <div className="flex items-start gap-3 rounded-lg border p-4">
               <span className="text-lg">2️⃣</span>
-              <p className="text-base text-muted-foreground">很努力提出想法，卻還是沒有讓人買單。</p>
+              <p className="text-base text-muted-foreground">
+                很努力提出想法，卻還是沒有讓人買單。
+              </p>
             </div>
             <div className="flex items-start gap-3 rounded-lg border p-4">
               <span className="text-lg">3️⃣</span>
-              <p className="text-base text-muted-foreground">很努力做專案，卻還是沒有被看見與肯定。</p>
+              <p className="text-base text-muted-foreground">
+                很努力做專案，卻還是沒有被看見與肯定。
+              </p>
             </div>
           </div>
           <Card className="mt-8 border-primary/20 bg-primary/5">
@@ -216,7 +255,8 @@ export default function InnovationWorkshopPage() {
                 一頁式 ＋ 行動計畫。不是靈感，是可執行方案。
               </p>
               <p className="mt-2 text-base text-muted-foreground">
-                舉例，我們會實際操作，將你腦海中的想像畫面創造出來。如下左圖是當時「動一動左右腦遊戲 APP」腦海中的想像畫面，右圖是完成後的畫面。
+                舉例，我們會實際操作，將你腦海中的想像畫面創造出來。如下左圖是當時「動一動左右腦遊戲
+                APP」腦海中的想像畫面，右圖是完成後的畫面。
               </p>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2 text-center">
@@ -229,7 +269,9 @@ export default function InnovationWorkshopPage() {
                       className="w-full h-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-muted-foreground">✏️ 腦海中的想像畫面（手繪圖）</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    ✏️ 腦海中的想像畫面（手繪圖）
+                  </p>
                 </div>
                 <div className="space-y-2 text-center">
                   <div className="overflow-hidden rounded-xl border-2 border-primary/15 shadow-lg ring-1 ring-black/5 transition-shadow hover:shadow-xl">
@@ -241,7 +283,9 @@ export default function InnovationWorkshopPage() {
                       className="w-full h-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-muted-foreground">📱 完成後的畫面</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    📱 完成後的畫面
+                  </p>
                 </div>
               </div>
               <p className="mt-4 text-center text-sm text-muted-foreground">
@@ -285,7 +329,8 @@ export default function InnovationWorkshopPage() {
             ))}
           </div>
           <p className="mt-6 text-center text-base font-medium text-foreground">
-            你不是聽懂創新。你是<span className="text-primary">完成一次創新</span>。
+            你不是聽懂創新。你是
+            <span className="text-primary">完成一次創新</span>。
           </p>
         </section>
 
@@ -328,7 +373,10 @@ export default function InnovationWorkshopPage() {
             <p className="mb-4 text-base font-medium">你會經歷：</p>
             <div className="space-y-2">
               {experiences.map((exp, i) => (
-                <div key={i} className="flex items-center gap-2 text-base text-muted-foreground">
+                <div
+                  key={i}
+                  className="flex items-center gap-2 text-base text-muted-foreground"
+                >
                   <span className="text-primary">✓</span>
                   <span>{exp}</span>
                 </div>
@@ -337,7 +385,11 @@ export default function InnovationWorkshopPage() {
           </div>
 
           <p className="mt-6 text-center text-base text-muted-foreground">
-            在過程中也許你會卡住，但我們<span className="font-medium text-foreground">不會讓你空手離開</span>。
+            在過程中也許你會卡住，但我們
+            <span className="font-medium text-foreground">
+              不會讓你空手離開
+            </span>
+            。
           </p>
         </section>
 
@@ -409,7 +461,9 @@ export default function InnovationWorkshopPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-bold">陳建銘</h3>
-                    <span className="text-base text-muted-foreground">（創新先生）</span>
+                    <span className="text-base text-muted-foreground">
+                      （創新先生）
+                    </span>
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">
                     超過 20 年以上職場創新實戰經驗
@@ -431,7 +485,8 @@ export default function InnovationWorkshopPage() {
                   </div>
 
                   <p className="mt-4 text-base text-muted-foreground">
-                    曾為 Synopsys 新思科技、研華、中華汽車、中華電信等知名企業提供職場創新顧問培訓服務。
+                    曾為 Synopsys
+                    新思科技、研華、中華汽車、中華電信等知名企業提供職場創新顧問培訓服務。
                   </p>
                   <p className="mt-2 text-base text-muted-foreground">
                     擁有 20+ 項發明專利與商品化經驗。媒體稱為「生活發明王」。
@@ -487,7 +542,7 @@ export default function InnovationWorkshopPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026/3/14（六）</span>
+                    <span className="font-medium">2026/4/18（六）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
@@ -515,7 +570,7 @@ export default function InnovationWorkshopPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">
-                      早鳥價（3 月 7 日前）
+                      早鳥價（4 月 11 日前）
                     </p>
                     <p className="text-3xl font-bold text-primary">NT$3,600</p>
                   </div>
@@ -523,8 +578,16 @@ export default function InnovationWorkshopPage() {
               </div>
 
               <div className="mt-6 text-center">
-                <Button size="lg" className="h-12 w-full max-w-sm px-8 text-base" asChild>
-                  <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="lg"
+                  className="h-12 w-full max-w-sm px-8 text-base"
+                  asChild
+                >
+                  <a
+                    href={REGISTER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     立即報名
                   </a>
                 </Button>

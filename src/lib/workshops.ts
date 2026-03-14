@@ -176,7 +176,7 @@ export const workshops: Workshop[] = [
       "不光是來聽課，而是現場就讓你的問題迎刃而解！用「創新方程式」六步驟，帶你從真實工作難題走到可執行方案。",
     instructor: jianming,
     emoji: "💡",
-    date: "2026/3/14 (六)",
+    date: "2026/4/18 (六)",
     time: "9:00–16:00",
     duration: "6 小時",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
@@ -184,7 +184,7 @@ export const workshops: Workshop[] = [
     price: {
       original: 7200,
       earlyBird: 3600,
-      earlyBirdDeadline: "3 月 7 日前",
+      earlyBirdDeadline: "4 月 11 日前",
     },
     tags: ["創新", "問題解決", "實作"],
     status: "open",
