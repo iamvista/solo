@@ -1,5 +1,5 @@
 ---
-title: '職場人士如何善用 AI Agent？從「問 AI」到「讓 AI 幫你做」的關鍵轉變'
+title: '職場人士如何善用 AI Agent？從問 AI 到讓 AI 幫你做的關鍵轉變'
 description: '很多人用 ChatGPT 問問題、寫文案，卻總覺得少了什麼？AI Agent 正是那塊缺失的拼圖。本文分享 AI Agent 與 Chatbot 的核心差異，以及職場人士應該優先導入的三個場景，幫助你從「問答者」升級為「AI 的監督者」。'
 pubDate: '2026-03-15'
 heroImage: /images/blog/ai-agent-for-professionals-hero.webp
