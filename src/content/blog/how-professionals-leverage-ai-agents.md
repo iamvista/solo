@@ -10,8 +10,6 @@ tags:
   - 工作效率
 ---
 
-![職場人士如何善用 AI Agent](/images/blog/ai-agent-for-professionals-hero.webp)
-
 ## 你有沒有這種經驗？
 
 打開 ChatGPT，問了一個問題，得到了一個還不錯的答案。然後呢？
@@ -179,9 +177,9 @@ AI Agent 則不一樣。它更像是一位全職助理，不只會回答問題�
 
 如果你想看更多 AI 實務應用的分享，也歡迎閱讀我之前寫的這幾篇文章：
 
-- [當 AI 不只幫你寫，還幫你研究、排版和發布：我用 Claude Code 打造的內容生產線](/blog/claude-code-content-creation-workflow)
-- [Anytype + Claude：打造 AI 驅動的第二大腦，讓你的筆記活起來](/blog/anytype-claude-second-brain)
+- [當 AI 不只幫你寫，還幫你研究、排版和發布：我用 Claude Code 打造的內容生產線](https://www.vista.tw/blog/claude-code-content-creation-workflow)
+- [Anytype + Claude：打造 AI 驅動的第二大腦，讓你的筆記活起來](https://www.vista.tw/blog/anytype-claude-second-brain)
 
 ---
 
-[![Buy Me a Coffee](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAp_cz-ZWqNAN760xKmO_Brxkf_JK5vU4ENlnNHQL22llZOH-xAI2c918PBODswSrmCCJkVzGg8s-Jlch4ZGwiXS12ZU86BnRb4evM28GT5TOHIHgcvvAAQPxzUAyhQ-s8bipBwwhFIpzQ/s320/coffee.png?v=0)](https://vista.im/coffee)
+☕️ [請 Vista 喝杯咖啡](https://vista.im/coffee)
