@@ -100,7 +100,7 @@ const faqSchema = {
       name: "如何加入自由人學院的社群？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "你可以透過 Skool 平臺加入自由人學院的專家社群，與同業夥伴交流互助。也可以訂閱電子報（16,000+ 訂閱者）獲取最新資訊。社群媒體方面，可以在 Facebook、Instagram、YouTube、Threads 上關注自由人學院。",
+        text: "你可以透過 Skool 平臺加入自由人學院的專家社群，與同業夥伴交流互助。也可以訂閱電子報（18,000+ 訂閱者）獲取最新資訊。社群媒體方面，可以在 Facebook、Instagram、YouTube、Threads 上關注自由人學院。",
       },
     },
   ],

@@ -141,7 +141,10 @@ export default async function BlogPage() {
               <div className="grid gap-4 md:grid-cols-4 md:grid-rows-2 lg:gap-5">
                 {/* 主打文章 - 左側大圖 (16:9 橫向) */}
                 <article className="group md:col-span-2 md:row-span-2">
-                  <Link href={`/blog/${featuredPosts[0].slug}`} className="block h-full">
+                  <Link
+                    href={`/blog/${featuredPosts[0].slug}`}
+                    className="block h-full"
+                  >
                     <div className="relative h-full min-h-[320px] overflow-hidden rounded-2xl bg-stone-200 md:min-h-full">
                       {featuredPosts[0].heroImage && (
                         <img
@@ -178,7 +181,10 @@ export default async function BlogPage() {
 
                 {/* 右上 - 第2篇 */}
                 <article className="group">
-                  <Link href={`/blog/${featuredPosts[1].slug}`} className="block h-full">
+                  <Link
+                    href={`/blog/${featuredPosts[1].slug}`}
+                    className="block h-full"
+                  >
                     <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
                       {featuredPosts[1].heroImage && (
                         <img
@@ -202,7 +208,10 @@ export default async function BlogPage() {
 
                 {/* 右上 - 第3篇 */}
                 <article className="group">
-                  <Link href={`/blog/${featuredPosts[2].slug}`} className="block h-full">
+                  <Link
+                    href={`/blog/${featuredPosts[2].slug}`}
+                    className="block h-full"
+                  >
                     <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
                       {featuredPosts[2].heroImage && (
                         <img
@@ -226,7 +235,10 @@ export default async function BlogPage() {
 
                 {/* 右下 - 第4篇 */}
                 <article className="group">
-                  <Link href={`/blog/${featuredPosts[3].slug}`} className="block h-full">
+                  <Link
+                    href={`/blog/${featuredPosts[3].slug}`}
+                    className="block h-full"
+                  >
                     <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
                       {featuredPosts[3].heroImage && (
                         <img
@@ -250,7 +262,10 @@ export default async function BlogPage() {
 
                 {/* 右下 - 第5篇 */}
                 <article className="group">
-                  <Link href={`/blog/${featuredPosts[4].slug}`} className="block h-full">
+                  <Link
+                    href={`/blog/${featuredPosts[4].slug}`}
+                    className="block h-full"
+                  >
                     <div className="relative h-full min-h-[180px] overflow-hidden rounded-xl bg-stone-200">
                       {featuredPosts[4].heroImage && (
                         <img
@@ -383,7 +398,7 @@ export default async function BlogPage() {
                     </svg>
                   </Link>
                   <span className="text-sm text-stone-500">
-                    已有 16,000+ 訂閱者
+                    已有 18,000+ 訂閱者
                   </span>
                 </div>
               </div>

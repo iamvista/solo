@@ -16,7 +16,9 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
@@ -40,7 +42,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 // 生成目錄
-function generateTOC(content: string): { id: string; text: string; level: number }[] {
+function generateTOC(
+  content: string,
+): { id: string; text: string; level: number }[] {
   const headings: { id: string; text: string; level: number }[] = [];
   const lines = content.split("\n");
 
@@ -57,12 +61,18 @@ function generateTOC(content: string): { id: string; text: string; level: number
     if (h2Match) {
       const rawText = h2Match[1].trim();
       const text = stripMarkdownLinks(rawText);
-      const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+      const id = text
+        .toLowerCase()
+        .replace(/[^\w\u4e00-\u9fff]+/g, "-")
+        .replace(/^-|-$/g, "");
       headings.push({ id, text, level: 2 });
     } else if (h3Match) {
       const rawText = h3Match[1].trim();
       const text = stripMarkdownLinks(rawText);
-      const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+      const id = text
+        .toLowerCase()
+        .replace(/[^\w\u4e00-\u9fff]+/g, "-")
+        .replace(/^-|-$/g, "");
       headings.push({ id, text, level: 3 });
     }
   });
@@ -90,7 +100,10 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   // 相關文章
   const relatedPosts = allPosts
-    .filter((p) => p.slug !== post.slug && p.tags.some((tag) => post.tags.includes(tag)))
+    .filter(
+      (p) =>
+        p.slug !== post.slug && p.tags.some((tag) => post.tags.includes(tag)),
+    )
     .slice(0, 3);
 
   // 熱門文章
@@ -126,11 +139,15 @@ export default async function BlogPostPage({ params }: PageProps) {
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-stone-500">
               <li>
-                <Link href="/" className="hover:text-stone-800">首頁</Link>
+                <Link href="/" className="hover:text-stone-800">
+                  首頁
+                </Link>
               </li>
               <li className="text-stone-300">/</li>
               <li>
-                <Link href="/blog" className="hover:text-stone-800">部落格</Link>
+                <Link href="/blog" className="hover:text-stone-800">
+                  部落格
+                </Link>
               </li>
             </ol>
           </nav>
@@ -143,7 +160,10 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {post.tags.length > 0 && (
                   <div className="mb-5 flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <Link key={tag} href={`/blog/tag/${encodeURIComponent(tag)}`}>
+                      <Link
+                        key={tag}
+                        href={`/blog/tag/${encodeURIComponent(tag)}`}
+                      >
                         <span className="inline-block rounded-full bg-stone-200/60 px-4 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-300/60">
                           {tag}
                         </span>
@@ -161,7 +181,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-800 text-sm font-bold text-white">
                       V
                     </div>
-                    <span className="font-medium text-stone-700">Vista Cheng</span>
+                    <span className="font-medium text-stone-700">
+                      Vista Cheng
+                    </span>
                   </div>
                   <span className="text-stone-300">|</span>
                   <time>{formatDate(post.pubDate)}</time>
@@ -190,8 +212,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <nav className="px-4 pb-4">
                     <ul className="space-y-2 text-sm">
                       {toc.map((item) => (
-                        <li key={item.id} className={item.level === 3 ? "ml-4" : ""}>
-                          <a href={`#${item.id}`} className="text-stone-600 hover:text-[#d13a3a]">
+                        <li
+                          key={item.id}
+                          className={item.level === 3 ? "ml-4" : ""}
+                        >
+                          <a
+                            href={`#${item.id}`}
+                            className="text-stone-600 hover:text-[#d13a3a]"
+                          >
                             {item.text}
                           </a>
                         </li>
@@ -217,7 +245,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 text-stone-600 hover:bg-[#d13a3a] hover:text-white"
                   >
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                     </svg>
                   </a>
@@ -227,7 +259,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 text-stone-600 hover:bg-[#d13a3a] hover:text-white"
                   >
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
                   </a>
@@ -237,12 +273,19 @@ export default async function BlogPostPage({ params }: PageProps) {
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 text-stone-600 hover:bg-[#d13a3a] hover:text-white"
                   >
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                     </svg>
                   </a>
                 </div>
-                <Link href="/blog" className="ml-auto text-sm font-medium text-[#d13a3a] hover:underline">
+                <Link
+                  href="/blog"
+                  className="ml-auto text-sm font-medium text-[#d13a3a] hover:underline"
+                >
                   ← 返回所有文章
                 </Link>
               </div>
@@ -254,7 +297,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                     V
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-stone-900">Vista Cheng</h3>
+                    <h3 className="text-lg font-bold text-stone-900">
+                      Vista Cheng
+                    </h3>
                     <p className="mt-2 text-base leading-relaxed text-stone-600">
                       自由人學院創辦人，前媒體主編，專注幫助自由工作者打造個人品牌、建立穩定事業。
                     </p>
@@ -273,7 +318,9 @@ export default async function BlogPostPage({ params }: PageProps) {
               {/* Related Posts */}
               {relatedPosts.length > 0 && (
                 <section className="mt-16 border-t border-stone-200 pt-12">
-                  <h2 className="mb-8 text-xl font-bold text-stone-900">相關文章</h2>
+                  <h2 className="mb-8 text-xl font-bold text-stone-900">
+                    相關文章
+                  </h2>
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {relatedPosts.map((p) => (
                       <Link
@@ -310,8 +357,18 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {toc.length > 2 && (
                   <div className="rounded-xl border border-stone-200 bg-white p-6">
                     <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
-                      <svg className="h-5 w-5 text-[#d13a3a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                      <svg
+                        className="h-5 w-5 text-[#d13a3a]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                        />
                       </svg>
                       文章目錄
                     </h3>
@@ -323,15 +380,28 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {popularPosts.length > 0 && (
                   <div className="rounded-xl border border-stone-200 bg-white p-6">
                     <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
-                      <svg className="h-5 w-5 text-[#d13a3a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                      <svg
+                        className="h-5 w-5 text-[#d13a3a]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                        />
                       </svg>
                       熱門文章
                     </h3>
                     <ul className="space-y-4">
                       {popularPosts.map((p, index) => (
                         <li key={p.slug}>
-                          <Link href={`/blog/${p.slug}`} className="group flex gap-3">
+                          <Link
+                            href={`/blog/${p.slug}`}
+                            className="group flex gap-3"
+                          >
                             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-stone-100 text-xs font-bold text-stone-600">
                               {index + 1}
                             </span>
@@ -359,7 +429,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                   >
                     免費訂閱 →
                   </a>
-                  <p className="mt-3 text-xs text-stone-400">已有 16,000+ 訂閱者</p>
+                  <p className="mt-3 text-xs text-stone-400">
+                    已有 18,000+ 訂閱者
+                  </p>
                 </div>
               </div>
             </aside>
@@ -384,7 +456,9 @@ function markdownToHtml(markdown: string): string {
   // Process code blocks
   const codeBlocks: string[] = [];
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    codeBlocks.push(`<pre class="language-${lang || 'text'}"><code>${escapeHtml(code.trim())}</code></pre>`);
+    codeBlocks.push(
+      `<pre class="language-${lang || "text"}"><code>${escapeHtml(code.trim())}</code></pre>`,
+    );
     return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
   });
 
@@ -402,12 +476,18 @@ function markdownToHtml(markdown: string): string {
 
   html = html.replace(/^### (.+)$/gim, (_, text) => {
     const cleanText = stripLinksForId(text.trim());
-    const id = cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+    const id = cleanText
+      .toLowerCase()
+      .replace(/[^\w\u4e00-\u9fff]+/g, "-")
+      .replace(/^-|-$/g, "");
     return `<h3 id="${id}">${text.trim()}</h3>`;
   });
   html = html.replace(/^## (.+)$/gim, (_, text) => {
     const cleanText = stripLinksForId(text.trim());
-    const id = cleanText.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+    const id = cleanText
+      .toLowerCase()
+      .replace(/[^\w\u4e00-\u9fff]+/g, "-")
+      .replace(/^-|-$/g, "");
     return `<h2 id="${id}">${text.trim()}</h2>`;
   });
 
@@ -420,13 +500,13 @@ function markdownToHtml(markdown: string): string {
   // Images - 處理 ![alt](url) 格式
   html = html.replace(
     /!\[([^\]]*)\]\(([^)]+)\)/g,
-    '<figure class="my-8"><img src="$2" alt="$1" loading="lazy" class="w-full rounded-lg" /><figcaption class="mt-2 text-center text-sm text-stone-500">$1</figcaption></figure>'
+    '<figure class="my-8"><img src="$2" alt="$1" loading="lazy" class="w-full rounded-lg" /><figcaption class="mt-2 text-center text-sm text-stone-500">$1</figcaption></figure>',
   );
 
   // Links (markdown format) - 在圖片之後處理
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
   );
 
   // Blockquotes
@@ -437,16 +517,13 @@ function markdownToHtml(markdown: string): string {
   html = html.replace(/^---$/gim, "<hr />");
 
   // Lists - 處理連續的列表項目
-  html = html.replace(
-    /(^[-*+]\s+.+$(\n[-*+]\s+.+$)*)/gim,
-    (match) => {
-      const items = match
-        .split("\n")
-        .map((line) => line.replace(/^[-*+]\s+(.+)$/, "<li>$1</li>"))
-        .join("\n");
-      return `<ul class="list-disc pl-6 space-y-1">\n${items}\n</ul>`;
-    }
-  );
+  html = html.replace(/(^[-*+]\s+.+$(\n[-*+]\s+.+$)*)/gim, (match) => {
+    const items = match
+      .split("\n")
+      .map((line) => line.replace(/^[-*+]\s+(.+)$/, "<li>$1</li>"))
+      .join("\n");
+    return `<ul class="list-disc pl-6 space-y-1">\n${items}\n</ul>`;
+  });
 
   // Paragraphs
   const blocks = html.split(/\n\n+/);

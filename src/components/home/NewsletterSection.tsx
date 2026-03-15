@@ -21,20 +21,23 @@ export function NewsletterSection() {
 
     try {
       // 使用 Substack 的訂閱 API
-      const response = await fetch("https://iamvista.substack.com/api/v1/free", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://iamvista.substack.com/api/v1/free",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            first_url: window.location.href,
+            first_referrer: document.referrer || "",
+            current_url: window.location.href,
+            current_referrer: document.referrer || "",
+          }),
+          mode: "cors",
         },
-        body: JSON.stringify({
-          email: email,
-          first_url: window.location.href,
-          first_referrer: document.referrer || "",
-          current_url: window.location.href,
-          current_referrer: document.referrer || "",
-        }),
-        mode: "cors",
-      });
+      );
 
       if (response.ok) {
         setStatus("success");
@@ -45,7 +48,10 @@ export function NewsletterSection() {
       }
     } catch {
       // Fallback: 直接開啟 Substack 訂閱頁面
-      window.open(`https://iamvista.substack.com/subscribe?email=${encodeURIComponent(email)}`, "_blank");
+      window.open(
+        `https://iamvista.substack.com/subscribe?email=${encodeURIComponent(email)}`,
+        "_blank",
+      );
       setStatus("success");
       setEmail("");
     } finally {
@@ -83,15 +89,25 @@ export function NewsletterSection() {
           <p className="mx-auto mt-4 max-w-xl text-lg text-slate-300 sm:mt-6 sm:text-xl">
             自由工作者的實戰心法、接案技巧、個人品牌經營秘訣
             <br className="hidden sm:block" />
-            <span className="text-amber-400">16,000+ 位讀者</span>都在看
+            <span className="text-amber-400">18,000+ 位讀者</span>都在看
           </p>
 
           {/* Status Messages */}
           {status === "success" && (
             <div className="mx-auto mt-6 max-w-md rounded-lg bg-green-500/20 p-4 text-green-300">
               <p className="flex items-center justify-center gap-2">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
                 訂閱成功！請檢查你的信箱確認訂閱。
               </p>
