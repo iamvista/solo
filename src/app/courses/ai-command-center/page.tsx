@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     title: "用 AI 建你的個人指揮中心｜一日實作工作坊 | solo.tw",
     description:
       "6 小時實作工作坊 — 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流。帶著能跑的系統回家。",
+    images: [
+      {
+        url: "/images/workshops/instructor-vista.webp",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 
