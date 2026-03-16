@@ -49,11 +49,11 @@ export function NewsletterSection() {
   };
 
   return (
-    <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 sm:py-28">
+    <section className="bg-stone-900 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 sm:h-20 sm:w-20">
-            <svg className="h-8 w-8 text-slate-900 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+            <svg className="h-8 w-8 text-stone-900 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
             </svg>
           </div>
@@ -61,7 +61,7 @@ export function NewsletterSection() {
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
             每週一封，Solo 成長指南
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-slate-300 sm:mt-6 sm:text-xl">
+          <p className="mx-auto mt-4 max-w-xl text-lg text-stone-400 sm:mt-6 sm:text-xl">
             自由工作者的實戰心法、接案技巧、個人品牌經營秘訣。
             <br className="hidden sm:block" />
             <span className="text-amber-400 font-semibold">18,000+</span> 位讀者都在看。
@@ -86,12 +86,12 @@ export function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="h-12 flex-1 border-slate-600 bg-slate-800/50 text-base text-white placeholder:text-slate-400 focus:border-amber-400 focus:ring-amber-400 sm:h-14 sm:text-lg"
+                className="h-12 flex-1 border-stone-700 bg-stone-800/50 text-base text-white placeholder:text-stone-500 focus:border-amber-400 focus:ring-amber-400 sm:h-14 sm:text-lg"
               />
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="h-12 bg-gradient-to-r from-amber-400 to-amber-500 px-6 text-base font-semibold text-slate-900 hover:from-amber-500 hover:to-amber-600 sm:h-14 sm:px-8 sm:text-lg"
+                className="h-12 bg-gradient-to-r from-amber-400 to-amber-500 px-6 text-base font-semibold text-stone-900 hover:from-amber-500 hover:to-amber-600 sm:h-14 sm:px-8 sm:text-lg"
               >
                 {isSubmitting ? "處理中..." : "免費訂閱 →"}
               </Button>
@@ -99,12 +99,12 @@ export function NewsletterSection() {
           )}
 
           {status === "success" && (
-            <button onClick={() => setStatus("idle")} className="mt-4 text-sm text-slate-400 underline hover:text-slate-300">
+            <button onClick={() => setStatus("idle")} className="mt-4 text-sm text-stone-400 underline hover:text-stone-300">
               使用其他信箱訂閱
             </button>
           )}
 
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-4 text-sm text-stone-600">
             隨時可以取消訂閱，我們尊重你的信箱
           </p>
         </div>

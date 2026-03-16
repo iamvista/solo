@@ -107,7 +107,7 @@ export function FeaturesSection() {
                           ? "bg-amber-100 text-amber-700"
                           : feature.tag === "新功能"
                             ? "bg-blue-100 text-blue-700"
-                            : "bg-slate-100 text-slate-600"
+                            : "bg-stone-100 text-stone-600"
                     }`}
                   >
                     {feature.tag}
