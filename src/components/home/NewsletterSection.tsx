@@ -56,13 +56,8 @@ export function NewsletterSection() {
       setStatus("success");
       setEmail("");
     } catch {
-      // Fallback: 直接開 Substack 訂閱頁
-      window.open(
-        `https://iamvista.substack.com/subscribe?email=${encodeURIComponent(email)}`,
-        "_blank",
-      );
-      setStatus("success");
-      setEmail("");
+      // 本地 API 失敗，顯示錯誤提示
+      setStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -94,6 +89,14 @@ export function NewsletterSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 訂閱成功！請檢查你的信箱確認訂閱。
+              </p>
+            </div>
+          )}
+
+          {status === "error" && (
+            <div className="mx-auto mt-6 max-w-md rounded-xl bg-red-500/20 p-4 text-red-300">
+              <p className="flex items-center justify-center gap-2">
+                訂閱失敗，請稍後再試。
               </p>
             </div>
           )}

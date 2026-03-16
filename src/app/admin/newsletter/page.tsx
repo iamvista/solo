@@ -7,54 +7,67 @@ import { isAdmin } from "@/lib/supabase/admin";
 import { createServiceClient } from "@/lib/supabase/service";
 
 async function getNewsletterStats() {
-  const supabase = createServiceClient();
+  try {
+    const supabase = createServiceClient();
 
-  const [
-    { count: totalActive },
-    { count: totalUnsubscribed },
-    { data: recentSubs },
-    { data: sourceBreakdown },
-    { data: last7DaySubs },
-  ] = await Promise.all([
-    supabase
-      .from("newsletter_subscribers")
-      .select("*", { count: "exact", head: true })
-      .eq("status", "active"),
-    supabase
-      .from("newsletter_subscribers")
-      .select("*", { count: "exact", head: true })
-      .eq("status", "unsubscribed"),
-    supabase
-      .from("newsletter_subscribers")
-      .select("id, email, name, source, tags, subscribed_at, status")
-      .eq("status", "active")
-      .order("subscribed_at", { ascending: false })
-      .limit(50),
-    supabase
-      .from("newsletter_subscribers")
-      .select("source")
-      .eq("status", "active"),
-    supabase
-      .from("newsletter_subscribers")
-      .select("id")
-      .eq("status", "active")
-      .gte("subscribed_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
-  ]);
+    const [
+      { count: totalActive },
+      { count: totalUnsubscribed },
+      { data: recentSubs },
+      { data: sourceBreakdown },
+      { data: last7DaySubs },
+    ] = await Promise.all([
+      supabase
+        .from("newsletter_subscribers")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "active"),
+      supabase
+        .from("newsletter_subscribers")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "unsubscribed"),
+      supabase
+        .from("newsletter_subscribers")
+        .select("id, email, name, source, tags, subscribed_at, status")
+        .eq("status", "active")
+        .order("subscribed_at", { ascending: false })
+        .limit(50),
+      supabase
+        .from("newsletter_subscribers")
+        .select("source")
+        .eq("status", "active"),
+      supabase
+        .from("newsletter_subscribers")
+        .select("id")
+        .eq("status", "active")
+        .gte("subscribed_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
+    ]);
 
-  // 計算來源分佈
-  const sourceCounts: Record<string, number> = {};
-  sourceBreakdown?.forEach((row) => {
-    const s = row.source || "unknown";
-    sourceCounts[s] = (sourceCounts[s] || 0) + 1;
-  });
+    // 計算來源分佈
+    const sourceCounts: Record<string, number> = {};
+    sourceBreakdown?.forEach((row) => {
+      const s = row.source || "unknown";
+      sourceCounts[s] = (sourceCounts[s] || 0) + 1;
+    });
 
-  return {
-    totalActive: totalActive || 0,
-    totalUnsubscribed: totalUnsubscribed || 0,
-    newLast7Days: last7DaySubs?.length || 0,
-    recentSubscribers: recentSubs || [],
-    sourceCounts,
-  };
+    return {
+      totalActive: totalActive || 0,
+      totalUnsubscribed: totalUnsubscribed || 0,
+      newLast7Days: last7DaySubs?.length || 0,
+      recentSubscribers: recentSubs || [],
+      sourceCounts,
+      error: null as string | null,
+    };
+  } catch (err) {
+    console.error("Newsletter stats error:", err);
+    return {
+      totalActive: 0,
+      totalUnsubscribed: 0,
+      newLast7Days: 0,
+      recentSubscribers: [] as Array<{ id: string; email: string; name: string | null; source: string; tags: string[]; subscribed_at: string; status: string }>,
+      sourceCounts: {} as Record<string, number>,
+      error: "無法載入統計資料" as string | null,
+    };
+  }
 }
 
 export default async function NewsletterAdminPage() {
@@ -82,6 +95,13 @@ export default async function NewsletterAdminPage() {
           <Link href="/admin">← 回到後臺</Link>
         </Button>
       </div>
+
+      {/* Error banner */}
+      {stats.error && (
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          ⚠️ {stats.error}
+        </div>
+      )}
 
       {/* Stats cards */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -187,10 +207,10 @@ export default async function NewsletterAdminPage() {
                           <Badge variant="outline" className="text-xs">{sub.source}</Badge>
                         </td>
                         <td className="py-2.5 pr-3">
-                          {sub.tags?.length > 0 ? (
+                          {Array.isArray(sub.tags) && sub.tags.length > 0 ? (
                             <div className="flex gap-1">
                               {sub.tags.map((tag: string) => (
-                                <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                                <Badge key={tag} variant="secondary" className="text-xs">{String(tag)}</Badge>
                               ))}
                             </div>
                           ) : (
