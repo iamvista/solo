@@ -414,6 +414,81 @@ export default function CoursesPage() {
         </div>
       )}
 
+      {/* 線上課程 — 自由人學院 */}
+      <div className="mt-14 sm:mt-16">
+        <div className="flex items-center gap-2 mb-6">
+          <div className="h-1 w-8 rounded-full bg-[#C41E3A]" />
+          <span className="text-sm font-semibold uppercase tracking-wider text-[#C41E3A]">
+            線上課程
+          </span>
+        </div>
+        <Card className="overflow-hidden border-[#C41E3A]/20 bg-gradient-to-br from-[#0A0A0A] to-[#1a1a2e] text-white">
+          <CardContent className="p-0">
+            <div className="grid gap-0 md:grid-cols-2">
+              <div className="flex flex-col justify-center p-6 sm:p-8">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-[#C41E3A] text-white text-xs hover:bg-[#C41E3A]">
+                    自由人學院
+                  </Badge>
+                  <Badge variant="outline" className="border-white/20 text-white/80 text-xs">
+                    線上課程
+                  </Badge>
+                </div>
+                <h3 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
+                  Vibe Coding 實戰課程
+                </h3>
+                <p className="mt-2 text-lg text-white/70">
+                  不寫程式也能打造你的數位產品
+                </p>
+                <p className="mt-3 text-base text-white/60">
+                  從零開始，學會用自然語言和 AI 協作，從想法到上線只需要一個下午。6 大章節、21 個單元的完整實戰課程。
+                </p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/50">
+                  <span>🎬 6 章 21 單元</span>
+                  <span>♾️ 永久觀看</span>
+                  <span>🛡️ 7 日退費保證</span>
+                </div>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-2xl font-bold">NT$2,980</span>
+                    <span className="text-sm text-white/40 line-through">NT$3,980</span>
+                    <Badge className="bg-[#C41E3A]/20 text-[#FF6B6B] text-xs hover:bg-[#C41E3A]/20">
+                      早鳥優惠
+                    </Badge>
+                  </div>
+                  <Button size="lg" className="h-11 px-6 text-base bg-[#C41E3A] hover:bg-[#A01830] sm:ml-auto" asChild>
+                    <a href="https://learn.solo.tw/courses/vibe-coding" target="_blank" rel="noopener noreferrer">
+                      前往課程頁面 →
+                    </a>
+                  </Button>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center border-t border-white/10 bg-white/5 p-6 sm:p-8 md:border-t-0 md:border-l">
+                <p className="text-sm font-semibold uppercase tracking-wide text-white/40">
+                  你會學到
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {[
+                    "用自然語言和 AI 寫出完整程式碼",
+                    "從企劃到部署的全流程實作",
+                    "Prompt 工程的核心方法論",
+                    "打造網站、互動工具、Landing Page",
+                    "SEO 與商業變現策略",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-base text-white/80">
+                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#C41E3A]/20 text-xs font-bold text-[#FF6B6B]">
+                        {i + 1}
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Category Sections */}
       <div className="mt-16 space-y-14 sm:mt-20 sm:space-y-16">
         {categoryOrder.map((catKey) => {
