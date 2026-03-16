@@ -160,6 +160,48 @@ export interface EventUpdate {
   created_at: string;
 }
 
+// =====================
+// Lead Magnet Types
+// =====================
+
+export type ResourceType = "pdf" | "checklist" | "template" | "toolkit" | "video" | "other";
+export type LeadMagnetStatus = "draft" | "published" | "archived";
+
+export interface LeadMagnet {
+  id: string;
+  owner_id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  cover_image: string | null;
+  resource_type: ResourceType;
+  file_url: string | null;
+  redirect_url: string | null;
+  benefits: string[] | null;
+  cta_text: string;
+  thank_you_message: string;
+  status: LeadMagnetStatus;
+  capture_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LeadCapture {
+  id: string;
+  lead_magnet_id: string;
+  email: string;
+  name: string | null;
+  source_page: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  email_sent: boolean;
+  created_at: string;
+}
+
+export type LeadMagnetInsert = Omit<LeadMagnet, "id" | "created_at" | "updated_at" | "capture_count">;
+export type LeadMagnetUpdate = Partial<Omit<LeadMagnet, "id" | "created_at" | "updated_at" | "owner_id" | "capture_count">>;
+
 // Insert/update types
 export type EventInsert = Omit<Event, "id" | "created_at" | "updated_at">;
 export type EventUpdateData = Partial<

@@ -382,11 +382,11 @@ export default async function DashboardPage() {
                   <span className="text-xs font-medium text-stone-700">工具箱</span>
                 </Link>
                 <Link
-                  href="/learn"
+                  href="/dashboard/lead-magnets"
                   className="flex flex-col items-center gap-2 rounded-xl bg-stone-50 p-4 text-center transition-colors hover:bg-stone-100"
                 >
-                  <span className="text-2xl">📚</span>
-                  <span className="text-xs font-medium text-stone-700">學習資源</span>
+                  <span className="text-2xl">🧲</span>
+                  <span className="text-xs font-medium text-stone-700">名單磁鐵</span>
                 </Link>
                 <Link
                   href="/growth"

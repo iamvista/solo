@@ -17,14 +17,16 @@ export async function sendEmail({
   to,
   subject,
   react,
+  from,
 }: {
   to: string | string[];
   subject: string;
   react: React.ReactElement;
+  from?: string;
 }) {
   try {
     const { data, error } = await getResend().emails.send({
-      from: `${FROM_NAME} <${FROM_EMAIL}>`,
+      from: from || `${FROM_NAME} <${FROM_EMAIL}>`,
       to: Array.isArray(to) ? to : [to],
       subject,
       react,
