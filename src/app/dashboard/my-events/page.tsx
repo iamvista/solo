@@ -147,6 +147,11 @@ export default async function MyEventsPage() {
                           </Link>
                         </Button>
                         <Button variant="outline" size="sm" asChild>
+                          <Link href={`/dashboard/my-events/${event.id}/email`}>
+                            確認信
+                          </Link>
+                        </Button>
+                        <Button variant="outline" size="sm" asChild>
                           <Link href={`/dashboard/my-events/${event.id}/edit`}>
                             編輯
                           </Link>

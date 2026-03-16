@@ -94,13 +94,31 @@ export async function POST(request: NextRequest) {
         ? [event.venue_name, event.venue_address].filter(Boolean).join(" ")
         : event.online_url || "線上";
 
+      // Check for custom email template
+      const { data: emailTemplate } = await supabase
+        .from("email_templates")
+        .select("*")
+        .eq("event_id", event_id)
+        .single();
+
+      // Determine subject
+      const isConfirmed = registration.status === "confirmed";
+      let emailSubject: string;
+      if (emailTemplate) {
+        const customSubject = isConfirmed ? emailTemplate.confirmed_subject : emailTemplate.waitlisted_subject;
+        emailSubject = customSubject || (isConfirmed ? `報名確認：${event.title}` : `候補通知：${event.title}`);
+      } else {
+        emailSubject = isConfirmed ? `報名確認：${event.title}` : `候補通知：${event.title}`;
+      }
+
+      // Determine sender name
+      const senderName = emailTemplate?.sender_name || undefined;
+
       // Send confirmation email (must await on Vercel serverless)
       await sendEmail({
         to: email,
-        subject:
-          registration.status === "confirmed"
-            ? `報名確認：${event.title}`
-            : `候補通知：${event.title}`,
+        subject: emailSubject,
+        ...(senderName ? { from: `${senderName} <noreply@solo.tw>` } : {}),
         react: RegistrationConfirmEmail({
           name,
           eventTitle: event.title,
@@ -120,6 +138,9 @@ export async function POST(request: NextRequest) {
           format: event.format as "online" | "offline" | "hybrid",
           onlineUrl: event.online_url || undefined,
           status: registration.status as "confirmed" | "waitlisted",
+          customMessage: emailTemplate
+            ? (isConfirmed ? emailTemplate.confirmed_body : emailTemplate.waitlisted_body) || undefined
+            : undefined,
         }),
       });
     }

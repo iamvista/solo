@@ -25,6 +25,7 @@ interface Props {
   format: "online" | "offline" | "hybrid";
   onlineUrl?: string;
   status: "confirmed" | "waitlisted";
+  customMessage?: string;
 }
 
 export function RegistrationConfirmEmail({
@@ -41,6 +42,7 @@ export function RegistrationConfirmEmail({
   format,
   onlineUrl,
   status,
+  customMessage,
 }: Props) {
   const hasOnline = format === "online" || format === "hybrid";
   const hasVenue = format === "offline" || format === "hybrid";
@@ -88,6 +90,11 @@ export function RegistrationConfirmEmail({
               </Link>
               （佔位提醒，確認後即可參加）
             </Text>
+            {customMessage && (
+              <Section style={customMessageBox}>
+                <Text style={customMessageText}>{customMessage}</Text>
+              </Section>
+            )}
             <Hr style={hr} />
             <Text style={smallText}>
               如果確定無法參加，歡迎
@@ -97,7 +104,7 @@ export function RegistrationConfirmEmail({
               ，將機會留給其他人。
             </Text>
             <Hr style={hr} />
-            <Text style={footer}>© 自由人學院 solo.tw</Text>
+            <Text style={footer}>© solo.tw 一人事業作業系統</Text>
           </Container>
         </Body>
       </Html>
@@ -159,6 +166,11 @@ export function RegistrationConfirmEmail({
               加入 Google 日曆
             </Link>
           </Text>
+          {customMessage && (
+            <Section style={customMessageBox}>
+              <Text style={customMessageText}>{customMessage}</Text>
+            </Section>
+          )}
           <Hr style={hr} />
           <Text style={smallText}>
             {format === "online"
@@ -175,7 +187,7 @@ export function RegistrationConfirmEmail({
             。
           </Text>
           <Hr style={hr} />
-          <Text style={footer}>© 自由人學院 solo.tw</Text>
+          <Text style={footer}>© solo.tw 一人事業作業系統</Text>
         </Container>
       </Body>
     </Html>
@@ -288,4 +300,18 @@ const footer = {
   color: "#8898aa",
   fontSize: "12px",
   textAlign: "center" as const,
+};
+const customMessageBox = {
+  backgroundColor: "#f0fdf4",
+  borderLeft: "3px solid #22c55e",
+  padding: "12px 16px",
+  margin: "16px 0",
+  borderRadius: "0 6px 6px 0",
+};
+const customMessageText = {
+  color: "#166534",
+  fontSize: "14px",
+  lineHeight: "22px",
+  margin: "0",
+  whiteSpace: "pre-wrap" as const,
 };
