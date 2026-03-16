@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import { getDiagnosisById } from "@/lib/supabase/diagnosis";
 import { DiagnosisResultClient } from "./DiagnosisResultClient";
 
+// ISR: revalidate daily (diagnosis results rarely change)
+export const revalidate = 86400;
+
 // Solo 類型定義
 const soloTypeNames: Record<string, { emoji: string; name: string; title: string }> = {
   lion: { emoji: "🦁", name: "獅子型 Solo", title: "市場領袖" },

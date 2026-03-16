@@ -3,6 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+// ISR: revalidate every hour
+export const revalidate = 3600;
+
 const SOLO_STAGE_LABELS: Record<string, { name: string; color: string }> = {
   setup: { name: "Set up", color: "bg-amber-100 text-amber-800" },
   operate: { name: "Operate", color: "bg-blue-100 text-blue-800" },

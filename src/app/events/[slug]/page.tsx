@@ -42,6 +42,9 @@ export async function generateMetadata({
   };
 }
 
+// ISR: revalidate every 5 minutes (reduces Vercel serverless invocations)
+export const revalidate = 300;
+
 const formatLabels: Record<string, string> = {
   online: "線上活動",
   offline: "實體活動",

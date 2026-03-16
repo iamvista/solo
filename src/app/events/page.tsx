@@ -3,6 +3,9 @@ import { getPublishedEvents } from "@/lib/supabase/events";
 import EventCard from "@/components/events/EventCard";
 import EventFilters from "@/components/events/EventFilters";
 
+// ISR: revalidate every 5 minutes
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: "活動 | 自由人學院",
   description: "探索最新的工作坊、講座和聚會活動。免費報名，學習新技能。",
