@@ -10,6 +10,7 @@ const footerLinks = {
   ],
   learn: [
     { name: "部落格", href: "/blog" },
+    { name: "自由人學院", href: "https://learn.solo.tw" },
     { name: "電子報", href: "https://iamvista.substack.com" },
     { name: "學習資源", href: "/learn" },
     { name: "社群", href: "/community" },
