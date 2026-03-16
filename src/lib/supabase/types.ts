@@ -9,6 +9,7 @@ export type SoloType =
   | "chick";
 export type DiagnosisType = "quick" | "full";
 export type MembershipTier = "free" | "pro" | "premium";
+export type SoloStage = "setup" | "operate" | "leverage" | "outgrow";
 
 export interface DiagnosisResult {
   id: string;
@@ -41,6 +42,12 @@ export interface Profile {
   years_experience: number | null;
   website: string | null;
   linkedin: string | null;
+  username: string | null;
+  bio: string | null;
+  level: number;
+  exp: number;
+  solo_stage: SoloStage;
+  line_uid: string | null;
   membership_tier: MembershipTier;
   membership_expires_at: string | null;
   subscribe_newsletter: boolean;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ interface Profile {
   display_name: string | null;
   avatar_url: string | null;
   bio: string | null;
+  username: string | null;
   updated_at: string | null;
 }
 
@@ -31,6 +32,13 @@ export default function SettingsPage() {
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [username, setUsername] = useState("");
+  const [usernameStatus, setUsernameStatus] = useState<{
+    checking: boolean;
+    available: boolean | null;
+    reason: string | null;
+  }>({ checking: false, available: null, reason: null });
+  const usernameTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
@@ -45,7 +53,6 @@ export default function SettingsPage() {
 
       setUser(user);
 
-      // 取得或建立 profile
       const { data: existingProfile } = await supabase
         .from("profiles")
         .select("*")
@@ -57,8 +64,8 @@ export default function SettingsPage() {
         setDisplayName(existingProfile.display_name || "");
         setBio(existingProfile.bio || "");
         setAvatarUrl(existingProfile.avatar_url);
+        setUsername(existingProfile.username || "");
       } else {
-        // 如果沒有 profile，使用預設值
         const defaultName = user.user_metadata?.full_name || user.email?.split("@")[0] || "";
         setDisplayName(defaultName);
         setAvatarUrl(user.user_metadata?.avatar_url || null);
@@ -70,11 +77,47 @@ export default function SettingsPage() {
     loadUserAndProfile();
   }, [router]);
 
+  // Username availability check with debounce
+  const checkUsername = useCallback(async (value: string) => {
+    if (!value || value === profile?.username) {
+      setUsernameStatus({ checking: false, available: null, reason: null });
+      return;
+    }
+
+    setUsernameStatus({ checking: true, available: null, reason: null });
+
+    try {
+      const res = await fetch(`/api/username/check?username=${encodeURIComponent(value)}`);
+      const data = await res.json();
+      setUsernameStatus({ checking: false, available: data.available, reason: data.reason });
+    } catch {
+      setUsernameStatus({ checking: false, available: false, reason: "檢查失敗" });
+    }
+  }, [profile?.username]);
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "");
+    setUsername(value);
+
+    if (usernameTimerRef.current) clearTimeout(usernameTimerRef.current);
+
+    if (!value || value === profile?.username) {
+      setUsernameStatus({ checking: false, available: null, reason: null });
+      return;
+    }
+
+    if (value.length < 3) {
+      setUsernameStatus({ checking: false, available: false, reason: "至少需要 3 個字元" });
+      return;
+    }
+
+    usernameTimerRef.current = setTimeout(() => checkUsername(value), 500);
+  };
+
   const handleAvatarClick = () => {
     fileInputRef.current?.click();
   };
 
-  // 壓縮圖片函數（自動壓縮到 400px 寬，約 50KB）
   const compressImage = (file: File, maxWidth: number = 400, quality: number = 0.8): Promise<Blob> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -83,7 +126,6 @@ export default function SettingsPage() {
         let width = img.width;
         let height = img.height;
 
-        // 計算縮放比例
         if (width > maxWidth) {
           height = (height * maxWidth) / width;
           width = maxWidth;
@@ -102,11 +144,8 @@ export default function SettingsPage() {
 
         canvas.toBlob(
           (blob) => {
-            if (blob) {
-              resolve(blob);
-            } else {
-              reject(new Error("壓縮失敗"));
-            }
+            if (blob) resolve(blob);
+            else reject(new Error("壓縮失敗"));
           },
           "image/jpeg",
           quality
@@ -121,13 +160,11 @@ export default function SettingsPage() {
     const file = e.target.files?.[0];
     if (!file || !user) return;
 
-    // 檢查檔案大小（最大 10MB，會自動壓縮）
     if (file.size > 10 * 1024 * 1024) {
       setMessage({ type: "error", text: "圖片大小不能超過 10MB" });
       return;
     }
 
-    // 檢查檔案類型
     if (!file.type.startsWith("image/")) {
       setMessage({ type: "error", text: "請上傳圖片檔案" });
       return;
@@ -139,12 +176,10 @@ export default function SettingsPage() {
     try {
       const supabase = createClient();
 
-      // 壓縮圖片（最大 400px 寬，JPEG 品質 80%，約 50KB）
       const compressedBlob = await compressImage(file, 400, 0.8);
       const fileName = `${user.id}-${Date.now()}.jpg`;
       const filePath = `avatars/${fileName}`;
 
-      // 上傳壓縮後的圖片到 Storage
       const { error: uploadError } = await supabase.storage
         .from("avatars")
         .upload(filePath, compressedBlob, {
@@ -154,7 +189,6 @@ export default function SettingsPage() {
 
       if (uploadError) throw uploadError;
 
-      // 取得公開 URL
       const { data: { publicUrl } } = supabase.storage
         .from("avatars")
         .getPublicUrl(filePath);
@@ -173,6 +207,14 @@ export default function SettingsPage() {
     e.preventDefault();
     if (!user) return;
 
+    // Validate username if changed
+    if (username && username !== profile?.username) {
+      if (usernameStatus.checking || usernameStatus.available === false) {
+        setMessage({ type: "error", text: "請確認使用者名稱可用後再儲存" });
+        return;
+      }
+    }
+
     setSaving(true);
     setMessage(null);
 
@@ -183,12 +225,13 @@ export default function SettingsPage() {
         id: user.id,
         display_name: displayName.trim() || null,
         avatar_url: avatarUrl,
+        bio: bio.trim() || null,
         updated_at: new Date().toISOString(),
       };
 
-      // 只有當 bio 有值時才加入（避免欄位不存在時出錯）
-      if (bio.trim()) {
-        updates.bio = bio.trim();
+      // Only include username if it's set and different
+      if (username && username !== profile?.username) {
+        updates.username = username;
       }
 
       const { error } = await supabase
@@ -196,10 +239,17 @@ export default function SettingsPage() {
         .upsert(updates, { onConflict: "id" });
 
       if (error) {
-        console.error("Supabase error details:", error);
-        throw error;
+        if (error.code === "23505" && error.message?.includes("username")) {
+          setMessage({ type: "error", text: "此使用者名稱已被使用，請選擇其他名稱" });
+        } else {
+          console.error("Supabase error details:", error);
+          throw error;
+        }
+        return;
       }
 
+      // Update local profile state
+      setProfile((prev) => prev ? { ...prev, username: username || prev.username } : prev);
       setMessage({ type: "success", text: "設定已儲存！" });
     } catch (error) {
       console.error("Save error:", error);
@@ -216,6 +266,8 @@ export default function SettingsPage() {
       </div>
     );
   }
+
+  const hasExistingUsername = !!profile?.username;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
@@ -287,6 +339,74 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
+        {/* 使用者名稱 */}
+        <Card>
+          <CardHeader className="p-5 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">使用者名稱</CardTitle>
+            <CardDescription className="text-base">
+              設定你的專屬網址 solo.tw/@username
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3 p-5 pt-0 sm:p-6 sm:pt-0">
+            <div className="space-y-2">
+              <Label htmlFor="username" className="text-base">使用者名稱</Label>
+              <div className="flex items-center gap-2">
+                <span className="text-base text-muted-foreground">solo.tw/@</span>
+                <div className="relative flex-1">
+                  <Input
+                    id="username"
+                    value={username}
+                    onChange={handleUsernameChange}
+                    placeholder="your_name"
+                    maxLength={20}
+                    disabled={hasExistingUsername}
+                    className="h-11 text-base lowercase"
+                  />
+                  {usernameStatus.checking && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                    </div>
+                  )}
+                  {!usernameStatus.checking && usernameStatus.available === true && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600">
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  )}
+                  {!usernameStatus.checking && usernameStatus.available === false && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500">
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </div>
+              {usernameStatus.reason && (
+                <p className={`text-sm ${usernameStatus.available ? "text-green-600" : "text-red-500"}`}>
+                  {usernameStatus.reason}
+                </p>
+              )}
+              {usernameStatus.available === true && (
+                <p className="text-sm text-green-600">可以使用！</p>
+              )}
+              {hasExistingUsername ? (
+                <p className="text-sm text-muted-foreground">
+                  使用者名稱設定後無法更改。你的個人主頁：
+                  <a href={`/@${profile?.username}`} className="ml-1 text-primary hover:underline">
+                    solo.tw/@{profile?.username}
+                  </a>
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  3-20 個字元，僅限小寫英文、數字和底線。設定後無法更改，請謹慎選擇。
+                </p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
         {/* 基本資料 */}
         <Card>
           <CardHeader className="p-5 sm:p-6">
@@ -307,7 +427,7 @@ export default function SettingsPage() {
                 className="h-11 text-base"
               />
               <p className="text-sm text-muted-foreground">
-                這個名稱會顯示在控制臺和你的診斷結果上
+                這個名稱會顯示在控制臺和你的個人主頁上
               </p>
             </div>
 
