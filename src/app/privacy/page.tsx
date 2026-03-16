@@ -71,7 +71,7 @@ export default function PrivacyPage() {
           <ul className="mt-3 list-disc space-y-2 pl-6 text-base text-muted-foreground">
             <li>
               <strong className="text-foreground">服務提供商：</strong>
-              與協助我們運營平臺的第三方服務商（如雲端服務、分析工具）。
+              與協助我們營運平臺的第三方服務商（如雲端服務、分析工具）。
             </li>
             <li>
               <strong className="text-foreground">法律要求：</strong>

@@ -185,7 +185,7 @@ pnpm add contentlayer next-contentlayer
 ### 長期
 
 根據團隊需求選擇：
-- 一人運營 → Notion 同步方案
+- 一人營運 → Notion 同步方案
 - 多人協作 → CMS 或 Admin 後台
 
 ## 常見問題

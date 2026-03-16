@@ -42,7 +42,7 @@ const stages = [
   {
     letter: "O",
     name: "Operate",
-    title: "系統運營",
+    title: "系統營運",
     subtitle: "建立獲客系統，服務第一批客戶",
     question: "如何讓對的人找到你，並願意付費？",
     description:

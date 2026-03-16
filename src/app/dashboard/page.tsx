@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const SOLO_STAGES = [
   { key: "setup", letter: "S", name: "Set up", label: "建立基礎", color: "amber", description: "定位你的專業，建立品牌基礎" },
-  { key: "operate", letter: "O", name: "Operate", label: "開始運營", color: "blue", description: "推出產品服務，取得第一批客戶" },
+  { key: "operate", letter: "O", name: "Operate", label: "開始營運", color: "blue", description: "推出產品服務，取得第一批客戶" },
   { key: "leverage", letter: "L", name: "Leverage", label: "槓桿擴展", color: "violet", description: "用系統與工具放大你的影響力" },
   { key: "outgrow", letter: "O", name: "Outgrow", label: "超越成長", color: "emerald", description: "建立被動收入，突破時間限制" },
 ] as const;

@@ -21,7 +21,7 @@ const stages = [
   {
     letter: "O",
     name: "Operate",
-    title: "系統運營",
+    title: "系統營運",
     question: "建立你的獲客與交付系統",
     description:
       "用工具建立系統化的客戶獲取流程。從活動報名、名單收集到內容行銷，打造你的事業引擎。",
