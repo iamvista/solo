@@ -76,6 +76,33 @@ export type NewsletterSubscriberInsert = Omit<
 >;
 
 // =====================
+// Activity Feed Types
+// =====================
+
+export type ActivityActionType =
+  | "joined"
+  | "set_username"
+  | "completed_diagnosis"
+  | "registered_event"
+  | "created_event"
+  | "created_lead_magnet"
+  | "leveled_up"
+  | "stage_advanced";
+
+export interface ActivityFeedItem {
+  id: string;
+  user_id: string | null;
+  action_type: ActivityActionType;
+  entity_type: string | null;
+  entity_id: string | null;
+  metadata: Record<string, unknown>;
+  is_public: boolean;
+  created_at: string;
+  // Joined from profiles
+  profiles?: Pick<Profile, "display_name" | "avatar_url" | "username"> | null;
+}
+
+// =====================
 // Event System Types
 // =====================
 

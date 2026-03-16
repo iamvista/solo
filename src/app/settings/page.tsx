@@ -16,6 +16,10 @@ interface Profile {
   bio: string | null;
   username: string | null;
   updated_at: string | null;
+  line_uid: string | null;
+  line_display_name: string | null;
+  line_picture_url: string | null;
+  line_linked_at: string | null;
 }
 
 export default function SettingsPage() {
@@ -26,6 +30,7 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [unlinkingLine, setUnlinkingLine] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Form state
@@ -200,6 +205,21 @@ export default function SettingsPage() {
       setMessage({ type: "error", text: "上傳失敗，請稍後再試" });
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleUnlinkLine = async () => {
+    setUnlinkingLine(true);
+    try {
+      const res = await fetch('/api/line/unlink', { method: 'POST' });
+      if (res.ok) {
+        setProfile((prev) => prev ? { ...prev, line_uid: null, line_display_name: null, line_picture_url: null, line_linked_at: null } : prev);
+        setMessage({ type: 'success', text: 'LINE 帳號已解除綁定' });
+      }
+    } catch {
+      setMessage({ type: 'error', text: '解除綁定失敗' });
+    } finally {
+      setUnlinkingLine(false);
     }
   };
 
@@ -446,6 +466,64 @@ export default function SettingsPage() {
                 {bio.length}/200 字元
               </p>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* LINE 綁定 */}
+        <Card>
+          <CardHeader className="p-5 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">LINE 綁定</CardTitle>
+            <CardDescription className="text-base">
+              綁定 LINE 帳號以接收活動通知和即時訊息
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+            {profile?.line_uid ? (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  {profile.line_picture_url && (
+                    <img
+                      src={profile.line_picture_url}
+                      alt="LINE"
+                      className="h-10 w-10 rounded-full"
+                    />
+                  )}
+                  <div>
+                    <p className="text-sm font-medium text-stone-900">
+                      {profile.line_display_name || 'LINE 已綁定'}
+                    </p>
+                    <p className="text-xs text-stone-500">
+                      {profile.line_linked_at
+                        ? `綁定於 ${new Date(profile.line_linked_at).toLocaleDateString('zh-TW')}`
+                        : '已綁定'}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleUnlinkLine}
+                  disabled={unlinkingLine}
+                >
+                  {unlinkingLine ? '解除中...' : '解除綁定'}
+                </Button>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+                <p className="text-sm text-stone-500">
+                  尚未綁定 LINE 帳號
+                </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => window.location.href = '/api/line/authorize'}
+                  className="bg-[#06C755] text-white hover:bg-[#05a647] border-0"
+                >
+                  綁定 LINE
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
 
