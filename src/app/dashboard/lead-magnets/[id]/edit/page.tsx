@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { FileUpload } from "@/components/ui/file-upload";
 
 const RESOURCE_TYPES = [
   { value: "pdf", label: "📄 PDF 文件" },
@@ -193,8 +194,20 @@ export default function EditLeadMagnetPage() {
             <CardContent className="space-y-4 p-6">
               <h2 className="text-base font-semibold text-stone-800">資源交付</h2>
               <div>
-                <label className="mb-1 block text-sm font-medium text-stone-700">檔案 URL</label>
-                <Input value={fileUrl} onChange={(e) => setFileUrl(e.target.value)} />
+                <label className="mb-2 block text-sm font-medium text-stone-700">上傳檔案</label>
+                <FileUpload
+                  bucket="lead-magnets"
+                  accept=".pdf,.zip,.png,.jpg,.jpeg,.webp,.doc,.docx,.xlsx,.pptx"
+                  maxSizeMB={10}
+                  onUpload={(url) => setFileUrl(url)}
+                  currentUrl={fileUrl || undefined}
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-stone-700">
+                  或直接貼上檔案 URL
+                </label>
+                <Input value={fileUrl} onChange={(e) => setFileUrl(e.target.value)} placeholder="https://..." />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-stone-700">CTA 按鈕文字</label>
