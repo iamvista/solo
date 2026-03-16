@@ -9,11 +9,11 @@ import { Footer } from "@/components/layout/Footer";
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "自由人學院",
-  alternateName: "solo.tw",
+  name: "solo.tw",
+  alternateName: "一人事業作業系統",
   url: "https://www.solo.tw",
   description:
-    "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源，幫助講師、顧問、教練建立穩定的個人事業。",
+    "一人事業作業系統。提供活動報名、名單收集、問卷調查等 SaaS 工具，搭配系統化課程與社群，幫助一人創業者打造可擴展的事業。",
   founder: {
     "@type": "Person",
     name: "Vista Cheng",
@@ -39,11 +39,11 @@ const organizationSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "自由人學院 | 把專業變成事業",
+  name: "solo.tw | 一人事業作業系統",
   url: "https://www.solo.tw",
   description:
-    "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源，幫助講師、顧問、教練建立穩定的個人事業。",
-  publisher: { "@type": "Organization", name: "自由人學院" },
+    "一人事業作業系統。提供活動報名、名單收集、問卷調查等 SaaS 工具，搭配系統化課程與社群，幫助一人創業者打造可擴展的事業。",
+  publisher: { "@type": "Organization", name: "solo.tw" },
   potentialAction: {
     "@type": "SearchAction",
     target: "https://www.solo.tw/search?q={search_term_string}",
@@ -57,50 +57,42 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "自由人學院是什麼？",
+      name: "solo.tw 是什麼？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "自由人學院（solo.tw）是台灣領先的自由工作者成長平臺，由 Vista Cheng 創辦。專為講師、顧問、教練設計，提供免費事業健檢、實用工具箱、系統化課程與專家社群，幫助專業人士把專業變成事業。",
+        text: "solo.tw 是臺灣第一個一人事業作業系統，由 Vista Cheng 創辦。提供活動報名系統、名單磁鐵、問卷調查等 SaaS 工具，搭配 SOLO 四階段方法論（Set up → Operate → Leverage → Outgrow）、系統化課程與一人創業者社群，幫助講師、顧問、教練等自由工作者打造可擴展的一人事業。",
       },
     },
     {
       "@type": "Question",
-      name: "自由人學院適合哪些人？",
+      name: "solo.tw 適合哪些人？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "自由人學院適合所有想要發展個人事業的專業人士，特別是講師、顧問、教練、自由接案者。無論你是剛起步的新手，還是想擴大影響力的資深專家，都能在這裡找到適合的資源與成長路徑。",
+        text: "solo.tw 適合所有想經營一人事業的專業人士，特別是講師、顧問、教練、自由接案者、內容創作者。不論你是剛起步的新手，還是想用工具放大影響力的資深專家，都能在這裡找到適合的工具與成長路徑。",
       },
     },
     {
       "@type": "Question",
-      name: "免費事業健檢是什麼？怎麼使用？",
+      name: "免費事業健檢是什麼？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "免費事業健檢是一個 3 分鐘的線上快速診斷工具。填寫完問卷後，系統會根據你的回答提供個人化的競爭力分析報告，幫助你了解目前的事業定位與可改善的方向。完全免費，無需付費即可使用。",
+        text: "免費事業健檢是一個 3 分鐘的線上快速診斷工具。填寫問卷後，系統會根據你的回答產生專屬的競爭力雷達圖，幫助你了解目前的事業定位，找出你是哪一種 Solo 類型（獅子、狐狸、大象、老鷹、烏龜、小雞），並提供對應的行動建議。完全免費。",
       },
     },
     {
       "@type": "Question",
-      name: "自由人學院有哪些學習資源？",
+      name: "solo.tw 提供哪些工具？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "自由人學院提供多元的學習資源：(1) 系統化課程——從客戶開發到專案交付的完整培訓；(2) 工具箱——服務包裝與定價的模板與計算工具；(3) 資源庫——文章、案例研究與市場趨勢；(4) 模板下載——提案書、合約、報價單等實用格式；(5) 部落格——涵蓋個人品牌、內容行銷、AI 應用等主題。",
+        text: "solo.tw 提供三大核心 SaaS 工具：(1) 活動報名系統——辦工作坊、講座，管理報名、候補、確認信；(2) 名單磁鐵系統——用電子書、免費諮詢等吸引潛在客戶，自動收集名單；(3) 問卷調查系統——課後問卷、市場調查、NPS 評分，即時統計分析。工具之間可自動串接，形成完整的客戶獲取漏斗。",
       },
     },
     {
       "@type": "Question",
-      name: "自由人學院的課程要收費嗎？",
+      name: "solo.tw 的會員方案怎麼收費？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "自由人學院提供免費與付費兩種資源。免費資源包括事業健檢、部落格文章、部分模板下載。付費資源則包括系統化課程、進階工具與專家社群。具體費用請參考 solo.tw 網站上的課程頁面。",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "如何加入自由人學院的社群？",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "你可以透過 Skool 平臺加入自由人學院的專家社群，與同業夥伴交流互助。也可以訂閱電子報（18,000+ 訂閱者）獲取最新資訊。社群媒體方面，可以在 Facebook、Instagram、YouTube、Threads 上關注自由人學院。",
+        text: "solo.tw 提供三種會員方案：Explorer 探索者（免費）可體驗核心功能；Pro 實踐者（NT$399/月）包含名單磁鐵、活動報名、問卷系統各 3 個額度，加上社群與專屬內容；Premium 事業家（NT$999/月）全部工具無限使用，含 1-on-1 諮詢、Mastermind 小組等進階服務。創始會員享終身優惠價。",
       },
     },
   ],
@@ -113,17 +105,21 @@ const notoSansTC = Noto_Sans_TC({
 });
 
 export const metadata: Metadata = {
-  title: "solo.tw | 把專業變成事業",
+  title: "solo.tw | 一人事業作業系統",
   description:
-    "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源，幫助講師、顧問、教練建立穩定的個人事業。",
+    "一人事業作業系統。提供活動報名、名單收集、問卷調查等工具，搭配 SOLO 方法論與社群，幫助一人創業者打造可擴展的事業。",
   keywords: [
+    "一人公司",
+    "一人創業",
     "自由工作者",
+    "SaaS 工具",
+    "活動報名系統",
+    "名單磁鐵",
     "講師",
     "顧問",
     "教練",
     "個人品牌",
-    "接案",
-    "freelancer",
+    "solopreneur",
   ],
   icons: {
     icon: "/solo-icon.png",
@@ -131,8 +127,8 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://solo.tw"),
   openGraph: {
-    title: "solo.tw | 把專業變成事業",
-    description: "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源。",
+    title: "solo.tw | 一人事業作業系統",
+    description: "不只教你怎麼做，直接給你工具去做。活動報名、名單收集、問卷調查，一人公司需要的系統全部搞定。",
     url: "https://solo.tw",
     siteName: "solo.tw",
     locale: "zh_TW",
@@ -142,14 +138,14 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "solo.tw - 自由人學院",
+        alt: "solo.tw — 一人事業作業系統",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "solo.tw | 把專業變成事業",
-    description: "自由工作者的成長平臺。提供免費診斷、實用工具、課程資源。",
+    title: "solo.tw | 一人事業作業系統",
+    description: "不只教你怎麼做，直接給你工具去做。一人公司需要的系統全部搞定。",
     images: ["/og"],
   },
 };

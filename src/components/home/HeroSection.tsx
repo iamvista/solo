@@ -2,120 +2,119 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
-      {/* Background decoration */}
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Animated background grid */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
-          <div className="h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
-        </div>
-        <div className="absolute right-0 top-1/2 -translate-y-1/2">
-          <div className="h-[300px] w-[300px] rounded-full bg-primary/10 blur-3xl" />
-        </div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(230,57,70,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(230,57,70,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div className="absolute left-1/4 top-1/4 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-blue-500/5 blur-[100px]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <div className="text-center">
-          {/* Badge */}
-          <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm sm:text-base">
-            🚀 專為自由工作者打造的成長平臺
-          </Badge>
+          {/* Top badge */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            <span className="text-sm text-slate-300">
+              創始會員招募中 · 限 100 位
+            </span>
+          </div>
 
-          {/* Main Headline */}
-          <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-            把專業
-            <span className="relative">
-              <span className="relative z-10 text-primary">變成事業</span>
-              <span className="absolute bottom-2 left-0 -z-0 h-3 w-full bg-primary/20 sm:h-4" />
+          {/* Main headline */}
+          <h1 className="mx-auto max-w-5xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            一人事業的
+            <br className="sm:hidden" />
+            <span className="relative inline-block">
+              <span className="relative z-10 bg-gradient-to-r from-primary to-rose-400 bg-clip-text text-transparent">
+                作業系統
+              </span>
+              <span className="absolute -bottom-1 left-0 h-[3px] w-full bg-gradient-to-r from-primary to-rose-400 sm:-bottom-2 sm:h-1" />
             </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:mt-8 sm:text-xl md:text-2xl">
-            你是講師、顧問或教練等自由工作者嗎？
-            <br className="sm:hidden" />
-            別再單打獨鬥。
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 sm:mt-8 sm:text-xl lg:text-2xl">
+            不只教你怎麼做，
+            <span className="text-white font-medium">直接給你工具去做</span>。
             <br />
-            用我們的診斷工具找出盲點，用實用資源加速變現。
+            活動報名、名單收集、問卷調查——
+            <br className="hidden sm:block" />
+            一人公司需要的系統，全部幫你搞定。
           </p>
 
-          {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:mt-12 sm:flex-row sm:gap-6">
-            <Button size="lg" asChild className="h-14 w-full px-8 text-base sm:w-auto sm:text-lg">
+          {/* CTA buttons */}
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:mt-12 sm:flex-row sm:gap-5">
+            <Button
+              size="lg"
+              asChild
+              className="h-14 w-full bg-gradient-to-r from-primary to-rose-500 px-8 text-base font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 sm:w-auto sm:text-lg"
+            >
               <Link href="/diagnose">
-                <svg
-                  className="mr-2 h-5 w-5 sm:h-6 sm:w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
-                  />
+                免費事業健檢
+                <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
-                免費診斷我的事業
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="h-14 w-full px-8 text-base sm:w-auto sm:text-lg">
-              <Link href="/courses">
-                探索課程資源
-              </Link>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="h-14 w-full border-white/20 bg-white/5 px-8 text-base text-white backdrop-blur-sm hover:bg-white/10 hover:text-white sm:w-auto sm:text-lg"
+            >
+              <Link href="/growth">了解 SOLO 方法論</Link>
             </Button>
           </div>
 
-          {/* Trust indicators */}
-          <div className="mt-12 flex flex-col items-center gap-4 sm:mt-16">
-            <p className="text-base text-muted-foreground sm:text-lg">
-              已有超過 <span className="font-semibold text-foreground">1,000+</span> 位自由工作者使用
-            </p>
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <svg
-                  key={i}
-                  className="h-5 w-5 text-yellow-500 sm:h-6 sm:w-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-              <span className="ml-2 text-base text-muted-foreground">4.9/5 好評推薦</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Solo Types Preview */}
-        <div className="mt-16 sm:mt-24">
-          <p className="mb-6 text-center text-base font-medium text-muted-foreground sm:mb-8 sm:text-lg">
-            你是哪種類型的 Solo？
-          </p>
-          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
+          {/* Stats row */}
+          <div className="mx-auto mt-16 grid max-w-3xl grid-cols-3 gap-8 border-t border-white/10 pt-10 sm:mt-20">
             {[
-              { emoji: "🦁", name: "獅子型", desc: "市場領袖" },
-              { emoji: "🦊", name: "狐狸型", desc: "策略高手" },
-              { emoji: "🐘", name: "大象型", desc: "穩健專家" },
-              { emoji: "🦅", name: "老鷹型", desc: "獨行俠" },
-              { emoji: "🐢", name: "烏龜型", desc: "蓄勢待發" },
-              { emoji: "🐣", name: "小雞型", desc: "新手起步" },
-            ].map((type) => (
-              <div
-                key={type.name}
-                className="flex items-center gap-2 rounded-full border bg-background px-3 py-2.5 shadow-sm transition-all hover:border-primary/50 hover:shadow-md sm:gap-3 sm:px-5 sm:py-3"
-              >
-                <span className="text-2xl sm:text-3xl">{type.emoji}</span>
-                <div className="text-left">
-                  <p className="text-sm font-medium sm:text-base">{type.name}</p>
-                  <p className="text-xs text-muted-foreground sm:text-sm">{type.desc}</p>
-                </div>
+              { number: "1,000+", label: "事業健檢完成" },
+              { number: "18,000+", label: "電子報讀者" },
+              { number: "50+", label: "場工作坊" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">{stat.number}</p>
+                <p className="mt-1 text-sm text-slate-400 sm:text-base">{stat.label}</p>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Value proposition cards */}
+        <div className="mx-auto mt-16 grid max-w-5xl gap-4 sm:mt-20 sm:grid-cols-3 sm:gap-6">
+          {[
+            {
+              icon: "🛠️",
+              title: "工具即服務",
+              desc: "活動報名、名單磁鐵、問卷系統，幫你的客戶做生意",
+            },
+            {
+              icon: "📈",
+              title: "成長路線圖",
+              desc: "SOLO 四階段框架，從定位到規模化，步步有指引",
+            },
+            {
+              icon: "🤝",
+              title: "同行者社群",
+              desc: "和一人創業者交流、互助，不再單打獨鬥",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10"
+            >
+              <span className="text-3xl">{item.icon}</span>
+              <h3 className="mt-3 text-lg font-semibold text-white">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
