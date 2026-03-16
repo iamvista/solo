@@ -13,10 +13,12 @@
 3. [會員分層與定價結構](#3-會員分層與定價結構)
 4. [SaaS 工具產品設計](#4-saas-工具產品設計)
 5. [Dashboard 與遊戲化系統](#5-dashboard-與遊戲化系統)
-6. [URL 結構與 SEO 策略](#6-url-結構與-seo-策略)
-7. [技術架構變更](#7-技術架構變更)
-8. [執行路線圖](#8-執行路線圖)
-9. [營收預估](#9-營收預估)
+6. [社群系統設計](#6-社群系統設計)
+7. [URL 結構與 SEO 策略](#7-url-結構與-seo-策略)
+8. [技術架構變更](#8-技術架構變更)
+9. [執行路線圖](#9-執行路線圖)
+10. [營收預估](#10-營收預估)
+11. [FlowCEO 競品深度對照](#11-flowceo-競品深度對照)
 
 ---
 
@@ -101,7 +103,7 @@ O → Outgrow    超越成長    「從一人忙碌到一人事業體」
 | S 診斷 | 進階診斷報告（含具體行動建議）、每季重測追蹤成長 |
 | O 內容 | Pro 專屬文章/教學、課程錄影回放 |
 | L 工具 | 名單磁鐵系統（限 3 頁、500 名單上限）、活動報名系統（限 3 場/月）、問卷系統（限 3 份/月） |
-| O 社群 | Discord/LINE 社群、月度線上聚會 |
+| O 社群 | 社群動態牆 + LINE 官方帳號、月度線上聚會 |
 | 活動 | 付費工作坊享會員價（8 折） |
 | Dashboard | 完整儀表板 + 進度追蹤 + SOLO 階段指引 |
 
@@ -116,7 +118,7 @@ O → Outgrow    超越成長    「從一人忙碌到一人事業體」
 | S 診斷 | 1-on-1 定位諮詢（每季 1 次，30 分鐘） |
 | O 內容 | 全部課程無限看、優先參加新工作坊 |
 | L 工具 | 名單磁鐵系統（無限頁面、無限名單）、活動報名系統（無限場次）、問卷系統（無限）、Landing Page 產生器、自訂品牌（移除 solo.tw 浮水印）、付費票種（透過統一金流收款） |
-| O 社群 | Premium 專屬小群、每月 Mastermind 小組、優先提問權 |
+| O 社群 | 社群動態牆（完整功能）+ LINE 官方帳號 Premium 群、每月 Mastermind 小組、優先提問權 |
 | 活動 | 付費工作坊享 VIP 價（7 折）、優先報名 |
 | Dashboard | 全功能 + 營收數據追蹤（名單成長、活動報名數據） |
 
@@ -361,7 +363,187 @@ Lv.1-2          Lv.3-4          Lv.5-6          Lv.7-8
 
 ---
 
-## 6. URL 結構與 SEO 策略
+## 6. 社群系統設計
+
+### 策略決策：為什麼不用 Skool / Discord？
+
+| 平台 | 問題 |
+|------|------|
+| **Skool**（目前使用中，$9/月） | 用戶多為英文市場「make money online」族群，跟 solo.tw 目標客群不匹配，活躍率低 |
+| **Discord** | 台灣用戶普遍不使用，學習成本高，年齡層偏年輕 |
+| **LINE 群組** | 台灣人都用，但訊息混亂、無法結構化、搜尋困難、內容沈沒快 |
+| **Facebook 社團** | 觸及率被演算法控制、無法跟 solo.tw 會員系統串接 |
+
+**結論：退租 Skool → 在 solo.tw 自建輕量社群動態牆 + LINE 官方帳號推播通知**
+
+### 設計原則
+
+1. **不建傳統論壇**（發文門檻高、需要臨界質量、冷啟動困難）
+2. **建「動態牆」**（類 Twitter/LinkedIn feed，門檻低，系統自動產生內容）
+3. **即時通知用 LINE 官方帳號**（台灣人最熟悉的管道）
+4. **社群功能跟工具/遊戲化深度綁定**（不是獨立的社群，是平台的一部分）
+
+### 社群動態牆（Community Feed）
+
+路由：`solo.tw/community`
+
+```
+┌──────────────────────────────────────────────────┐
+│  📢 社群動態                     [發布動態] [篩選] │
+│                                                    │
+│  ┌──────────────────────────────────────────────┐ │
+│  │ 🏅 @yogalisa 達成成就「起步百人」              │ │
+│  │    Lisa 的名單突破 100 人了！                   │ │
+│  │    ❤️ 12   💬 3   — 2 小時前                   │ │
+│  └──────────────────────────────────────────────┘ │
+│                                                    │
+│  ┌──────────────────────────────────────────────┐ │
+│  │ 📝 @designkev                                 │ │
+│  │    分享我用 solo.tw 名單磁鐵的成果：            │ │
+│  │    上線 3 天收到 47 個名單，轉換率 12%！        │ │
+│  │    ❤️ 28   💬 7   📌 精選   — 5 小時前         │ │
+│  └──────────────────────────────────────────────┘ │
+│                                                    │
+│  ┌──────────────────────────────────────────────┐ │
+│  │ ❓ @freelance_jen                              │ │
+│  │    [問答] 名單磁鐵的 CTA 文案怎麼寫比較好？    │ │
+│  │    ❤️ 8   💬 11   — 1 天前                     │ │
+│  └──────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────┘
+```
+
+### 動態類型
+
+#### 使用者主動發布
+
+- **一般動態**：分享心得、進展、想法（短文，類推文）
+- **問答**：標記為問題，回覆可被標為「最佳解答」
+- **成果分享**：附帶截圖/數據的工具使用心得
+
+#### 系統自動產生（解決冷啟動）
+
+這是核心設計——即使只有 20 個會員，動態牆也不會冷清：
+
+| 觸發事件 | 自動動態 |
+|---------|---------|
+| 達成成就 | 「🏅 @yogalisa 達成成就『起步百人』」 |
+| 名單里程碑 | 「📈 @designkev 的名單突破 500 人了」 |
+| 發布新活動 | 「📅 @coach_ming 剛發布新活動：溝通力工作坊」 |
+| 完成課程單元 | 「📚 @freelance_jen 完成了 AI 指揮中心 Unit 5」 |
+| 新會員加入 | 「🆕 歡迎 @newbie_solo 加入！她是平面設計師」 |
+| 官方內容 | 「📢 新文章上線：〈一人公司如何用 AI 自動化客服〉」 |
+
+### 問答區（Q&A）
+
+動態牆裡的特殊類型，有獨立的 SEO 價值：
+
+- 路由：`solo.tw/community/q/[id]/[slug]`
+- 回覆可被標記為「最佳解答」
+- 每個問答有獨立頁面，可被 Google 索引
+- SEO 標題範例：「名單磁鐵轉換率怎麼提升？ — Solo.tw 社群」
+- 高品質問答可被精選為「知識庫」文章
+
+### 社群 × 遊戲化串接
+
+| 行為 | 獎勵 |
+|------|------|
+| 發布動態 | +5 EXP |
+| 回覆他人問題 | +3 EXP |
+| 回覆被標記為最佳解答 | +15 EXP |
+| 動態被按讚 10 次 | +5 EXP |
+| 動態被精選 | +20 EXP |
+
+新成就：
+- 🏅 社群新星 — 發布 10 則動態
+- 🏅 解題達人 — 5 則回覆被標記為最佳解答
+- 🏅 意見領袖 — 動態累計被按讚 100 次
+
+### 社群分層權益
+
+| 功能 | Explorer | Pro | Premium |
+|------|:---:|:---:|:---:|
+| 瀏覽動態 | ✅ | ✅ | ✅ |
+| 按讚 | ✅ | ✅ | ✅ |
+| 發布動態 | ❌ | ✅ | ✅ |
+| 發布問答 | ❌ | ✅ | ✅ |
+| 精選動態標記 | ❌ | ❌ | ✅ |
+| LINE 官方帳號推播 | 基礎（週報） | 完整（即時通知） | 完整 + Premium 專屬群 |
+
+### LINE 官方帳號整合（取代 Discord）
+
+台灣用戶最熟悉的通知管道，用於「推播」而非「討論」：
+
+```
+LINE 官方帳號功能：
+├── 📬 週報推播（所有追蹤者）
+│   └── 本週精選文章、近期活動、社群熱門問答
+├── 🔔 即時通知（Pro/Premium）
+│   ├── 你的名單有新訂閱者
+│   ├── 你的活動有新報名
+│   ├── 有人回覆你的問答
+│   └── 新課程/工作坊上線
+├── 💎 Premium 專屬群
+│   └── LINE 群組，僅限 Premium 會員
+│   └── Vista 親自回覆、Mastermind 討論
+└── 🤖 自動回覆
+    └── 輸入「我的等級」→ 回傳你的 SOLO 進度
+    └── 輸入「近期活動」→ 回傳活動列表
+```
+
+技術串接：
+- LINE Messaging API
+- solo.tw 會員綁定 LINE UID
+- Webhook 接收 LINE 訊息 → 觸發 solo.tw API
+- 用戶在 solo.tw 設定頁綁定 LINE 帳號
+
+### 社群技術架構
+
+```sql
+-- 社群動態
+CREATE TABLE community_posts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  author_id UUID REFERENCES auth.users(id) NOT NULL,
+  post_type TEXT NOT NULL DEFAULT 'general', -- general, question, achievement, system
+  content TEXT NOT NULL,
+  is_pinned BOOLEAN DEFAULT false,
+  is_featured BOOLEAN DEFAULT false,
+  likes_count INTEGER DEFAULT 0,
+  comments_count INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 動態回覆
+CREATE TABLE community_comments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  post_id UUID REFERENCES community_posts(id) ON DELETE CASCADE,
+  author_id UUID REFERENCES auth.users(id) NOT NULL,
+  content TEXT NOT NULL,
+  is_best_answer BOOLEAN DEFAULT false,
+  likes_count INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 按讚
+CREATE TABLE community_likes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) NOT NULL,
+  target_type TEXT NOT NULL, -- 'post' or 'comment'
+  target_id UUID NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(user_id, target_type, target_id)
+);
+
+-- LINE 綁定
+ALTER TABLE profiles ADD COLUMN line_uid TEXT UNIQUE;
+ALTER TABLE profiles ADD COLUMN line_notify_enabled BOOLEAN DEFAULT false;
+```
+
+---
+
+## 7. URL 結構與 SEO 策略
+
+> 注意：社群頁面的 URL 也加入此結構
 
 ### URL 規劃
 
@@ -373,6 +555,9 @@ solo.tw/courses/                    ← 課程
 solo.tw/pricing/                    ← 定價頁
 solo.tw/explore/                    ← 探索會員/活動
 solo.tw/growth/                     ← SOLO 方法論頁面
+solo.tw/community/                  ← 社群動態牆
+solo.tw/community/q/[id]/[slug]     ← 問答獨立頁（SEO）
+solo.tw/roadmap/                    ← 公開開發藍圖
 
 solo.tw/@[username]                 ← 會員公開主頁
 solo.tw/@[username]/events          ← 會員的活動列表
@@ -416,7 +601,7 @@ solo.tw/@[username]/quiz/[slug]     ← 會員的測驗頁（Phase 4）
 
 ---
 
-## 7. 技術架構變更
+## 8. 技術架構變更
 
 ### 資料庫變更
 
@@ -578,7 +763,7 @@ Middleware:  檢測 path 以 @ 開頭 → rewrite 到 /[username]
 
 ---
 
-## 8. 執行路線圖
+## 9. 執行路線圖
 
 ### Phase 0：基礎建設（Week 1-3）
 
@@ -653,6 +838,47 @@ Week 6-7
   ✅ 會員可以建立自己的活動並收到報名
   ✅ Pro 用量限制生效
   ✅ 至少 10 個會員嘗試建立活動
+```
+
+### Phase 1.5：社群動態牆 + LINE 整合（Week 7-9，與 Phase 2 並行）
+
+目標：建立社群基礎，讓平台有「人氣」
+
+```
+Week 7-8
+  [9.1] 社群動態牆 MVP
+       • community_posts, community_comments, community_likes 表
+       • /community 動態牆頁面（無限滾動 feed）
+       • 發布動態（一般 / 問答）
+       • 回覆、按讚功能
+       • 篩選器（全部 / 問答 / 精選 / 成就）
+
+  [9.2] 系統自動動態
+       • 成就達成 → 自動發布動態
+       • 新活動建立 → 自動發布
+       • 新會員加入 → 歡迎動態
+       • 官方內容更新 → 自動通知
+       • 確保即使會員不發文，動態牆也有內容
+
+Week 8-9
+  [9.3] 問答 SEO 頁面
+       • /community/q/[id]/[slug] 獨立頁面
+       • 最佳解答標記
+       • SEO metadata + JSON-LD QAPage schema
+       • 結構化資料讓 Google 可能直接顯示答案
+
+  [9.4] LINE 官方帳號串接
+       • 申請 LINE Messaging API
+       • profiles 加入 line_uid 欄位
+       • 設定頁新增「綁定 LINE」按鈕
+       • 週報推播（精選文章 + 近期活動）
+       • Pro/Premium 即時通知（名單新增、活動報名）
+
+完成標準：
+  ✅ 社群動態牆有內容（系統自動 + 會員發布）
+  ✅ 問答頁面可被 Google 索引
+  ✅ LINE 推播可觸達會員
+  ✅ 退租 Skool
 ```
 
 ### Phase 2：名單磁鐵系統（Week 8-11）
@@ -755,7 +981,7 @@ Week 14-16
 
 ---
 
-## 9. 營收預估
+## 10. 營收預估
 
 ### 保守估計
 
@@ -793,10 +1019,117 @@ Premium             —             10 人           30 人
 
 ---
 
+## 11. FlowCEO 競品深度對照
+
+### FlowCEO 概覽（2026-03-16 觀測）
+
+- **網址**：flow.ceo
+- **創辦人**：Cassie（Player 001, LV.15）
+- **技術棧**：Next.js + Clerk 認證
+- **定位**：用 AI 遊戲化經營人生與事業
+- **核心產品**：FlowGPS（AI IDE 人生導航系統，以 Claude Code 為主）
+
+### 定價對照
+
+| | FlowCEO | Solo.tw（計畫） |
+|---|---|---|
+| 免費方案 | FlowGPS 免費課程 + Discord 免費交流區 | 診斷 + 部落格 + 基礎 Dashboard |
+| 中間方案 | Community $55 USD/月（~NT$1,760）| Pro NT$399/月 |
+| 高級方案 | Annual VIP $555 USD/年（~NT$17,760/年）| Premium NT$999/月（NT$10,188/年） |
+| 創始策略 | 創始玩家 50 人 | 創始會員 100 人 |
+
+**洞察**：FlowCEO 定價偏高（面向全球英文市場），solo.tw 面向台灣市場需要更親民的價格。但 solo.tw 有「SaaS 工具」這個 FlowCEO 沒有的差異化——FlowCEO 純教學 + 社群，solo.tw 教學 + 社群 + 工具。
+
+### 遊戲化功能對照
+
+| 功能 | FlowCEO | Solo.tw（計畫） | 差異化策略 |
+|------|:---:|:---:|------|
+| 等級系統（LV / EXP） | ✅ | ✅ | solo.tw 綁定真實事業里程碑 |
+| HP 血量系統 | ✅（根據訂閱+學習持續度） | ❌ 不採用 | 太遊戲化，不符合 solo.tw 「事業工具」定位 |
+| 貨幣系統（順流幣） | ✅（Stripe 付款加值） | ❌ 暫不採用 | 增加系統複雜度，Phase 4+ 再評估 |
+| 每日任務 / 挑戰 | ✅（今日挑戰 +XP +幣） | ✅（週期任務） | solo.tw 用週期而非每日，降低壓力 |
+| 成就徽章 | ✅（19 個，5 大分類） | ✅（6+ 個，綁定事業里程碑） | solo.tw 少而精，每個成就有實際意義 |
+| 每日神秘寶箱 | ✅（4 種稀有度） | ❌ 不採用 | 過度遊戲化 |
+| 玩家商店 | ✅（用幣兌換資源） | ❌ 暫不採用 | Phase 4+ 再評估 |
+| 連續心流日 | ✅（每日登入里程碑） | ⚠️ 簡化版（連續週達成） | 改為「連續 N 週完成週期任務」|
+| AI 技能雷達圖 | ✅ | ✅（SOLO 四維度進度條） | solo.tw 用 S.O.L.O 四階段取代雷達圖 |
+| Bug 回報（遊戲化） | ✅ | ⚠️ 可借鏡 | 低優先，但 UX 好 |
+| 公開開發藍圖 | ✅（/roadmap） | ✅（/roadmap） | 借鏡 FlowCEO 的三階段呈現 |
+
+### FlowCEO 值得借鏡但 Solo.tw 不採用的功能
+
+| 功能 | 不採用原因 |
+|------|---------|
+| HP 血量系統 | solo.tw 定位是「事業工具平台」，不是遊戲；HP 扣血會讓人焦慮而非激勵 |
+| 貨幣系統 + 商店 | 增加系統複雜度，且台灣用戶對虛擬貨幣的接受度不如歐美。Phase 4+ 再評估 |
+| 每日神秘寶箱 | 隨機獎勵適合遊戲，但對「認真經營事業的人」可能感覺幼稚 |
+| Discord 社群 | 台灣用戶不熟悉 Discord，改用 LINE 官方帳號 + 站內社群動態牆 |
+
+### FlowCEO 值得借鏡且 Solo.tw 要採用的功能
+
+| 功能 | 借鏡方式 |
+|------|---------|
+| **品牌方法論框架（F.L.O.W）** | 已設計 S.O.L.O 四階段框架 |
+| **漸進式課程解鎖** | 課程按 SOLO 階段解鎖 |
+| **創始玩家限額** | 創始會員 100 人，鎖定終身價 |
+| **每日/週期任務** | 改為週期任務，降低壓力，綁定真實行動 |
+| **成就系統** | 綁定事業里程碑而非純遊戲行為 |
+| **公開開發藍圖** | 新增 /roadmap 頁面，展示建設進度 |
+| **會員 Dashboard** | RPG 風格儀表板，但語言改為「事業風」 |
+| **社群整合** | FlowCEO 用 Discord，solo.tw 用站內動態牆 + LINE |
+
+### Solo.tw 的獨家差異化（FlowCEO 沒有的）
+
+| 功能 | 說明 |
+|------|------|
+| **SaaS 工具平台** | 會員可以用活動系統、名單磁鐵、問卷來經營自己的事業 |
+| **@username 公開主頁** | 每個會員有自己的 landing page，類似 Linktree |
+| **SEO 飛輪** | 會員頁面 + 活動 + 問答都能被 Google 索引 |
+| **問卷系統** | 客戶調查、課後問卷等工具 |
+| **診斷測驗引擎** | 已有成熟的 6 種人格診斷，未來可開放給會員使用 |
+| **工具間交叉串接** | 名單 → 活動 → 問卷的完整漏斗閉環 |
+
+---
+
 ## 附錄：靈感來源
 
-- **FlowCEO (flow.ceo)**：遊戲化系統（等級、EXP、任務）、品牌方法論框架（F.L.O.W）、創始玩家限額策略、漸進解鎖機制
+- **FlowCEO (flow.ceo)**：遊戲化系統（等級、EXP、任務、成就）、品牌方法論框架（F.L.O.W）、創始玩家限額策略、漸進解鎖機制、公開開發藍圖
 - **ConvertKit**：名單磁鐵 + Email 工具的 SaaS 模式
 - **Luma**：活動報名系統的 UX
 - **Linktree**：@username 公開主頁概念
 - **Typeform**：問卷系統的互動體驗
+- **Skool**：社群 + 課程整合概念（但 UX 和市場匹配有改進空間）
+
+## 附錄：FlowCEO 完整功能清單（2026-03-16 快照）
+
+供未來參考，FlowCEO 已上線的所有功能：
+
+```
+已上線 (LIVE)：
+├── FlowGPS 免費課程（逐週解鎖）
+├── Discord 社群（免費交流區 + 學員專屬 + VIP 專屬）
+├── Community 月訂方案（$55/月）
+├── Annual VIP 方案（$555/年，含每季 1:1 諮詢 90 分鐘）
+├── FlowBot AI 幕僚長（Heartbeat Skill 設定包）
+├── 玩家等級 & EXP 系統
+├── HP 動態血量（根據訂閱狀態與學習持續度）
+├── 順流幣系統（Stripe 付款加值、消費、交易紀錄）
+├── 每日神秘寶箱（4 種稀有度隨機獎勵）
+├── 玩家商店（用順流幣兌換獨家資源）
+├── Bug 回報系統（遊戲化介面）
+├── 站內通知系統
+├── 我的收藏頁（寶箱紀錄與購買歷史）
+├── Discord 打卡解鎖（學習與社群雙重驗證）
+├── AI 技能進步追蹤（雷達圖）
+├── 連續心流日（每日登入里程碑）
+├── 成就徽章系統（19 個成就，5 大分類）
+└── 公開開發藍圖（/roadmap）
+
+課程結構（免費關卡）：
+├── 新手村 — 遊戲化人生，從 0 建立 AI 人生 GPS
+├── Funnel — 行動聚焦漏斗
+├── Leverage — 資源放大槓桿
+├── Optimize — 系統持續優化
+├── Wealth — 八大財富積累
+└── 晉級關卡 — 專業順流玩家到遊戲創造者
+```
