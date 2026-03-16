@@ -17,26 +17,46 @@ export function NewsletterSection() {
     setStatus("idle");
 
     try {
-      const response = await fetch("https://iamvista.substack.com/api/v1/free", {
+      // 1. 存到自建資料庫
+      const localRes = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          first_url: window.location.href,
-          first_referrer: document.referrer || "",
-          current_url: window.location.href,
-          current_referrer: document.referrer || "",
+          source: "homepage",
+          metadata: {
+            referrer: document.referrer || "",
+            url: window.location.href,
+          },
         }),
-        mode: "cors",
       });
 
-      if (response.ok) {
-        setStatus("success");
-        setEmail("");
-      } else {
-        throw new Error("API failed");
+      if (!localRes.ok) {
+        throw new Error("Local API failed");
       }
+
+      // 2. 同步到 Substack（靜默失敗不影響用戶體驗）
+      try {
+        await fetch("https://iamvista.substack.com/api/v1/free", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            first_url: window.location.href,
+            first_referrer: document.referrer || "",
+            current_url: window.location.href,
+            current_referrer: document.referrer || "",
+          }),
+          mode: "cors",
+        });
+      } catch {
+        // Substack sync failed silently — subscriber is saved locally
+      }
+
+      setStatus("success");
+      setEmail("");
     } catch {
+      // Fallback: 直接開 Substack 訂閱頁
       window.open(
         `https://iamvista.substack.com/subscribe?email=${encodeURIComponent(email)}`,
         "_blank",
