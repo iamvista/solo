@@ -15,16 +15,33 @@ const navigation = [
   { name: "部落格", href: "/blog" },
 ];
 
+interface UserProfile {
+  level: number;
+  exp: number;
+  username: string | null;
+  avatar_url: string | null;
+  display_name: string | null;
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const supabase = createClient();
 
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
       setUser(user);
+      if (user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("level, exp, username, avatar_url, display_name")
+          .eq("id", user.id)
+          .single();
+        if (data) setProfile(data);
+      }
       setLoading(false);
     });
 
@@ -42,6 +59,11 @@ export function Header() {
     await supabase.auth.signOut();
     window.location.href = "/";
   };
+
+  const level = profile?.level || 1;
+  const exp = profile?.exp || 0;
+  const expForNext = level * 200;
+  const expProgress = Math.min((exp / expForNext) * 100, 100);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -93,11 +115,30 @@ export function Header() {
         </div>
 
         {/* Desktop CTA */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-3">
+        <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:gap-x-3">
           {loading ? (
             <div className="h-10 w-24 animate-pulse rounded-md bg-muted" />
           ) : user ? (
             <>
+              {/* Level badge + progress */}
+              <Link href="/dashboard" className="group flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5 transition-colors hover:bg-stone-200">
+                {profile?.avatar_url ? (
+                  <img src={profile.avatar_url} alt="" className="h-7 w-7 rounded-full object-cover" />
+                ) : (
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-stone-300 text-xs font-bold text-stone-600">
+                    {(profile?.display_name || user.email)?.[0]?.toUpperCase() || "?"}
+                  </div>
+                )}
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-stone-700">Lv.{level}</span>
+                  <div className="h-1.5 w-12 overflow-hidden rounded-full bg-stone-300">
+                    <div
+                      className="h-full rounded-full bg-primary transition-all duration-300"
+                      style={{ width: `${expProgress}%` }}
+                    />
+                  </div>
+                </div>
+              </Link>
               <Button variant="ghost" asChild className="h-10 px-4 text-base">
                 <Link href="/dashboard">Dashboard</Link>
               </Button>
@@ -135,6 +176,31 @@ export function Header() {
             <div className="mt-4 flex flex-col gap-3 pt-2">
               {user ? (
                 <>
+                  {/* Mobile level display */}
+                  <div className="flex items-center gap-3 rounded-lg bg-stone-100 px-4 py-3">
+                    {profile?.avatar_url ? (
+                      <img src={profile.avatar_url} alt="" className="h-10 w-10 rounded-full object-cover" />
+                    ) : (
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-300 text-sm font-bold text-stone-600">
+                        {(profile?.display_name || user.email)?.[0]?.toUpperCase() || "?"}
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-stone-900">
+                        {profile?.display_name || user.email?.split("@")[0]}
+                      </p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <span className="text-xs font-bold text-stone-600">Lv.{level}</span>
+                        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-stone-300">
+                          <div
+                            className="h-full rounded-full bg-primary"
+                            style={{ width: `${expProgress}%` }}
+                          />
+                        </div>
+                        <span className="text-[10px] text-stone-500">{exp}/{expForNext}</span>
+                      </div>
+                    </div>
+                  </div>
                   <Button asChild className="h-12 w-full text-base">
                     <Link href="/dashboard">Dashboard</Link>
                   </Button>
