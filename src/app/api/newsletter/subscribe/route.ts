@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-function getSupabase() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
-}
+import { createServiceClient } from "@/lib/supabase/service";
+import { checkRateLimit, getClientIp } from "@/lib/newsletter/rate-limit";
+import { generateUnsubscribeToken } from "@/lib/newsletter/token";
 
 export async function POST(request: Request) {
   try {
-    const supabase = getSupabase();
-    const { email, name, source, tags, metadata } = await request.json();
+    // Rate limit: 5 requests per IP per minute
+    const ip = getClientIp(request);
+    if (!checkRateLimit(`subscribe:${ip}`, { maxRequests: 5, windowMs: 60_000 })) {
+      return NextResponse.json({ error: "請求過於頻繁，請稍後再試" }, { status: 429 });
+    }
+
+    const supabase = createServiceClient();
+    const body = await request.json();
+    const { email } = body;
 
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email 為必填" }, { status: 400 });
@@ -25,6 +27,17 @@ export async function POST(request: Request) {
 
     const normalizedEmail = email.toLowerCase().trim();
 
+    // 驗證並限制輸入欄位
+    const safeName = typeof body.name === "string" ? body.name.trim().slice(0, 100) : null;
+    const safeSource = typeof body.source === "string" ? body.source.trim().slice(0, 50) : "website";
+    const safeTags = Array.isArray(body.tags)
+      ? body.tags.filter((t: unknown) => typeof t === "string").slice(0, 5).map((t: string) => t.slice(0, 30))
+      : [];
+    const safeMetadata = {
+      referrer: typeof body.metadata?.referrer === "string" ? body.metadata.referrer.slice(0, 500) : "",
+      url: typeof body.metadata?.url === "string" ? body.metadata.url.slice(0, 500) : "",
+    };
+
     // 檢查是否已存在（包含已取消訂閱的）
     const { data: existing } = await supabase
       .from("newsletter_subscribers")
@@ -34,8 +47,8 @@ export async function POST(request: Request) {
 
     if (existing) {
       if (existing.status === "active") {
-        // 已經訂閱中，回傳成功（不洩漏資訊）
-        return NextResponse.json({ success: true, message: "已訂閱" });
+        // 統一回應訊息，避免 email 枚舉
+        return NextResponse.json({ success: true, message: "訂閱成功" });
       }
 
       // 重新啟用已取消的訂閱
@@ -45,20 +58,20 @@ export async function POST(request: Request) {
           status: "active",
           unsubscribed_at: null,
           subscribed_at: new Date().toISOString(),
-          ...(tags ? { tags } : {}),
+          ...(safeTags.length > 0 ? { tags: safeTags } : {}),
         })
         .eq("id", existing.id);
 
-      return NextResponse.json({ success: true, message: "重新訂閱成功" });
+      return NextResponse.json({ success: true, message: "訂閱成功" });
     }
 
     // 新訂閱
     const { error } = await supabase.from("newsletter_subscribers").insert({
       email: normalizedEmail,
-      name: name || null,
-      source: source || "website",
-      tags: tags || [],
-      metadata: metadata || {},
+      name: safeName,
+      source: safeSource,
+      tags: safeTags,
+      metadata: safeMetadata,
     });
 
     if (error) {
@@ -66,7 +79,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "訂閱失敗，請稍後再試" }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, message: "訂閱成功" });
+    // 回傳 unsubscribe token 供前端存取（可用於 email 中的取消連結）
+    const unsubToken = generateUnsubscribeToken(normalizedEmail);
+
+    return NextResponse.json({
+      success: true,
+      message: "訂閱成功",
+      unsubscribeToken: unsubToken,
+    });
   } catch (err) {
     console.error("Newsletter API error:", err);
     return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });

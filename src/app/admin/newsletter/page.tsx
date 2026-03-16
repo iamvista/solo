@@ -4,17 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
-import { createClient } from "@supabase/supabase-js";
-
-function getSupabase() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
-}
+import { createServiceClient } from "@/lib/supabase/service";
 
 async function getNewsletterStats() {
-  const supabase = getSupabase();
+  const supabase = createServiceClient();
 
   const [
     { count: totalActive },
