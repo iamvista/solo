@@ -2,6 +2,18 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Handle /@username → /u/username rewrite
+  if (pathname.startsWith("/@")) {
+    const username = pathname.slice(2).split("/")[0]; // extract username after @
+    if (username && /^[a-z0-9_]{3,20}$/.test(username)) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/u/${username}${pathname.slice(2 + username.length)}`;
+      return NextResponse.rewrite(url);
+    }
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   });
