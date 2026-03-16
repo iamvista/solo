@@ -361,11 +361,11 @@ export default async function DashboardPage() {
                   <span className="text-xs font-medium text-stone-700">事業健檢</span>
                 </Link>
                 <Link
-                  href="/events"
+                  href="/dashboard/my-events"
                   className="flex flex-col items-center gap-2 rounded-xl bg-stone-50 p-4 text-center transition-colors hover:bg-stone-100"
                 >
                   <span className="text-2xl">🎪</span>
-                  <span className="text-xs font-medium text-stone-700">活動報名</span>
+                  <span className="text-xs font-medium text-stone-700">我的活動</span>
                 </Link>
                 <Link
                   href="/courses"

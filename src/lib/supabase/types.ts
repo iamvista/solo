@@ -102,11 +102,23 @@ export interface Event {
   capacity: number;
   status: EventStatus;
   organizer_id: string | null;
+  owner_id: string | null;
+  is_platform_event: boolean;
   category: EventCategory | null;
   tags: string[];
   youtube_embed: string | null;
   is_featured: boolean;
   created_at: string;
+  updated_at: string;
+}
+
+export interface UsageLimit {
+  id: string;
+  user_id: string;
+  events_created_this_month: number;
+  lead_magnets_created_this_month: number;
+  surveys_created_this_month: number;
+  month_year: string;
   updated_at: string;
 }
 
