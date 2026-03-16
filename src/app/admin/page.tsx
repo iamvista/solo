@@ -67,6 +67,9 @@ export default async function AdminPage() {
           <Button variant="outline" asChild className="h-11 px-4 text-base">
             <Link href="/admin/diagnoses">診斷紀錄</Link>
           </Button>
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin/newsletter">📬 電子報</Link>
+          </Button>
         </div>
       </div>
 
