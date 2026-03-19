@@ -63,6 +63,12 @@ const runsheng: Instructor = {
   avatar: "/images/workshops/instructor-runsheng-avatar.webp",
 };
 
+const susie: Instructor = {
+  name: "Susie Li",
+  title: "社群內容策略師・心理學碩士",
+  avatar: "/images/workshops/instructor-susie.webp",
+};
+
 // 課程分類
 export const categories = {
   ai: { label: "AI 應用系列", emoji: "🤖" },
@@ -165,6 +171,36 @@ export const workshops: Workshop[] = [
       "一份內容自動轉六種格式",
       "用 Claude Code 實作完整系統",
       "含 30 分鐘課後一對一諮詢",
+    ],
+    category: "ai",
+  },
+  {
+    id: "ai-social-content",
+    title: "用 AI 寫出讓人忍不住留言的社群內容",
+    subtitle: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統",
+    description:
+      "結合社群互動心理學與 AI 協作，學會設計讓人想按讚、想留言、想分享的內容。不只教你下 prompt，而是教你一套從靈感到發布的完整系統。",
+    instructor: susie,
+    emoji: "💬",
+    date: "2026/4/26（六）",
+    time: "9:00–12:00",
+    duration: "3 小時",
+    location: "臺北市區（報名後通知地點）",
+    capacity: 20,
+    price: {
+      original: 4500,
+      earlyBird: 3500,
+      earlyBirdDeadline: "開課前 14 天",
+    },
+    tags: ["AI", "社群經營", "內容策略", "心理學"],
+    status: "coming_soon",
+    url: "/courses/ai-social-content",
+    isExternal: false,
+    highlights: [
+      "學會五種高互動內容的心理學模型",
+      "用 AI 產出有溫度、有互動的社群貼文",
+      "帶走一套從靈感到發布的內容工作流",
+      "現場完成一篇可直接發布的高互動貼文",
     ],
     category: "ai",
   },
