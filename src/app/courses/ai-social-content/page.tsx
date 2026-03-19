@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "結合心理學 × AI 提問術，3 小時學會設計高互動社群內容。帶走五種心理學模型、AI 提問模板、完整內容工作流。",
     images: [
       {
-        url: "/images/workshops/instructor-susie.webp",
+        url: "/courses/ai-social-content/og",
         width: 1200,
         height: 630,
       },
