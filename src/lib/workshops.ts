@@ -193,7 +193,7 @@ export const workshops: Workshop[] = [
       earlyBirdDeadline: "開課前 14 天",
     },
     tags: ["AI", "社群經營", "內容策略", "心理學"],
-    status: "coming_soon",
+    status: "open",
     url: "/courses/ai-social-content",
     isExternal: false,
     highlights: [

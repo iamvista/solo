@@ -23,7 +23,8 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL = "#"; // 報名連結待設定
+const REGISTER_URL =
+  "https://vista.oen.tw/good/3B9k5KK2dOefHc4CHsLyOtnve1I?from=vista&m=cash";
 
 const painPoints = [
   {
@@ -673,14 +674,14 @@ export default function AISocialContentPage() {
                 <Button
                   size="lg"
                   className="h-12 w-full text-base"
-                  disabled
+                  asChild
                 >
-                  即將開放報名 — 敬請期待
+                  <a href={REGISTER_URL}>立即報名</a>
                 </Button>
               </div>
 
               <p className="mt-4 text-center text-sm text-muted-foreground">
-                開放報名時將透過電子報通知，歡迎先訂閱以獲取第一手消息
+                點擊報名後將寄送詳細資訊至您的信箱
               </p>
             </CardContent>
           </Card>
