@@ -146,7 +146,7 @@ const schedule = [
   },
   {
     time: "休息",
-    duration: "15 分鐘",
+    duration: "10 分鐘",
     module: "中場休息",
     content: "",
   },
@@ -334,21 +334,12 @@ export default function AISocialContentPage() {
           <div className="mt-8 grid gap-8 md:grid-cols-5">
             {/* 照片 */}
             <div className="md:col-span-2 flex flex-col items-center gap-4">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 overflow-hidden rounded-2xl">
-                <Image
-                  src="/images/workshops/instructor-susie.webp"
-                  alt="Susie Li"
-                  width={224}
-                  height={224}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="w-full overflow-hidden rounded-xl">
+              <div className="w-full overflow-hidden rounded-2xl">
                 <Image
                   src="/images/workshops/instructor-susie-2.webp"
-                  alt="Susie Li 授課中"
+                  alt="Susie Li"
                   width={400}
-                  height={300}
+                  height={600}
                   className="w-full object-cover"
                 />
               </div>

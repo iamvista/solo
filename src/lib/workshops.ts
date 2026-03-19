@@ -66,7 +66,7 @@ const runsheng: Instructor = {
 const susie: Instructor = {
   name: "Susie Li",
   title: "社群內容策略師・心理學碩士",
-  avatar: "/images/workshops/instructor-susie.webp",
+  avatar: "/images/workshops/instructor-susie-2.webp",
 };
 
 // 課程分類
