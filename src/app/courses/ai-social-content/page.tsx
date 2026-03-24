@@ -229,7 +229,7 @@ export default function AISocialContentPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            💬 3 小時實戰工作坊 — 2026/4/26（六）
+            💬 3 小時實戰工作坊 — 2026/4/26（日）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             你還在叫 AI
@@ -614,7 +614,7 @@ export default function AISocialContentPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026/4/26（六）</span>
+                    <span className="font-medium">2026/4/26（日）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>

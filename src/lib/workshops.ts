@@ -182,7 +182,7 @@ export const workshops: Workshop[] = [
       "結合社群互動心理學與 AI 協作，學會設計讓人想按讚、想留言、想分享的內容。不只教你下 prompt，而是教你一套從靈感到發布的完整系統。",
     instructor: susie,
     emoji: "💬",
-    date: "2026/4/26（六）",
+    date: "2026/4/26（日）",
     time: "9:00–12:00",
     duration: "3 小時",
     location: "臺北市區（報名後通知地點）",
