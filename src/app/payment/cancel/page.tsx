@@ -29,7 +29,7 @@ export default function PaymentCancelPage() {
           </Link>
         </Button>
         <Button variant="outline" asChild>
-          <a href="mailto:vista@solo.tw">聯繫客服</a>
+          <a href="mailto:iamvista@gmail.com?subject=付款問題">聯繫客服</a>
         </Button>
       </div>
     </div>

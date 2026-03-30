@@ -184,7 +184,7 @@ export default function CoursesPage() {
                   asChild
                   className="bg-amber-400 text-stone-900 hover:bg-amber-500"
                 >
-                  <a href="mailto:vista@solo.tw">
+                  <a href="mailto:iamvista@gmail.com?subject=企業內訓洽詢">
                     聯繫洽談
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>

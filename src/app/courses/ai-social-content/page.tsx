@@ -752,7 +752,7 @@ export default function AISocialContentPage() {
                 className="h-12 px-8 text-base"
                 asChild
               >
-                <a href="mailto:hi@solo.tw">寫信給我們</a>
+                <a href="mailto:iamvista@gmail.com">寫信給我們</a>
               </Button>
             </div>
           </div>
