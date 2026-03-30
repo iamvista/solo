@@ -16,8 +16,10 @@ const consultingTypes = [
     icon: MessageCircle,
     title: "免費初談",
     duration: "30 分鐘",
-    price: "免費",
+    originalPrice: null,
+    promoPrice: "免費",
     isFree: true,
+    badge: null,
     desc: "不確定適不適合？先聊 30 分鐘，了解你的狀況，看看我能怎麼幫你。零風險、零壓力。",
     includes: ["了解你目前的事業狀況", "初步方向建議", "推薦適合你的下一步"],
   },
@@ -25,28 +27,52 @@ const consultingTypes = [
     icon: Calendar,
     title: "事業方向諮詢",
     duration: "60 分鐘",
-    price: "NT$3,000",
+    originalPrice: "NT$5,000",
+    promoPrice: "NT$2,490",
+    saving: "省 NT$2,510",
     isFree: false,
-    desc: "適合剛起步或正在轉型的一人事業者，幫你釐清定位、找到切入點。",
-    includes: ["現況分析與盲點診斷", "個人化行動計畫", "課後 30 天 Email 追蹤"],
+    badge: "最多人選",
+    desc: "適合剛起步或正在轉型的一人事業者，幫你釐清定位、制定行動計畫，不再原地打轉。",
+    includes: [
+      "60 分鐘深度一對一",
+      "現況分析與盲點診斷",
+      "個人化行動計畫（書面交付）",
+      "課後 30 天 Email 追蹤",
+    ],
   },
   {
     icon: Clock,
     title: "AI 工具導入",
     duration: "90 分鐘",
-    price: "NT$5,000",
+    originalPrice: "NT$8,000",
+    promoPrice: "NT$3,990",
+    saving: "省 NT$4,010",
     isFree: false,
-    desc: "針對你的事業場景，手把手帶你設定 AI 工作流，讓你一個人做到一個團隊的產出。",
-    includes: ["客製 AI 工作流設定", "工具選擇與串接建議", "設定完成可立即使用"],
+    badge: null,
+    desc: "針對你的事業場景，手把手帶你設定 AI 工作流。不是教你理論，是幫你設定好、立刻能用。",
+    includes: [
+      "90 分鐘實作 + 螢幕共享",
+      "客製 AI 工作流設定",
+      "工具選擇與串接建議",
+      "設定完成可立即使用",
+    ],
   },
   {
     icon: Calendar,
     title: "陪跑教練",
     duration: "60 分鐘 × 4 次",
-    price: "NT$10,000",
+    originalPrice: "NT$20,000",
+    promoPrice: "NT$9,900",
+    saving: "省 NT$10,100",
     isFree: false,
-    desc: "為期一個月的持續陪伴，每週一次深度對話，確保你不只有方向，還能落地執行。",
-    includes: ["四次深度對話", "每週進度追蹤", "LINE 即時問答支援"],
+    badge: "最超值",
+    desc: "一個月的持續陪伴，每週一次深度對話。不只給方向，還盯你落地執行。",
+    includes: [
+      "四次 60 分鐘深度對話",
+      "每週進度追蹤與回饋",
+      "LINE 即時問答支援",
+      "結業後贈一次免費回顧諮詢",
+    ],
   },
 ];
 
@@ -79,24 +105,45 @@ export default function ConsultingPage() {
       {/* 方案卡片 */}
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* 開站優惠提示 */}
+          <div className="mx-auto mb-10 max-w-2xl rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-center">
+            <p className="text-sm font-medium text-amber-800">
+              🎉 <span className="font-bold">開站限定優惠</span> — 所有付費方案享 <span className="font-bold text-primary">5 折起</span>，名額有限，額滿恢復原價
+            </p>
+          </div>
+
           <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {consultingTypes.map((item) => {
               const Icon = item.icon;
+              const isPopular = item.badge === "最多人選";
               return (
                 <div
                   key={item.title}
                   className={`relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md sm:p-7 ${
                     item.isFree
                       ? "border-primary/30 ring-1 ring-primary/10"
-                      : "border-stone-200 hover:border-stone-300"
+                      : isPopular
+                        ? "border-primary/30 ring-2 ring-primary/10"
+                        : "border-stone-200 hover:border-stone-300"
                   }`}
                 >
+                  {/* 標籤 */}
                   {item.isFree && (
                     <span className="absolute -top-3 right-5 rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white">
                       推薦先從這裡開始
                     </span>
                   )}
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  {item.badge && (
+                    <span className={`absolute -top-3 right-5 rounded-full px-3 py-1 text-xs font-semibold text-white ${
+                      isPopular ? "bg-primary" : "bg-amber-500"
+                    }`}>
+                      {item.badge}
+                    </span>
+                  )}
+
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${
+                    isPopular ? "bg-primary text-white" : "bg-primary/10 text-primary"
+                  }`}>
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 text-xl font-bold text-stone-900">
@@ -120,9 +167,30 @@ export default function ConsultingPage() {
                     ))}
                   </div>
 
-                  <p className={`mt-5 text-2xl font-bold ${item.isFree ? "text-emerald-600" : "text-stone-900"}`}>
-                    {item.price}
-                  </p>
+                  {/* 價格區 */}
+                  <div className="mt-5">
+                    {item.isFree ? (
+                      <p className="text-2xl font-bold text-emerald-600">免費</p>
+                    ) : (
+                      <div>
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-2xl font-bold text-stone-900">
+                            {item.promoPrice}
+                          </span>
+                          {item.originalPrice && (
+                            <span className="text-sm text-stone-400 line-through">
+                              {item.originalPrice}
+                            </span>
+                          )}
+                        </div>
+                        {item.saving && (
+                          <span className="mt-1 inline-block rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700">
+                            開站優惠 {item.saving}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
