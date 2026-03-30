@@ -10,10 +10,10 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "solo.tw",
-  alternateName: "一人事業作業系統",
+  alternateName: "用 AI 放大你的一人事業",
   url: "https://www.solo.tw",
   description:
-    "一人事業作業系統。提供活動報名、名單收集、問卷調查等 SaaS 工具，搭配系統化課程與社群，幫助一人創業者打造可擴展的事業。",
+    "Vista Cheng 的個人品牌網站。提供 AI 工作坊、1-on-1 諮詢、線上課程，幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。",
   founder: {
     "@type": "Person",
     name: "Vista Cheng",
@@ -39,10 +39,10 @@ const organizationSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "solo.tw | 一人事業作業系統",
+  name: "solo.tw | 用 AI 放大你的一人事業",
   url: "https://www.solo.tw",
   description:
-    "一人事業作業系統。提供活動報名、名單收集、問卷調查等 SaaS 工具，搭配系統化課程與社群，幫助一人創業者打造可擴展的事業。",
+    "Vista Cheng 的個人品牌網站。AI 工作坊、1-on-1 諮詢、線上課程，幫助自由工作者用 AI 放大一人事業的產出。",
   publisher: { "@type": "Organization", name: "solo.tw" },
   potentialAction: {
     "@type": "SearchAction",
@@ -105,21 +105,21 @@ const notoSansTC = Noto_Sans_TC({
 });
 
 export const metadata: Metadata = {
-  title: "solo.tw | 一人事業作業系統",
+  title: "solo.tw | 用 AI 放大你的一人事業",
   description:
-    "一人事業作業系統。提供活動報名、名單收集、問卷調查等工具，搭配 SOLO 方法論與社群，幫助一人創業者打造可擴展的事業。",
+    "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。AI 工作坊、1-on-1 諮詢、線上課程、SOLO 方法論。",
   keywords: [
     "一人公司",
     "一人創業",
     "自由工作者",
-    "SaaS 工具",
-    "活動報名系統",
-    "名單磁鐵",
+    "AI 工作坊",
+    "AI 應用",
     "講師",
     "顧問",
     "教練",
     "個人品牌",
     "solopreneur",
+    "Vista Cheng",
   ],
   icons: {
     icon: "/solo-icon.png",
@@ -127,8 +127,8 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://solo.tw"),
   openGraph: {
-    title: "solo.tw | 一人事業作業系統",
-    description: "不只教你怎麼做，直接給你工具去做。活動報名、名單收集、問卷調查，一人公司需要的系統全部搞定。",
+    title: "solo.tw | 用 AI 放大你的一人事業",
+    description: "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。AI 工作坊、諮詢、線上課程。",
     url: "https://solo.tw",
     siteName: "solo.tw",
     locale: "zh_TW",
@@ -144,8 +144,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "solo.tw | 一人事業作業系統",
-    description: "不只教你怎麼做，直接給你工具去做。一人公司需要的系統全部搞定。",
+    title: "solo.tw | 用 AI 放大你的一人事業",
+    description: "Vista Cheng 幫助自由工作者用 AI 放大一人事業的產出。工作坊、諮詢、線上課程。",
     images: ["/og"],
   },
 };
