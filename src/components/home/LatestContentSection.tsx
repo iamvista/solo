@@ -5,6 +5,14 @@ import { ArrowRight, BookOpen } from "lucide-react";
 // 精選文章（靜態資料，之後可改為從 API 動態取得最新文章）
 const articles = [
   {
+    slug: "how-to-start-solo-business",
+    title: "一人公司怎麼開始？五個步驟，從上班族走到自由工作者",
+    excerpt:
+      "不灌雞湯。從定位、驗證到第一筆收入，照著走的行動指南。",
+    tag: "一人事業",
+    tagColor: "bg-primary/10 text-primary",
+  },
+  {
     slug: "how-professionals-leverage-ai-agents",
     title: "職場人士如何善用 AI Agent？從問 AI 到讓 AI 幫你做的關鍵轉變",
     excerpt:
@@ -19,14 +27,6 @@ const articles = [
       "當 AI 重塑工作型態，每個人都必須學會把自己變成可獲利的微型組織。",
     tag: "個人品牌",
     tagColor: "bg-violet-100 text-violet-700",
-  },
-  {
-    slug: "selling-yourself-2026",
-    title: "賣自己：一人事業者的品牌經營心法",
-    excerpt:
-      "你的專業不是產品，你才是。學會把自己賣出去的關鍵思維。",
-    tag: "實戰分享",
-    tagColor: "bg-amber-100 text-amber-700",
   },
 ];
 
