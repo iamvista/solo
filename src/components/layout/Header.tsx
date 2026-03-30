@@ -8,11 +8,10 @@ import type { User } from "@supabase/supabase-js";
 
 const navigation = [
   { name: "事業健檢", href: "/diagnose" },
+  { name: "免費諮詢", href: "/consulting" },
+  { name: "課程", href: "/courses" },
   { name: "成長路徑", href: "/growth" },
   { name: "工具", href: "/tools" },
-  { name: "活動", href: "/events" },
-  { name: "社群", href: "/community" },
-  { name: "課程", href: "/courses" },
   { name: "部落格", href: "/blog" },
 ];
 

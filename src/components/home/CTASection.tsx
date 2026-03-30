@@ -18,9 +18,9 @@ export function CTASection() {
             <span className="text-primary">放大你的事業</span>了嗎？
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-stone-500 sm:mt-6 sm:text-xl">
-            從一場工作坊開始，或者先做個免費健檢，
+            先聊 30 分鐘，零風險了解我能怎麼幫你。
             <br className="hidden sm:block" />
-            找出你的下一步。
+            或者做個免費健檢，找出你的下一步。
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row sm:gap-5">
             <Button
@@ -28,8 +28,8 @@ export function CTASection() {
               asChild
               className="h-14 w-full px-8 text-base font-semibold shadow-lg shadow-primary/15 sm:w-auto sm:text-lg"
             >
-              <Link href="/courses">
-                查看近期工作坊
+              <Link href="/consulting">
+                預約免費諮詢
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
