@@ -21,27 +21,39 @@ const CAL_LINK: string | null = "vista/consulting";
 const consultingTypes = [
   {
     icon: MessageCircle,
-    title: "事業方向諮詢",
-    duration: "60 分鐘",
-    price: "NT$3,000",
-    desc: "適合剛起步或正在轉型的一人事業者，幫你釐清定位、找到切入點。",
-    includes: ["現況分析與盲點診斷", "個人化行動計畫", "課後 30 天 Email 追蹤"],
+    title: "免費初談",
+    duration: "30 分鐘",
+    price: "免費",
+    isFree: true,
+    desc: "不確定適不適合？先聊 30 分鐘，了解你的狀況，看看我能怎麼幫你。零風險、零壓力。",
+    includes: ["了解你目前的事業狀況", "初步方向建議", "推薦適合你的下一步"],
   },
   {
     icon: Calendar,
-    title: "陪跑教練",
-    duration: "60 分鐘 × 4 次",
-    price: "NT$10,000",
-    desc: "為期一個月的持續陪伴，每週一次深度對話，確保你不只有方向，還能落地執行。",
-    includes: ["四次深度對話", "每週進度追蹤", "LINE 即時問答支援"],
+    title: "事業方向諮詢",
+    duration: "60 分鐘",
+    price: "NT$3,000",
+    isFree: false,
+    desc: "適合剛起步或正在轉型的一人事業者，幫你釐清定位、找到切入點。",
+    includes: ["現況分析與盲點診斷", "個人化行動計畫", "課後 30 天 Email 追蹤"],
   },
   {
     icon: Clock,
     title: "AI 工具導入",
     duration: "90 分鐘",
     price: "NT$5,000",
+    isFree: false,
     desc: "針對你的事業場景，手把手帶你設定 AI 工作流，讓你一個人做到一個團隊的產出。",
     includes: ["客製 AI 工作流設定", "工具選擇與串接建議", "設定完成可立即使用"],
+  },
+  {
+    icon: Calendar,
+    title: "陪跑教練",
+    duration: "60 分鐘 × 4 次",
+    price: "NT$10,000",
+    isFree: false,
+    desc: "為期一個月的持續陪伴，每週一次深度對話，確保你不只有方向，還能落地執行。",
+    includes: ["四次深度對話", "每週進度追蹤", "LINE 即時問答支援"],
   },
 ];
 
@@ -60,12 +72,12 @@ export default function ConsultingPage() {
               1-on-1 諮詢 & 陪跑
             </p>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl lg:text-5xl">
-              一小時，幫你省半年的摸索
+              先聊聊，不收費
             </h1>
             <p className="mt-4 text-lg text-stone-500 sm:text-xl">
-              不是給你一堆理論，而是根據你的狀況，
+              30 分鐘免費初談，了解你的狀況、看看我能怎麼幫你。
               <br className="hidden sm:block" />
-              一起制定可執行的下一步。
+              覺得適合，再選擇付費方案深入合作。
             </p>
           </div>
         </div>
@@ -74,14 +86,23 @@ export default function ConsultingPage() {
       {/* 方案卡片 */}
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-3 sm:gap-8">
+          <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {consultingTypes.map((item) => {
               const Icon = item.icon;
               return (
                 <div
                   key={item.title}
-                  className="flex flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-all hover:border-stone-300 hover:shadow-md sm:p-8"
+                  className={`relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md sm:p-7 ${
+                    item.isFree
+                      ? "border-primary/30 ring-1 ring-primary/10"
+                      : "border-stone-200 hover:border-stone-300"
+                  }`}
                 >
+                  {item.isFree && (
+                    <span className="absolute -top-3 right-5 rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white">
+                      推薦先從這裡開始
+                    </span>
+                  )}
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
@@ -106,7 +127,7 @@ export default function ConsultingPage() {
                     ))}
                   </div>
 
-                  <p className="mt-5 text-2xl font-bold text-stone-900">
+                  <p className={`mt-5 text-2xl font-bold ${item.isFree ? "text-emerald-600" : "text-stone-900"}`}>
                     {item.price}
                   </p>
                 </div>
@@ -125,8 +146,8 @@ export default function ConsultingPage() {
             </h2>
             <p className="mt-2 text-base text-stone-500">
               {CAL_LINK
-                ? "選擇你方便的時間，我會在確認後寄送付款連結。"
-                : "目前請透過 Email 預約，回覆後會協調時段與付款方式。"}
+                ? "選擇你方便的時間，30 分鐘免費初談。覺得適合再聊付費方案。"
+                : "目前請透過 Email 預約，回覆後會協調時段。"}
             </p>
           </div>
 
