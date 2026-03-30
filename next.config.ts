@@ -14,6 +14,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // non-www → www 301 redirect（SEO 網域統一）
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "solo.tw" }],
+        destination: "https://www.solo.tw/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
