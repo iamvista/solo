@@ -72,7 +72,7 @@ export function Header() {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-rose-500 sm:h-10 sm:w-10">
-              <span className="text-lg font-black text-white sm:text-xl">S</span>
+              <span className="text-lg font-bold text-white sm:text-xl">S</span>
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-tight text-foreground sm:text-xl">solo.tw</span>

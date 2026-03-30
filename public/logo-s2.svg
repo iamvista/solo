@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#C62833"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g2)"/>
+  <!-- S2: 現代無襯線 — 乾淨俐落，像 Stripe -->
+  <text x="256" y="375" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-size="360" font-weight="700" fill="white">S</text>
+</svg>
