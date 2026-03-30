@@ -296,7 +296,7 @@ export default function LearnPage() {
             訂閱電子報，第一時間收到新文章、工具和課程資訊
           </p>
           <Button className="mt-6 h-11 px-6 text-base" asChild>
-            <Link href="/#newsletter">訂閱電子報</Link>
+            <a href="https://iamvista.substack.com/" target="_blank" rel="noopener noreferrer">訂閱電子報</a>
           </Button>
         </CardContent>
       </Card>

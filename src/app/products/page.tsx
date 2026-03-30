@@ -36,13 +36,13 @@ export default function ProductsPage() {
         </p>
         <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
           <Button size="lg" asChild>
-            <Link href="/#newsletter">
+            <a href="https://iamvista.substack.com/" target="_blank" rel="noopener noreferrer">
               訂閱電子報
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            </a>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/events">先看看工作坊</Link>
+            <Link href="/courses">先看看工作坊</Link>
           </Button>
         </div>
       </div>

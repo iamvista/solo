@@ -229,7 +229,7 @@ export default function ToolsPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="outline" asChild className="h-11 w-full px-6 text-base sm:w-auto">
-              <Link href="/#newsletter">訂閱電子報</Link>
+              <a href="https://iamvista.substack.com/" target="_blank" rel="noopener noreferrer">訂閱電子報</a>
             </Button>
             <Button variant="ghost" asChild className="h-11 w-full px-6 text-base sm:w-auto">
               <a href="mailto:iamvista@gmail.com">
