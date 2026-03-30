@@ -16,7 +16,7 @@ export const metadata: Metadata = {
  * 格式：username/event-type，例如 "vista/consulting"
  * 設為 null 則顯示「來信預約」的備用方案
  */
-const CAL_LINK: string | null = null;
+const CAL_LINK: string | null = "vista/consulting";
 
 const consultingTypes = [
   {
