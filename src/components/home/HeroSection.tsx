@@ -1,7 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { SOCIAL_PROOF } from "@/lib/constants";
 
 export function HeroSection() {
   return (
@@ -22,44 +22,40 @@ export function HeroSection() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             <span className="text-sm font-medium text-stone-600">
-              創始會員招募中 · 限 100 位
+              AI 工作坊持續開班中
             </span>
           </div>
 
-          {/* Main headline */}
+          {/* Main headline — 個人品牌導向 */}
           <h1 className="mx-auto max-w-5xl text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl md:text-6xl lg:text-7xl">
-            一人事業的
+            用 AI 放大你的
             <br className="sm:hidden" />
             <span className="relative inline-block">
-              <span className="relative z-10 text-primary">
-                作業系統
-              </span>
+              <span className="relative z-10 text-primary">一人事業</span>
               <span className="absolute -bottom-1 left-0 -z-0 h-3 w-full bg-primary/10 sm:-bottom-2 sm:h-4" />
             </span>
           </h1>
 
-          {/* Subheadline */}
+          {/* Subheadline — 服務導向 */}
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-500 sm:mt-8 sm:text-xl lg:text-2xl">
-            不只教你怎麼做，
-            <span className="font-medium text-stone-800">直接給你工具去做</span>。
-            <br />
-            活動報名、名單收集、問卷調查——
+            我是 Vista，幫助自由工作者、講師和顧問
             <br className="hidden sm:block" />
-            一人公司需要的系統，全部幫你搞定。
+            <span className="font-medium text-stone-800">
+              用 AI 把一個人做到一個團隊的產出
+            </span>
+            。
           </p>
 
-          {/* CTA buttons */}
+          {/* CTA buttons — 服務導向 */}
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:mt-12 sm:flex-row sm:gap-5">
             <Button
               size="lg"
               asChild
               className="h-14 w-full px-8 text-base font-semibold shadow-lg shadow-primary/15 hover:shadow-xl hover:shadow-primary/20 sm:w-auto sm:text-lg"
             >
-              <Link href="/diagnose">
-                免費事業健檢
-                <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
+              <Link href="/events">
+                查看近期工作坊
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button
@@ -68,53 +64,25 @@ export function HeroSection() {
               asChild
               className="h-14 w-full border-stone-300 px-8 text-base text-stone-700 hover:bg-stone-50 sm:w-auto sm:text-lg"
             >
-              <Link href="/growth">了解 SOLO 方法論</Link>
+              <Link href="/diagnose">免費事業健檢</Link>
             </Button>
           </div>
 
-          {/* Stats row */}
-          <div className="mx-auto mt-16 grid max-w-3xl grid-cols-3 gap-8 border-t border-stone-200 pt-10 sm:mt-20">
-            {[
-              { number: "1,000+", label: "事業健檢完成" },
-              { number: "18,000+", label: "電子報讀者" },
-              { number: "50+", label: "場工作坊" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-2xl font-bold text-stone-900 sm:text-3xl lg:text-4xl">{stat.number}</p>
-                <p className="mt-1 text-sm text-stone-500 sm:text-base">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Value proposition cards */}
-        <div className="mx-auto mt-16 grid max-w-5xl gap-4 sm:mt-20 sm:grid-cols-3 sm:gap-6">
-          {[
-            {
-              icon: "🛠️",
-              title: "工具即服務",
-              desc: "活動報名、名單磁鐵、問卷系統，幫你的客戶做生意",
-            },
-            {
-              icon: "📈",
-              title: "成長路線圖",
-              desc: "SOLO 四階段框架，從定位到規模化，步步有指引",
-            },
-            {
-              icon: "🤝",
-              title: "同行者社群",
-              desc: "和一人創業者交流、互助，不再單打獨鬥",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="group rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-all hover:border-stone-300 hover:shadow-md"
-            >
-              <span className="text-3xl">{item.icon}</span>
-              <h3 className="mt-3 text-lg font-semibold text-stone-900">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-stone-500">{item.desc}</p>
+          {/* 個人介紹 mini */}
+          <div className="mx-auto mt-14 flex max-w-xl items-center justify-center gap-4 rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm backdrop-blur-sm sm:mt-16">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-rose-400 text-2xl font-bold text-white">
+              V
             </div>
-          ))}
+            <div className="text-left">
+              <p className="text-sm font-semibold text-stone-900">
+                Vista Cheng
+              </p>
+              <p className="text-sm leading-relaxed text-stone-500">
+                AI 應用講師・一人事業教練・
+                <span className="text-amber-600">{SOCIAL_PROOF.newsletterSubscribers}</span> 電子報讀者
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { SOCIAL_PROOF } from "@/lib/constants";
 
 export function CTASection() {
   return (
@@ -12,14 +14,13 @@ export function CTASection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl lg:text-5xl">
-            準備好打造你的
-            <br className="sm:hidden" />
-            <span className="text-primary">一人事業</span>了嗎？
+            準備好
+            <span className="text-primary">放大你的事業</span>了嗎？
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-stone-500 sm:mt-6 sm:text-xl">
-            3 分鐘事業健檢，找出你的定位和下一步。
-            <br />
-            已有超過 1,000 位一人創業者開始行動。
+            從一場工作坊開始，或者先做個免費健檢，
+            <br className="hidden sm:block" />
+            找出你的下一步。
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row sm:gap-5">
             <Button
@@ -27,11 +28,9 @@ export function CTASection() {
               asChild
               className="h-14 w-full px-8 text-base font-semibold shadow-lg shadow-primary/15 sm:w-auto sm:text-lg"
             >
-              <Link href="/diagnose">
-                開始免費健檢
-                <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
+              <Link href="/events">
+                查看近期工作坊
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button
@@ -40,9 +39,12 @@ export function CTASection() {
               asChild
               className="h-14 w-full border-stone-300 px-8 text-base text-stone-700 hover:bg-white sm:w-auto sm:text-lg"
             >
-              <Link href="/auth/signup">免費註冊帳號</Link>
+              <Link href="/diagnose">免費事業健檢</Link>
             </Button>
           </div>
+          <p className="mt-6 text-sm text-stone-400">
+            已有超過 {SOCIAL_PROOF.diagnoseCount} 位一人創業者開始行動
+          </p>
         </div>
       </div>
     </section>
