@@ -10,13 +10,6 @@ export const metadata: Metadata = {
     "不知道下一步該怎麼走？一小時的深度對話，幫你理清方向、制定行動計畫。",
 };
 
-/**
- * Cal.com 連結設定
- * 請在 Cal.com 建立對應的事件類型後，將連結填入這裡
- * 格式：username/event-type，例如 "vista/consulting"
- * 設為 null 則顯示「來信預約」的備用方案
- */
-const CAL_LINK: string | null = "vista/consulting";
 
 const consultingTypes = [
   {
@@ -145,46 +138,30 @@ export default function ConsultingPage() {
               預約諮詢時段
             </h2>
             <p className="mt-2 text-base text-stone-500">
-              {CAL_LINK
-                ? "選擇你方便的時間，30 分鐘免費初談。覺得適合再聊付費方案。"
-                : "目前請透過 Email 預約，回覆後會協調時段。"}
+              選擇你方便的時間，30 分鐘免費初談。覺得適合再聊付費方案。
             </p>
           </div>
 
-          {CAL_LINK ? (
-            /* Cal.com 嵌入模式 */
-            <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
-              <div style={{ minHeight: 500 }}>
-                <CalEmbed calLink={CAL_LINK} />
-              </div>
+          {/* Cal.com 嵌入 */}
+          <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+            <div style={{ minHeight: 500 }}>
+              <CalEmbed calLink="vista/consulting" />
             </div>
-          ) : (
-            /* 備用：Email 預約 */
-            <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-primary/20 bg-white p-8 text-center shadow-sm sm:p-10">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-                <Calendar className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="mt-5 text-lg font-bold text-stone-900">
-                來信預約你的諮詢時段
-              </h3>
-              <p className="mt-2 text-sm text-stone-500">
-                請在信中簡述你目前的狀況和想討論的主題，
-                <br className="hidden sm:block" />
-                我會在 24 小時內回覆確認時段。
-              </p>
-              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-                <Button size="lg" asChild>
-                  <a href="mailto:vista@solo.tw?subject=諮詢預約">
-                    預約諮詢
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/diagnose">先做免費健檢</Link>
-                </Button>
-              </div>
+          </div>
+
+          {/* 無 JS 時的後備連結 */}
+          <noscript>
+            <div className="mx-auto mt-6 text-center">
+              <a
+                href="https://cal.com/vista/consulting"
+                className="text-primary underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                前往 Cal.com 預約
+              </a>
             </div>
-          )}
+          </noscript>
         </div>
       </section>
 
