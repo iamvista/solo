@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
+
+export const metadata: Metadata = {
+  title: "solo.tw | 用 AI 放大你的一人事業 — Vista Cheng",
+  description:
+    "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。免費諮詢、AI 工作坊、線上課程、SOLO 方法論。",
+  alternates: { canonical: "https://www.solo.tw" },
+};
 import { PainPointSection } from "@/components/home/PainPointSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { DiagnoseEntrySection } from "@/components/home/DiagnoseEntrySection";
