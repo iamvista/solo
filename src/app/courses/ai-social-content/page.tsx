@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "用 AI 寫出讓人忍不住留言的社群內容｜3 小時實戰工作坊 | solo.tw",
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
+  },
+  alternates: {
+    canonical: "https://www.solo.tw/courses/ai-social-content",
   },
 };
 
@@ -221,6 +225,9 @@ const faqs = [
 
 export default function AISocialContentPage() {
   return (
+    <>
+      <JsonLd data={courseSchema({ name: "用 AI 寫出讓人忍不住留言的社群內容", description: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統", url: "https://www.solo.tw/courses/ai-social-content", instructor: "Susie Li", price: 3500, duration: "PT3H", startDate: "2026-04-26", location: "臺北市" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 社群內容", href: "/courses/ai-social-content" }])} />
     <div>
       {/* ====== Hero ====== */}
       <section className="bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/20">
@@ -766,5 +773,6 @@ export default function AISocialContentPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

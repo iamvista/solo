@@ -121,7 +121,7 @@ export default function SignupPage() {
     <div className="flex min-h-[80vh] items-center justify-center px-4 py-12 sm:py-16">
       <Card className="w-full max-w-md">
         <CardHeader className="p-5 text-center sm:p-6">
-          <CardTitle className="text-2xl sm:text-3xl">加入自由人學院</CardTitle>
+          <CardTitle className="text-2xl sm:text-3xl">加入 solo.tw</CardTitle>
           <CardDescription className="text-base">
             建立帳號，開始你的自由事業之旅
           </CardDescription>

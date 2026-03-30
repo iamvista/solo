@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     description:
       "精選實戰課程與工作坊，涵蓋 AI 應用、樂齡理財、創新思維。小班制、重產出、即學即用。",
   },
+  alternates: {
+    canonical: "https://www.solo.tw/courses",
+  },
 };
 
 /* ─── Page ─── */

@@ -7,10 +7,10 @@ import EventFilters from "@/components/events/EventFilters";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "活動 | 自由人學院",
+  title: "活動 | solo.tw",
   description: "探索最新的工作坊、講座和聚會活動。免費報名，學習新技能。",
   openGraph: {
-    title: "活動 | 自由人學院",
+    title: "活動 | solo.tw",
     description: "探索最新的工作坊、講座和聚會活動",
     url: "https://www.solo.tw/events",
   },

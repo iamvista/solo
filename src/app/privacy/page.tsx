@@ -13,7 +13,7 @@ export default function PrivacyPage() {
             1. 前言
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            自由人學院（以下簡稱「本平臺」）非常重視您的隱私權。本隱私權政策說明我們如何收集、使用、揭露及保護您的個人資料。使用本平臺服務，即表示您同意本政策的條款。
+            solo.tw（以下簡稱「本平臺」）非常重視您的隱私權。本隱私權政策說明我們如何收集、使用、揭露及保護您的個人資料。使用本平臺服務，即表示您同意本政策的條款。
           </p>
         </section>
 
@@ -154,7 +154,7 @@ export default function PrivacyPage() {
             如對本隱私權政策有任何疑問，請透過以下方式聯絡我們：
           </p>
           <p className="mt-3 text-base text-muted-foreground">
-            <strong className="text-foreground">自由人學院</strong>
+            <strong className="text-foreground">solo.tw</strong>
             <br />
             電子郵件：iamvista@gmail.com
           </p>

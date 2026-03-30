@@ -6,6 +6,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "模板 & 工具包 | solo.tw",
   description: "不用從零開始。下載 Notion 模板、Prompt 工具包，直接套用到你的一人事業。",
+  alternates: {
+    canonical: "https://www.solo.tw/products",
+  },
 };
 
 export default function ProductsPage() {

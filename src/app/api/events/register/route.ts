@@ -4,8 +4,15 @@ import { createClient } from "@/lib/supabase/server";
 import { registerForEvent, cancelRegistration } from "@/lib/supabase/events";
 import { sendEmail } from "@/lib/email";
 import { RegistrationConfirmEmail } from "@/components/emails/registration-confirm";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
+  // Rate limiting: 5 registrations per minute per IP
+  const ip = getClientIp(request.headers);
+  if (!checkRateLimit(ip, { max: 5, windowMs: 60_000 })) {
+    return NextResponse.json({ error: "請求過於頻繁，請稍後再試" }, { status: 429 });
+  }
+
   try {
     const body = await request.json();
     const {

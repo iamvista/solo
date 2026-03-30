@@ -165,7 +165,7 @@ export async function GET(
             >
               <span style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>S</span>
             </div>
-            <span style={{ fontSize: 20, color: '#57534e' }}>solo.tw · 自由人學院</span>
+            <span style={{ fontSize: 20, color: '#57534e' }}>solo.tw</span>
           </div>
         </div>
 

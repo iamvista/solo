@@ -13,7 +13,7 @@ export default function TermsPage() {
             1. 接受條款
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            歡迎使用自由人學院（以下簡稱「本平臺」）。使用本平臺的任何服務，即表示您同意遵守本服務條款。如不同意這些條款，請勿使用本平臺服務。
+            歡迎使用 solo.tw（以下簡稱「本平臺」）。使用本平臺的任何服務，即表示您同意遵守本服務條款。如不同意這些條款，請勿使用本平臺服務。
           </p>
         </section>
 
@@ -165,7 +165,7 @@ export default function TermsPage() {
             如對本服務條款有任何疑問，請透過以下方式聯絡我們：
           </p>
           <p className="mt-3 text-base text-muted-foreground">
-            <strong className="text-foreground">自由人學院</strong>
+            <strong className="text-foreground">solo.tw</strong>
             <br />
             電子郵件：iamvista@gmail.com
           </p>

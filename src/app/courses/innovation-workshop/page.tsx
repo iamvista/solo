@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StepGallery from "./StepGallery";
+import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "創新實戰工作坊 | solo.tw",
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
     title: "創新實戰工作坊 | solo.tw",
     description:
       "6 個小時，用創新思維解決職場三大問題。用創新方程式六步驟，從真實工作難題走到可執行方案。",
+  },
+  alternates: {
+    canonical: "https://www.solo.tw/courses/innovation-workshop",
   },
 };
 
@@ -127,6 +131,9 @@ const targetAudience = [
 
 export default function InnovationWorkshopPage() {
   return (
+    <>
+      <JsonLd data={courseSchema({ name: "創新實戰工作坊", description: "6 小時用創新方程式六步驟解決職場三大問題", url: "https://www.solo.tw/courses/innovation-workshop", instructor: "陳建銘", price: 3600, duration: "PT6H", startDate: "2026-04-18", location: "臺北市" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "創新實戰工作坊", href: "/courses/innovation-workshop" }])} />
     <div>
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary/5 to-background">
@@ -604,5 +611,6 @@ export default function InnovationWorkshopPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -2,9 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { sendEmail } from "@/lib/email";
 import { LeadMagnetDeliveryEmail } from "@/components/emails/lead-magnet-delivery";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 // POST: public capture endpoint (no auth required)
 export async function POST(request: NextRequest) {
+  // Rate limiting: 10 captures per minute per IP
+  const ip = getClientIp(request.headers);
+  if (!checkRateLimit(ip, { max: 10, windowMs: 60_000 })) {
+    return NextResponse.json({ error: "請求過於頻繁，請稍後再試" }, { status: 429 });
+  }
+
   try {
     const body = await request.json();
     const { lead_magnet_id, email, name, source_page, utm_source, utm_medium, utm_campaign } = body;

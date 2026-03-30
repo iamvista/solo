@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "服務方案與定價 | solo.tw",
   description:
     "工作坊、1-on-1 諮詢、線上課程、模板工具包——選擇適合你的方式，開始放大你的一人事業。",
+  alternates: {
+    canonical: "https://www.solo.tw/pricing",
+  },
 };
 
 const services = [

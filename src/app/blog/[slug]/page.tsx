@@ -23,11 +23,11 @@ export async function generateMetadata({
   const post = await getPostBySlug(slug);
 
   if (!post) {
-    return { title: "文章未找到 | 自由人學院" };
+    return { title: "文章未找到 | solo.tw" };
   }
 
   return {
-    title: `${post.title} | 自由人學院`,
+    title: `${post.title} | solo.tw`,
     description: post.description,
     openGraph: {
       title: post.title,
@@ -36,7 +36,7 @@ export async function generateMetadata({
       publishedTime: post.pubDate,
       modifiedTime: post.updatedDate,
       images: post.heroImage ? [post.heroImage] : [],
-      siteName: "自由人學院",
+      siteName: "solo.tw",
     },
   };
 }
@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     datePublished: post.pubDate,
     dateModified: post.updatedDate || post.pubDate,
     author: { "@type": "Person", name: "Vista Cheng" },
-    publisher: { "@type": "Organization", name: "自由人學院" },
+    publisher: { "@type": "Organization", name: "solo.tw" },
   };
 
   return (
@@ -301,7 +301,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       Vista Cheng
                     </h3>
                     <p className="mt-2 text-base leading-relaxed text-stone-600">
-                      自由人學院創辦人，前媒體主編，專注幫助自由工作者打造個人品牌、建立穩定事業。
+                      solo.tw 創辦人，前媒體主編，專注幫助自由工作者打造個人品牌、建立穩定事業。
                     </p>
                     <a
                       href="https://iamvista.substack.com"

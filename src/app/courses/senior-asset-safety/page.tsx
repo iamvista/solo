@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "樂齡資產安全與傳承實戰課 | solo.tw",
@@ -13,6 +14,9 @@ export const metadata: Metadata = {
     title: "樂齡資產安全與傳承實戰課 | solo.tw",
     description:
       "小班制 10 人限定，3 小時打造你的資產安全藍圖。不是談理論，而是教你如何真正守住資產、守住家人。",
+  },
+  alternates: {
+    canonical: "https://www.solo.tw/courses/senior-asset-safety",
   },
 };
 
@@ -108,6 +112,9 @@ const instructorHighlights = [
 
 export default function SeniorAssetSafetyPage() {
   return (
+    <>
+      <JsonLd data={courseSchema({ name: "樂齡資產安全與傳承實戰課", description: "3 小時打造你的資產安全藍圖", url: "https://www.solo.tw/courses/senior-asset-safety", instructor: "駱潤生", price: 2000, duration: "PT3H", startDate: "2026-04-19", location: "臺北市" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "樂齡資產安全", href: "/courses/senior-asset-safety" }])} />
     <div>
       {/* Hero */}
       <section className="bg-gradient-to-b from-[#1E3A5F]/5 via-[#1E3A5F]/3 to-background">
@@ -561,5 +568,6 @@ export default function SeniorAssetSafetyPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

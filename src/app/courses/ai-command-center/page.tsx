@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "用 AI 建你的個人指揮中心｜一日實作工作坊 | solo.tw",
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
+  },
+  alternates: {
+    canonical: "https://www.solo.tw/courses/ai-command-center",
   },
 };
 
@@ -216,6 +220,9 @@ const valueStack = [
 
 export default function AICommandCenterPage() {
   return (
+    <>
+      <JsonLd data={courseSchema({ name: "用 AI 建你的個人指揮中心", description: "6 小時實作工作坊 — 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流", url: "https://www.solo.tw/courses/ai-command-center", instructor: "Vista Cheng", price: 6000, duration: "PT6H", startDate: "2026-05-16", location: "臺北市" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 個人指揮中心", href: "/courses/ai-command-center" }])} />
     <div>
       {/* ====== 1. Hero — Hook ====== */}
       <section className="bg-gradient-to-b from-primary/5 to-background">
@@ -1072,5 +1079,6 @@ export default function AICommandCenterPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

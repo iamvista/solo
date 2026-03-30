@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     description: "從定位到自由，一人事業的完整成長地圖。",
     url: "https://solo.tw/growth",
   },
+  alternates: {
+    canonical: "https://www.solo.tw/growth",
+  },
 };
 
 const stages = [

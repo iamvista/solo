@@ -178,7 +178,7 @@ export function DiagnosisResultClient({ initialData, resultId }: DiagnosisResult
 
   // 使用固定的 URL 格式，確保社群分享有正確的 OG tags
   const shareUrl = `https://solo.tw/r/${result.short_id || resultId}`;
-  const shareText = `${soloType.emoji} 我在 Solo 自由人學院完成了事業健檢，我是「${soloType.name}」！總分 ${result.total_score} 分。快來測測你是哪種類型？`;
+  const shareText = `${soloType.emoji} 我在 solo.tw 完成了事業健檢，我是「${soloType.name}」！總分 ${result.total_score} 分。快來測測你是哪種類型？`;
 
   const handleCopyLink = async () => {
     try {

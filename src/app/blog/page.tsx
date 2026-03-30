@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "部落格 | 自由人學院 - 自由工作者的成長指南",
+  title: "部落格 | solo.tw - 自由工作者的成長指南",
   description:
     "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容。幫助自由工作者把專業變成事業，打造屬於自己的一人公司。",
   keywords: [
@@ -16,15 +16,15 @@ export const metadata: Metadata = {
     "自媒體經營",
   ],
   openGraph: {
-    title: "部落格 | 自由人學院",
+    title: "部落格 | solo.tw",
     description:
       "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容。幫助自由工作者把專業變成事業。",
     type: "website",
     url: "https://solo.tw/blog",
-    siteName: "自由人學院",
+    siteName: "solo.tw",
   },
   alternates: {
-    canonical: "https://solo.tw/blog",
+    canonical: "https://www.solo.tw/blog",
   },
 };
 
@@ -33,12 +33,12 @@ function generateBlogListingSchema(postCount: number) {
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "自由人學院部落格",
+    name: "solo.tw 部落格",
     description: "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容",
     url: "https://solo.tw/blog",
     publisher: {
       "@type": "Organization",
-      name: "自由人學院",
+      name: "solo.tw",
       url: "https://solo.tw",
     },
     blogPost: {
@@ -410,7 +410,7 @@ export default async function BlogPage() {
         <footer className="border-t border-stone-200 bg-white">
           <div className="mx-auto max-w-7xl px-6 py-10 text-center">
             <p className="text-sm text-stone-500">
-              自由人學院 — 幫助自由工作者把專業變成事業
+              solo.tw — 幫助自由工作者把專業變成事業
             </p>
           </div>
         </footer>

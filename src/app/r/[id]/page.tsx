@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const soloType = soloTypeNames[data.solo_type] || { emoji: "📊", name: "Solo", title: "診斷結果" };
   const title = `${soloType.emoji} ${soloType.name}（${soloType.title}）| solo.tw 事業診斷`;
-  const description = `我在 Solo 自由人學院完成了事業健檢，總分 ${data.total_score} 分！快來測測你是哪種類型的 Solo？`;
+  const description = `我在 solo.tw 完成了事業健檢，總分 ${data.total_score} 分！快來測測你是哪種類型的 Solo？`;
   const url = `https://solo.tw/r/${data.short_id || id}`;
 
   // 使用動態生成的 OG 圖片

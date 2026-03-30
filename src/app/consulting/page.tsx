@@ -3,11 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MessageCircle, ArrowRight, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 import { CalEmbed } from "@/components/consulting/CalEmbed";
+import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "1-on-1 諮詢 & 陪跑 | solo.tw",
   description:
     "不知道下一步該怎麼走？一小時的深度對話，幫你理清方向、制定行動計畫。",
+  alternates: {
+    canonical: "https://www.solo.tw/consulting",
+  },
 };
 
 
@@ -78,6 +82,9 @@ const consultingTypes = [
 
 export default function ConsultingPage() {
   return (
+    <>
+      <JsonLd data={serviceSchema({ name: "1-on-1 事業方向諮詢", description: "60 分鐘深度一對一諮詢，幫你釐清定位、制定行動計畫", url: "https://www.solo.tw/consulting", price: 2490 })} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "諮詢", href: "/consulting" }])} />
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-16 sm:py-20 lg:py-24">
@@ -275,5 +282,6 @@ export default function ConsultingPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

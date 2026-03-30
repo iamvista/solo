@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createPaymentForm, isConfigured } from "@/lib/payuni";
 import { createClient } from "@supabase/supabase-js";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 /**
  * 產品定價表（伺服器端唯一真相來源）
@@ -14,31 +15,13 @@ const PRODUCT_PRICES: Record<string, number> = {
 };
 
 /**
- * 簡易 IP Rate Limiting（記憶體內，每個 serverless instance 獨立）
- */
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 10; // 每分鐘最多 10 次
-const RATE_WINDOW = 60_000;
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW });
-    return true;
-  }
-  entry.count++;
-  return entry.count <= RATE_LIMIT;
-}
-
-/**
  * POST /api/payment/create
  * 建立 PAYUNi 付款訂單，回傳付款表單資料
  */
 export async function POST(request: NextRequest) {
-  // Rate limiting
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (!checkRateLimit(ip)) {
+  // Rate limiting: 10 per minute per IP
+  const ip = getClientIp(request.headers);
+  if (!checkRateLimit(ip, { max: 10, windowMs: 60_000 })) {
     return NextResponse.json({ error: "請求過於頻繁，請稍後再試" }, { status: 429 });
   }
 

@@ -220,7 +220,7 @@ export async function GET() {
         >
           <span style={{ fontSize: 16, color: '#94a3b8' }}>www.solo.tw</span>
           <span style={{ fontSize: 16, color: '#cbd5e1' }}>|</span>
-          <span style={{ fontSize: 16, color: '#94a3b8' }}>自由人學院</span>
+          <span style={{ fontSize: 16, color: '#94a3b8' }}>一人事業成長平臺</span>
         </div>
 
         {/* 右下角裝飾圓 */}

@@ -29,7 +29,7 @@ export function AcademySection() {
         {/* Section header */}
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary sm:text-base">
-            自由人學院
+            線上課程
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
             用 AI 學會打造你的
@@ -101,7 +101,7 @@ export function AcademySection() {
             className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
           >
             <Link href="https://learn.solo.tw" target="_blank">
-              瀏覽自由人學院所有課程
+              瀏覽所有線上課程
               <svg
                 className="ml-2 h-4 w-4"
                 fill="none"

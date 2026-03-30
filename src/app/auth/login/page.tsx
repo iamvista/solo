@@ -64,7 +64,7 @@ export default function LoginPage() {
         <CardHeader className="p-5 text-center sm:p-6">
           <CardTitle className="text-2xl sm:text-3xl">歡迎回來</CardTitle>
           <CardDescription className="text-base">
-            登入你的自由人學院帳號
+            登入你的 solo.tw 帳號
           </CardDescription>
         </CardHeader>
         <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">

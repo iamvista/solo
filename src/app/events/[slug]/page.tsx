@@ -24,7 +24,7 @@ export async function generateMetadata({
   const eventImage = event.cover_image || `${baseUrl}/events/${slug}/og`;
 
   return {
-    title: `${event.title} | 自由人學院`,
+    title: `${event.title} | solo.tw`,
     description: event.subtitle || event.description?.slice(0, 150) || "",
     openGraph: {
       title: event.title,
@@ -157,9 +157,9 @@ export default async function EventPage({
     organizer: event.organizer
       ? {
           "@type": "Person",
-          name: event.organizer.display_name || "自由人學院",
+          name: event.organizer.display_name || "solo.tw",
         }
-      : { "@type": "Organization", name: "自由人學院" },
+      : { "@type": "Organization", name: "solo.tw" },
     url: eventUrl,
   };
 

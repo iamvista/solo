@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import MyEventCard from "@/components/dashboard/MyEventCard";
 
 export const metadata: Metadata = {
-  title: "我的活動 | 自由人學院",
+  title: "我的活動 | solo.tw",
   description: "查看你已報名的活動",
 };
 

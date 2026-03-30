@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "工具與資源 | solo.tw",
   description:
     "一人事業者的實用工具箱。免費事業健檢、AI 工作坊、線上課程、模板工具包——幫你更有效率地經營事業。",
+  alternates: {
+    canonical: "https://www.solo.tw/tools",
+  },
 };
 
 /* ─── 已上線的核心工具 ─── */
