@@ -26,14 +26,52 @@ export async function POST(request: NextRequest) {
 
     const orderNo = data.MerTradeNo;
     const tradeNo = data.TradeNo;
-    const status = data.Status; // SUCCESS or FAILED
-    const paymentMethod = data.PaymentType; // credit, vacc, cvs, etc.
+    const status = data.Status;
+    const paymentMethod = data.PaymentType;
+    const paidAmount = Number(data.TradeAmt);
 
-    // 使用 service role 更新訂單（背景通知無 user session）
+    // 使用 service role 操作
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
+
+    // ✅ 先查詢訂單，驗證金額是否一致
+    const { data: order, error: queryError } = await supabase
+      .from("orders")
+      .select("amount, payment_status")
+      .eq("order_no", orderNo)
+      .single();
+
+    if (queryError || !order) {
+      console.error(`Order not found: ${orderNo}`);
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    }
+
+    // ✅ 防止重複處理（冪等性）
+    if (order.payment_status === "paid") {
+      console.log(`Order ${orderNo} already paid, skipping`);
+      return new NextResponse("SUCCESS", { status: 200 });
+    }
+
+    // ✅ 驗證付款金額與訂單金額一致
+    if (status === "SUCCESS" && paidAmount !== order.amount) {
+      console.error(
+        `Amount mismatch for order ${orderNo}: expected ${order.amount}, got ${paidAmount}`
+      );
+      // 記錄異常但不更新為 paid
+      await supabase
+        .from("orders")
+        .update({
+          payment_status: "amount_mismatch",
+          payuni_response: data,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("order_no", orderNo);
+      return new NextResponse("SUCCESS", { status: 200 });
+    }
+
+    // 更新訂單狀態
     const { error } = await supabase
       .from("orders")
       .update({
@@ -51,9 +89,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "DB update failed" }, { status: 500 });
     }
 
-    console.log(`Payment ${status} for order ${orderNo} (trade: ${tradeNo})`);
-
-    // PAYUNi 期望回傳 "SUCCESS"
+    console.log(`Payment ${status} for order ${orderNo} (trade: ${tradeNo}, amount: ${paidAmount})`);
     return new NextResponse("SUCCESS", { status: 200 });
   } catch (error) {
     console.error("Payment notify error:", error);

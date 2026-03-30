@@ -50,6 +50,16 @@ const dimensions = [
   { key: "sustainability", name: "永續力", description: "維持長期事業發展的能力" },
 ];
 
+/** HTML 特殊字元轉義，防止 XSS */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -59,9 +69,16 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "請提供診斷 ID" }, { status: 400 });
     }
 
+    // ✅ 驗證 ID 格式（UUID 或 8 字元英數短碼），防止 filter injection
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const SHORT_ID_RE = /^[A-Za-z0-9]{6,12}$/;
+    if (!UUID_RE.test(diagnosisId) && !SHORT_ID_RE.test(diagnosisId)) {
+      return NextResponse.json({ error: "無效的診斷 ID" }, { status: 400 });
+    }
+
     const supabase = await createClient();
 
-    // 獲取診斷結果
+    // 獲取診斷結果（使用驗證過的 ID）
     const { data: diagnosis, error } = await supabase
       .from("diagnosis_results")
       .select("*")
