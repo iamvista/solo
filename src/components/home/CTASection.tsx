@@ -28,7 +28,7 @@ export function CTASection() {
               asChild
               className="h-14 w-full px-8 text-base font-semibold shadow-lg shadow-primary/15 sm:w-auto sm:text-lg"
             >
-              <Link href="/events">
+              <Link href="/courses">
                 查看近期工作坊
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>

@@ -46,9 +46,9 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
     : { href: workshop.url };
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 hover:border-[#C8953D]/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
       {/* Cover Image */}
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#1E3A5F]/5">
+      <div className="relative aspect-[16/9] overflow-hidden bg-stone-100">
         {coverSrc ? (
           <Image
             src={coverSrc}
@@ -58,7 +58,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#1E3A5F] to-[#1E3A5F]/80">
+          <div className="flex h-full items-center justify-center bg-gradient-to-br from-stone-800 to-stone-700">
             <span className="text-5xl">{workshop.emoji}</span>
           </div>
         )}
@@ -89,7 +89,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
         {/* Instructor */}
         <div className="mt-4 flex items-center gap-2.5">
           {workshop.instructor.avatar ? (
-            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full ring-2 ring-[#C8953D]/20">
+            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full ring-2 ring-primary/20">
               <Image
                 src={workshop.instructor.avatar}
                 alt={workshop.instructor.name}
@@ -99,7 +99,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
               />
             </div>
           ) : (
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1E3A5F]/10 text-sm font-medium text-[#1E3A5F]">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-stone-800/10 text-sm font-medium text-stone-800">
               {workshop.instructor.name[0]}
             </div>
           )}
@@ -117,7 +117,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
         <div className="mt-4 space-y-1.5">
           {workshop.highlights.slice(0, 2).map((highlight, i) => (
             <div key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#C8953D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="mt-0.5 h-4 w-4 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               <span>{highlight}</span>
@@ -170,7 +170,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
               已額滿
             </Button>
           ) : (
-            <Button size="sm" className="shrink-0 bg-[#1E3A5F] hover:bg-[#1E3A5F]/90" asChild>
+            <Button size="sm" className="shrink-0 bg-stone-800 hover:bg-stone-800/90" asChild>
               <LinkWrapper {...linkProps}>
                 {workshop.isExternal ? (
                   <span className="flex items-center gap-1.5">
@@ -197,7 +197,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
   const coverSrc = getCoverImage(workshop.id);
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-[#C8953D]/20 bg-gradient-to-br from-[#1E3A5F] to-[#1E3A5F]/90 text-white shadow-xl transition-all duration-300 hover:shadow-2xl">
+    <div className="group relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-stone-900 to-stone-800/90 text-white shadow-xl transition-all duration-300 hover:shadow-2xl">
       <div className="grid gap-0 lg:grid-cols-2">
         {/* Left: Cover Image */}
         <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:min-h-[400px]">
@@ -215,7 +215,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
               <span className="text-8xl">{workshop.emoji}</span>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1E3A5F]/60 lg:block hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-stone-800/60 lg:block hidden" />
         </div>
 
         {/* Right: Content */}
@@ -224,7 +224,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
             <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${status.className}`}>
               {status.text}
             </span>
-            <span className="inline-flex items-center rounded-full border border-[#C8953D]/30 bg-[#C8953D]/10 px-2.5 py-1 text-xs font-medium text-[#C8953D]">
+            <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
               精選課程
             </span>
           </div>
@@ -239,7 +239,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
           {/* Instructor */}
           <div className="mt-5 flex items-center gap-3">
             {workshop.instructor.avatar && (
-              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full ring-2 ring-[#C8953D]/30">
+              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full ring-2 ring-primary/30">
                 <Image
                   src={workshop.instructor.avatar}
                   alt={workshop.instructor.name}
@@ -259,7 +259,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
           <div className="mt-6 grid gap-2 sm:grid-cols-2">
             {workshop.highlights.map((highlight, i) => (
               <div key={i} className="flex items-start gap-2.5 text-sm text-white/80">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#C8953D]/20 text-xs text-[#C8953D]">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs text-primary">
                   {i + 1}
                 </span>
                 <span>{highlight}</span>
@@ -294,7 +294,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
             <div>
               {workshop.price.earlyBird ? (
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-[#C8953D] sm:text-3xl">
+                  <span className="text-2xl font-bold text-primary sm:text-3xl">
                     {formatPrice(workshop.price.earlyBird)}
                   </span>
                   <span className="text-sm text-white/40 line-through">
@@ -302,14 +302,14 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
                   </span>
                 </div>
               ) : (
-                <span className="text-2xl font-bold text-[#C8953D] sm:text-3xl">
+                <span className="text-2xl font-bold text-primary sm:text-3xl">
                   {formatPrice(workshop.price.original)}
                 </span>
               )}
             </div>
             <Button
               size="lg"
-              className="bg-[#C8953D] text-white hover:bg-[#B8852D] sm:ml-auto"
+              className="bg-primary text-white hover:bg-primary/90 sm:ml-auto"
               asChild
             >
               {workshop.isExternal ? (
@@ -340,8 +340,8 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
       {featuredWorkshop && (
         <section className="mt-14 sm:mt-16">
           <div className="mb-6 flex items-center gap-2">
-            <div className="h-1 w-8 rounded-full bg-[#C8953D]" />
-            <span className="text-sm font-semibold uppercase tracking-wider text-[#C8953D]">
+            <div className="h-1 w-8 rounded-full bg-primary" />
+            <span className="text-sm font-semibold uppercase tracking-wider text-primary">
               Featured Course
             </span>
           </div>
@@ -368,8 +368,8 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
                 onClick={() => setActiveFilter(tab.key)}
                 className={`flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? "border-[#1E3A5F] bg-[#1E3A5F] text-white shadow-sm"
-                    : "border-border bg-card text-muted-foreground hover:border-[#1E3A5F]/30 hover:text-foreground"
+                    ? "border-stone-800 bg-stone-800 text-white shadow-sm"
+                    : "border-border bg-card text-muted-foreground hover:border-stone-800/30 hover:text-foreground"
                 }`}
               >
                 <span>{tab.emoji}</span>
