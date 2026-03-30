@@ -5,7 +5,7 @@ import { SOCIAL_PROOF } from "@/lib/constants";
 
 export function CTASection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 to-stone-100 py-20 sm:py-28 lg:py-36">
+    <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 to-stone-100 py-14 sm:py-20 lg:py-24">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[100px]" />

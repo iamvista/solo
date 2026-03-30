@@ -13,7 +13,7 @@ export function HeroSection() {
         <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-rose-50/40 blur-[100px]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="text-center">
           {/* Top badge */}
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">

@@ -30,7 +30,7 @@ const stats = [
 
 export function SocialProofSection() {
   return (
-    <section id="social-proof" className="bg-white py-16 sm:py-20 lg:py-24">
+    <section id="social-proof" className="bg-white py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* 數字區 */}
         <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4">

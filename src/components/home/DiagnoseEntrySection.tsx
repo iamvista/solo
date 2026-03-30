@@ -11,7 +11,7 @@ const features = [
 
 export function DiagnoseEntrySection() {
   return (
-    <section id="diagnose" className="bg-stone-50 py-16 sm:py-20 lg:py-24">
+    <section id="diagnose" className="bg-stone-50 py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
           <div className="grid items-center lg:grid-cols-5">

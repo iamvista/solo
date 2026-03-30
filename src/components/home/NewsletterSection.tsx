@@ -6,7 +6,7 @@ const SUBSTACK_URL = "https://iamvista.substack.com/";
 
 export function NewsletterSection() {
   return (
-    <section id="newsletter" className="bg-stone-900 py-20 sm:py-28">
+    <section id="newsletter" className="bg-stone-900 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 sm:h-20 sm:w-20">
