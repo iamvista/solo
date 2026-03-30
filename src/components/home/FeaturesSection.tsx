@@ -82,7 +82,7 @@ export function FeaturesSection() {
             經營一人事業需要的，這裡都有
           </h2>
           <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
-            工具、內容、社群，三位一體的一人事業作業系統
+            工作坊、諮詢、課程，陪你從定位到起飛
           </p>
         </div>
 

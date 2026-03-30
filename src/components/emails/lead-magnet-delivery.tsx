@@ -57,7 +57,7 @@ export function LeadMagnetDeliveryEmail({
             </Link>
           </Text>
           <Hr style={hr} />
-          <Text style={footer}>© solo.tw 一人事業作業系統</Text>
+          <Text style={footer}>© solo.tw — AI × 一人事業</Text>
         </Container>
       </Body>
     </Html>

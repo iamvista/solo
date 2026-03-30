@@ -60,7 +60,7 @@ const faqSchema = {
       name: "solo.tw 是什麼？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "solo.tw 是臺灣第一個一人事業作業系統，由 Vista Cheng 創辦。提供活動報名系統、名單磁鐵、問卷調查等 SaaS 工具，搭配 SOLO 四階段方法論（Set up → Operate → Leverage → Outgrow）、系統化課程與一人創業者社群，幫助講師、顧問、教練等自由工作者打造可擴展的一人事業。",
+        text: "solo.tw 是 Vista Cheng 的個人品牌網站，專注於幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。提供 AI 工作坊、1-on-1 諮詢、線上課程，搭配 SOLO 四階段方法論（Set up → Operate → Leverage → Outgrow），從定位到規模化，一步步陪你走。",
       },
     },
     {
@@ -138,7 +138,7 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "solo.tw — 一人事業作業系統",
+        alt: "solo.tw — AI × 一人事業",
       },
     ],
   },

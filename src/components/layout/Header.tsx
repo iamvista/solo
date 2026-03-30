@@ -76,7 +76,7 @@ export function Header() {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-tight text-foreground sm:text-xl">solo.tw</span>
-              <span className="hidden text-[10px] font-medium leading-tight text-muted-foreground sm:block">一人事業作業系統</span>
+              <span className="hidden text-[10px] font-medium leading-tight text-muted-foreground sm:block">AI × 一人事業</span>
             </div>
           </Link>
         </div>

@@ -104,7 +104,7 @@ export function RegistrationConfirmEmail({
               ，將機會留給其他人。
             </Text>
             <Hr style={hr} />
-            <Text style={footer}>© solo.tw 一人事業作業系統</Text>
+            <Text style={footer}>© solo.tw — AI × 一人事業</Text>
           </Container>
         </Body>
       </Html>
@@ -187,7 +187,7 @@ export function RegistrationConfirmEmail({
             。
           </Text>
           <Hr style={hr} />
-          <Text style={footer}>© solo.tw 一人事業作業系統</Text>
+          <Text style={footer}>© solo.tw — AI × 一人事業</Text>
         </Container>
       </Body>
     </Html>

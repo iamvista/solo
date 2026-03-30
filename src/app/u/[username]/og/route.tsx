@@ -220,7 +220,7 @@ export async function GET(
           >
             S
           </div>
-          solo.tw — 一人事業作業系統
+          solo.tw — AI × 一人事業
         </div>
       </div>
     ),

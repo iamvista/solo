@@ -89,9 +89,9 @@ export function Footer() {
               <span className="text-lg font-bold sm:text-xl">solo.tw</span>
             </Link>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              一人事業作業系統
+              AI × 一人事業
               <br />
-              不只教你怎麼做，直接給你工具去做
+              一個人，也能做出一個團隊的成果
             </p>
           </div>
 
@@ -148,7 +148,7 @@ export function Footer() {
         <div className="mt-12 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-base text-muted-foreground">
-              © {new Date().getFullYear()} solo.tw — 一人事業作業系統
+              © {new Date().getFullYear()} solo.tw — AI × 一人事業
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
