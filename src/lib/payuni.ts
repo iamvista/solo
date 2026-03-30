@@ -2,7 +2,11 @@
  * PAYUNi 統一金流 SDK (TypeScript / Node.js)
  *
  * 加密方式：AES-256-GCM
+ * 格式：hex(ciphertext) + ":::" + base64(authTag)
+ * Hash：SHA256(HashKey + EncryptInfo + HashIV).toUpperCase()
+ *
  * 文件參考：https://www.payuni.com.tw/docs/web/
+ * PHP SDK 參考：https://github.com/payuni/PHP_SDK
  *
  * 環境變數：
  *   PAYUNI_MER_ID   — 商店代號
@@ -29,61 +33,52 @@ export function encrypt(data: Record<string, string | number>): string {
 
   const cipher = crypto.createCipheriv(
     "aes-256-gcm",
-    Buffer.from(HASH_KEY, "utf-8"),
-    Buffer.from(HASH_IV, "utf-8")
+    HASH_KEY.trim(),
+    HASH_IV.trim()
   );
 
-  let encrypted = cipher.update(queryString, "utf-8", "hex");
+  let encrypted = cipher.update(queryString, "utf8", "hex");
   encrypted += cipher.final("hex");
-  const authTag = cipher.getAuthTag().toString("hex");
+  const authTag = cipher.getAuthTag();
 
-  // PAYUNi 格式：密文 + authTag 拼接
-  return encrypted + authTag;
+  // PAYUNi 格式：hex密文 + ":::" + base64(authTag)
+  return (encrypted + ":::" + authTag.toString("base64")).trim();
 }
 
 /* ─── 解密：AES-256-GCM ─── */
-export function decrypt(encryptedHex: string): Record<string, string> {
-  // 最後 32 字元（16 bytes hex）是 authTag
-  const authTagHex = encryptedHex.slice(-32);
-  const cipherTextHex = encryptedHex.slice(0, -32);
+export function decrypt(encryptedStr: string): Record<string, string> {
+  const [encData, tagBase64] = encryptedStr.split(":::");
+  const tag = Buffer.from(tagBase64, "base64");
 
   const decipher = crypto.createDecipheriv(
     "aes-256-gcm",
-    Buffer.from(HASH_KEY, "utf-8"),
-    Buffer.from(HASH_IV, "utf-8")
+    HASH_KEY.trim(),
+    HASH_IV.trim()
   );
-  decipher.setAuthTag(Buffer.from(authTagHex, "hex"));
+  decipher.setAuthTag(tag);
 
-  let decrypted = decipher.update(cipherTextHex, "hex", "utf-8");
-  decrypted += decipher.final("utf-8");
+  let decrypted = decipher.update(encData, "hex", "utf8");
+  decrypted += decipher.final("utf8");
 
-  // 解析 URL query string
-  const params = new URLSearchParams(decrypted);
-  return Object.fromEntries(params.entries());
+  return Object.fromEntries(new URLSearchParams(decrypted));
 }
 
 /* ─── 產生 SHA256 Hash ─── */
 export function generateHash(encryptInfo: string): string {
   return crypto
     .createHash("sha256")
-    .update(`HashKey=${HASH_KEY}&${encryptInfo}&HashIV=${HASH_IV}`)
+    .update(HASH_KEY + encryptInfo + HASH_IV)
     .digest("hex")
     .toUpperCase();
 }
 
-/* ─── 建立付款請求 ─── */
+/* ─── 建立付款請求（UPP 整合付款頁） ─── */
 export interface CreatePaymentParams {
-  /** 你的訂單編號 */
   orderNo: string;
-  /** 金額（整數，新臺幣） */
   amount: number;
-  /** 商品名稱 */
   productName: string;
-  /** 付款人 Email */
   buyerEmail: string;
-  /** 付款完成後跳轉網址 */
   returnUrl: string;
-  /** 背景通知網址（Server-to-Server） */
   notifyUrl: string;
 }
 
@@ -99,18 +94,14 @@ export function createPaymentForm(params: CreatePaymentParams) {
     ReturnURL: params.returnUrl,
     NotifyURL: params.notifyUrl,
     UsrMail: params.buyerEmail,
-    // 啟用信用卡 + ATM + 超商
-    Card: "1",
-    VACC: "1",
-    CVS: "1",
   };
 
   const encryptInfo = encrypt(rawData);
   const hashInfo = generateHash(encryptInfo);
 
   return {
-    /** POST 到這個網址 */
-    actionUrl: `${API_URL}/api/credit`,
+    /** 用 form POST 提交到這個網址（瀏覽器會跳轉到 PAYUNi 付款頁） */
+    actionUrl: `${API_URL}/api/upp`,
     /** 表單欄位 */
     fields: {
       MerID: MER_ID,
