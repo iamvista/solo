@@ -111,7 +111,7 @@ Simply Business 在 2025 年的[調查](https://www.simplybusiness.com/resource/
 2. 拿到第一個真實的客戶回饋
 3. 搞清楚做這件事你到底開不開心
 
-關於什麼時候可以全職投入——Bankrate 的調查有一個參考指標：當副業收入**持續三個月以上**達到正職收入的 **75%**，就接近可以轉換的時機了。
+關於什麼時候可以全職投入——職涯專家艾莉希雅・威廉斯（Alicia Williams）[建議](https://www.linkedin.com/pulse/from-side-hustle-full-time-knowing-when-take-leap-alicia-williams--n0hkc)，觀察副業收入是否能持續幾個月覆蓋至少 **60-70%** 的每月總支出？如果可以，這被視為接近跳躍點的訊號。
 
 不要急。正職收入就是你的安全網，好好利用它。
 
