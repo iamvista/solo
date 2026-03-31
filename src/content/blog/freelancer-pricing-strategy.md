@@ -125,4 +125,4 @@ tags:
 
 ---
 
-*Vista Cheng 是 [solo.tw](https://www.solo.tw) 的創辦人。每週在[《Vista 電子報》](https://iamvista.substack.com/)分享有關 AI 行銷和經營覆盤的最新情報。*
+*Vista Cheng 是 [solo.tw](https://www.solo.tw) 的創辦人。每週在《[Vista 電子報](https://iamvista.substack.com/)》分享有關 AI 行銷和經營覆盤的最新情報。*

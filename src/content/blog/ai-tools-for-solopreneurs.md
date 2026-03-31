@@ -22,7 +22,7 @@ tags:
 
 ## 1. Claude Code——我的一人開發團隊
 
-如果只能留一個工具，我留 [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)。
+如果只能留下一個 AI 工具，我會毫不猶豫地選擇 [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)。
 
 它是 Anthropic 推出的命令列 AI 工具。簡單來說——你用自然語言告訴它你想做什麼，它幫你寫程式、改程式、甚至幫你部署。
 
@@ -92,7 +92,7 @@ tags:
 
 **社群貼文的配圖。**不用每次都開 Canva 從模板改。直接描述你要什麼，生成、下載、發布。
 
-設計一張圖所省下的時間，大概是 30 分鐘到一個小時。一個月下來就是好幾天。
+設計一張圖所省下的時間，大概是 30 分鐘到一個小時。一個月下來，也就是好幾天的光景。
 
 ---
 
@@ -124,7 +124,7 @@ Claude 擅長結構化分析，Grok 擅長跳脫框架。
 - **Gemini** → 視覺產出（配圖、插圖、設計素材）
 - **Grok** → 創意激盪（腦力激盪、反向思考、趨勢探索）
 
-一人事業的關鍵不是「學會所有技能」，而是「讓對的工具補足你不擅長的環節」。這五個工具加在一起，基本上讓我一個人做到了過去需要四到五個人才能完成的工作量。
+老實說，一人事業的關鍵不是學會所有技能，而是讓對的工具補足你不擅長的環節。這五個工具加在一起，基本上讓我一個人做到了過去需要四到五個人才能完成的工作量。
 
 ---
 
@@ -132,10 +132,10 @@ Claude 擅長結構化分析，Grok 擅長跳脫框架。
 
 如果你正在經營一人事業，想知道目前最該優先加強的是哪個面向——是內容產製、客戶獲取、還是效率提升？
 
-花三分鐘做一個 [**SOLO 事業健檢**](https://www.solo.tw/diagnose)，免費的。做完你就知道該先投資哪個工具。
+花三分鐘做一個 [**SOLO 事業健檢**](https://www.solo.tw/diagnose)，免費的。做完之後，也許你就知道該先投資哪個工具了？
 
-或者如果你想直接聊聊你的狀況，我提供 [**免費 30 分鐘諮詢**](https://www.solo.tw/consulting)。不收費、不推銷，就是聊。
+或者如果你想直接聊聊你的狀況，我提供[**免費 30 分鐘諮詢**](https://www.solo.tw/consulting)。不收費、不推銷，就是和你聊聊。但因為諮詢時段有限，先登記先贏！
 
 ---
 
-*想看更多一人事業的實戰心得？每週在[《Vista 電子報》](https://iamvista.substack.com/)分享有關 AI 行銷和經營覆盤的最新情報。也推薦看看[自由工作者該怎麼定價](https://www.solo.tw/blog/freelancer-pricing-strategy)和[如何用內容建立被動收入](https://www.solo.tw/blog/content-to-passive-income)。*
+*想看更多一人事業的實戰心得？每週在《[Vista 電子報](https://iamvista.substack.com/)》分享有關 AI 行銷和經營覆盤的最新情報。也推薦看看[自由工作者該怎麼定價](https://www.solo.tw/blog/freelancer-pricing-strategy)和[如何用內容建立被動收入](https://www.solo.tw/blog/content-to-passive-income)。*
