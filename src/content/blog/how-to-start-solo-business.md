@@ -127,7 +127,7 @@ Simply Business 在 2025 年的[調查](https://www.simplybusiness.com/resource/
 
 **三、Email 名單。**用 Substack 或 Kit 開一個，免費的。這是你唯一真正「擁有」的行銷管道——社群平臺的演算法會變，但信箱裡的人不會消失。
 
-注意，我刻意沒列 Instagram、Facebook 粉專、YouTube。
+也許你注意到了，我沒有列出 Instagram、Facebook 粉絲專頁或 YouTube。
 
 不是說那些不重要。而是一人事業起步階段，你的時間極度有限。與其在五個平臺上都做到三十分，不如在一個管道上做到九十分。
 
