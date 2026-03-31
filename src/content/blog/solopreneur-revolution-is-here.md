@@ -88,7 +88,7 @@ Ben 用 [Polsia](https://polsia.ai) 做同樣的事，從輸入想法到看到�
 
 如果你也在經營一人事業，或正在考慮開始——強烈推薦你花一個半小時聽完這集。
 
-📺 **[The Solopreneur Revolution Is Here — Kevin Rose × Ben Cera](https://www.youtube.com/watch?v=OC9yQ4BsCtA)**
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:1.5em 0"><iframe src="https://www.youtube.com/embed/OC9yQ4BsCtA" title="The Solopreneur Revolution Is Here — Kevin Rose × Ben Cera" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
 
 不管你是技術背景還是非技術背景，這集都會讓你重新想像「一個人能做到什麼」。
 
