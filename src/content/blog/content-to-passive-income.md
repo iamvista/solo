@@ -41,7 +41,7 @@ tags:
 我自己的免費內容配置：
 
 - 部落格文章（SEO 長尾流量，像你正在讀的 [這種](https://www.solo.tw/blog)）
-- [Substack 電子報](https://iamvista.substack.com/)（每週一封，18,000+ 訂閱者）
+- [《Vista 電子報》](https://iamvista.substack.com/)（每週一封，18,000+ 訂閱者）
 - 社群貼文（Facebook、Threads、LinkedIn）
 
 ---
@@ -133,4 +133,4 @@ NT$10,000 以上的顧問、陪跑、企業內訓。
 
 ---
 
-*Vista Cheng 是 [solo.tw](https://www.solo.tw) 的創辦人。關注 [SOLO 成長路徑](https://www.solo.tw/growth) 了解一人事業的四階段框架，或訂閱 [Substack 電子報](https://iamvista.substack.com/) 獲取每週一人事業實戰心得。*
+*Vista Cheng 是 [solo.tw](https://www.solo.tw) 的創辦人。關注 [SOLO 成長路徑](https://www.solo.tw/growth) 了解一人事業的四階段框架，或訂閱[《Vista 電子報》](https://iamvista.substack.com/)獲取每週有關 AI 行銷和經營覆盤的最新情報。*

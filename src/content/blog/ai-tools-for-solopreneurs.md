@@ -138,4 +138,4 @@ Claude 擅長結構化分析，Grok 擅長跳脫框架。
 
 ---
 
-*想看更多一人事業的實戰心得？每週在 [Substack 電子報](https://iamvista.substack.com/) 分享 AI 工具箱和經營覆盤。也推薦看看[自由工作者該怎麼定價](https://www.solo.tw/blog/freelancer-pricing-strategy)和[如何用內容建立被動收入](https://www.solo.tw/blog/content-to-passive-income)。*
+*想看更多一人事業的實戰心得？每週在[《Vista 電子報》](https://iamvista.substack.com/)分享有關 AI 行銷和經營覆盤的最新情報。也推薦看看[自由工作者該怎麼定價](https://www.solo.tw/blog/freelancer-pricing-strategy)和[如何用內容建立被動收入](https://www.solo.tw/blog/content-to-passive-income)。*
