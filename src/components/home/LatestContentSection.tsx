@@ -5,28 +5,28 @@ import { ArrowRight, BookOpen } from "lucide-react";
 // 精選文章（靜態資料，之後可改為從 API 動態取得最新文章）
 const articles = [
   {
-    slug: "how-to-start-solo-business",
-    title: "一人公司怎麼開始？五個步驟，從上班族走到自由工作者",
+    slug: "ai-tools-for-solopreneurs",
+    title: "一人公司必備的 5 個 AI 工具——我每天都在用的實戰組合",
     excerpt:
-      "不灌雞湯。從定位、驗證到第一筆收入，照著走的行動指南。",
-    tag: "一人事業",
-    tagColor: "bg-primary/10 text-primary",
-  },
-  {
-    slug: "how-professionals-leverage-ai-agents",
-    title: "職場人士如何善用 AI Agent？從問 AI 到讓 AI 幫你做的關鍵轉變",
-    excerpt:
-      "AI Agent 正是那塊缺失的拼圖，幫助你從「問答者」升級為「AI 的監督者」。",
+      "不是列一堆工具給你看，是我自己每天真的在用、幫我省下大量時間的組合。",
     tag: "AI 應用",
     tagColor: "bg-blue-100 text-blue-700",
   },
   {
-    slug: "profit-awakening-knowledge-worker",
-    title: "知識工作者的獲利覺醒：從現金流思維到微型組織時代的生存法則",
+    slug: "freelancer-pricing-strategy",
+    title: "自由工作者該怎麼定價？一個讓你不再心虛的計算方法",
     excerpt:
-      "當 AI 重塑工作型態，每個人都必須學會把自己變成可獲利的微型組織。",
-    tag: "個人品牌",
-    tagColor: "bg-violet-100 text-violet-700",
+      "定價不是憑感覺。從成本倒推、市場對標到價值定價的完整框架。",
+    tag: "一人事業",
+    tagColor: "bg-primary/10 text-primary",
+  },
+  {
+    slug: "content-to-passive-income",
+    title: "一個人如何用內容建立被動收入？從寫文章到持續進帳的完整路徑",
+    excerpt:
+      "內容不只是行銷工具，它可以成為你的收入來源。四層漏斗完整拆解。",
+    tag: "知識變現",
+    tagColor: "bg-amber-100 text-amber-700",
   },
 ];
 
