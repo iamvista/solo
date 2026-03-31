@@ -10,7 +10,7 @@ tags:
   - AI Agent
 ---
 
-前幾天 [Kevin Rose](https://www.kevinrose.com/) 的 Podcast 更新了一集，標題叫「[The Solopreneur Revolution Is Here](https://www.youtube.com/watch?v=OC9yQ4BsCtA)」。
+昨天凱文·羅斯（[Kevin Rose](https://www.kevinrose.com/)）的 Podcast 更新了一集，標題叫「[The Solopreneur Revolution Is Here](https://www.youtube.com/watch?v=OC9yQ4BsCtA)」。
 
 一個半小時的訪談，我一口氣聽完。
 
