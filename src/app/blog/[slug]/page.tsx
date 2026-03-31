@@ -531,7 +531,9 @@ function markdownToHtml(markdown: string): string {
     .map((block) => {
       block = block.trim();
       if (!block) return "";
-      if (/^<[a-z]/.test(block) || /^__/.test(block)) return block;
+      // 保留 block-level HTML（h1-h6, blockquote, figure, pre, ul, ol, hr, div, table）不加 <p>
+      // 但 inline HTML（strong, em, a, span, code）開頭的仍需包 <p>
+      if (/^<(h[1-6]|blockquote|figure|pre|ul|ol|hr|div|table|section|nav|aside|article)[\s>\/]/i.test(block) || /^__/.test(block)) return block;
       if (!block.replace(/\s/g, "")) return "";
       return `<p>${block.replace(/\n/g, "<br />")}</p>`;
     })
