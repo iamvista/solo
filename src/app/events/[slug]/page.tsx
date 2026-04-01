@@ -26,6 +26,7 @@ export async function generateMetadata({
   return {
     title: `${event.title} | solo.tw`,
     description: event.subtitle || event.description?.slice(0, 150) || "",
+    alternates: { canonical: eventUrl },
     openGraph: {
       title: event.title,
       description: event.subtitle || "",
@@ -154,6 +155,9 @@ export default async function EventPage({
               address: event.venue_address || "",
             },
     image: event.cover_image || undefined,
+    eventStatus: isArchived
+      ? "https://schema.org/EventCancelled"
+      : "https://schema.org/EventScheduled",
     organizer: event.organizer
       ? {
           "@type": "Person",
@@ -161,6 +165,16 @@ export default async function EventPage({
         }
       : { "@type": "Organization", name: "solo.tw" },
     url: eventUrl,
+    offers: event.ticket_types?.length
+      ? event.ticket_types.map((tt: any) => ({
+          "@type": "Offer",
+          name: tt.name,
+          price: tt.price || 0,
+          priceCurrency: "TWD",
+          availability: "https://schema.org/InStock",
+          url: eventUrl,
+        }))
+      : undefined,
   };
 
   return (

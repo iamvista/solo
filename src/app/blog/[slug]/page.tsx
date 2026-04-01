@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
+import { JsonLd, articleSchema, breadcrumbSchema } from "@/lib/schema";
 import "./article.css";
 import { TOCHighlight } from "./TOCHighlight";
 import { ShareButtons } from "@/components/blog/ShareButtons";
@@ -30,6 +31,7 @@ export async function generateMetadata({
   return {
     title: `${post.title} | solo.tw`,
     description: post.description,
+    alternates: { canonical: `https://www.solo.tw/blog/${slug}` },
     openGraph: {
       title: post.title,
       description: post.description,
@@ -114,25 +116,21 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const htmlContent = markdownToHtml(post.content);
 
-  // JSON-LD
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.description,
-    image: post.heroImage,
-    datePublished: post.pubDate,
-    dateModified: post.updatedDate || post.pubDate,
-    author: { "@type": "Person", name: "Vista Cheng" },
-    publisher: { "@type": "Organization", name: "solo.tw" },
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+      <JsonLd data={articleSchema({
+        title: post.title,
+        description: post.description || "",
+        url: `https://www.solo.tw/blog/${slug}`,
+        datePublished: post.pubDate,
+        dateModified: post.updatedDate || post.pubDate,
+        image: post.heroImage ? `https://www.solo.tw${post.heroImage}` : undefined,
+      })} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "首頁", href: "/" },
+        { name: "部落格", href: "/blog" },
+        { name: post.title, href: `/blog/${slug}` },
+      ])} />
 
       <div className="min-h-screen bg-[#fbf8f4]">
         <div className="mx-auto max-w-7xl px-6 py-12 lg:py-16">

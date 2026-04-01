@@ -8,6 +8,7 @@ export const revalidate = 60; // ISR: 1 minute
 export const metadata: Metadata = {
   title: "社群動態 | solo.tw",
   description: "看看 solo.tw 社群裡的一人事業家們都在做什麼",
+  alternates: { canonical: "https://www.solo.tw/community" },
   openGraph: {
     title: "社群動態 | solo.tw",
     description: "看看 solo.tw 社群裡的一人事業家們都在做什麼",

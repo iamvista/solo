@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#C62833"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square -->
+  <rect width="512" height="512" rx="112" fill="url(#bg2)"/>
+  <!-- S - clean geometric strokes -->
+  <path d="M 320 168 C 305 135 270 115 228 115 C 172 115 132 152 132 200 C 132 255 175 278 232 296 C 289 314 328 334 328 382 C 328 420 292 445 244 445 C 195 445 158 420 145 395"
+    stroke="white" stroke-width="48" stroke-linecap="round" fill="none"/>
+  <!-- AI spark dot -->
+  <circle cx="375" cy="130" r="24" fill="white"/>
+</svg>

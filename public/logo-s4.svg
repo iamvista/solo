@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#C62833"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g4)"/>
+  <!-- S4: 填滿實心 — 像 Spotify/Slack 風格的粗體 S -->
+  <path d="
+    M 316 185
+    C 305 143 265 115 218 115
+    C 157 115 118 155 118 205
+    C 118 260 158 283 220 303
+    C 282 323 322 348 322 400
+    C 322 445 280 475 230 475
+    C 178 475 140 445 128 410
+    L 128 410
+    C 128 410 160 440 230 440
+    C 270 440 292 418 292 395
+    C 292 358 255 340 200 322
+    C 145 304 148 270 148 235
+    C 148 200 148 150 218 150
+    C 260 150 290 170 300 192
+    Z
+  " fill="white"/>
+</svg>

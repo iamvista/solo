@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "服務條款 | solo.tw",
+  description: "solo.tw 的服務條款，說明使用本平臺服務的規範與條件。",
+  alternates: { canonical: "https://www.solo.tw/terms" },
+};
+
 export default function TermsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">

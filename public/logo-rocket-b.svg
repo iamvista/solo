@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bgR2" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#C62833"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgR2)"/>
+  <!-- S 字融合火箭：S 的頂端延伸成火箭頭 -->
+  <!-- S 主體 -->
+  <path d="M 310 180 C 295 145 260 120 218 120 C 160 120 125 158 125 206 C 125 262 168 285 226 303 C 284 321 320 343 320 390 C 320 425 286 450 240 450 C 196 450 162 428 148 402"
+    stroke="white" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <!-- 火箭頭（從 S 頂端起飛） -->
+  <polygon points="340,130 365,70 390,130" fill="white"/>
+  <!-- 火箭尾焰痕跡（3 條短線） -->
+  <line x1="358" y1="138" x2="350" y2="158" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+  <line x1="365" y1="140" x2="365" y2="165" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+  <line x1="372" y1="138" x2="380" y2="158" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+</svg>

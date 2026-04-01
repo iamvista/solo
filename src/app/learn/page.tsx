@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "學習資源 | solo.tw",
+  description: "一人事業經營的完整學習路徑——從市場定位、客戶開發到 AI 工具應用，系統化提升你的事業能力。",
+  alternates: { canonical: "https://www.solo.tw/learn" },
+};
 
 // 學習主題
 const learningTopics = [

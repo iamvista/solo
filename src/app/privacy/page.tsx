@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "隱私權政策 | solo.tw",
+  description: "solo.tw 的隱私權政策，說明我們如何收集、使用及保護您的個人資料。",
+  alternates: { canonical: "https://www.solo.tw/privacy" },
+};
+
 export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">

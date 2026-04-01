@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#C62833"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square -->
+  <rect width="512" height="512" rx="112" fill="url(#bg3)"/>
+  <!-- S with arrow feel - dynamic, forward-moving -->
+  <path d="M 315 165 C 298 132 264 112 224 112 C 166 112 128 150 128 198 C 128 256 174 280 234 298 C 294 316 332 338 332 388 C 332 426 294 452 246 452 C 198 452 162 428 148 400"
+    stroke="white" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <!-- Two AI dots - constellation style -->
+  <circle cx="380" cy="120" r="20" fill="white"/>
+  <circle cx="408" cy="162" r="12" fill="white" opacity="0.6"/>
+</svg>

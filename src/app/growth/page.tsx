@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowDown, Target, Cog, Rocket, Crown } from "lucide-react";
 import { SOCIAL_PROOF } from "@/lib/constants";
+import { JsonLd, howToSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "SOLO 成長路徑 — 四階段打造一人事業 | solo.tw",
@@ -107,6 +108,17 @@ const stages = [
 
 export default function GrowthPage() {
   return (
+    <>
+    <JsonLd data={howToSchema({
+      name: "SOLO 方法論：四階段打造一人事業",
+      description: "從定位到自由，一人事業的四階段成長框架",
+      steps: [
+        { name: "Set up — 建立根基", text: "釐清定位，打好基礎。回答三個核心問題：你擅長什麼、誰需要你、為什麼選你。" },
+        { name: "Operate — 系統營運", text: "建立獲客系統，服務第一批客戶。跑通從陌生人到付費客戶的完整流程。" },
+        { name: "Leverage — 槓桿放大", text: "用 AI 和系統放大產出。自動化重複工作、把服務產品化。" },
+        { name: "Outgrow — 超越成長", text: "從忙碌的自由工作者到自由的事業主。建立被動收入，讓事業系統自己運轉。" },
+      ],
+    })} />
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white pb-16 pt-12 sm:pb-24 sm:pt-20">
@@ -334,5 +346,6 @@ export default function GrowthPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#C62833"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g3)"/>
+  <!-- S3: 幾何向量手繪 — 完美對稱、粗細一致 -->
+  <path d="
+    M 310 170
+    C 295 128 258 105 215 105
+    C 155 105 115 145 115 195
+    C 115 245 150 270 200 288
+    L 280 316
+    C 330 334 365 358 365 405
+    C 365 455 320 485 260 485
+    C 200 485 155 458 140 420
+  " stroke="white" stroke-width="50" stroke-linecap="round" fill="none"/>
+</svg>

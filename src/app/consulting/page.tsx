@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MessageCircle, ArrowRight, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 import { CalEmbed } from "@/components/consulting/CalEmbed";
-import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "1-on-1 諮詢 & 陪跑 | solo.tw",
@@ -85,6 +85,12 @@ export default function ConsultingPage() {
     <>
       <JsonLd data={serviceSchema({ name: "1-on-1 事業方向諮詢", description: "60 分鐘深度一對一諮詢，幫你釐清定位、制定行動計畫", url: "https://www.solo.tw/consulting", price: 2490 })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "諮詢", href: "/consulting" }])} />
+      <JsonLd data={faqSchema([
+        { question: "諮詢是線上還是線下？", answer: "以 Google Meet 線上進行為主，也可依需求安排臺北線下面談。" },
+        { question: "我還在很前期，適合預約嗎？", answer: "完全適合。越早釐清方向，越少走冤枉路。建議先做免費事業健檢，帶著結果來諮詢更有效率。" },
+        { question: "和工作坊有什麼不同？", answer: "工作坊是小班教學特定主題，諮詢是完全針對你的狀況一對一深入討論。兩者互補——工作坊學方法，諮詢解決你的個別問題。" },
+        { question: "如何付款？", answer: "確認預約後會提供付款連結，支援信用卡和 ATM 轉帳。" },
+      ])} />
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-16 sm:py-20 lg:py-24">

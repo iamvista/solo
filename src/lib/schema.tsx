@@ -119,3 +119,129 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
     })),
   };
 }
+
+/* ─── FAQPage Schema ─── */
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function faqSchema(items: FAQItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+/* ─── HowTo Schema ─── */
+export interface HowToStep {
+  name: string;
+  text: string;
+}
+
+export function howToSchema(props: {
+  name: string;
+  description: string;
+  steps: HowToStep[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: props.name,
+    description: props.description,
+    step: props.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}
+
+/* ─── Article Schema ─── */
+export function articleSchema(props: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: props.title,
+    description: props.description,
+    url: props.url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": props.url },
+    datePublished: props.datePublished,
+    dateModified: props.dateModified || props.datePublished,
+    author: {
+      "@type": "Person",
+      name: "Vista Cheng",
+      url: "https://www.solo.tw/about",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "solo.tw",
+      url: "https://www.solo.tw",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.solo.tw/solo-icon.png",
+      },
+    },
+    ...(props.image && { image: props.image }),
+  };
+}
+
+/* ─── Event Schema with Offers ─── */
+export function eventSchema(props: {
+  name: string;
+  description: string;
+  url: string;
+  startDate: string;
+  endDate?: string;
+  location: string;
+  price: number;
+  priceCurrency?: string;
+  status?: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: props.name,
+    description: props.description,
+    url: props.url,
+    startDate: props.startDate,
+    ...(props.endDate && { endDate: props.endDate }),
+    eventStatus: props.status || "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: props.location,
+      address: { "@type": "PostalAddress", addressLocality: "臺北市" },
+    },
+    offers: {
+      "@type": "Offer",
+      price: props.price,
+      priceCurrency: props.priceCurrency || "TWD",
+      availability: "https://schema.org/InStock",
+      url: props.url,
+    },
+    organizer: {
+      "@type": "Person",
+      name: "Vista Cheng",
+      url: "https://www.solo.tw/about",
+    },
+    ...(props.image && { image: props.image }),
+  };
+}

@@ -114,6 +114,12 @@ export const metadata: Metadata = {
         height: 630,
         alt: "solo.tw — AI × 一人事業",
       },
+      {
+        url: "/solo-icon.png",
+        width: 512,
+        height: 512,
+        alt: "solo.tw",
+      },
     ],
   },
   twitter: {
