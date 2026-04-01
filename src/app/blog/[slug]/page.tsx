@@ -179,9 +179,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-stone-500">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-800 text-sm font-bold text-white">
-                      V
-                    </div>
+                    <img src="/images/vista-profile.webp" alt="Vista Cheng" className="h-10 w-10 rounded-full object-cover" />
                     <span className="font-medium text-stone-700">
                       Vista Cheng
                     </span>
@@ -253,9 +251,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               {/* Author Box */}
               <div className="mt-12 rounded-xl bg-white p-8 shadow-sm">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-stone-800 text-xl font-bold text-white">
-                    V
-                  </div>
+                  <img src="/images/vista-profile.webp" alt="Vista Cheng" className="h-16 w-16 shrink-0 rounded-full object-cover" />
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-stone-900">
                       Vista Cheng

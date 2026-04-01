@@ -1,7 +1,7 @@
 ---
 title: '一人公司革命來了——聽完這集 Podcast，我對一個人做事業有了全新想像'
 description: 'Kevin Rose 訪談 Polsia 創辦人 Ben Cera：一個人、零員工、用 AI Agent 做到年營收數百萬美元。這不是未來的故事，是正在發生的事。'
-pubDate: '2026-03-31'
+pubDate: '2026-04-01'
 heroImage: /images/blog/solopreneur-revolution-hero.webp
 tags:
   - AI應用
