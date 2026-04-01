@@ -103,19 +103,19 @@ export const metadata: Metadata = {
   openGraph: {
     title: "solo.tw | 用 AI 放大你的一人事業",
     description: "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。AI 工作坊、諮詢、線上課程。",
-    url: "https://solo.tw",
+    url: "https://www.solo.tw",
     siteName: "solo.tw",
     locale: "zh_TW",
     type: "website",
     images: [
       {
-        url: "/og",
+        url: "https://www.solo.tw/og",
         width: 1200,
         height: 630,
         alt: "solo.tw — AI × 一人事業",
       },
       {
-        url: "/solo-icon.png",
+        url: "https://www.solo.tw/solo-icon.png",
         width: 512,
         height: 512,
         alt: "solo.tw",
@@ -126,7 +126,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "solo.tw | 用 AI 放大你的一人事業",
     description: "Vista Cheng 幫助自由工作者用 AI 放大一人事業的產出。工作坊、諮詢、線上課程。",
-    images: ["/og"],
+    images: ["https://www.solo.tw/og"],
   },
 };
 
