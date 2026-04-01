@@ -16,7 +16,8 @@ const footerLinks = {
     { name: "社群", href: "/community" },
   ],
   company: [
-    { name: "關於我們", href: "/about" },
+    { name: "關於 Vista", href: "/about" },
+    { name: "Vista.tw", href: "https://www.vista.tw" },
     { name: "定價方案", href: "/pricing" },
     { name: "開發藍圖", href: "/roadmap" },
     { name: "隱私政策", href: "/privacy" },
