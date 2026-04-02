@@ -44,7 +44,7 @@ Meta 改一次規則，你的 Facebook 觸及率可能直接腰斬。Instagram �
 
 《[Vista 電子報](https://iamvista.substack.com/)》目前已經寫到第 109 期，固定每週發送。內容大致可以分成幾類：
 
-**AI 應用實戰。**這是近一年最受歡迎的類別。像是「[我用 AI 搭出內容生產線](https://iamvista.substack.com/p/vista-no106-ai)」「[Vibe Coding 到底是什麼？](https://iamvista.substack.com/p/vista-no109-vibe-coding)」這類文章，開信率都特別高。因為讀者不只想知道 AI 是什麼，他們更想知道「你實際上怎麼用」。
+**AI 應用實戰。**這是近一年最受歡迎的類別。像是「[我用 AI 搭出內容生產線](https://iamvista.substack.com/p/vista-no106-ai)」「[Vibe Coding 到底是什麼？](https://iamvista.substack.com/p/vista-no109-vibe-coding)」這類文章，開信率都特別高。因為讀者不只想知道 AI 是什麼，他們更想知道你實際上怎麼用？
 
 **寫作與內容策略。**這是我的老本行。從部落格文章的結構、電子報的寫法、到[怎麼用內容建立被動收入](https://www.solo.tw/blog/content-to-passive-income)——這類文章雖然不像 AI 那麼吸睛，但讀者黏著度最高。
 
