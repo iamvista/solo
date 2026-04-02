@@ -18,7 +18,7 @@ tags:
 
 老實說，看到這個數字的第一個反應不是開心，是「天啊，這些人都在看嗎？」
 
-嗯，這可能是經營電子報最誠實的感受——數字在漲，但你永遠不確定讀者是不是真的在看。
+嗯，這可能是經營電子報最誠實的感受——數字在漲，但你永遠不確定讀者是不是真的在看？
 
 這篇文章我想分享的不是「如何快速漲粉」的技巧。而是我從第 1 期寫到第 109 期，**真正學到的幾件事**。
 
@@ -30,7 +30,7 @@ tags:
 
 原因很簡單。
 
-Email 行銷的平均轉換率大約 8%，社群媒體只有 3%。根據 [Mailmunch 的研究](https://www.mailmunch.com/blog/email-marketing-vs-social-media)，Email 行銷每花一塊錢平均能回收三十六塊，社群大約兩塊八。
+Email 行銷的平均轉換率大約 8%，社群媒體只有 3%。根據 [Litmus](https://www.litmus.com/blog/infographic-the-roi-of-email-marketing) 和 [Statista](https://www.demandsage.com/email-marketing-statistics/) 的統計，Email 行銷每花一塊錢平均能回收三十六到四十塊。社群媒體的投資報酬率遠遠追不上。
 
 但數字只是其中一個原因。更重要的是——**名單是你的，演算法不是**。
 
