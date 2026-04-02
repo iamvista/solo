@@ -3,8 +3,8 @@ import { getPublishedEvents } from "@/lib/supabase/events";
 import EventCard from "@/components/events/EventCard";
 import EventFilters from "@/components/events/EventFilters";
 
-// ISR: revalidate every 5 minutes
-export const revalidate = 300;
+// ISR: revalidate every 30 minutes（活動列表更新不頻繁，降低 ISR Reads）
+export const revalidate = 1800;
 
 export const metadata: Metadata = {
   title: "活動 | solo.tw",

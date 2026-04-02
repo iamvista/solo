@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const revalidate = 60; // ISR: 1 minute
+export const revalidate = 600; // ISR: 10 minutes（從 60s 調高，降低 Vercel ISR Reads 用量）
 
 export const metadata: Metadata = {
   title: "社群動態 | solo.tw",

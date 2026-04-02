@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/service";
 import LeadMagnetForm from "./LeadMagnetForm";
 
-// ISR: revalidate every 5 minutes
-export const revalidate = 300;
+// ISR: revalidate every 1 hour（Lead magnet 內容很少變動）
+export const revalidate = 3600;
 
 const RESOURCE_TYPE_LABELS: Record<string, { icon: string; label: string }> = {
   pdf: { icon: "📄", label: "PDF 文件" },

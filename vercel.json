@@ -4,5 +4,6 @@
       "path": "/api/cron/daily-check",
       "schedule": "0 2 * * *"
     }
-  ]
+  ],
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- src/ public/ next.config.ts package.json pnpm-lock.yaml tsconfig.json"
 }
