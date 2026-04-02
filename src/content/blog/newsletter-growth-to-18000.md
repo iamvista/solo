@@ -36,7 +36,7 @@ Email 行銷的平均轉換率大約 8%，社群媒體只有 3%。根據 [Litmus
 
 Meta 改一次規則，你的 Facebook 觸及率可能直接腰斬。Instagram 調整一次演算法，你辛苦經營的追蹤者有一半看不到你的貼文。但信箱裡的那些人，永遠在你手上。
 
-我的[工作坊](https://www.solo.tw/courses)有七成以上的報名，來自電子報讀者。[免費諮詢](https://www.solo.tw/consulting)的預約也有超過一半是電子報讀者轉過來的。這不是巧合，是信任的累積。
+我的[工作坊](https://www.solo.tw/courses)有七成以上的報名，來自電子報讀者。[免費諮詢](https://www.solo.tw/consulting)的預約，也有超過一半是電子報讀者轉過來的。這不是巧合，是信任的累積。
 
 ---
 
@@ -44,13 +44,13 @@ Meta 改一次規則，你的 Facebook 觸及率可能直接腰斬。Instagram �
 
 《[Vista 電子報](https://iamvista.substack.com/)》目前已經寫到第 109 期，固定每週發送。內容大致可以分成幾類：
 
-**AI 應用實戰。**這是近一年最受歡迎的類別。像是「[我用 AI 搭出內容生產線](https://iamvista.substack.com/)」「[Vibe Coding 到底是什麼？](https://iamvista.substack.com/)」這類文章，開信率都特別高。因為讀者不只想知道 AI 是什麼，他們更想知道「你實際上怎麼用」。
+**AI 應用實戰。**這是近一年最受歡迎的類別。像是「[我用 AI 搭出內容生產線](https://iamvista.substack.com/p/vista-no106-ai)」「[Vibe Coding 到底是什麼？](https://iamvista.substack.com/p/vista-no109-vibe-coding)」這類文章，開信率都特別高。因為讀者不只想知道 AI 是什麼，他們更想知道「你實際上怎麼用」。
 
 **寫作與內容策略。**這是我的老本行。從部落格文章的結構、電子報的寫法、到[怎麼用內容建立被動收入](https://www.solo.tw/blog/content-to-passive-income)——這類文章雖然不像 AI 那麼吸睛，但讀者黏著度最高。
 
 **個人品牌與一人事業。**定位、[定價](https://www.solo.tw/blog/freelancer-pricing-strategy)、商業模式、客戶獲取。這類文章的分享率最高，因為讀者會覺得「這篇對我朋友也有用」而轉寄。
 
-**書評與思考。**像是從[霍諾德的極限攀登學職涯思維](https://iamvista.substack.com/)、或是出版業需要的不是曝光而是關係。這類文章寫的時候最過癮，因為可以把不同領域的東西串在一起。
+**書評與思考。**像是從[霍諾德的極限攀登學職涯思維](https://iamvista.substack.com/p/vista-no103)、或是出版業需要的不是曝光而是關係。這類文章寫的時候最過癮，因為可以把不同領域的東西串在一起。
 
 **客座電子報。**大約每個月一篇，邀請其他領域的朋友寫。這不只是給讀者新鮮感，也是擴展讀者群的好方法——對方會分享給他自己的受眾。
 
@@ -88,7 +88,7 @@ Meta 改一次規則，你的 Facebook 觸及率可能直接腰斬。Instagram �
 
 ### 4. 開頭決定一切
 
-我分析了自己開信率最高的幾期，發現一個規律：**前三句話決定讀者要不要繼續看下去**。
+我分析了自己開信率最高的幾期，發現一個規律：**開頭的前三句話，決定讀者要不要繼續看下去？**。
 
 有效的開頭通常長這樣：
 
