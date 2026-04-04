@@ -9,11 +9,11 @@ import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "AI 內容產製系統工作坊｜3 小時實戰工作坊 | solo.tw",
   description:
-    "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式。3 小時實作，限 10 人小班制。",
+    "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式。3 小時實作，限 16 人小班制。",
   openGraph: {
     title: "AI 內容產製系統工作坊｜3 小時實戰工作坊",
     description:
-      "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式。3 小時實作，限 10 人小班制。",
+      "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式。3 小時實作，限 16 人小班制。",
     images: [
       {
         url: "/courses/ai-content/og",
@@ -287,7 +287,7 @@ export default function AIContentPage() {
               <p className="mt-1 text-sm text-muted-foreground">實戰工作坊</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary sm:text-3xl">10</p>
+              <p className="text-2xl font-bold text-primary sm:text-3xl">16</p>
               <p className="mt-1 text-sm text-muted-foreground">人小班制</p>
             </div>
             <div className="text-center">
@@ -714,7 +714,7 @@ export default function AIContentPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>👥</span>
-                    <span>限 10 名</span>
+                    <span>限 16 名</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>💻</span>

@@ -157,7 +157,8 @@ export const workshops: Workshop[] = [
     time: "9:00–12:00",
     duration: "3 小時",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
-    capacity: 10,
+    capacity: 16,
+    featured: true,
     price: {
       original: 7000,
       earlyBird: 5000,
