@@ -339,7 +339,7 @@ export default function AIContentPage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-lg font-bold leading-relaxed sm:text-xl">
               <span className="text-primary">
-                內容產製的瓶頸，不是寫不出來，而是每次都在重頭開始。
+                內容產製的瓶頸，不是寫不出來，而是每次都得從頭開始。
               </span>
               <br />
               <span className="font-normal text-background/80">
@@ -799,7 +799,7 @@ export default function AIContentPage() {
                   花 3 小時，建立你的內容產製系統
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  讓 AI 學會你的風格，一份素材自動產出六種格式。從此不再重頭開始，把時間留給真正重要的事：思考和創作。
+                  讓 AI 學會你的風格，一份素材自動產出六種格式。從此不再從頭開始，把時間留給真正重要的事：思考和創作。
                 </p>
                 <Button size="sm" className="mt-5 h-9 px-6" asChild>
                   <a href="#register">我要報名 →</a>
