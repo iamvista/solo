@@ -237,7 +237,7 @@ const studentWorks = [
     url: "https://amayang.netlify.app",
   },
   {
-    name: "張天豪顯微根管",
+    name: "張天豪醫師",
     batch: "第 4 班",
     url: "https://microendo.netlify.app",
   },
