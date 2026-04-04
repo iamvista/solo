@@ -7,147 +7,147 @@ import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "用 AI 寫出讓人忍不住留言的社群內容｜3 小時實戰工作坊 | solo.tw",
+  title: "AI 內容產製系統工作坊｜3 小時實戰工作坊 | solo.tw",
   description:
-    "結合心理學 × AI 提問術，3 小時學會設計高互動社群內容。帶走五種心理學模型、AI 提問模板、完整內容工作流，現場產出一篇可直接發布的貼文。",
+    "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式。3 小時實作，限 10 人小班制。",
   openGraph: {
-    title: "用 AI 寫出讓人忍不住留言的社群內容｜3 小時實戰工作坊",
+    title: "AI 內容產製系統工作坊｜3 小時實戰工作坊",
     description:
-      "結合心理學 × AI 提問術，3 小時學會設計高互動社群內容。帶走五種心理學模型、AI 提問模板、完整內容工作流。",
+      "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式。3 小時實作，限 10 人小班制。",
     images: [
       {
-        url: "/courses/ai-social-content/og",
+        url: "/courses/ai-content/og",
         width: 1200,
         height: 630,
       },
     ],
   },
   alternates: {
-    canonical: "https://www.solo.tw/courses/ai-social-content",
+    canonical: "https://www.solo.tw/courses/ai-content",
   },
 };
 
 const REGISTER_URL =
-  "https://vista.oen.tw/good/3BsCF6UYdoTzxxiKfmPuUX5GF2k?from=vista&m=cash";
+  "https://vista.oen.tw/good/3BsEDb9HN70wF8ZZkq6f6ueOlTW?from=vista&m=cash";
 
 const painPoints = [
   {
-    emoji: "😶",
-    title: "按讚掛零、留言沙漠",
-    text: "經營社群一段時間了，但互動率始終上不去。每次發文都像丟石頭到深海裡。",
+    emoji: "😩",
+    title: "每換一個平臺就要重寫",
+    text: "同一份內容要改成部落格、IG、電子報......每次都從頭來過。",
+  },
+  {
+    emoji: "⏰",
+    title: "查資料就花掉大半時間",
+    text: "一篇文章光是研究背景、找數據，就要花 1-2 小時。",
   },
   {
     emoji: "🤖",
-    title: "AI 寫的東西「很 AI」",
-    text: "用 ChatGPT 產出的貼文，正確但無聊，像在讀說明書。沒有溫度、沒有個性。",
+    title: "AI 寫的東西沒有「你的味道」",
+    text: "用 ChatGPT 寫出來的文章，正確但空洞，像在讀維基百科。",
   },
   {
-    emoji: "🧊",
-    title: "有專業卻寫不出共鳴",
-    text: "你有觀點、有乾貨，卻不知道怎麼寫成「別人想轉發」的社群內容。",
+    emoji: "📱",
+    title: "一個人要顧好幾個平臺",
+    text: "部落格、FB、IG、電子報......每天都在趕內容，但品質越來越差。",
   },
   {
-    emoji: "📉",
-    title: "瀏覽數高但互動低",
-    text: "文章有人看，但沒人留言、沒人分享。觸及和互動是兩回事。",
+    emoji: "🔧",
+    title: "知道 AI 可以幫忙，但不知道怎麼系統化",
+    text: "試過各種 AI 工具，但都是片段式使用，沒有串成流程。",
   },
   {
-    emoji: "🔄",
-    title: "不知道今天要發什麼",
-    text: "每天打開社群就焦慮，靈感斷斷續續，內容產出不穩定。",
-  },
-  {
-    emoji: "🎭",
-    title: "效率和品質只能選一個？",
-    text: "想用 AI 加速產出，但又怕犧牲內容的人味和互動品質。",
+    emoji: "💸",
+    title: "付了 AI 訂閱費，卻只用到 10%",
+    text: "Claude Pro、ChatGPT Plus 都訂了，但用法還停留在問問題。",
   },
 ];
 
-const psychModels = [
+const frameworkLayers = [
   {
-    icon: "🔥",
-    name: "立場型",
-    mechanism: "認同或反對的表態衝動",
-    scenario: "時事評論、價值觀",
-    interaction: "留言、分享",
+    icon: "📥",
+    name: "輸入層",
+    mechanism: "語音記錄靈感 → 自動整理成結構化素材",
+    scenario: "日常靈感、會議筆記",
+    output: "結構化筆記",
   },
   {
-    icon: "💡",
-    name: "缺口型",
-    mechanism: "好奇心與資訊落差",
-    scenario: "知識分享、經驗談",
-    interaction: "按讚、收藏",
+    icon: "🔍",
+    name: "研究層",
+    mechanism: "自動化網路研究、資料彙整與來源驗證",
+    scenario: "趨勢分析、數據佐證",
+    output: "研究摘要",
   },
   {
-    icon: "🪞",
-    name: "鏡像型",
-    mechanism: "「這就是我」的共鳴",
-    scenario: "生活觀察、情緒描寫",
-    interaction: "留言、tag 朋友",
+    icon: "✍️",
+    name: "產製層",
+    mechanism: "AI 輔助起草，套用敘事框架與個人風格",
+    scenario: "部落格、長文",
+    output: "文章初稿",
   },
   {
-    icon: "❓",
-    name: "邀請型",
-    mechanism: "被點名的參與感",
-    scenario: "問答、投票、徵求",
-    interaction: "留言",
+    icon: "🎨",
+    name: "精修層",
+    mechanism: "注入個人故事、語氣微調、去除 AI 味",
+    scenario: "品質把關",
+    output: "定稿",
   },
   {
-    icon: "📖",
-    name: "敘事型",
-    mechanism: "追劇般的故事張力",
-    scenario: "個人經歷、案例",
-    interaction: "分享",
+    icon: "📤",
+    name: "分發層",
+    mechanism: "一份內容自動轉換為六種平臺格式",
+    scenario: "多平臺經營",
+    output: "6 種格式",
   },
 ];
 
 const deliverables = [
   {
-    icon: "📝",
-    title: "一篇完成品",
-    desc: "課堂上完成的高互動社群貼文，下課可直接發布",
-  },
-  {
-    icon: "🧠",
-    title: "五種心理模型卡",
-    desc: "高互動內容的心理學框架 + AI 提問模板",
+    icon: "🏗️",
+    title: "五層架構藍圖",
+    desc: "完整的內容產製系統設計圖，回家就能開始建",
   },
   {
     icon: "🔄",
-    title: "內容產製工作流程圖",
-    desc: "從靈感到發布的 AI 社群 SOP",
+    title: "六格式轉換模板",
+    desc: "一份內容自動產出部落格、IG、電子報等六種格式",
   },
   {
-    icon: "✅",
-    title: "互動品質檢查清單",
-    desc: "發文前的自我檢核表",
+    icon: "🎯",
+    title: "個人風格檔案",
+    desc: "讓 AI 學會你的寫作風格的 prompt 模板",
   },
   {
-    icon: "🎨",
-    title: "社群人格檔案範本",
-    desc: "讓 AI 記住你風格的 prompt 模板",
+    icon: "📋",
+    title: "研究自動化流程",
+    desc: "用 Claude Code 自動完成網路研究的 SOP",
   },
   {
-    icon: "📅",
-    title: "一週內容排程模板",
-    desc: "AI 輔助的內容日曆規劃表",
+    icon: "⚡",
+    title: "MCP 整合指南",
+    desc: "串接筆記軟體的實作教學",
+  },
+  {
+    icon: "🗓️",
+    title: "內容排程模板",
+    desc: "AI 輔助的一週內容規劃表",
   },
 ];
 
 const schedule = [
   {
     time: "單元一",
-    duration: "35 分鐘",
-    module: "為什麼你的 AI 貼文沒人理？",
+    duration: "60 分鐘",
+    module: "觀念建構 + 環境設定",
     content:
-      "高互動內容的底層邏輯、AI 寫社群內容的三大陷阱、現場對比示範：同主題的兩種寫法差異",
+      "一問一答的天花板在哪裡、Claude Code vs ChatGPT 的差異、五層內容產製架構全覽、環境安裝與設定",
   },
   {
     time: "單元二",
-    duration: "45 分鐘",
-    module: "社群互動心理學 × AI 提問術",
+    duration: "50 分鐘",
+    module: "實作：從輸入到產出",
     content:
-      "五種高互動內容心理模型、每種模型的 AI 提問模板拆解。實作練習：選一種模型，用自己的主題寫出 prompt",
+      "研究自動化實作、敘事框架與個人風格注入、用 MCP 串接你的筆記軟體",
   },
   {
     time: "休息",
@@ -158,76 +158,92 @@ const schedule = [
   {
     time: "單元三",
     duration: "50 分鐘",
-    module: "AI 社群內容工作流",
+    module: "實作：精修與分發",
     content:
-      "從靈感蒐集到一稿多用的五步驟流程、建立社群人格檔案、用 AI 規劃一週內容排程。實作練習：走完完整流程，產出一篇 300-500 字的高互動貼文",
-  },
-  {
-    time: "單元四",
-    duration: "40 分鐘",
-    module: "互動引爆術：從發出去到被討論",
-    content:
-      "AI 貼文的互動品質檢查清單、發文後的黃金 30 分鐘回覆策略、用 AI 輔助高效回覆。實作練習：用檢查清單優化自己的初稿",
+      "多格式一鍵轉換實作、Skills 系統擴充教學、內容排程與分發策略",
   },
   {
     time: "收尾",
-    duration: "15 分鐘",
-    module: "Q&A + 作品分享",
-    content: "學員分享修改後的成品、個別建議、課後資源包說明",
+    duration: "10 分鐘",
+    module: "Q&A + 成果分享",
+    content: "",
   },
 ];
 
 const targetAudience = [
   {
-    icon: "📊",
-    text: "經營社群一段時間了，但互動率始終上不去",
+    icon: "📝",
+    text: "經營部落格或自媒體，想提升內容產出效率",
+  },
+  {
+    icon: "🔄",
+    text: "每次換平臺就要重寫內容，想要一次搞定",
   },
   {
     icon: "🤖",
-    text: "用過 AI 寫貼文，但產出的東西「很 AI」——正確但沒有溫度",
+    text: "用過 AI 寫文章，但產出缺乏個人風格",
   },
   {
     icon: "💼",
-    text: "品牌經營者、行銷人、自媒體創作者，想用 AI 提升產出效率",
-  },
-  {
-    icon: "✍️",
-    text: "有專業、有觀點，卻不知道怎麼寫成別人想轉發的內容",
+    text: "品牌經營者、顧問、講師，需要穩定產出內容",
   },
   {
     icon: "🔧",
-    text: "對 AI 工具有興趣，但不確定怎麼融入社群經營流程",
+    text: "想學會用 Claude Code 建立自己的工作流",
   },
 ];
 
 const faqs = [
   {
-    q: "需要會用 AI 工具嗎？",
-    a: "不需要有 AI 使用經驗。課堂會從零開始帶你操作，使用 Claude 或 ChatGPT 皆可。",
+    q: "需要會寫程式嗎？",
+    a: "完全不需要。Claude Code 使用中文自然語言操作，課堂會從零開始帶你設定。",
   },
   {
-    q: "我的社群經營經驗很少，適合嗎？",
-    a: "適合。這堂課從心理學原理出發，不論你是新手還是老手，都能學到設計互動內容的底層邏輯。",
+    q: "需要訂閱 Claude Pro 嗎？",
+    a: "建議訂閱 Claude Pro（月費 USD $20），課程中會充分使用。如果還沒訂閱，開課前完成即可。",
   },
   {
-    q: "課前需要準備什麼？",
-    a: "攜帶筆電或手機、準備一個 AI 工具帳號（ChatGPT 或 Claude 都可以，免費版即可開始）。",
+    q: "我已經會用 ChatGPT 了，還需要上嗎？",
+    a: "這堂課教的不是怎麼問 AI 問題，而是怎麼建立一套系統。即使你已經很熟悉 AI 工具，系統化的方法仍然能大幅提升你的效率。",
   },
   {
-    q: "上完課能帶走什麼？",
-    a: "一篇可直接發布的社群貼文、五種心理模型卡、AI 提問模板、內容工作流程圖、互動檢查清單，以及一份社群人格檔案範本。",
+    q: "課後有什麼支援？",
+    a: "加入專屬學員 LINE 群組，可持續交流與提問。",
   },
   {
-    q: "和市面上其他 AI 寫作課有什麼不同？",
-    a: "一般 AI 寫作課教你怎麼下 prompt 追求產出效率，這堂課教你怎麼結合心理學設計互動，讓 AI 產出的內容有人味、有回應。",
+    q: "退費政策？",
+    a: "開課前 7 天可全額退費；之後可轉讓名額或更換梯次。",
   },
 ];
 
-export default function AISocialContentPage() {
+const testimonials = [
+  {
+    name: "Bengo Li",
+    headline: "努力，但不費力",
+    image: "/images/workshops/testimonial-ai-content.webp",
+    imageAlt: "Bengo Li 課程心得",
+    highlights: [
+      "最讓我印象深刻的，不是那五個自動化流程，而是最一開始的那一步：建立你的風格檔案。",
+      "我把自己過去寫的文章丟進去，10 分鐘後它告訴我：你偏好對比結構、你喜歡具體數字、你習慣在最後問讀者一個問題。說實話，比我自己說得還準。",
+      "打字只是體力活，思考才是核心價值。",
+    ],
+  },
+  {
+    name: "謝克群",
+    headline: "如果一篇文章從 11 小時變 30 分鐘，真正改變的是什麼？",
+    highlights: [
+      "如果這是真的，那未來內容創作者的差距，可能不是努力程度，而是有沒有用對方法。",
+      "與其每次叫 AI 重寫文章，不如把你過去寫過的東西全部整理起來，讓 AI 去分析你的風格。",
+      "AI 負責流程，人負責觀點。",
+    ],
+  },
+];
+
+export default function AIContentPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "用 AI 寫出讓人忍不住留言的社群內容", description: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統", url: "https://www.solo.tw/courses/ai-social-content", instructor: "Susie Li", price: 3500, duration: "PT3H", startDate: "2026-05-03", location: "臺北市" })} />
-      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 社群內容", href: "/courses/ai-social-content" }])} />
+      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-05-23", location: "臺北市" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 內容產製系統", href: "/courses/ai-content" }])} />
     <div>
       {/* ====== Hero ====== */}
       <section className="bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/20">
@@ -236,18 +252,18 @@ export default function AISocialContentPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            💬 3 小時實戰工作坊 — 2026 年 5 月 3 日（日）
+            ✍️ 3 小時實戰工作坊 — 2026 年 5 月 23 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            你還在叫 AI
+            你還在用 AI
             <br />
-            <span className="gradient-text">「幫我寫一篇貼文」</span>嗎？
+            <span className="gradient-text">一問一答</span>嗎？
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-            難怪發出去沒人理。
+            難怪每天都在重複同樣的事。
             <br className="hidden sm:block" />
             <span className="font-semibold text-foreground">
-              問題不在 AI 不夠聰明，而在你沒告訴它：什麼樣的內容，人會想回應。
+              問題不在 AI 不夠強，而在你沒有建立一套系統，讓 AI 真正為你工作。
             </span>
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -271,19 +287,19 @@ export default function AISocialContentPage() {
               <p className="mt-1 text-sm text-muted-foreground">實戰工作坊</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary sm:text-3xl">20</p>
+              <p className="text-2xl font-bold text-primary sm:text-3xl">10</p>
               <p className="mt-1 text-sm text-muted-foreground">人小班制</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-primary sm:text-3xl">5</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                種心理模型
+                層架構
               </p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary sm:text-3xl">1</p>
+              <p className="text-2xl font-bold text-primary sm:text-3xl">6</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                篇成品帶走
+                種格式
               </p>
             </div>
           </div>
@@ -323,126 +339,54 @@ export default function AISocialContentPage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-lg font-bold leading-relaxed sm:text-xl">
               <span className="text-primary">
-                社群不缺內容，缺的是讓人想回應的內容。
+                內容產製的瓶頸，不是寫不出來，而是每次都在重頭開始。
               </span>
               <br />
               <span className="font-normal text-background/80">
-                AI 可以幫你量產，但只有懂互動的人，才能用 AI 量產「有人回的文章」。
+                建立一次系統，讓 AI 幫你把一份素材，自動變成六種格式。
               </span>
             </p>
           </div>
         </section>
 
-        {/* ====== Instructor ====== */}
+        {/* ====== 五層內容產製架構 ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            關於講師
-          </h2>
-
-          <div className="mt-8 grid gap-8 md:grid-cols-5">
-            {/* 照片 */}
-            <div className="md:col-span-2 flex flex-col items-center gap-4">
-              <div className="w-full overflow-hidden rounded-2xl">
-                <Image
-                  src="/images/workshops/instructor-susie-2.webp"
-                  alt="Susie Li"
-                  width={400}
-                  height={600}
-                  className="w-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* 簡介 */}
-            <div className="md:col-span-3">
-              <h3 className="text-2xl font-bold">Susie Li</h3>
-              <p className="mt-1 text-base text-muted-foreground">
-                社群內容策略師・心理學碩士・資深媒體人
-              </p>
-
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
-                <p>
-                  從臺灣媒體圈出發，移居海外後從零開始經營個人粉專，不靠廣告預算、不靠演算法紅利，純粹用內容的力量建立影響力。
-                </p>
-                <p>
-                  擁有心理學碩士背景與多年主流媒體經驗，深諳內容產製邏輯，更理解人為什麼會想回應、想分享。
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-2.5 text-sm">
-                <div className="flex items-start gap-2">
-                  <span className="text-primary shrink-0">✓</span>
-                  <span className="text-muted-foreground">
-                    心理學碩士，理解互動背後的心理機制
-                  </span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-primary shrink-0">✓</span>
-                  <span className="text-muted-foreground">
-                    資深媒體人，深諳內容產製邏輯
-                  </span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-primary shrink-0">✓</span>
-                  <span className="text-muted-foreground">
-                    數位行銷實戰經驗，懂行銷策略與數據分析
-                  </span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-primary shrink-0">✓</span>
-                  <span className="text-muted-foreground">
-                    社群實證：從零開始，不靠廣告建立真實互動
-                  </span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-primary shrink-0">✓</span>
-                  <span className="text-muted-foreground">
-                    日常結合 AI 進行內容產製，正職 + 自媒體雙軌並行
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ====== 5 Psychology Models ====== */}
-        <section className="border-t py-14 sm:py-16">
-          <h2 className="text-center text-xl font-bold sm:text-2xl">
-            五種讓人忍不住互動的心理模型
+            五層內容產製架構
           </h2>
           <p className="mt-3 text-center text-base text-muted-foreground">
-            這堂課的核心框架——每種模型都配有對應的 AI 提問模板
+            這堂課的核心框架——從輸入到分發的完整系統
           </p>
 
           <div className="mt-8 space-y-3">
-            {psychModels.map((model, i) => (
+            {frameworkLayers.map((layer, i) => (
               <Card key={i} className="border-muted">
                 <CardContent className="p-4 sm:p-5">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <div className="flex items-center gap-3 sm:w-1/4">
-                      <span className="text-2xl">{model.icon}</span>
+                      <span className="text-2xl">{layer.icon}</span>
                       <span className="text-base font-bold text-foreground">
-                        {model.name}
+                        {layer.name}
                       </span>
                     </div>
                     <div className="flex-1 grid gap-1 sm:grid-cols-3 text-sm text-muted-foreground">
                       <div>
                         <span className="text-xs font-medium text-foreground/60">
-                          心理機制
+                          做什麼
                         </span>
-                        <p>{model.mechanism}</p>
+                        <p>{layer.mechanism}</p>
                       </div>
                       <div>
                         <span className="text-xs font-medium text-foreground/60">
                           適用場景
                         </span>
-                        <p>{model.scenario}</p>
+                        <p>{layer.scenario}</p>
                       </div>
                       <div>
                         <span className="text-xs font-medium text-foreground/60">
-                          互動類型
+                          產出
                         </span>
-                        <p>{model.interaction}</p>
+                        <p>{layer.output}</p>
                       </div>
                     </div>
                   </div>
@@ -546,10 +490,155 @@ export default function AISocialContentPage() {
           </div>
         </section>
 
+        {/* ====== Instructor ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            關於講師
+          </h2>
+
+          <div className="mt-8 grid gap-8 md:grid-cols-5">
+            {/* 照片 */}
+            <div className="md:col-span-2 flex flex-col items-center gap-4">
+              <div className="w-full overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/workshops/instructor-vista.webp"
+                  alt="Vista"
+                  width={400}
+                  height={600}
+                  className="w-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* 簡介 */}
+            <div className="md:col-span-3">
+              <h3 className="text-2xl font-bold">Vista</h3>
+              <p className="mt-1 text-base text-muted-foreground">
+                AI 應用培訓師・內容策略顧問
+              </p>
+
+              <div className="mt-6 space-y-2.5 text-sm">
+                <div className="flex items-start gap-2">
+                  <span className="text-primary shrink-0">✓</span>
+                  <span className="text-muted-foreground">
+                    20+ 年數位內容產業經歷
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-primary shrink-0">✓</span>
+                  <span className="text-muted-foreground">
+                    前風傳媒產品總監・前數位時代主編
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-primary shrink-0">✓</span>
+                  <span className="text-muted-foreground">
+                    著作《ChatGPT 提問課》《慢讀秒懂》等 20 餘本
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-primary shrink-0">✓</span>
+                  <span className="text-muted-foreground">
+                    200+ 場 AI 主題演講
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-primary shrink-0">✓</span>
+                  <span className="text-muted-foreground">
+                    100+ 場企業內訓
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-primary shrink-0">✓</span>
+                  <span className="text-muted-foreground">
+                    18,000+ 電子報訂閱者
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ====== Testimonials ====== */}
+        <section className="border-t py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            學員口碑
+          </h2>
+
+          <div className="mt-8 space-y-6">
+            {/* Testimonial 1 - Bengo Li */}
+            <Card className="border-muted">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex flex-col gap-6 md:flex-row">
+                  <div className="md:w-2/5 shrink-0">
+                    <Image
+                      src="/images/workshops/testimonial-ai-content.webp"
+                      alt="Bengo Li 課程心得"
+                      width={600}
+                      height={400}
+                      className="w-full rounded-lg object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-3xl text-primary/30">&ldquo;</span>
+                      <div>
+                        <p className="text-base font-bold text-foreground">
+                          {testimonials[0].name}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-lg font-semibold text-foreground mb-4">
+                      {testimonials[0].headline}
+                    </p>
+                    <div className="space-y-3">
+                      {testimonials[0].highlights.map((highlight, i) => (
+                        <div key={i} className="flex items-start gap-2">
+                          <span className="text-primary shrink-0 mt-1">&#8226;</span>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {highlight}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 2 - 謝克群 */}
+            <Card className="border-muted">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-3xl text-primary/30">&ldquo;</span>
+                  <div>
+                    <p className="text-base font-bold text-foreground">
+                      {testimonials[1].name}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-lg font-semibold text-foreground mb-4">
+                  {testimonials[1].headline}
+                </p>
+                <div className="space-y-3">
+                  {testimonials[1].highlights.map((highlight, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="text-primary shrink-0 mt-1">&#8226;</span>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {highlight}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* ====== Difference ====== */}
         <section className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            和一般 AI 寫作課有什麼不同？
+            和傳統 AI 使用方式有什麼不同？
           </h2>
           <div className="mt-8 overflow-x-auto">
             <table className="w-full text-sm">
@@ -559,50 +648,42 @@ export default function AISocialContentPage() {
                     比較項目
                   </th>
                   <th className="pb-3 text-left font-medium text-muted-foreground">
-                    市面常見 AI 寫作課
+                    傳統 AI 使用
                   </th>
                   <th className="pb-3 text-left font-medium text-primary">
-                    這堂課的不同
+                    這堂課教的系統
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 <tr>
-                  <td className="py-3 font-medium text-foreground">教學重點</td>
-                  <td className="py-3 text-muted-foreground">
-                    教你怎麼下 prompt
-                  </td>
+                  <td className="py-3 font-medium text-foreground">工作方式</td>
+                  <td className="py-3 text-muted-foreground">一問一答</td>
                   <td className="py-3 text-foreground">
-                    教你怎麼下「會引發互動」的 prompt
+                    五層架構系統化產出
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-3 font-medium text-foreground">追求目標</td>
-                  <td className="py-3 text-muted-foreground">追求產出效率</td>
-                  <td className="py-3 text-foreground">追求互動品質</td>
+                  <td className="py-3 font-medium text-foreground">產出效率</td>
+                  <td className="py-3 text-muted-foreground">每篇從頭來過</td>
+                  <td className="py-3 text-foreground">一份素材六種格式</td>
                 </tr>
                 <tr>
-                  <td className="py-3 font-medium text-foreground">內容產出</td>
-                  <td className="py-3 text-muted-foreground">
-                    正確但無聊的內容
-                  </td>
-                  <td className="py-3 text-foreground">
-                    讓人想按讚、想留言、想分享的內容
-                  </td>
+                  <td className="py-3 font-medium text-foreground">內容風格</td>
+                  <td className="py-3 text-muted-foreground">AI 味重</td>
+                  <td className="py-3 text-foreground">注入個人風格</td>
                 </tr>
                 <tr>
-                  <td className="py-3 font-medium text-foreground">講師特色</td>
-                  <td className="py-3 text-muted-foreground">懂 AI 工具</td>
-                  <td className="py-3 text-foreground">
-                    社群實戰高手 + 心理學專業
-                  </td>
+                  <td className="py-3 font-medium text-foreground">研究流程</td>
+                  <td className="py-3 text-muted-foreground">手動查找</td>
+                  <td className="py-3 text-foreground">自動化研究</td>
                 </tr>
                 <tr>
-                  <td className="py-3 font-medium text-foreground">課堂產出</td>
-                  <td className="py-3 text-muted-foreground">練習文</td>
-                  <td className="py-3 text-foreground">
-                    一篇可直接發布的高互動社群貼文
+                  <td className="py-3 font-medium text-foreground">
+                    多平臺分發
                   </td>
+                  <td className="py-3 text-muted-foreground">逐一改寫</td>
+                  <td className="py-3 text-foreground">一鍵轉換</td>
                 </tr>
               </tbody>
             </table>
@@ -621,7 +702,7 @@ export default function AISocialContentPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026 年 5 月 3 日（日）</span>
+                    <span className="font-medium">2026 年 5 月 23 日（六）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
@@ -629,17 +710,15 @@ export default function AISocialContentPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>📍</span>
-                    <span>
-                      臺北市區・需有 Wi-Fi（報名後告知地址）
-                    </span>
+                    <span>臺北市區（報名後告知地址）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>👥</span>
-                    <span>限 20 名</span>
+                    <span>限 10 名</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>💻</span>
-                    <span>請攜帶筆電或手機</span>
+                    <span>請攜帶筆電</span>
                   </div>
                 </div>
 
@@ -647,12 +726,15 @@ export default function AISocialContentPage() {
                   <div>
                     <p className="text-sm text-muted-foreground">定價</p>
                     <p className="text-lg text-muted-foreground line-through">
-                      NT$4,500
+                      NT$7,000
                     </p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">早鳥優惠</p>
-                    <p className="text-2xl font-bold text-primary">NT$3,500</p>
+                    <p className="text-2xl font-bold text-primary">NT$5,000</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      省下 NT$2,000
+                    </p>
                     <Badge variant="outline" className="mt-1 text-xs">
                       開課前 14 天截止
                     </Badge>
@@ -668,11 +750,11 @@ export default function AISocialContentPage() {
                 <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    AI 工具帳號（ChatGPT 或 Claude，免費版即可）
+                    Claude Pro 帳號（月費 USD $20）
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    想好一個你平常經營的社群主題
+                    準備 2-3 篇你過去寫的文章
                   </li>
                 </ul>
               </div>
@@ -703,10 +785,10 @@ export default function AISocialContentPage() {
             <Card className="border-muted bg-muted/30">
               <CardContent className="p-6 sm:p-8">
                 <h3 className="text-lg font-bold text-muted-foreground">
-                  繼續自己摸索
+                  繼續一問一答
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  繼續叫 AI「幫我寫一篇貼文」，繼續得到正確但無聊的內容。按讚個位數，留言掛零。偶爾有一篇表現不錯，但不知道為什麼，也無法複製。
+                  繼續每次從零開始，每換一個平臺就重寫，花大量時間在重複的事情上。偶爾產出不錯的內容，但無法複製，效率始終上不去。
                 </p>
               </CardContent>
             </Card>
@@ -714,10 +796,10 @@ export default function AISocialContentPage() {
             <Card className="border-primary/30 bg-primary/5">
               <CardContent className="p-6 sm:p-8">
                 <h3 className="text-lg font-bold text-primary">
-                  花 3 小時，學會和 AI 一起寫出有互動的內容
+                  花 3 小時，建立你的內容產製系統
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  理解什麼樣的內容讓人忍不住回應，用心理學框架設計互動，讓 AI 成為你的內容協作夥伴。下課帶走一套系統，明天就能用。
+                  讓 AI 學會你的風格，一份素材自動產出六種格式。從此不再重頭開始，把時間留給真正重要的事：思考和創作。
                 </p>
                 <Button size="sm" className="mt-5 h-9 px-6" asChild>
                   <a href="#register">我要報名 →</a>

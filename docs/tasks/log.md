@@ -3,6 +3,15 @@
 | 時間 | 角色 | 動作 | 檔案 | 結果 |
 |------|------|------|------|------|
 | 2026-03-30 | PM | 需求分析：課程列表頁重新設計 | — | 4 個 User Story (P0x2, P1x1, P2x1) |
+| 2026-04-04 | PM | 需求分析：課程頁面更新與新增 | — | 5 個 User Story |
+| 2026-04-04 | Tech Lead | 架構設計：sortDate 排序 + 2 新頁面 | — | 6 檔案變更清單 |
+| 2026-04-04 | Frontend | 更新 workshops.ts：加 sortDate、更新 3 課程資料 | src/lib/workshops.ts | ✅ 完成 |
+| 2026-04-04 | Frontend | 更新 CourseFilters.tsx：加入日期降序排列 | src/app/courses/CourseFilters.tsx | ✅ 完成 |
+| 2026-04-04 | Frontend | 更新 ai-social-content：日期→5/3、報名 URL | src/app/courses/ai-social-content/page.tsx | ✅ 完成 |
+| 2026-04-04 | Frontend | 新建 ai-content 課程頁面（含學員口碑） | src/app/courses/ai-content/page.tsx | ✅ 完成 |
+| 2026-04-04 | Frontend | 新建 vibe-coding 課程頁面（含作品展示） | src/app/courses/vibe-coding/page.tsx | ✅ 完成 |
+| 2026-04-04 | Frontend | 圖片轉換 jpg→webp | public/images/workshops/testimonial-ai-content.webp | ✅ 完成 |
+| 2026-04-04 | QA | Build 驗證 | — | ✅ Build 成功 |
 | 2026-03-30 | Tech Lead | 架構設計：頁面拆分 + 圖片生成策略 | — | Server + Client 組件架構 |
 | 2026-03-30 | Frontend | 生成 6 張 AI 封面圖 | public/images/workshops/cover-*.webp | 6 張 WebP (22-72 KB) |
 | 2026-03-30 | Frontend | 建立 CourseFilters 組件 | src/app/courses/CourseFilters.tsx | 分類篩選 + 卡片 + Featured 組件 |

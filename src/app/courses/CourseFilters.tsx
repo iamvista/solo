@@ -332,7 +332,8 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
   const featuredWorkshop = workshops.find((w) => w.featured);
   const filteredWorkshops = workshops
     .filter((w) => !w.featured)
-    .filter((w) => activeFilter === "all" || w.category === activeFilter);
+    .filter((w) => activeFilter === "all" || w.category === activeFilter)
+    .sort((a, b) => b.sortDate.localeCompare(a.sortDate));
 
   return (
     <>
