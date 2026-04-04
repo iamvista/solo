@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "6 小時實作工作坊 — 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流。帶著能跑的系統回家。",
     images: [
       {
-        url: "/images/workshops/instructor-vista.webp",
+        url: "/courses/ai-command-center/og",
         width: 1200,
         height: 630,
       },

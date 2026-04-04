@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     title: "課程與工作坊 | solo.tw",
     description:
       "精選實戰課程與工作坊，涵蓋 AI 應用、樂齡理財、創新思維。小班制、重產出、即學即用。",
+    images: [
+      {
+        url: "/courses/og",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   alternates: {
     canonical: "https://www.solo.tw/courses",

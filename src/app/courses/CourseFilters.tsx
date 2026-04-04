@@ -47,8 +47,8 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
-      {/* Cover Image */}
-      <div className="relative aspect-[16/9] overflow-hidden bg-stone-100">
+      {/* Cover Image — clickable */}
+      <LinkWrapper {...linkProps} className="relative block aspect-[16/9] overflow-hidden bg-stone-100">
         {coverSrc ? (
           <Image
             src={coverSrc}
@@ -74,7 +74,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
             {categories[workshop.category].emoji} {categories[workshop.category].label}
           </span>
         </div>
-      </div>
+      </LinkWrapper>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-5 sm:p-6">

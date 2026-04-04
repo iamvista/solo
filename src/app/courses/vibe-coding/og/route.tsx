@@ -14,11 +14,11 @@ export async function GET() {
           justifyContent: "space-between",
           backgroundColor: "#fafafa",
           backgroundImage: `
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent),
-            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(251, 191, 36, 0.1), transparent)
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,130,246,0.12), transparent),
+            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(230,57,70,0.08), transparent)
           `,
           padding: "60px",
-          fontFamily: "sans-serif",
+          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
           position: "relative",
           overflow: "hidden",
         }}
@@ -31,7 +31,7 @@ export async function GET() {
             left: 0,
             right: 0,
             height: 8,
-            background: "linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b)",
+            background: "linear-gradient(90deg, #3B82F6, #E63946, #F59E0B)",
           }}
         />
 
@@ -40,7 +40,7 @@ export async function GET() {
           <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
             <span
               style={{
-                background: "#8b5cf6",
+                background: "#3B82F6",
                 color: "white",
                 padding: "8px 20px",
                 borderRadius: "20px",
@@ -52,7 +52,7 @@ export async function GET() {
             </span>
             <span
               style={{
-                background: "#f59e0b",
+                background: "#F59E0B",
                 color: "white",
                 padding: "8px 20px",
                 borderRadius: "20px",
@@ -60,7 +60,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              2026/5/3（日）
+              第 6 班｜2026/5/9（六）
             </span>
           </div>
 
@@ -73,18 +73,18 @@ export async function GET() {
               margin: 0,
             }}
           >
-            用 AI 寫出
+            Vibe Coding 實戰工作坊
           </h1>
           <h1
             style={{
-              fontSize: "56px",
+              fontSize: "52px",
               fontWeight: 900,
-              color: "#8b5cf6",
+              color: "#3B82F6",
               lineHeight: 1.2,
               margin: 0,
             }}
           >
-            讓人忍不住留言的社群內容
+            零基礎，打造你的銷售頁
           </h1>
 
           <p
@@ -95,7 +95,7 @@ export async function GET() {
               lineHeight: 1.5,
             }}
           >
-            心理學 × AI 提問術 — 帶走五種互動模型 + 一篇可發布的貼文
+            不會寫程式也能用 AI 蓋網站 — 講師、顧問、品牌主必學技能
           </p>
         </div>
 
@@ -120,16 +120,16 @@ export async function GET() {
                 fontSize: "28px",
               }}
             >
-              💬
+              💻
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span
                 style={{ fontSize: "24px", fontWeight: 700, color: "#1a1a2e" }}
               >
-                Susie Li
+                Vista
               </span>
               <span style={{ fontSize: "18px", color: "#64748b" }}>
-                社群內容策略師・心理學碩士
+                AI 應用培訓師・內容策略顧問
               </span>
             </div>
           </div>
@@ -140,7 +140,7 @@ export async function GET() {
                 width: "40px",
                 height: "40px",
                 borderRadius: "10px",
-                background: "#ef4444",
+                background: "#E63946",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

@@ -14,11 +14,11 @@ export async function GET() {
           justifyContent: "space-between",
           backgroundColor: "#fafafa",
           backgroundImage: `
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent),
-            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(251, 191, 36, 0.1), transparent)
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(230,57,70,0.12), transparent),
+            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(245,158,11,0.08), transparent)
           `,
           padding: "60px",
-          fontFamily: "sans-serif",
+          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
           position: "relative",
           overflow: "hidden",
         }}
@@ -31,7 +31,7 @@ export async function GET() {
             left: 0,
             right: 0,
             height: 8,
-            background: "linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b)",
+            background: "linear-gradient(90deg, #E63946, #FF5A67, #F59E0B)",
           }}
         />
 
@@ -40,7 +40,7 @@ export async function GET() {
           <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
             <span
               style={{
-                background: "#8b5cf6",
+                background: "#E63946",
                 color: "white",
                 padding: "8px 20px",
                 borderRadius: "20px",
@@ -52,7 +52,7 @@ export async function GET() {
             </span>
             <span
               style={{
-                background: "#f59e0b",
+                background: "#F59E0B",
                 color: "white",
                 padding: "8px 20px",
                 borderRadius: "20px",
@@ -60,7 +60,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              2026/5/3（日）
+              2026/5/23（六）
             </span>
           </div>
 
@@ -73,18 +73,18 @@ export async function GET() {
               margin: 0,
             }}
           >
-            用 AI 寫出
+            AI 內容產製系統
           </h1>
           <h1
             style={{
               fontSize: "56px",
               fontWeight: 900,
-              color: "#8b5cf6",
+              color: "#E63946",
               lineHeight: 1.2,
               margin: 0,
             }}
           >
-            讓人忍不住留言的社群內容
+            一份素材，六種格式
           </h1>
 
           <p
@@ -95,7 +95,7 @@ export async function GET() {
               lineHeight: 1.5,
             }}
           >
-            心理學 × AI 提問術 — 帶走五種互動模型 + 一篇可發布的貼文
+            用 Claude Code 打造五層內容產製架構 — 從輸入到多平臺分發一次搞定
           </p>
         </div>
 
@@ -120,16 +120,16 @@ export async function GET() {
                 fontSize: "28px",
               }}
             >
-              💬
+              ✍️
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span
                 style={{ fontSize: "24px", fontWeight: 700, color: "#1a1a2e" }}
               >
-                Susie Li
+                Vista
               </span>
               <span style={{ fontSize: "18px", color: "#64748b" }}>
-                社群內容策略師・心理學碩士
+                AI 應用培訓師・內容策略顧問
               </span>
             </div>
           </div>
@@ -140,7 +140,7 @@ export async function GET() {
                 width: "40px",
                 height: "40px",
                 borderRadius: "10px",
-                background: "#ef4444",
+                background: "#E63946",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
