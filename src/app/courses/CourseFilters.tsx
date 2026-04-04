@@ -339,8 +339,8 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
     <>
       {/* Featured Course */}
       {featuredWorkshop && (
-        <section className="mt-14 sm:mt-16">
-          <div className="mb-6 flex items-center gap-2">
+        <section className="mt-10 sm:mt-12">
+          <div className="mb-4 flex items-center gap-2">
             <div className="h-1 w-8 rounded-full bg-primary" />
             <span className="text-sm font-semibold uppercase tracking-wider text-primary">
               Featured Course
@@ -351,7 +351,7 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
       )}
 
       {/* Filter Tabs + Course Grid */}
-      <section className="mt-16 sm:mt-20">
+      <section className="mt-12 sm:mt-14">
         {/* Filter Tabs */}
         <div role="tablist" aria-label="課程分類篩選" className="flex items-center gap-2 overflow-x-auto pb-1">
           {filterTabs.filter((tab) => {

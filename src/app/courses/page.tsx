@@ -32,7 +32,7 @@ export default function CoursesPage() {
   return (
     <div className="relative">
       {/* ─── Hero Section ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-16 sm:py-20 lg:py-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-12 sm:py-14 lg:py-16">
         {/* Background */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(168,140,110,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(168,140,110,0.04)_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -42,7 +42,7 @@ export default function CoursesPage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -58,12 +58,12 @@ export default function CoursesPage() {
               <span className="text-primary">即學即用</span>
             </h1>
 
-            <p className="mx-auto mt-5 max-w-2xl text-base text-stone-500 sm:text-lg md:text-xl">
+            <p className="mx-auto mt-3 max-w-2xl text-base text-stone-500 sm:text-lg md:text-xl">
               不只教理論，現場動手做。帶著你的問題來，帶著成果走。
             </p>
 
             {/* Stats */}
-            <div className="mx-auto mt-10 grid max-w-md grid-cols-3 gap-6 sm:gap-8">
+            <div className="mx-auto mt-6 grid max-w-md grid-cols-3 gap-6 sm:gap-8">
               <div className="text-center">
                 <p className="text-2xl font-bold text-stone-900 sm:text-3xl">
                   {workshops.length}
@@ -99,7 +99,7 @@ export default function CoursesPage() {
         <CourseFilters workshops={workshops} />
 
         {/* ─── Why Choose Us ─── */}
-        <section className="mt-20 sm:mt-24">
+        <section className="mt-14 sm:mt-16">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-primary">
               為什麼選這裡
@@ -149,7 +149,7 @@ export default function CoursesPage() {
         </section>
 
         {/* ─── Enterprise Training ─── */}
-        <section className="my-20 sm:my-24">
+        <section className="my-14 sm:my-16">
           <div className="overflow-hidden rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-900 to-stone-800">
             <div className="grid items-center gap-8 p-8 sm:p-10 md:grid-cols-2 lg:p-12">
               <div>
@@ -205,7 +205,7 @@ export default function CoursesPage() {
         </section>
 
         {/* ─── Newsletter CTA ─── */}
-        <div className="mb-20 text-center sm:mb-24">
+        <div className="mb-14 text-center sm:mb-16">
           <Mail className="mx-auto h-8 w-8 text-stone-300" />
           <p className="mt-3 text-base text-stone-500 sm:text-lg">
             想在新工作坊上線時第一時間收到通知？
