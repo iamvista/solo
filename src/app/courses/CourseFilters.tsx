@@ -329,37 +329,22 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
 export default function CourseFilters({ workshops }: { workshops: Workshop[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
 
-  const featuredWorkshop = workshops.find((w) => w.featured);
   const filteredWorkshops = workshops
-    .filter((w) => !w.featured)
     .filter((w) => activeFilter === "all" || w.category === activeFilter)
     .sort((a, b) => b.sortDate.localeCompare(a.sortDate));
 
   return (
     <>
-      {/* Featured Course */}
-      {featuredWorkshop && (
-        <section className="mt-14 sm:mt-16">
-          <div className="mb-6 flex items-center gap-2">
-            <div className="h-1 w-8 rounded-full bg-primary" />
-            <span className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Featured Course
-            </span>
-          </div>
-          <FeaturedCard workshop={featuredWorkshop} />
-        </section>
-      )}
-
       {/* Filter Tabs + Course Grid */}
-      <section className="mt-16 sm:mt-20">
+      <section className="mt-14 sm:mt-16">
         {/* Filter Tabs */}
         <div role="tablist" aria-label="課程分類篩選" className="flex items-center gap-2 overflow-x-auto pb-1">
           {filterTabs.map((tab) => {
             const isActive = activeFilter === tab.key;
             const count =
               tab.key === "all"
-                ? workshops.filter((w) => !w.featured).length
-                : workshops.filter((w) => !w.featured && w.category === tab.key).length;
+                ? workshops.length
+                : workshops.filter((w) => w.category === tab.key).length;
 
             return (
               <button

@@ -112,7 +112,6 @@ export const workshops: Workshop[] = [
       "限 20 名，現場完成一套可立即使用的系統",
     ],
     category: "ai",
-    featured: true,
   },
   {
     id: "vibe-coding",
