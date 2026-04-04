@@ -234,12 +234,15 @@ export default function AICommandCenterPage() {
             🚀 一日實作工作坊 — 2026/5/16（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            你每天花多少時間
-            <br />
-            才真正
-            <span className="gradient-text">開始工作</span>？
+            用 AI 建你的個人指揮中心
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            6 小時帶走一套能跑的目標管理 × 知識管理 × AI 自動化系統
+          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
+            你每天花多少時間，才真正<span className="gradient-text">開始工作</span>？
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
             整理待辦、翻找資料、回覆訊息⋯⋯一小時就過去了。
             <br className="hidden sm:block" />
             <span className="font-semibold text-foreground">

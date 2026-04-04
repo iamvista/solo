@@ -239,11 +239,15 @@ export default function AISocialContentPage() {
             💬 3 小時實戰工作坊 — 2026 年 5 月 3 日（日）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            你還在叫 AI
-            <br />
-            <span className="gradient-text">「幫我寫一篇貼文」</span>嗎？
+            用 AI 寫出讓人忍不住留言的社群內容
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統
+          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
+            你還在叫 AI <span className="gradient-text">「幫我寫一篇貼文」</span>嗎？
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
             難怪發出去沒人理。
             <br className="hidden sm:block" />
             <span className="font-semibold text-foreground">

@@ -255,11 +255,15 @@ export default function AIContentPage() {
             ✍️ 3 小時實戰工作坊 — 2026 年 5 月 23 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            你還在用 AI
-            <br />
-            <span className="gradient-text">一問一答</span>嗎？
+            AI 內容產製系統工作坊
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            一份素材，自動產出六種格式 — 從輸入到多平臺分發一次搞定
+          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
+            你還在用 AI <span className="gradient-text">一問一答</span>嗎？
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
             難怪每天都在重複同樣的事。
             <br className="hidden sm:block" />
             <span className="font-semibold text-foreground">

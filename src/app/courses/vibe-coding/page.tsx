@@ -320,11 +320,15 @@ export default function VibeCodingPage() {
             {"\u{1F4BB}"} 3 小時實戰工作坊 — 第 6 班｜2026 年 5 月 9 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            不會寫程式？
-            <br />
-            <span className="gradient-text">讓 AI 幫你蓋網站</span>
+            Vibe Coding 實戰工作坊
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            零基礎，3 小時打造你的第一個銷售頁
+          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
+            不會寫程式？<span className="gradient-text">讓 AI 幫你蓋網站</span>
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
             不需要工程師、不需要學寫程式——用 AI 把你的想法變成網站。
             <br className="hidden sm:block" />
             <span className="font-semibold text-foreground">
