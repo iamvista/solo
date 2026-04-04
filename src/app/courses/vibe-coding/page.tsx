@@ -9,11 +9,11 @@ import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Vibe Coding 實戰工作坊｜3 小時打造你的第一個銷售頁 | solo.tw",
   description:
-    "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 16 人小班制，現場完成一個可上線的網站。",
+    "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 12 人小班制，現場完成一個可上線的網站。",
   openGraph: {
     title: "Vibe Coding 實戰工作坊｜3 小時打造你的第一個銷售頁",
     description:
-      "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 16 人小班制。",
+      "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 12 人小班制。",
     images: [
       {
         url: "/courses/vibe-coding/og",
@@ -352,7 +352,7 @@ export default function VibeCodingPage() {
               <p className="mt-1 text-sm text-muted-foreground">實戰工作坊</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary sm:text-3xl">16</p>
+              <p className="text-2xl font-bold text-primary sm:text-3xl">12</p>
               <p className="mt-1 text-sm text-muted-foreground">人小班制</p>
             </div>
             <div className="text-center">
@@ -789,7 +789,7 @@ export default function VibeCodingPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F465}"}</span>
-                    <span>限 16 名</span>
+                    <span>限 12 名</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F4BB}"}</span>
