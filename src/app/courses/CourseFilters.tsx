@@ -354,7 +354,10 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
       <section className="mt-16 sm:mt-20">
         {/* Filter Tabs */}
         <div role="tablist" aria-label="課程分類篩選" className="flex items-center gap-2 overflow-x-auto pb-1">
-          {filterTabs.map((tab) => {
+          {filterTabs.filter((tab) => {
+            if (tab.key === "all") return true;
+            return workshops.some((w) => !w.featured && w.category === tab.key);
+          }).map((tab) => {
             const isActive = activeFilter === tab.key;
             const count =
               tab.key === "all"
