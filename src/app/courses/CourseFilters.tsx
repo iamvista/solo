@@ -199,8 +199,8 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-stone-900 to-stone-800/90 text-white shadow-xl transition-all duration-300 hover:shadow-2xl">
       <div className="grid gap-0 lg:grid-cols-2">
-        {/* Left: Cover Image */}
-        <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:min-h-[400px]">
+        {/* Left: Cover Image — clickable */}
+        <Link href={workshop.url} className="relative block aspect-[16/9] overflow-hidden lg:aspect-auto lg:min-h-[400px]">
           {coverSrc ? (
             <Image
               src={coverSrc}
@@ -216,7 +216,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-stone-800/60 lg:block hidden" />
-        </div>
+        </Link>
 
         {/* Right: Content */}
         <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
