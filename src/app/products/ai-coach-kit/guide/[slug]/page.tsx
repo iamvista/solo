@@ -549,10 +549,10 @@ export default async function GuideDetailPage({
           }
           if (block.startsWith("- ")) {
             return (
-              <ul key={i} className="space-y-2 my-4">
-                {block.split("\n").map((line, j) => (
-                  <li key={j} className="flex items-start gap-2">
-                    <span className="text-primary mt-0.5">•</span>
+              <ul key={i} className="space-y-4 my-6">
+                {block.split("\n").filter(line => line.trim()).map((line, j) => (
+                  <li key={j} className="flex items-start gap-3 text-base leading-relaxed">
+                    <span className="text-primary mt-0.5 shrink-0">•</span>
                     <span>{line.replace(/^- /, "")}</span>
                   </li>
                 ))}
