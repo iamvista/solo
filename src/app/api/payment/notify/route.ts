@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     // ✅ 先查詢訂單，驗證金額是否一致
     const { data: order, error: queryError } = await supabase
       .from("orders")
-      .select("amount, payment_status")
+      .select("amount, payment_status, product_id, product_type, buyer_email")
       .eq("order_no", orderNo)
       .single();
 
@@ -87,6 +87,27 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error("Failed to update order:", error);
       return NextResponse.json({ error: "DB update failed" }, { status: 500 });
+    }
+
+    // Generate download token for digital products
+    if (status === "SUCCESS" && (order.product_id === "ai-coach-kit" || order.product_type === "product")) {
+      const { randomUUID } = await import("crypto");
+      const downloadToken = randomUUID();
+      const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString();
+
+      const { error: tokenError } = await supabase.from("download_tokens").insert({
+        order_id: orderNo,
+        product_id: "ai-coach-kit",
+        token: downloadToken,
+        email: order.buyer_email || null,
+        expires_at: expiresAt,
+      });
+
+      if (tokenError) {
+        console.error(`Failed to create download token for order ${orderNo}:`, tokenError);
+      } else {
+        console.log(`Download token created for order ${orderNo}`);
+      }
     }
 
     console.log(`Payment ${status} for order ${orderNo} (trade: ${tradeNo}, amount: ${paidAmount})`);

@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { FileDown, ArrowRight } from "lucide-react";
+import { Bot, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "模板 & 工具包 | solo.tw",
-  description: "不用從零開始。下載 Notion 模板、Prompt 工具包，直接套用到你的一人事業。",
+  description: "不用從零開始，下載即用的 AI 工具包和模板。",
   alternates: {
     canonical: "https://www.solo.tw/products",
   },
@@ -13,42 +12,37 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-          數位產品
-        </p>
-        <h1 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl lg:text-5xl">
-          模板 & 工具包
-        </h1>
-        <p className="mt-4 text-lg text-stone-500">
-          不用從零開始，下載即用，直接套用到你的一人事業。
-        </p>
-      </div>
-
-      {/* 即將推出提示 */}
-      <div className="mx-auto mt-12 max-w-lg rounded-2xl border border-amber-200 bg-amber-50 p-8 text-center">
-        <FileDown className="mx-auto h-12 w-12 text-amber-500" />
-        <h2 className="mt-4 text-xl font-bold text-stone-900">
-          即將推出
-        </h2>
-        <p className="mt-2 text-sm text-stone-500">
-          Notion 模板、Prompt 工具包、AI 工作流範本……正在準備中。
-          <br />
-          訂閱電子報，第一時間收到上架通知。
-        </p>
-        <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-          <Button size="lg" asChild>
-            <a href="https://iamvista.substack.com/" target="_blank" rel="noopener noreferrer">
-              訂閱電子報
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/courses">先看看工作坊</Link>
-          </Button>
+    <main className="py-16 sm:py-20">
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-stone-900 sm:text-4xl">
+            模板 & 工具包
+          </h1>
+          <p className="mt-3 text-lg text-stone-500">
+            不用從零開始，下載即用
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Link
+            href="/products/ai-coach-kit"
+            className="group rounded-xl border border-stone-200 bg-white p-6 transition hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+              <Bot className="h-6 w-6 text-primary" />
+            </div>
+            <h2 className="mt-4 text-xl font-semibold text-stone-900">
+              AI 教練工坊
+            </h2>
+            <p className="mt-2 text-sm text-stone-600">
+              教你用 AI 建一個每天陪你執行的實踐教練。框架 + 模板 + 150 篇知識庫。
+            </p>
+            <div className="mt-4 flex items-center justify-between">
+              <span className="text-lg font-bold text-primary">NT$1,499</span>
+              <ArrowRight className="h-4 w-4 text-stone-400 transition group-hover:translate-x-1 group-hover:text-primary" />
+            </div>
+          </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

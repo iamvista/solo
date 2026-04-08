@@ -42,3 +42,7 @@ next-env.d.ts
 .env*.local
 .spectra/
 openspec/.vector-search.db*
+.gstack/
+
+# private files (digital products)
+/private/
