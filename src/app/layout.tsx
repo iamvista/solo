@@ -75,6 +75,10 @@ const notoSansTC = Noto_Sans_TC({
 });
 
 export const metadata: Metadata = {
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "solo.tw | 用 AI 放大你的一人事業",
   description:
     "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。AI 工作坊、1-on-1 諮詢、線上課程、SOLO 方法論。",

@@ -16,12 +16,28 @@ export const metadata: Metadata = {
     "自媒體經營",
   ],
   openGraph: {
-    title: "部落格 | solo.tw",
+    title: "部落格 | solo.tw - 自由工作者的成長指南",
     description:
-      "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容。幫助自由工作者把專業變成事業。",
+      "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容。幫助自由工作者把專業變成事業，打造屬於自己的一人公司。",
     type: "website",
-    url: "https://solo.tw/blog",
+    url: "https://www.solo.tw/blog",
     siteName: "solo.tw",
+    locale: "zh_TW",
+    images: [
+      {
+        url: "https://www.solo.tw/og",
+        width: 1200,
+        height: 630,
+        alt: "solo.tw 部落格 — 自由工作者的成長指南",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "部落格 | solo.tw - 自由工作者的成長指南",
+    description:
+      "探索個人品牌經營、知識變現策略、AI 工具應用等實用內容。幫助自由工作者把專業變成事業，打造屬於自己的一人公司。",
+    images: ["https://www.solo.tw/og"],
   },
   alternates: {
     canonical: "https://www.solo.tw/blog",
