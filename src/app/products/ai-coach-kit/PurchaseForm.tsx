@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 export function PurchaseForm() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -26,6 +27,7 @@ export function PurchaseForm() {
           productName: "AI 教練工坊",
           buyerEmail: email,
           buyerName: name,
+          buyerPhone: phone || undefined,
         }),
       });
 
@@ -58,7 +60,7 @@ export function PurchaseForm() {
           htmlFor="buyer-name"
           className="block text-sm font-medium text-stone-700 mb-1"
         >
-          姓名（選填）
+          姓名 <span className="text-red-500">*</span>
         </label>
         <Input
           id="buyer-name"
@@ -66,6 +68,7 @@ export function PurchaseForm() {
           placeholder="你的名字"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
           className="w-full"
         />
       </div>
@@ -86,6 +89,22 @@ export function PurchaseForm() {
           className="w-full"
         />
         <p className="mt-1 text-xs text-stone-500">用於接收購買確認與下載連結</p>
+      </div>
+      <div>
+        <label
+          htmlFor="buyer-phone"
+          className="block text-sm font-medium text-stone-700 mb-1"
+        >
+          電話（選填）
+        </label>
+        <Input
+          id="buyer-phone"
+          type="tel"
+          placeholder="0912-345-678"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full"
+        />
       </div>
       {error && (
         <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">
