@@ -28,6 +28,10 @@ export async function generateMetadata({
     return { title: "文章未找到 | solo.tw" };
   }
 
+  const ogImage = post.heroImage
+    ? `https://www.solo.tw${post.heroImage}`
+    : "https://www.solo.tw/og";
+
   return {
     title: `${post.title} | solo.tw`,
     description: post.description,
@@ -36,10 +40,18 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       type: "article",
+      url: `https://www.solo.tw/blog/${slug}`,
       publishedTime: post.pubDate,
       modifiedTime: post.updatedDate,
-      images: post.heroImage ? [post.heroImage] : [],
+      images: [ogImage],
       siteName: "solo.tw",
+      locale: "zh_TW",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [ogImage],
     },
   };
 }
