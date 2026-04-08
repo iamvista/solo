@@ -117,7 +117,7 @@ export function PurchaseForm() {
         className="w-full h-12 text-base font-semibold"
         disabled={loading}
       >
-        {loading ? "處理中……" : "立即購買 NT$1,499"}
+        {loading ? "處理中……" : "立即購買 NT$1"}
         {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
       </Button>
       <p className="text-center text-xs text-stone-400">

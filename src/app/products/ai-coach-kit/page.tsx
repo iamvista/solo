@@ -203,7 +203,7 @@ export default function AICoachKitPage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#pricing">立即購買 NT$1,499</a>
+              <a href="#pricing">立即購買 NT$1</a>
             </Button>
             <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
               <a href="#what-you-get">查看包含內容</a>
@@ -216,10 +216,10 @@ export default function AICoachKitPage() {
 
         {/* ====== Pain Points ====== */}
         <section className="py-14 sm:py-16">
-          <h2 className="text-center text-xl font-bold sm:text-2xl text-stone-900">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
             你有沒有過這樣的經驗？
           </h2>
-          <p className="mt-3 text-center text-sm text-stone-500">
+          <p className="mt-3 text-center text-base text-stone-500">
             中了兩項以上，這個工具包就是為你設計的。
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -228,8 +228,8 @@ export default function AICoachKitPage() {
                 <CardContent className="flex items-start gap-3 p-4 sm:p-5">
                   <span className="text-2xl shrink-0">{point.emoji}</span>
                   <div>
-                    <p className="text-sm font-semibold text-stone-900">{point.title}</p>
-                    <p className="mt-0.5 text-sm text-stone-500">{point.text}</p>
+                    <p className="text-base font-semibold text-stone-900">{point.title}</p>
+                    <p className="mt-0.5 text-base text-stone-500">{point.text}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -239,10 +239,10 @@ export default function AICoachKitPage() {
 
         {/* ====== Compare ====== */}
         <section className="py-14 sm:py-16 border-t border-stone-100">
-          <h2 className="text-center text-xl font-bold sm:text-2xl text-stone-900">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
             AI 聊天機器人 vs AI 實踐教練
           </h2>
-          <p className="mt-3 text-center text-sm text-stone-500">
+          <p className="mt-3 text-center text-base text-stone-500">
             差別不在 AI 有多聰明，而在你怎麼設定它
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -255,7 +255,7 @@ export default function AICoachKitPage() {
                 </div>
                 <ul className="space-y-3">
                   {genericBotFeatures.map((f, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-stone-500">
+                    <li key={i} className="flex items-start gap-2 text-base text-stone-500">
                       <span className="mt-0.5 shrink-0 text-red-400">✗</span>
                       {f}
                     </li>
@@ -274,7 +274,7 @@ export default function AICoachKitPage() {
                 </div>
                 <ul className="space-y-3">
                   {practiceCoachFeatures.map((f, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-stone-700">
+                    <li key={i} className="flex items-start gap-2 text-base text-stone-700">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                       {f}
                     </li>
@@ -287,10 +287,10 @@ export default function AICoachKitPage() {
 
         {/* ====== What You Get ====== */}
         <section id="what-you-get" className="py-14 sm:py-16 border-t border-stone-100">
-          <h2 className="text-center text-xl font-bold sm:text-2xl text-stone-900">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
             工具包包含什麼？
           </h2>
-          <p className="mt-3 text-center text-sm text-stone-500">
+          <p className="mt-3 text-center text-base text-stone-500">
             六大模組，買斷即用，不需要任何技術背景
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -298,8 +298,8 @@ export default function AICoachKitPage() {
               <Card key={i} className="border-stone-200">
                 <CardContent className="p-5">
                   <Icon className="h-8 w-8 text-primary mb-3" />
-                  <h3 className="font-semibold text-stone-900 text-sm">{title}</h3>
-                  <p className="mt-1.5 text-sm text-stone-500 leading-relaxed">{desc}</p>
+                  <h3 className="font-semibold text-stone-900 text-base">{title}</h3>
+                  <p className="mt-1.5 text-base text-stone-500 leading-relaxed">{desc}</p>
                 </CardContent>
               </Card>
             ))}
@@ -308,10 +308,10 @@ export default function AICoachKitPage() {
 
         {/* ====== Use Cases ====== */}
         <section className="py-14 sm:py-16 border-t border-stone-100">
-          <h2 className="text-center text-xl font-bold sm:text-2xl text-stone-900">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
             誰適合用這個工具包？
           </h2>
-          <p className="mt-3 text-center text-sm text-stone-500">
+          <p className="mt-3 text-center text-base text-stone-500">
             任何以知識為核心的工作者，都能打造專屬 AI 教練
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -320,20 +320,20 @@ export default function AICoachKitPage() {
                 <CardContent className="p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <Icon className="h-5 w-5 text-primary shrink-0" />
-                    <h3 className="font-semibold text-stone-900 text-sm">{title}</h3>
+                    <h3 className="font-semibold text-stone-900 text-base">{title}</h3>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div>
                       <span className="text-xs font-medium text-stone-400 uppercase tracking-wider">
                         知識來源
                       </span>
-                      <p className="mt-0.5 text-stone-600">{knowledgeSource}</p>
+                      <p className="mt-0.5 text-base text-stone-600">{knowledgeSource}</p>
                     </div>
                     <div>
                       <span className="text-xs font-medium text-stone-400 uppercase tracking-wider">
                         教練用途
                       </span>
-                      <p className="mt-0.5 text-stone-600">{coachUse}</p>
+                      <p className="mt-0.5 text-base text-stone-600">{coachUse}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -344,15 +344,15 @@ export default function AICoachKitPage() {
 
         {/* ====== FAQ ====== */}
         <section className="py-14 sm:py-16 border-t border-stone-100">
-          <h2 className="text-center text-xl font-bold sm:text-2xl text-stone-900">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
             常見問題
           </h2>
           <div className="mt-8 space-y-4">
             {faqs.map((faq, i) => (
               <Card key={i} className="border-stone-200">
                 <CardContent className="p-5">
-                  <p className="font-semibold text-stone-900 text-sm">Q：{faq.q}</p>
-                  <p className="mt-2 text-sm text-stone-600 leading-relaxed">{faq.a}</p>
+                  <p className="font-semibold text-stone-900 text-base">Q：{faq.q}</p>
+                  <p className="mt-2 text-base text-stone-600 leading-relaxed">{faq.a}</p>
                 </CardContent>
               </Card>
             ))}
@@ -361,10 +361,10 @@ export default function AICoachKitPage() {
 
         {/* ====== Pricing ====== */}
         <section id="pricing" className="py-14 sm:py-16 border-t border-stone-100">
-          <h2 className="text-center text-xl font-bold sm:text-2xl text-stone-900">
+          <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
             立即開始打造你的 AI 教練
           </h2>
-          <p className="mt-3 text-center text-sm text-stone-500">
+          <p className="mt-3 text-center text-base text-stone-500">
             一次買斷，不需要月費訂閱
           </p>
           <div className="mt-8 mx-auto max-w-md">
@@ -372,14 +372,14 @@ export default function AICoachKitPage() {
               <CardContent className="p-6 sm:p-8">
                 {/* Price */}
                 <div className="text-center mb-6">
-                  <p className="text-5xl font-bold text-stone-900">NT$1,499</p>
+                  <p className="text-5xl font-bold text-stone-900">NT$1</p>
                   <p className="mt-1 text-sm text-stone-500">一次買斷 · 終身使用</p>
                 </div>
 
                 {/* Checklist */}
                 <ul className="space-y-3 mb-2">
                   {pricingItems.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-stone-700">
+                    <li key={i} className="flex items-start gap-2 text-base text-stone-700">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                       {item}
                     </li>
