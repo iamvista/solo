@@ -44,5 +44,5 @@ next-env.d.ts
 openspec/.vector-search.db*
 .gstack/
 
-# private files (digital products)
-/private/
+# private files (digital products) - small ZIPs tracked in git
+# /private/

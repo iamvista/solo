@@ -23,11 +23,11 @@ import { PurchaseForm } from "./PurchaseForm";
 export const metadata: Metadata = {
   title: "AI 教練工坊｜打造你的 AI 實踐教練 | solo.tw",
   description:
-    "一次買斷 NT$1,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度，把想法真正落地。",
+    "一次買斷 NT$1,499。4 個 Coach Skills + Vista Coach 130+ 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度，把想法真正落地。",
   openGraph: {
     title: "AI 教練工坊｜打造你的 AI 實踐教練",
     description:
-      "一次買斷 NT$1,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度。",
+      "一次買斷 NT$1,499。4 個 Coach Skills + Vista Coach 130+ 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度。",
     images: [
       {
         url: "/products/ai-coach-kit/og",
@@ -93,8 +93,8 @@ const whatYouGet = [
   },
   {
     Icon: BookOpen,
-    title: "Vista Coach（150 篇素材）",
-    desc: "Vista 150 篇精選文章整理為知識庫，讓你的 AI 教練帶著深厚背景知識陪你思考。",
+    title: "Vista Coach（130+ 篇素材）",
+    desc: "Vista 130+ 篇精選文章整理為知識庫，讓你的 AI 教練帶著深厚背景知識陪你思考。",
   },
   {
     Icon: Target,
@@ -151,7 +151,7 @@ const faqs = [
   },
   {
     q: "Vista Coach 是什麼？包含哪些內容？",
-    a: "Vista Coach 是將 Vista 過去 150 篇精選文章整理成的知識庫，涵蓋一人事業、內容創作、AI 工具應用、個人成長等主題。當作 AI 教練的背景知識，讓它的建議更有深度。",
+    a: "Vista Coach 是將 Vista 過去 130+ 篇精選文章整理成的知識庫，涵蓋一人事業、內容創作、AI 工具應用、個人成長等主題。當作 AI 教練的背景知識，讓它的建議更有深度。",
   },
   {
     q: "適用哪些行業？",
@@ -178,7 +178,7 @@ const faqs = [
 const pricingItems = [
   "4 個 Coach Skills（晨間 / 下午 / 週報 / 寫作）",
   "模板系統 + 實驗框架",
-  "Vista Coach 150 篇知識庫",
+  "Vista Coach 130+ 篇知識庫",
   "6 份零基礎安裝 & 使用指南",
   "3 份真實對話範例檔案",
   "終身使用 + 免費版本更新",

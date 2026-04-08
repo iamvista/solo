@@ -34,7 +34,7 @@ export default function ProductsPage() {
               AI 教練工坊
             </h2>
             <p className="mt-2 text-sm text-stone-600">
-              教你用 AI 建一個每天陪你執行的實踐教練。框架 + 模板 + 150 篇知識庫。
+              教你用 AI 建一個每天陪你執行的實踐教練。框架 + 模板 + 130+ 篇知識庫。
             </p>
             <div className="mt-4 flex items-center justify-between">
               <span className="text-lg font-bold text-primary">NT$1,499</span>
