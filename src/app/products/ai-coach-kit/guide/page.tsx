@@ -82,6 +82,14 @@ const guides = [
 export default function GuidePage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="flex items-center justify-between mb-2">
+        <Link
+          href="/products/ai-coach-kit"
+          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+        >
+          ← 回到產品頁
+        </Link>
+      </div>
       <div className="text-center">
         <h1 className="text-3xl font-bold text-stone-900 sm:text-4xl">
           安裝與使用教學
