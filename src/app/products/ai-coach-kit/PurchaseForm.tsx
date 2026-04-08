@@ -38,13 +38,27 @@ export function PurchaseForm() {
         return;
       }
 
-      // PAYUNi 回傳的表單資料 — 動態提交
-      if (data.formHtml) {
+      // PAYUNi 回傳 actionUrl + fields — 動態建立表單提交
+      if (data.actionUrl && data.fields) {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = data.actionUrl;
+        for (const [key, value] of Object.entries(data.fields)) {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = value as string;
+          form.appendChild(input);
+        }
+        document.body.appendChild(form);
+        form.submit();
+      } else if (data.formHtml) {
+        // 備用：直接注入 HTML 表單
         const div = document.createElement("div");
         div.innerHTML = data.formHtml;
         document.body.appendChild(div);
-        const form = div.querySelector("form") as HTMLFormElement | null;
-        if (form) form.submit();
+        const f = div.querySelector("form") as HTMLFormElement | null;
+        if (f) f.submit();
       }
     } catch {
       setError("網路錯誤，請確認連線後再試");
