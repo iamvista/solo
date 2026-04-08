@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
   Zap,
@@ -206,6 +208,11 @@ export default function AICoachKitPage() {
           <div className="mt-8 flex flex-col items-center gap-2">
             <p className="text-base text-stone-400 line-through">原價 NT$3,999</p>
             <p className="text-3xl font-bold text-primary sm:text-4xl">早鳥價 NT$2,499</p>
+          </div>
+          <div className="mt-6">
+            <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
+              <Link href="/products/ai-coach-kit/guide">查看安裝與使用教學</Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -519,6 +526,14 @@ export default function AICoachKitPage() {
                 <p className="mt-6 text-center text-base text-stone-500">
                   即將開放購買，敬請期待
                 </p>
+                <div className="mt-4 text-center">
+                  <Link
+                    href="/products/ai-coach-kit/guide"
+                    className="text-base text-primary underline hover:text-primary/80"
+                  >
+                    先看看安裝與使用教學 →
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </div>
