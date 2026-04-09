@@ -11,7 +11,7 @@ const PRODUCT_PRICES: Record<string, number> = {
   "consulting:direction": 2490,
   "consulting:ai-setup": 3990,
   "consulting:coaching": 9900,
-  "product:ai-coach-kit": 1, // TODO: 測試完改回 1499
+  "product:ai-coach-kit": 2499, // Recur 付款連結為主要管道
   // 工作坊和課程之後從資料庫查詢
 };
 

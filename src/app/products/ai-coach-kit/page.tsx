@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CheckoutButton } from "./CheckoutButton";
 import {
   CheckCircle2,
   Zap,
@@ -23,11 +24,11 @@ import {
 export const metadata: Metadata = {
   title: "AI 教練工坊｜打造你的 AI 實踐教練 | solo.tw",
   description:
-    "不是只陪你聊天，而是主動 check-in、追蹤進度、陪你把想法真正落地。早鳥價 NT$2,499，一次買斷。",
+    "一次買斷 NT$2,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度，把想法真正落地。",
   openGraph: {
     title: "AI 教練工坊｜打造你的 AI 實踐教練",
     description:
-      "不是只陪你聊天，而是主動 check-in、追蹤進度、陪你把想法真正落地。早鳥價 NT$2,499。",
+      "一次買斷 NT$2,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度。",
     images: [
       {
         url: "/products/ai-coach-kit/og",
@@ -202,14 +203,10 @@ export default function AICoachKitPage() {
           <p className="mx-auto mt-4 max-w-2xl text-lg text-stone-600 sm:text-xl">
             打造屬於你的 AI 實踐教練
           </p>
-          <p className="mx-auto mt-2 max-w-2xl text-base text-stone-500">
-            不是只陪你聊天，而是主動 check-in、追蹤進度、陪你把想法真正落地
-          </p>
-          <div className="mt-8 flex flex-col items-center gap-2">
-            <p className="text-base text-stone-400 line-through">原價 NT$3,999</p>
-            <p className="text-3xl font-bold text-primary sm:text-4xl">早鳥價 NT$2,499</p>
-          </div>
-          <div className="mt-6">
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Button size="lg" className="h-12 px-8 text-base" asChild>
+              <a href="#pricing">立即購買 NT$2,499</a>
+            </Button>
             <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
               <Link href="/products/ai-coach-kit/guide">查看安裝與使用教學</Link>
             </Button>
@@ -487,9 +484,8 @@ export default function AICoachKitPage() {
             <Card className="border-2 border-primary shadow-lg">
               <CardContent className="p-6 sm:p-8">
                 <div className="text-center mb-6">
-                  <p className="text-lg text-stone-400 line-through">原價 NT$3,999</p>
-                  <p className="text-5xl font-bold text-stone-900 mt-1">NT$2,499</p>
-                  <p className="mt-2 text-base text-primary font-semibold">早鳥價・一次買斷・無月費</p>
+                  <p className="text-5xl font-bold text-stone-900">NT$2,499</p>
+                  <p className="mt-1 text-sm text-stone-500">一次買斷 · 終身使用</p>
                 </div>
 
                 <ul className="space-y-3 mb-6">
@@ -501,39 +497,8 @@ export default function AICoachKitPage() {
                   ))}
                 </ul>
 
-                <div className="rounded-lg bg-stone-50 p-4 text-sm text-stone-500 space-y-2">
-                  <p>你額外需要的，只是：</p>
-                  <p>・Claude Pro 方案（建議，月費約 USD $20）</p>
-                  <p>・或 Claude API（依用量計費）</p>
-                  <p className="mt-3 text-stone-600">
-                    也就是說，你買的不是另一個訂閱負擔，而是一套可以長期持有、反覆使用、持續升級的個人系統。
-                  </p>
-                </div>
-
-                <div className="mt-6 rounded-lg bg-primary/5 border border-primary/20 p-4 text-sm text-stone-600 space-y-2">
-                  <p className="font-semibold text-stone-900">這樣算，其實很划算</p>
-                  <p>
-                    如果你曾經考慮真人教練、顧問陪跑、或一對一諮詢，
-                    一次幾十分鐘到一小時，費用可能就超過這個價格。
-                  </p>
-                  <p>
-                    只要這套系統幫你少拖延幾次、少卡關幾回、多完成一個作品、多跑完一輪學習計畫——它就已經回本。
-                  </p>
-                </div>
-
-                {/* 購買連結暫時隱藏 */}
-                {/* <PurchaseForm /> */}
-                <p className="mt-6 text-center text-base text-stone-500">
-                  即將開放購買，敬請期待
-                </p>
-                <div className="mt-4 text-center">
-                  <Link
-                    href="/products/ai-coach-kit/guide"
-                    className="text-base text-primary underline hover:text-primary/80"
-                  >
-                    先看看安裝與使用教學 →
-                  </Link>
-                </div>
+                {/* Recur 結帳（需登入） */}
+                <CheckoutButton />
               </CardContent>
             </Card>
           </div>
