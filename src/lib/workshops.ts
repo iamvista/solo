@@ -178,7 +178,7 @@ export const workshops: Workshop[] = [
   },
   {
     id: "ai-social-content",
-    title: "用 AI 寫出讓人忍不住留言的社群內容",
+    title: "用 AI 寫出讓人忍不住留言的社群內容 ｜好評加開",
     subtitle: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統",
     description:
       "結合社群互動心理學與 AI 協作，學會設計讓人想按讚、想留言、想分享的內容。不只教你下 prompt，而是教你一套從靈感到發布的完整系統。",
