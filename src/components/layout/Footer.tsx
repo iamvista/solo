@@ -12,15 +12,16 @@ const footerLinks = {
     { name: "部落格", href: "/blog" },
     { name: "自由人學院", href: "https://learn.solo.tw" },
     { name: "電子報", href: "https://iamvista.substack.com" },
+    { name: "Vista.tw", href: "https://www.vista.tw" },
     { name: "學習資源", href: "/learn" },
     { name: "社群", href: "/community" },
   ],
   company: [
     { name: "關於 Vista", href: "/about" },
-    { name: "Vista.tw", href: "https://www.vista.tw" },
     { name: "定價方案", href: "/pricing" },
     { name: "開發藍圖", href: "/roadmap" },
     { name: "隱私政策", href: "/privacy" },
+    { name: "退費政策", href: "/refund" },
     { name: "服務條款", href: "/terms" },
   ],
 };
