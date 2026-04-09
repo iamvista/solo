@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CheckoutButton } from "./CheckoutButton";
 import {
   CheckCircle2,
   Zap,
@@ -16,18 +17,17 @@ import {
   Mic,
   Briefcase,
 } from "lucide-react";
-import { PurchaseForm } from "./PurchaseForm";
 
 // ── SEO ───────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: "AI 教練工坊｜打造你的 AI 實踐教練 | solo.tw",
   description:
-    "一次買斷 NT$1,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度，把想法真正落地。",
+    "一次買斷 NT$2,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度，把想法真正落地。",
   openGraph: {
     title: "AI 教練工坊｜打造你的 AI 實踐教練",
     description:
-      "一次買斷 NT$1,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度。",
+      "一次買斷 NT$2,499。4 個 Coach Skills + Vista Coach 150 篇知識庫 + 6 份零基礎指南，讓 AI 主動 check-in、追蹤你的進度。",
     images: [
       {
         url: "/products/ai-coach-kit/og",
@@ -203,7 +203,7 @@ export default function AICoachKitPage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#pricing">立即購買 NT$1,499</a>
+              <a href="#pricing">立即購買 NT$2,499</a>
             </Button>
             <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
               <a href="#what-you-get">查看包含內容</a>
@@ -372,7 +372,7 @@ export default function AICoachKitPage() {
               <CardContent className="p-6 sm:p-8">
                 {/* Price */}
                 <div className="text-center mb-6">
-                  <p className="text-5xl font-bold text-stone-900">NT$1,499</p>
+                  <p className="text-5xl font-bold text-stone-900">NT$2,499</p>
                   <p className="mt-1 text-sm text-stone-500">一次買斷 · 終身使用</p>
                 </div>
 
@@ -386,8 +386,8 @@ export default function AICoachKitPage() {
                   ))}
                 </ul>
 
-                {/* Purchase Form (client component) */}
-                <PurchaseForm />
+                {/* Recur 結帳（需登入） */}
+                <CheckoutButton />
               </CardContent>
             </Card>
           </div>
