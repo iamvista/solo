@@ -46,6 +46,16 @@
 - 創業實戰
 - AI 應用
 
+## 最新文章
+
+- [我讀《AI First 自我升級革命》：當前 LINE 總經理說「All in AI」，他到底在說什麼？](https://www.solo.tw/blog/ai-first-book-review)
+- [當 AI 讓一切內容免費，什麼才值錢？](https://www.solo.tw/blog/trust-effect-book-review)
+- [電子報怎麼寫才有人看？我從 0 到 18,000 訂閱者學到的事](https://www.solo.tw/blog/newsletter-growth-to-18000)
+- [一人公司革命來了——聽完這集 Podcast，我對一個人做事業有了全新想像](https://www.solo.tw/blog/solopreneur-revolution-is-here)
+- [自由工作者該怎麼定價？一個讓你不再心虛的計算方法](https://www.solo.tw/blog/freelancer-pricing-strategy)
+
+完整文章列表請見 https://www.solo.tw/blog 與 https://www.solo.tw/sitemap.xml
+
 ## 平臺數據
 
 - 電子報訂閱者：18,000+ 人

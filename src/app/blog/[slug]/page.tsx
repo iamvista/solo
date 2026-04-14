@@ -212,6 +212,21 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </figure>
               )}
 
+              {/* TL;DR Summary — for AEO/GEO friendliness */}
+              {post.description && (
+                <aside
+                  className="mb-10 rounded-xl border-l-4 border-[#d13a3a] bg-white/80 px-6 py-5 shadow-sm"
+                  aria-label="文章摘要"
+                >
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#d13a3a]">
+                    TL;DR · 本文摘要
+                  </p>
+                  <p className="text-base leading-[1.85] text-stone-700">
+                    {post.description}
+                  </p>
+                </aside>
+              )}
+
               {/* Mobile TOC */}
               {toc.length > 2 && (
                 <details className="mb-10 rounded-xl border border-stone-200 bg-white lg:hidden">
