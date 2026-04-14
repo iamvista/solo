@@ -36,13 +36,15 @@ export async function generateMetadata({
   if (!magnet) return {};
 
   const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.solo.tw").trim();
+  const magnetUrl = `${baseUrl}/m/${slug}`;
   return {
     title: `${magnet.title} | 免費下載 — solo.tw`,
     description: magnet.description || `免費下載《${magnet.title}》`,
+    alternates: { canonical: magnetUrl },
     openGraph: {
       title: magnet.title,
       description: magnet.description || `免費下載《${magnet.title}》`,
-      url: `${baseUrl}/m/${slug}`,
+      url: magnetUrl,
       images: magnet.cover_image ? [{ url: magnet.cover_image }] : [],
     },
   };
