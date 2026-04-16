@@ -305,11 +305,6 @@ const studentWorks = [
     batch: "第 5 班",
     url: "https://bengotw.netlify.app",
   },
-  {
-    name: "Dipart 數位設計",
-    batch: "第 5 班",
-    url: "https://dipart2.netlify.app",
-  },
 ];
 
 const targetAudience = [
