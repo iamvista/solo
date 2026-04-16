@@ -4,16 +4,16 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Vibe Coding 實戰工作坊｜3 小時打造你的第一個銷售頁 | solo.tw",
   description:
-    "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 12 人小班制，現場完成一個可上線的網站。",
+    "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 12 人小班制，現場完成一個可上線的網站。已開辦 5 班、超過 60 位學員，包含律師、醫師、大學教授等各行業專業人士。學員評價 4.9 顆星。",
   openGraph: {
-    title: "Vibe Coding 實戰工作坊｜3 小時打造你的第一個銷售頁",
+    title: "Vibe Coding 實戰工作坊｜3 小時用 AI 打造你的第一個銷售頁",
     description:
-      "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站、銷售頁、名單收集頁。限 12 人小班制。",
+      "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已開辦 5 班、超過 60 位學員、20+ 個上線作品。限 12 人小班制。",
     images: [
       {
         url: "/courses/vibe-coding/og",
@@ -193,6 +193,20 @@ const testimonials = [
     batch: "第 4 班",
     quote: "克服了對新科技的恐懼，上完課就訂閱了 Claude Pro。",
   },
+  {
+    name: "林玉菁",
+    role: "律師",
+    batch: "第 5 班",
+    quote:
+      "網頁設計小白，4 小時就產出具專業風格的個人品牌網頁並部署上線。完全保有網頁內容調整的自主能力，不用受制於他人。CP 值極高的課程，非常值得推薦。",
+  },
+  {
+    name: "唐嘉偉",
+    role: "國立澎湖科技大學行銷與物流管理系副教授",
+    batch: "第 5 班",
+    quote:
+      "Vista 老師用淺顯易懂的指導方式，讓初次學習的同學們相當容易上手，也讓我們有很多自己可以摸索交流的地方。不枉費我從高雄搭高鐵到臺北上課！",
+  },
 ];
 
 const studentWorks = [
@@ -256,6 +270,46 @@ const studentWorks = [
     batch: "第 4 班",
     url: "https://guqin20260321.netlify.app",
   },
+  {
+    name: "Amy 個人品牌",
+    batch: "第 5 班",
+    url: "https://amy20260412.netlify.app",
+  },
+  {
+    name: "唐嘉偉副教授",
+    batch: "第 5 班",
+    url: "https://tang1981.netlify.app",
+  },
+  {
+    name: "Sophie 個人網站",
+    batch: "第 5 班",
+    url: "https://sophiating.netlify.app",
+  },
+  {
+    name: "May Skin 保養品牌",
+    batch: "第 5 班",
+    url: "https://mayskin.netlify.app",
+  },
+  {
+    name: "Vivi 個人品牌",
+    batch: "第 5 班",
+    url: "https://vivifirt.netlify.app",
+  },
+  {
+    name: "Fulicity 個人網站",
+    batch: "第 5 班",
+    url: "https://fulicity.netlify.app",
+  },
+  {
+    name: "Bengo 個人品牌",
+    batch: "第 5 班",
+    url: "https://bengotw.netlify.app",
+  },
+  {
+    name: "Dipart 數位設計",
+    batch: "第 5 班",
+    url: "https://dipart2.netlify.app",
+  },
 ];
 
 const targetAudience = [
@@ -307,8 +361,21 @@ const faqs = [
 export default function VibeCodingPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎，3 小時打造你的第一個銷售頁", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", startDate: "2026-05-09", location: "臺北市" })} />
+      <JsonLd data={{
+        ...courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已舉辦 5 班，超過 60 位學員完成上線作品。", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", startDate: "2026-05-09", location: "臺北市", image: "https://www.solo.tw/images/workshops/cover-vibe-coding.webp" }),
+        aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "12", bestRating: "5" },
+        review: testimonials.slice(-4).map(t => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: t.name },
+          reviewBody: t.quote,
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        })),
+        totalHistoricalEnrollment: "60+",
+        coursePrerequisites: "無需程式基礎",
+        teaches: "使用 AI 工具建立個人品牌網站、銷售頁、名單收集頁",
+      }} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "Vibe Coding 實戰工作坊", href: "/courses/vibe-coding" }])} />
+      <JsonLd data={faqSchema(faqs.map(f => ({ question: f.q, answer: f.a })))} />
     <div>
       {/* ====== Hero ====== */}
       <section className="bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/20">
