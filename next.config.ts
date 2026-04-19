@@ -67,6 +67,14 @@ const nextConfig: NextConfig = {
         source: "/",
         headers: [{ key: "Link", value: linkHeader }],
       },
+      {
+        // API Catalog (RFC 9727) must be served as application/linkset+json
+        source: "/.well-known/api-catalog",
+        headers: [
+          { key: "Content-Type", value: "application/linkset+json" },
+          { key: "Cache-Control", value: "public, max-age=3600" },
+        ],
+      },
     ];
   },
 };

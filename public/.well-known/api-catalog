@@ -1,0 +1,49 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://www.solo.tw/api/diagnosis/pdf",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/diagnosis-pdf.md", "type": "text/markdown", "title": "Diagnosis PDF API" }
+      ]
+    },
+    {
+      "anchor": "https://www.solo.tw/api/newsletter/subscribe",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/newsletter-subscribe.md", "type": "text/markdown", "title": "Newsletter Subscribe API" }
+      ]
+    },
+    {
+      "anchor": "https://www.solo.tw/api/newsletter/unsubscribe",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/newsletter-unsubscribe.md", "type": "text/markdown", "title": "Newsletter Unsubscribe API" }
+      ]
+    },
+    {
+      "anchor": "https://www.solo.tw/api/events/register",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/events-register.md", "type": "text/markdown", "title": "Event Registration API" }
+      ]
+    },
+    {
+      "anchor": "https://www.solo.tw/api/lead-magnets/capture",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/lead-magnets-capture.md", "type": "text/markdown", "title": "Lead Magnet Capture API" }
+      ]
+    },
+    {
+      "anchor": "https://www.solo.tw/api/download/ai-coach-kit",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/download-ai-coach-kit.md", "type": "text/markdown", "title": "AI Coach Kit Download API" }
+      ]
+    },
+    {
+      "anchor": "https://www.solo.tw/api/username/check",
+      "service-doc": [
+        { "href": "https://www.solo.tw/docs/api/username-check.md", "type": "text/markdown", "title": "Username Availability API" }
+      ],
+      "status": [
+        { "href": "https://www.solo.tw/api/username/check?username=health", "title": "Lightweight health probe" }
+      ]
+    }
+  ]
+}
