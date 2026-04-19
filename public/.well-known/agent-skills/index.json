@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "run-business-diagnosis",
+      "type": "skill-md",
+      "description": "Run solo.tw's free business health diagnosis for solopreneurs.",
+      "url": "/.well-known/agent-skills/run-business-diagnosis/SKILL.md",
+      "digest": "sha256:fcc544249f0c8957836ed083bfa5bae84e4c547f84ffcd1c40e099ff36dca547"
+    },
+    {
+      "name": "browse-courses",
+      "type": "skill-md",
+      "description": "Browse solo.tw's self-paced courses for independent professionals.",
+      "url": "/.well-known/agent-skills/browse-courses/SKILL.md",
+      "digest": "sha256:f2a36ff0d6630d09b68d8bc6777784b8aef74e195503a77d133a90f8ded0ab0e"
+    },
+    {
+      "name": "book-consulting",
+      "type": "skill-md",
+      "description": "Book a 1:1 consulting session with Vista on Cal.com.",
+      "url": "/.well-known/agent-skills/book-consulting/SKILL.md",
+      "digest": "sha256:3f7fcb66b8aadb472187be89aa45ea8cf2bf00815e0f038e6c9fae219b35e975"
+    },
+    {
+      "name": "subscribe-solo-newsletter",
+      "type": "skill-md",
+      "description": "Subscribe a user to solo.tw's newsletter on solopreneur operating systems.",
+      "url": "/.well-known/agent-skills/subscribe-solo-newsletter/SKILL.md",
+      "digest": "sha256:68e0cc197dbc80e821da5435e49d1df33601d40540d66ff4a8809d7f482a7801"
+    }
+  ]
+}
