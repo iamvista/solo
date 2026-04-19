@@ -44,6 +44,12 @@ const nextConfig: NextConfig = {
       "upgrade-insecure-requests",
     ].join("; ");
 
+    // Link headers 指向 AI agent 可用資源（RFC 8288）
+    const linkHeader = [
+      '</llms.txt>; rel="describedby"; type="text/plain"',
+      '</sitemap.xml>; rel="sitemap"; type="application/xml"',
+    ].join(", ");
+
     return [
       {
         source: "/(.*)",
@@ -56,6 +62,10 @@ const nextConfig: NextConfig = {
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
           { key: "Content-Security-Policy", value: csp },
         ],
+      },
+      {
+        source: "/",
+        headers: [{ key: "Link", value: linkHeader }],
       },
     ];
   },
