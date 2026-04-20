@@ -1,6 +1,6 @@
 # solo.tw | 自由人學院 — 把專業變成事業
 
-> 自由人學院是台灣領先的自由工作者成長平臺，專為講師、顧問、教練打造。提供免費事業健檢、實用工具、系統化課程，幫助專業人士建立穩定的個人事業。
+> 自由人學院是臺灣領先的自由工作者成長平臺，專為講師、顧問、教練打造。提供免費事業健檢、實用工具、系統化課程，協助專業人士建立穩定的個人事業。
 
 ## 關於自由人學院
 
@@ -29,33 +29,64 @@
 ## 目標受眾
 
 自由人學院服務六種類型的自由工作者：
-- **獅型**（Lion）：市場領導者，尋求擴大影響力
-- **狐型**（Fox）：策略型專家，善於靈活應變
-- **象型**（Elephant）：穩定型專家，追求長期價值
-- **鷹型**（Eagle）：獨立型高手，注重專業深度
-- **龜型**（Turtle）：新興工作者，穩步成長中
-- **雛型**（Chick）：初入自由職業，需要基礎指引
+- 獅型（Lion）：市場領導者，尋求擴大影響力
+- 狐型（Fox）：策略型專家，善於靈活應變
+- 象型（Elephant）：穩定型專家，追求長期價值
+- 鷹型（Eagle）：獨立型高手，注重專業深度
+- 龜型（Turtle）：新興工作者，穩步成長中
+- 雛型（Chick）：初入自由職業，需要基礎指引
 
-## 部落格主題
+## 電子報與 Podcast
 
-- 個人品牌經營
-- 社群媒體策略
-- 知識付費與變現
-- 內容行銷
-- 職涯發展
-- 創業實戰
-- AI 應用
+- Vista 電子報（Substack）：https://iamvista.substack.com 訂閱者超過 18,000 人
 
+## 目前開放報名的課程與工作坊
+
+### 用 AI 建你的個人指揮中心
+- 定位: 6 小時帶走一套能跑的目標管理 × 知識管理 × AI 自動化系統
+- 日期: 2026/5/16（六） 9:00–16:00
+- 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
+- 名額: 20 人
+- 價格: 定價 NT$9,800；原價 NT$12,800
+- 報名/詳情: https://www.solo.tw/courses/ai-command-center
+
+### Vibe Coding 實戰工作坊
+- 定位: 用 AI 打造你的數位資產，不需要寫程式
+- 日期: 2026 年 5 月 9 日（六） 9:00–12:00
+- 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
+- 名額: 12 人
+- 價格: 原價 NT$6,500；早鳥 NT$4,000
+- 報名/詳情: https://www.solo.tw/courses/vibe-coding
+
+### AI 內容產製系統工作坊
+- 定位: 一份素材，自動產出六種格式
+- 日期: 2026 年 5 月 23 日（六） 9:00–12:00
+- 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
+- 名額: 16 人
+- 價格: 原價 NT$7,000；早鳥 NT$5,000
+- 報名/詳情: https://www.solo.tw/courses/ai-content
+
+### 用 AI 寫出讓人忍不住留言的社群內容 ｜好評加開
+- 定位: 心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統
+- 日期: 2026 年 5 月 3 日（日） 9:00–12:00
+- 地點: 臺北市區（報名後通知地點）
+- 名額: 20 人
+- 價格: 原價 NT$4,500；早鳥 NT$3,500
+- 報名/詳情: https://www.solo.tw/courses/ai-social-content
 ## 最新文章
 
-- [我讀《AI First 自我升級革命》：當前 LINE 總經理說「All in AI」，他到底在說什麼？](https://www.solo.tw/blog/ai-first-book-review)
-- [當 AI 讓一切內容免費，什麼才值錢？](https://www.solo.tw/blog/trust-effect-book-review)
-- [電子報怎麼寫才有人看？我從 0 到 18,000 訂閱者學到的事](https://www.solo.tw/blog/newsletter-growth-to-18000)
-- [一人公司革命來了——聽完這集 Podcast，我對一個人做事業有了全新想像](https://www.solo.tw/blog/solopreneur-revolution-is-here)
-- [自由工作者該怎麼定價？一個讓你不再心虛的計算方法](https://www.solo.tw/blog/freelancer-pricing-strategy)
+- [我讀《AI First 自我升級革命》：當前 LINE 總經理說「All in AI」，他到底在說什麼？](https://www.solo.tw/blog/ai-first-book-review) (2026-04-06)
+- [當 AI 讓一切內容免費，什麼才值錢？](https://www.solo.tw/blog/trust-effect-book-review) (2026-04-05)
+- [電子報怎麼寫才有人看？我從 0 到 18,000 訂閱者學到的事](https://www.solo.tw/blog/newsletter-growth-to-18000) (2026-04-02)
+- [一人公司革命來了——聽完這集 Podcast，我對一個人做事業有了全新想像](https://www.solo.tw/blog/solopreneur-revolution-is-here) (2026-04-01)
+- [一人公司必備的 5 個 AI 工具——我每天都在用的實戰組合](https://www.solo.tw/blog/ai-tools-for-solopreneurs) (2026-03-31)
+- [一個人如何用內容建立被動收入？從寫文章到持續進帳的完整路徑](https://www.solo.tw/blog/content-to-passive-income) (2026-03-31)
+- [自由工作者該怎麼定價？一個讓你不再心虛的計算方法](https://www.solo.tw/blog/freelancer-pricing-strategy) (2026-03-31)
+- [一人公司怎麼開始？五個步驟，從上班族走到自由工作者](https://www.solo.tw/blog/how-to-start-solo-business) (2026-03-31)
+- [職場人士如何善用 AI Agent？從問 AI 到讓 AI 幫你做的關鍵轉變](https://www.solo.tw/blog/how-professionals-leverage-ai-agents) (2026-03-15)
+- [從 Twitter 到 X：二十年後重新回歸，長文寫作才是信任的存摺](https://www.solo.tw/blog/twitter-to-x-long-form-writing) (2026-02-05)
 
-完整文章列表請見 https://www.solo.tw/blog 與 https://www.solo.tw/sitemap.xml
-
+完整文章列表：https://www.solo.tw/blog 或 https://www.solo.tw/llms-full.txt
 ## 平臺數據
 
 - 電子報訂閱者：18,000+ 人
@@ -74,5 +105,8 @@
 
 - 官方網站: https://www.solo.tw
 - Vista Cheng 個人網站: https://www.vista.tw
+- 電子報: https://iamvista.substack.com
+- Sitemap: https://www.solo.tw/sitemap.xml
+- 完整內容索引: https://www.solo.tw/llms-full.txt
 
 © 2026 自由人學院
