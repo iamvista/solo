@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 const REGISTER_URL =
-  "https://vista.oen.tw/good/3AnmvRTr81l3LbH0J3UWYvqmwuO?from=vista_good";
+  "https://vista.oen.tw/good/3CcLrWfytOwSuoj7HeRye6swGhe?from=vista&m=cash";
 const DUO_REGISTER_URL =
   "https://vista.oen.tw/good/3ApCF3xTnBrWxLSSoEiFtbhYYHo?from=vista&m=cash";
 
@@ -221,7 +221,7 @@ const valueStack = [
 export default function AICommandCenterPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "用 AI 建你的個人指揮中心", description: "6 小時實作工作坊 — 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流", url: "https://www.solo.tw/courses/ai-command-center", instructor: "Vista Cheng", price: 6000, duration: "PT6H", startDate: "2026-05-16", location: "臺北市" })} />
+      <JsonLd data={courseSchema({ name: "用 AI 建你的個人指揮中心", description: "6 小時實作工作坊 — 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流", url: "https://www.solo.tw/courses/ai-command-center", instructor: "Vista Cheng", price: 9800, duration: "PT6H", startDate: "2026-05-16", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 個人指揮中心", href: "/courses/ai-command-center" }])} />
     <div>
       {/* ====== 1. Hero — Hook ====== */}
@@ -903,9 +903,12 @@ export default function AICommandCenterPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">定價</p>
-                    <p className="text-xl font-semibold text-foreground">
+                    <p className="text-sm text-muted-foreground">單人定價</p>
+                    <p className="text-3xl font-bold text-primary">
                       NT$9,800
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      市場價值超過 NT$30,000
                     </p>
                   </div>
                 </div>
@@ -930,20 +933,20 @@ export default function AICommandCenterPage() {
 
               {/* 方案選擇 */}
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {/* 早鳥方案 */}
+                {/* 單人報名 */}
                 <div className="flex flex-col rounded-xl border-2 border-primary/30 bg-primary/5 p-5">
                   <div className="mb-4">
                     <p className="text-sm font-medium text-primary">
-                      🔥 早鳥優惠（4 月 10 日前）
+                      💺 單人報名
                     </p>
                     <p className="mt-1 text-3xl font-bold text-primary">
-                      NT$6,000
+                      NT$9,800
                     </p>
                     <Badge variant="outline" className="mt-1.5 text-xs">
-                      省下 NT$6,800
+                      原價 NT$12,800，省下 NT$3,000
                     </Badge>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      單人報名
+                      一個人來，帶走 4 套系統
                     </p>
                   </div>
                   <Button
@@ -971,7 +974,7 @@ export default function AICommandCenterPage() {
                       平均每人 NT$5,400
                     </Badge>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      兩人一起報名更划算
+                      揪一位夥伴同行更划算
                     </p>
                   </div>
                   <Button

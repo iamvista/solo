@@ -98,8 +98,7 @@ export const workshops: Workshop[] = [
     price: {
       original: 12800,
       regular: 9800,
-      earlyBird: 6000,
-      earlyBirdDeadline: "4 月 10 日前",
+      dual: 10800,
     },
     tags: ["AI", "生產力", "系統化", "實作"],
     status: "open",

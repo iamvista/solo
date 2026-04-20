@@ -150,20 +150,22 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
         {/* Price + CTA */}
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
           <div>
-            {workshop.price.earlyBird ? (
-              <div>
-                <span className="text-xl font-bold text-foreground">
-                  {formatPrice(workshop.price.earlyBird)}
-                </span>
-                <span className="ml-2 text-sm text-muted-foreground line-through">
-                  {formatPrice(workshop.price.original)}
-                </span>
-              </div>
-            ) : (
-              <span className="text-xl font-bold text-foreground">
-                {formatPrice(workshop.price.original)}
-              </span>
-            )}
+            {(() => {
+              const display = workshop.price.earlyBird ?? workshop.price.regular ?? workshop.price.original;
+              const strike = display !== workshop.price.original;
+              return (
+                <div>
+                  <span className="text-xl font-bold text-foreground">
+                    {formatPrice(display)}
+                  </span>
+                  {strike && (
+                    <span className="ml-2 text-sm text-muted-foreground line-through">
+                      {formatPrice(workshop.price.original)}
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
           </div>
           {workshop.status === "full" ? (
             <Button variant="outline" size="sm" disabled className="shrink-0">
@@ -292,20 +294,24 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
           {/* Price + CTA */}
           <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
             <div>
-              {workshop.price.earlyBird ? (
-                <div className="flex items-baseline gap-2">
+              {(() => {
+                const display = workshop.price.earlyBird ?? workshop.price.regular ?? workshop.price.original;
+                const strike = display !== workshop.price.original;
+                return strike ? (
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-2xl font-bold text-primary sm:text-3xl">
+                      {formatPrice(display)}
+                    </span>
+                    <span className="text-sm text-white/40 line-through">
+                      {formatPrice(workshop.price.original)}
+                    </span>
+                  </div>
+                ) : (
                   <span className="text-2xl font-bold text-primary sm:text-3xl">
-                    {formatPrice(workshop.price.earlyBird)}
+                    {formatPrice(display)}
                   </span>
-                  <span className="text-sm text-white/40 line-through">
-                    {formatPrice(workshop.price.original)}
-                  </span>
-                </div>
-              ) : (
-                <span className="text-2xl font-bold text-primary sm:text-3xl">
-                  {formatPrice(workshop.price.original)}
-                </span>
-              )}
+                );
+              })()}
             </div>
             <Button
               size="lg"
