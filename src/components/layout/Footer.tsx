@@ -13,6 +13,7 @@ const footerLinks = {
     { name: "自由人學院", href: "https://learn.solo.tw" },
     { name: "電子報", href: "https://iamvista.substack.com" },
     { name: "Vista.tw", href: "https://www.vista.tw" },
+    { name: "Content Studio（企業服務）", href: "https://content.tw" },
     { name: "學習資源", href: "/learn" },
     { name: "社群", href: "/community" },
   ],
