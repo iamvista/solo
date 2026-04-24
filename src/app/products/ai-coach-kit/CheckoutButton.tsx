@@ -22,9 +22,10 @@ declare global {
   }
 }
 
-const PUBLISHABLE_KEY =
-  "pk_test_c5c6e741538b5da3e80aa971142664af7bbeb307ee54202d6e447ee3e3e91297";
-const PRODUCT_ID = "xqvb9nqxtehhfesuhequm9jp";
+const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_RECUR_PUBLISHABLE_KEY ?? "";
+const PRODUCT_ID =
+  process.env.NEXT_PUBLIC_RECUR_AI_COACH_KIT_PRODUCT_ID ??
+  "xqvb9nqxtehhfesuhequm9jp";
 
 export function CheckoutButton() {
   const [recur, setRecur] = useState<RecurInstance | null>(null);
@@ -32,6 +33,10 @@ export function CheckoutButton() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!PUBLISHABLE_KEY) {
+      setError("付款系統未設定");
+      return;
+    }
     const script = document.createElement("script");
     script.src = "https://unpkg.com/recur-tw@0.16.1/dist/recur.umd.js";
     script.async = true;
