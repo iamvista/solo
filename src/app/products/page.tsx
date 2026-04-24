@@ -37,7 +37,7 @@ export default function ProductsPage() {
               教你用 AI 建一個每天陪你執行的實踐教練。框架 + 模板 + 130+ 篇知識庫。
             </p>
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-lg font-bold text-primary">NT$1,499</span>
+              <span className="text-lg font-bold text-primary">NT$2,499</span>
               <ArrowRight className="h-4 w-4 text-stone-400 transition group-hover:translate-x-1 group-hover:text-primary" />
             </div>
           </Link>
