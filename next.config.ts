@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
       "frame-src 'self' https://app.cal.com https://embed.cal.com https://www.youtube.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
-      "form-action 'self' https://api.payuni.com.tw https://sandbox-api.payuni.com.tw https://buy.recur.tw https://*.recur.tw",
+      "form-action 'self' https://buy.recur.tw https://*.recur.tw",
       "object-src 'none'",
       "upgrade-insecure-requests",
     ].join("; ");
