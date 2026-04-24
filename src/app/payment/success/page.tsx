@@ -26,9 +26,10 @@ export default async function PaymentSuccessPage({
       <p className="mt-3 text-base text-stone-500">
         {isDigitalProduct
           ? "感謝購買！請點擊下方按鈕下載你的教練工坊套件。"
-          : "感謝你的購買。確認信已寄到你的 Email，"}
+          : "感謝你的購買，我們正在處理你的訂單。"}
         {!isDigitalProduct && <br />}
-        {!isDigitalProduct && "請查收信箱了解後續步驟。"}
+        {!isDigitalProduct &&
+          "購買確認信（含下載連結）會在幾秒內寄到你的 Email，請留意收件匣與垃圾信匣。"}
       </p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
         {isDigitalProduct ? (
