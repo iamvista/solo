@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { checkRateLimit, getClientIp } from "@/lib/newsletter/rate-limit";
-import { generateUnsubscribeToken } from "@/lib/newsletter/token";
 
 export async function POST(request: Request) {
   try {
@@ -79,14 +78,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "訂閱失敗，請稍後再試" }, { status: 500 });
     }
 
-    // 回傳 unsubscribe token 供前端存取（可用於 email 中的取消連結）
-    const unsubToken = generateUnsubscribeToken(normalizedEmail);
-
-    return NextResponse.json({
-      success: true,
-      message: "訂閱成功",
-      unsubscribeToken: unsubToken,
-    });
+    // Do NOT leak the unsubscribe HMAC token in the subscribe response.
+    // Anyone who can POST to /api/newsletter/subscribe could otherwise
+    // request the deterministic token for any never-before-seen email and
+    // permanently retain the ability to unsubscribe that email. The token
+    // belongs in the per-email link Vista sends out via Resend.
+    return NextResponse.json({ success: true, message: "訂閱成功" });
   } catch (err) {
     console.error("Newsletter API error:", err);
     return NextResponse.json({ error: "伺服器錯誤" }, { status: 500 });

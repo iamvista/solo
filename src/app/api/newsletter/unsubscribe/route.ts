@@ -12,10 +12,16 @@ export async function POST(request: Request) {
     }
 
     const supabase = createServiceClient();
-    const { email } = await request.json();
+    const { email, token } = await request.json();
 
-    if (!email) {
-      return NextResponse.json({ error: "Email 為必填" }, { status: 400 });
+    if (!email || !token) {
+      return NextResponse.json({ error: "Email 與 token 為必填" }, { status: 400 });
+    }
+
+    // Require HMAC token: same authorization as the GET unsubscribe link.
+    // Without this, anyone who knows an email could mass-unsubscribe.
+    if (!verifyUnsubscribeToken(email, token)) {
+      return NextResponse.json({ error: "連結無效或已過期" }, { status: 403 });
     }
 
     await supabase
