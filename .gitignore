@@ -44,5 +44,5 @@ next-env.d.ts
 openspec/.vector-search.db*
 .gstack/
 
-# private files (digital products) - small ZIPs tracked in git
-# /private/
+# private files (digital products) — moved to Vercel Blob (2026-04-26 migration)
+/private/*.zip

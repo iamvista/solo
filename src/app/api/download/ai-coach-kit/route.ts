@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { readFile } from "fs/promises";
-import path from "path";
+import { head } from "@vercel/blob";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -44,20 +43,25 @@ export async function GET(request: NextRequest) {
     .update({ download_count: tokenRecord.download_count + 1 })
     .eq("id", tokenRecord.id);
 
-  const zipPath = path.join(process.cwd(), "private", "ai-coach-kit.zip");
-
   try {
-    const fileBuffer = await readFile(zipPath);
-    return new NextResponse(fileBuffer, {
+    const blob = await head("products/ai-coach-kit.zip");
+    const blobResp = await fetch(blob.url, {
+      headers: { Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` },
+    });
+    if (!blobResp.ok || !blobResp.body) {
+      throw new Error(`Blob fetch failed: ${blobResp.status}`);
+    }
+    return new NextResponse(blobResp.body, {
       headers: {
         "Content-Type": "application/zip",
         "Content-Disposition": 'attachment; filename="ai-coach-kit.zip"',
-        "Content-Length": String(fileBuffer.length),
+        "Content-Length": String(blob.size),
       },
     });
-  } catch {
+  } catch (err) {
+    console.error("[download] blob fetch failed", err);
     return NextResponse.json(
-      { error: "檔案不存在，請聯繫 support@solo.tw" },
+      { error: "檔案暫時無法取得，請聯繫 support@solo.tw" },
       { status: 500 }
     );
   }
