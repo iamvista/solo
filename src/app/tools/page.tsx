@@ -41,7 +41,7 @@ const liveServices = [
     title: "AI 個人脈絡庫 模板",
     desc: "兩份免費 Markdown 模板：個人定位卡、寫作風格 Profile，讓 AI 更懂你的定位、受眾與寫作風格。",
     stats: "免費下載 ✦ 不留 Email",
-    href: "/tools/context-architecture",
+    href: "/tools/ai-context-library",
     cta: "下載模板",
     highlight: false,
   },

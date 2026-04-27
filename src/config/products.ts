@@ -58,4 +58,4 @@ export const CONTEXT_ARCH_DFY = {
  */
 export const BOOKING_URL =
   process.env.NEXT_PUBLIC_CONTEXT_ARCH_DFY_BOOKING_URL ??
-  "https://cal.com/vista/context-architecture-dfy"; // placeholder
+  "https://cal.com/vista/ai-context-library-dfy"; // placeholder

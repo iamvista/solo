@@ -127,6 +127,6 @@ status: draft
 
 ---
 
-> 這是 AI 個人脈絡庫 10 份文件之中的第 5 份。完整版（含讀者畫像、思想地圖、知識資產盤點等）+ Done-For-You 顧問服務在 [solo.tw/context-architecture-dfy](https://www.solo.tw/context-architecture-dfy) 上提供。
+> 這是 AI 個人脈絡庫 10 份文件之中的第 5 份。完整版（含讀者畫像、思想地圖、知識資產盤點等）+ Done-For-You 顧問服務在 [solo.tw/ai-context-library-dfy](https://www.solo.tw/ai-context-library-dfy) 上提供。
 >
 > 本模板為 Vista Cheng 設計之個人 AI 工作流文件，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。

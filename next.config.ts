@@ -23,6 +23,17 @@ const nextConfig: NextConfig = {
         destination: "https://www.solo.tw/:path*",
         permanent: true,
       },
+      // 產品命名遷移（2026-04-28）：Context Architecture → AI 個人脈絡庫
+      {
+        source: "/tools/context-architecture",
+        destination: "/tools/ai-context-library",
+        permanent: true,
+      },
+      {
+        source: "/context-architecture-dfy",
+        destination: "/ai-context-library-dfy",
+        permanent: true,
+      },
     ];
   },
   async headers() {
