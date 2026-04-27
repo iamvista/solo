@@ -17,6 +17,8 @@ import {
   Layers,
   Video,
   ArrowRight,
+  Globe,
+  RefreshCw,
 } from "lucide-react";
 
 const PRODUCT_ID_EARLY = "ikhj9wyjzh930oo3okwe742k";
@@ -26,7 +28,7 @@ const PRODUCT_ID_PRO = "hibqnzhrn02tailjlnhtouoy";
 export const metadata: Metadata = {
   title: "Vista 中文寫作 AI 工作流｜30 個寫作關卡的 Prompt 系統 | solo.tw",
   description:
-    "不是 100 個 prompt 列表，是 30 個中文寫作場景的完整工作流：構思、開頭、結構、引述、潤稿、標題。每個 prompt 附 Vista 親寫案例 + Notion 模板 + 30 分鐘示範影片。早鳥 NT$499，前 100 名專屬。",
+    "不是 100 個 prompt 列表，是 30 個中文寫作場景的完整工作流：構思、開頭、結構、引述、潤稿、標題。每個 prompt 附 Vista 親寫案例。PDF + 線上閱讀室 + 30 分鐘示範影片，早鳥 NT$499，前 100 名專屬。",
   openGraph: {
     title: "Vista 中文寫作 AI 工作流｜30 個寫作關卡的 Prompt 系統",
     description:
@@ -142,23 +144,33 @@ const categories = [
 const deliverables = [
   {
     icon: FileText,
-    title: "30 個 Prompt 套件（PDF）",
-    desc: "六大寫作場景，每個 prompt 含使用情境、Vista 親寫案例、變體建議。100 頁。",
+    title: "30 個 Prompt PDF 完整版",
+    desc: "80–100 頁書卷感排版，每個 prompt 含使用情境、Vista 親寫案例、變體建議。離線可看、可印出、可標記。",
   },
   {
-    icon: Layers,
-    title: "Notion / Obsidian 雙模板",
-    desc: "整套 prompt 內建在工作站，含 view、tag、自動分類。複製即用。",
+    icon: Globe,
+    title: "線上閱讀室（永久存取）",
+    desc: "獨立網域 token gate，一鍵複製 prompt、可搜尋、可篩選、永遠最新版。手機友善。",
+  },
+  {
+    icon: Quote,
+    title: "30+ Vista 親寫真實案例",
+    desc: "每個 prompt 都嵌在「我寫某篇 1,700 篇之一」的逐字 case study：怎麼問、AI 怎麼回、我怎麼改。",
   },
   {
     icon: Video,
     title: "30 分鐘 Vista 親自示範影片",
-    desc: "示範 5 個最常用 prompt 的實戰流程（含我寫某篇 1,700 篇文章時的真實過程）。",
+    desc: "示範 5 個最常用 prompt 的實戰流程（含我寫某篇文章時的真實過程，未剪片的卡頓、重來、定稿）。",
   },
   {
-    icon: Sparkles,
+    icon: Layers,
+    title: "Obsidian / Notion / Markdown 三格式",
+    desc: "已是 Obsidian / Notion / Cursor 用戶？整套 prompt 直接整合進你既有工作流，複製即用。",
+  },
+  {
+    icon: RefreshCw,
     title: "半年免費更新",
-    desc: "AI 模型升級時，Vista 會更新 prompt 並寄給你，買斷一次不會過時。",
+    desc: "AI 模型升級時，Vista 更新 prompt 並推送到 PDF + 線上閱讀室，買斷一次不會過時。",
   },
 ];
 
@@ -184,7 +196,7 @@ const differentiators = [
 const faqs = [
   {
     q: "什麼時候可以拿到產品？",
-    a: "目前是早鳥預購階段，預計 2026/Q3 完整交付（PDF + Notion 模板 + Obsidian 模板 + 30 分鐘示範影片）。預購買家會收到第一批完整內容；早鳥階段任何半成品 / 樣本 / 章節更新都會免費寄送。Pro 版的 1-on-1 sparring 在完整交付後 2 週內開放預約。",
+    a: "目前是早鳥預購階段，預計 2026/Q3 完整交付（PDF 完整版 + 線上閱讀室永久權限 + 30 分鐘示範影片 + Obsidian / Notion / Markdown 三格式贈送）。預購買家會收到第一批完整內容；早鳥階段任何半成品 / 樣本 / 章節更新都會免費寄送。Pro 版的 1-on-1 sparring 在完整交付後 2 週內開放預約。",
   },
   {
     q: "為什麼採預購模式？我擔心收不到。",
@@ -248,7 +260,7 @@ export default function WritingOSPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-primary" />
-              Notion / Obsidian 雙模板
+              PDF + 線上閱讀室
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -372,7 +384,7 @@ export default function WritingOSPage() {
         {/* Differentiators */}
         <section className="py-14 sm:py-16 border-t border-stone-100">
           <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
-            為什麼不買免費 prompt pack 就好
+            為什麼不下載免費 prompt pack 就好
           </h2>
           <p className="mt-3 text-center text-base text-stone-500">
             這份和免費資源最關鍵的 4 個差別
@@ -480,7 +492,7 @@ export default function WritingOSPage() {
                 <ul className="mt-4 space-y-2 text-sm text-stone-600">
                   <li className="flex items-start gap-2">
                     <span className="text-primary mt-0.5">→</span>
-                    <span>自學 PDF + Notion 模板</span>
+                    <span>自學 PDF + 線上閱讀室</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary mt-0.5">→</span>
@@ -517,7 +529,7 @@ export default function WritingOSPage() {
 
           <div className="mt-6 mx-auto max-w-3xl rounded-lg bg-amber-50 border border-amber-200 p-4 text-center">
             <p className="text-sm text-amber-900">
-              <strong>🎯 早鳥預購中</strong>　預購買家可第一手收到 2026/Q3 完整交付包（PDF + Notion 模板 + 影片），早鳥階段任何更新都會免費寄給你。
+              <strong>🎯 早鳥預購中</strong>　預購買家可第一手收到 2026/Q3 完整交付包（PDF + 線上閱讀室 + 影片 + Obsidian/Notion/Markdown 三格式），早鳥階段任何更新都會免費寄給你。
             </p>
           </div>
 
@@ -537,7 +549,11 @@ export default function WritingOSPage() {
                 <ul className="mt-6 space-y-3 text-base text-stone-600 flex-1">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span>30 個 Prompt 套件 PDF（100 頁）</span>
+                    <span>30 個 Prompt PDF 完整版（80–100 頁）</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <span>線上閱讀室永久存取（可複製、永遠最新）</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -545,11 +561,11 @@ export default function WritingOSPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span>Notion / Obsidian 雙模板</span>
+                    <span>30 分鐘 Vista 親自示範影片</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span>30 分鐘 Vista 親自示範影片</span>
+                    <span>Obsidian / Notion / Markdown 三格式</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -679,7 +695,7 @@ export default function WritingOSPage() {
               下一次卡住，你會多一個工具
             </h2>
             <p className="mt-3 text-base text-stone-600 max-w-xl mx-auto">
-              30 個寫作關卡的 AI 解法，永遠在你的 Notion 裡。半年內 AI 升級我都會更新。
+              30 個寫作關卡的 AI 解法，PDF 在你書桌上，線上閱讀室永遠在你瀏覽器裡。半年內 AI 升級我都會更新。
             </p>
             <div className="mt-6 flex justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
