@@ -7,6 +7,7 @@ import {
   BookOpen,
   Bot,
   Calendar,
+  FileText,
   Mail,
   PenLine,
   Sparkles,
@@ -34,6 +35,15 @@ const liveServices = [
     href: "/diagnose",
     cta: "開始免費健檢",
     highlight: true,
+  },
+  {
+    icon: FileText,
+    title: "個人 Context Architecture 模板",
+    desc: "兩份免費 Markdown 模板：個人定位卡、寫作風格 Profile，幫你把一人公司寫進 Claude。",
+    stats: "免費下載 ✦ 不留 Email",
+    href: "/tools/context-architecture",
+    cta: "下載模板",
+    highlight: false,
   },
   {
     icon: Calendar,

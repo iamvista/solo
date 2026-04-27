@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -127,8 +128,8 @@ const notFitYou = [
 
 const faqs = [
   {
-    q: "跟 vista.tw 的免費模板差在哪？",
-    a: "免費模板是「自助版」：你下載 10 份 markdown 範本，自己填、自己訪自己、自己灌進 Claude Project。這個 DFY 服務是「客製版」：Vista 親自訪談你 90 分鐘，根據你的真實情境產出 10 份個人化文件，再協助你安裝到 Claude。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
+    q: "跟免費模板差在哪？",
+    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格 Profile），自己填、自己訪自己、自己灌進 Claude Project。這個 DFY 服務是「客製版」：Vista 親自訪談你 90 分鐘，產出完整 10 份個人化文件，再協助你安裝到 Claude。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
   },
   {
     q: "我的資料會外洩嗎？",
@@ -139,12 +140,16 @@ const faqs = [
     a: "可以。10 份文件是一個完整框架，但不是強制全套。實際上有些人只用得到 5-6 份（例如研究者通常不需要「受眾語料」），訪談時我們會評估哪幾份對你最關鍵，把時間花在那幾份上。但交付一定還是會給滿 10 份，因為其他幾份未來你可能用得到。",
   },
   {
-    q: "訪談是中文還英文？",
-    a: "預設是繁體中文。如果你需要英文訪談我也可以，但建議先告訴我，我會準備不同的訪綱（中英文使用者的卡點不一樣）。產出的 10 份文件會用你訪談時使用的語言。",
+    q: "訪談前我該準備什麼？",
+    a: "你不用先寫好任何東西，但建議先做兩件事：（1）下載免費模板的「個人定位卡」自己填一填，給自己暖身、看看哪幾題卡住；（2）整理 3-5 篇你最得意的作品連結（部落格／電子報／簡報／影片都行），訪談時我會直接看。其他的我會帶問，你只要在訪談前 1 小時別排重要會議、保持腦袋清楚就好。",
   },
   {
     q: "退費政策？",
     a: "訪談前 48 小時取消可全額退費。訪談已開始或已交付任一份文件之後，因為這是高度客製化人工服務，恕不退費。如果你交付後對任何一份文件有意見，我會免費修一輪——這比退費更能解決你的問題。",
+  },
+  {
+    q: "Context Architecture 這個概念是哪裡來的？",
+    a: "這個概念啟發自一份英文電子報《AI Operator》（作者 Dickie，aioperatornewsletter.substack.com）。原作主張的核心精神是「與其反覆改 prompt，不如一次寫好一整套上下文文件灌進 AI」，受眾設定是 internet business owner（賣課程、賣 SaaS、做 e-commerce 的網路創業者）。Vista 認同這個精神，但原版的設計對 Solo creator、知識工作者、教學者與研究者並不適用，因此重新設計了一套版本：拿掉純行銷漏斗導向的部分，加入思想地圖、研究脈絡、寫作風格與知識資產等知識工作者更需要的層次，並擴增為 10 份。本服務的訪談方法、產出格式、與 Claude／Obsidian 整合流程都是 Vista 原創，與原作概念並無從屬關係。",
   },
 ];
 
@@ -220,13 +225,7 @@ export default function ContextArchitectureDFYPage() {
                 className="h-12 px-8 text-base"
                 asChild
               >
-                <a
-                  href="https://vista.tw/context-architecture"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  先看免費模板
-                </a>
+                <Link href="/tools/context-architecture">先看免費模板</Link>
               </Button>
             </div>
             <p className="mt-4 text-sm text-stone-500">
@@ -610,13 +609,7 @@ export default function ContextArchitectureDFYPage() {
                   className="h-12 px-8 text-base"
                   asChild
                 >
-                  <a
-                    href="https://vista.tw/context-architecture"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    先看免費模板
-                  </a>
+                  <Link href="/tools/context-architecture">先看免費模板</Link>
                 </Button>
               </div>
               <p className="mt-4 text-sm text-stone-500">
