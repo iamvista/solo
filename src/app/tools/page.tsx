@@ -38,8 +38,8 @@ const liveServices = [
   },
   {
     icon: FileText,
-    title: "個人 Context Architecture 模板",
-    desc: "兩份免費 Markdown 模板：個人定位卡、寫作風格 Profile，幫你把一人公司寫進 Claude。",
+    title: "AI 個人脈絡庫 模板",
+    desc: "兩份免費 Markdown 模板：個人定位卡、寫作風格 Profile，讓 AI 更懂你的定位、受眾與寫作風格。",
     stats: "免費下載 ✦ 不留 Email",
     href: "/tools/context-architecture",
     cta: "下載模板",

@@ -98,12 +98,15 @@ interview_completion: 0/6
 
 ---
 
-## 灌進 Claude 的方式
+## 放進 AI 工作區的方式
 
 1. 把這份檔存成 `01-personal-brand.md`
-2. 在 Claude 開一個 Project，命名為「{你的名字} Context」
-3. 把這份檔當作 Project Knowledge 上傳
-4. 之後在這個 Project 下開的每段對話，Claude 都會自動讀到這份脈絡
+2. 在你的 AI 工具（Claude Project、ChatGPT Project、Gemini Gem、NotebookLM 皆可）開一個專案，命名為「{你的名字} 脈絡庫」
+3. 把這份檔當作專案知識（Project Knowledge）上傳
+4. 之後在這個專案下開的每段對話，AI 都會自動讀到這份脈絡
 
-> 完整 10 份個人 Context Architecture 文件 + Done-For-You 訪談服務在 [solo.tw](https://www.solo.tw) 上提供。
-> 這份免費模板由 [vista.tw](https://www.vista.tw) 提供，搭配電子報〈個人 Context Architecture〉長文閱讀效果最好。
+---
+
+> 完整 10 份 AI 個人脈絡庫 + Done-For-You 顧問服務在 [solo.tw/context-architecture-dfy](https://www.solo.tw/context-architecture-dfy) 上提供。
+>
+> 本模板為 Vista Cheng 設計之個人 AI 工作流文件，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。

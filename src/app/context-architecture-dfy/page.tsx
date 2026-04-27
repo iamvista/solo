@@ -27,13 +27,13 @@ import { JsonLd, serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema
 // ── SEO ───────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: "個人 Context Architecture：Done-For-You｜Vista",
+  title: "AI 個人脈絡庫：Done-For-You 顧問服務｜Vista",
   description:
-    "Vista 親自訪談你 90 分鐘，產出 10 份個人脈絡文件，灌進你的 Claude Project。適合知識工作者、Solo creator、教學者、研究者。",
+    "Vista 親自訪談你 90 分鐘，協助你建立完整 10 份 AI 個人脈絡庫，並放進 Claude Project 或其他 AI 工作區。適合知識工作者、Solo Creator、教學者、研究者。",
   openGraph: {
-    title: "個人 Context Architecture：Done-For-You｜Vista",
+    title: "AI 個人脈絡庫：Done-For-You 顧問服務｜Vista",
     description:
-      "90 分鐘訪談、10 份文件、灌進 Claude。讓你的 AI 真正認識你。",
+      "90 分鐘訪談、10 份文件、放進你的 AI 工作區。讓 AI 從泛用助理變成真正理解你的協作夥伴。",
   },
   alternates: {
     canonical: "https://www.solo.tw/context-architecture-dfy",
@@ -45,15 +45,15 @@ export const metadata: Metadata = {
 const painPoints = [
   {
     title: "你看完電子報想做，但沒時間",
-    text: "免費模板擺在那裡，你知道值得做。可是要訪自己、整理 10 份文件、再灌進 Claude，整套流程一個下午根本走不完，又沒有人盯，最後就擱著。",
+    text: "免費模板擺在那裡，你知道值得做。可是要訪自己、整理 10 份文件、再整合進 AI 工作區，整套流程一個下午根本走不完，又沒有人盯，最後就擱著。",
   },
   {
     title: "自己訪自己很難，需要外部視角",
     text: "你在自己的脈絡裡面太久，很多預設你根本看不見。別人問一句「你為什麼這樣做」，你才會說出真正的答案。Solo 自助時，這個關鍵的反問環節最容易被跳過。",
   },
   {
-    title: "跑 /context-pack 容易跳過難題",
-    text: "AI 訪談你的時候，你卡住、你含糊、你打哈哈，AI 不會逼你。結果產出的 10 份文件看起來完整，但讀起來空——因為最關鍵的那幾題，你從沒誠實面對過。",
+    title: "自助跑時容易跳過難題",
+    text: "用 AI 訪談自己的時候，你卡住、你含糊、你打哈哈，AI 不會逼你。結果產出的 10 份文件看起來完整，但讀起來空——因為最關鍵的那幾題，你從沒誠實面對過。",
   },
 ];
 
@@ -102,7 +102,7 @@ const process = [
     Icon: PackageCheck,
     week: "訪談後 7 天",
     title: "交付 10 份文件 + 安裝指引",
-    desc: "我會根據訪談錄音與問卷，產出 10 份結構化 markdown 文件，附一場 30 分鐘 Zoom 協助你灌進 Claude Project，確認 AI 真的能引用這些脈絡。",
+    desc: "我會根據訪談錄音與問卷，產出 10 份結構化 markdown 文件，附一場 30 分鐘 Zoom 協助你放進 Claude Project，確認 AI 真的能引用這些脈絡。",
   },
   {
     Icon: RefreshCw,
@@ -129,7 +129,7 @@ const notFitYou = [
 const faqs = [
   {
     q: "跟免費模板差在哪？",
-    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格 Profile），自己填、自己訪自己、自己灌進 Claude Project。這個 DFY 服務是「客製版」：Vista 親自訪談你 90 分鐘，產出完整 10 份個人化文件，再協助你安裝到 Claude。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
+    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格 Profile），自己填、自己訪自己、自己放進 AI 工作區。這個 DFY 服務是「客製版」：Vista 親自訪談你 90 分鐘，產出完整 10 份個人化文件，再協助你整合到你選用的 AI 工作區。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
   },
   {
     q: "我的資料會外洩嗎？",
@@ -148,8 +148,8 @@ const faqs = [
     a: "訪談前 48 小時取消可全額退費。訪談已開始或已交付任一份文件之後，因為這是高度客製化人工服務，恕不退費。如果你交付後對任何一份文件有意見，我會免費修一輪——這比退費更能解決你的問題。",
   },
   {
-    q: "Context Architecture 這個概念是哪裡來的？",
-    a: "這個概念啟發自一份英文電子報《AI Operator》（作者 Dickie，aioperatornewsletter.substack.com）。原作主張的核心精神是「與其反覆改 prompt，不如一次寫好一整套上下文文件灌進 AI」，受眾設定是 internet business owner（賣課程、賣 SaaS、做 e-commerce 的網路創業者）。Vista 認同這個精神，但原版的設計對 Solo creator、知識工作者、教學者與研究者並不適用，因此重新設計了一套版本：拿掉純行銷漏斗導向的部分，加入思想地圖、研究脈絡、寫作風格與知識資產等知識工作者更需要的層次，並擴增為 10 份。本服務的訪談方法、產出格式、與 Claude／Obsidian 整合流程都是 Vista 原創，與原作概念並無從屬關係。",
+    q: "這個方法跟海外的 context-first 工作流有什麼差別？",
+    a: "「上下文比 prompt 重要」這個方向，近年在海外 AI Operator 社群已是趨勢。但海外案例多半服務於 SaaS、電商或銷售漏斗型的 internet business owner。對華語世界的知識工作者、講師、顧問、作者與 Solo Creator 來說，真正需要的不是更重的 funnel，而是能保存思想脈絡、研究積累、寫作風格與內容資產的個人脈絡庫。AI 個人脈絡庫的 10 份文件設計、訪談方法、產出格式與 AI 工作區整合流程，都是 Vista 為這個族群原創設計，與任何海外產品無從屬關係。",
   },
 ];
 
@@ -163,9 +163,9 @@ export default function ContextArchitectureDFYPage() {
     <>
       <JsonLd
         data={serviceSchema({
-          name: "個人 Context Architecture：Done-For-You",
+          name: "AI 個人脈絡庫：Done-For-You 顧問服務",
           description:
-            "Vista 親自訪談 90 分鐘，產出 10 份個人脈絡文件，灌進你的 Claude Project。",
+            "Vista 親自訪談 90 分鐘，協助建立完整 10 份 AI 個人脈絡庫，可放進 Claude Project 或其他 AI 工作區。",
           url: "https://www.solo.tw/context-architecture-dfy",
           price: 12000,
         })}
@@ -173,7 +173,7 @@ export default function ContextArchitectureDFYPage() {
       <JsonLd
         data={breadcrumbSchema([
           { name: "首頁", href: "/" },
-          { name: "Context Architecture DFY", href: "/context-architecture-dfy" },
+          { name: "AI 個人脈絡庫 DFY", href: "/context-architecture-dfy" },
         ])}
       />
       <JsonLd data={faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a })))} />
@@ -186,12 +186,12 @@ export default function ContextArchitectureDFYPage() {
               Done-For-You 客製化服務
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl md:text-5xl">
-              個人 Context Architecture：Done-For-You
+              AI 個人脈絡庫：Done-For-You 顧問服務
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-stone-600 sm:text-xl leading-relaxed">
-              Vista 親自訪談你 90 分鐘，產出 10 份個人脈絡文件，
+              Vista 親自訪談你 90 分鐘，協助你建立完整 10 份 AI 個人脈絡庫，
               <br className="hidden sm:block" />
-              灌進你的 Claude Project。
+              放進你的 Claude Project 或其他 AI 工作區。
             </p>
             <p className="mx-auto mt-3 max-w-xl text-base text-stone-500">
               適合知識工作者、Solo creator、教學者、研究者。
@@ -208,7 +208,7 @@ export default function ContextArchitectureDFYPage() {
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
-                協助灌進 Claude Project
+                協助放進 Claude Project
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -506,7 +506,7 @@ export default function ContextArchitectureDFYPage() {
               這 10 份文件能怎麼用？
             </h2>
             <p className="mt-3 text-center text-base text-stone-500">
-              灌進 Claude Project 之後，你的 AI 才是真的「認識你」。
+              放進 Claude Project 之後，你的 AI 才是真的「認識你」。
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <Card className="border-stone-200">
@@ -616,6 +616,13 @@ export default function ContextArchitectureDFYPage() {
                 早鳥前 10 位 NT$ 8,800
               </p>
             </div>
+          </section>
+
+          {/* ====== Disclaimer ====== */}
+          <section className="border-t border-stone-100 py-10">
+            <p className="text-center text-xs leading-relaxed text-stone-400">
+              本服務為 Vista Cheng 設計與提供之個人 AI 工作流顧問服務，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。產出文件可依需求用於 Claude、ChatGPT、Gemini、NotebookLM 或其他支援專案知識的 AI 工具。
+            </p>
           </section>
         </div>
       </main>
