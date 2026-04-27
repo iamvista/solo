@@ -183,6 +183,14 @@ const differentiators = [
 
 const faqs = [
   {
+    q: "什麼時候可以拿到產品？",
+    a: "目前是早鳥預購階段，預計 2026/Q3 完整交付（PDF + Notion 模板 + Obsidian 模板 + 30 分鐘示範影片）。預購買家會收到第一批完整內容；早鳥階段任何半成品 / 樣本 / 章節更新都會免費寄送。Pro 版的 1-on-1 sparring 在完整交付後 2 週內開放預約。",
+  },
+  {
+    q: "為什麼採預購模式？我擔心收不到。",
+    a: "預購一是讓我有壓力按時做完（截稿效應），二是讓真心需要的人先以早鳥價鎖定。如果 2026/Q4 仍未交付完整版本，我會主動全額退款並道歉。我寫了 1,700 篇文章、20 本書，從未跳票。",
+  },
+  {
     q: "我已經用 ChatGPT/Claude 寫文章一陣子了，這份還有用嗎？",
     a: "如果你的痛點是「卡在某個寫作環節，不知道怎麼問 AI」——這就是這份的解。每個 prompt 都對應一個具體寫作場景（如「改掉 AI 味」「把 1,000 字壓 500 字」），是即用工具書。",
   },
@@ -196,7 +204,7 @@ const faqs = [
   },
   {
     q: "可以給我看 sample 嗎？",
-    a: "購買後立即可下載，先看內容大綱（本頁第三段「30 個 prompt 場景」）評估是否符合需求。所有預付款項一旦交付即不退費。",
+    a: "本頁第三段「30 個 prompt 場景」是完整大綱。早鳥預購買家會在 2026 年 6 月底前收到第一個 prompt 場景的完整 sample（含 Vista 親寫案例），讓你提前體驗品質。完整版 2026/Q3 交付。",
   },
   {
     q: "未來 AI 模型升級了，這份會過時嗎？",
@@ -214,6 +222,9 @@ export default function WritingOSPage() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-stone-100/60 to-background">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
+          <Badge className="mb-3 bg-amber-500/15 text-amber-700 border-amber-500/30 hover:bg-amber-500/15 px-4 py-1.5 text-xs sm:text-sm">
+            🎯 2026/Q3 出貨 · 早鳥預購中
+          </Badge>
           <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
             Writing OS · Vista 中文寫作 AI 工作流
           </Badge>
@@ -258,7 +269,7 @@ export default function WritingOSPage() {
             </Button>
           </div>
           <p className="mt-4 text-sm text-stone-500">
-            前 100 名早鳥價 NT$499 · 之後恢復原價 NT$799
+            前 100 名早鳥價 NT$499 · 之後恢復原價 NT$799 · 預購預計 2026/Q3 出貨
           </p>
         </div>
       </section>
@@ -504,7 +515,13 @@ export default function WritingOSPage() {
             一次買斷，沒有訂閱，永久使用。
           </p>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-stretch max-w-3xl mx-auto">
+          <div className="mt-6 mx-auto max-w-3xl rounded-lg bg-amber-50 border border-amber-200 p-4 text-center">
+            <p className="text-sm text-amber-900">
+              <strong>🎯 早鳥預購中</strong>　預購買家可第一手收到 2026/Q3 完整交付包（PDF + Notion 模板 + 影片），早鳥階段任何更新都會免費寄給你。
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-stretch max-w-3xl mx-auto">
             {/* Standard */}
             <Card className="border-primary border-2 shadow-lg flex flex-col">
               <CardContent className="p-8 flex-1 flex flex-col">
@@ -605,8 +622,10 @@ export default function WritingOSPage() {
             </Card>
           </div>
 
-          <p className="mt-8 text-center text-xs text-stone-400 max-w-md mx-auto">
-            支援信用卡付款 · 由 Recur.tw 安全處理 · 一次買斷無訂閱 · 數位產品交付後恕不退款
+          <p className="mt-8 text-center text-xs text-stone-400 max-w-lg mx-auto leading-relaxed">
+            支援信用卡付款 · 由 Recur.tw 安全處理 · 一次買斷無訂閱
+            <br />
+            預購預計 2026/Q3 完整交付 · 若 2026/Q4 仍未交付，全額退款。
           </p>
 
           <details className="mt-8 mx-auto max-w-md text-sm text-stone-500">
