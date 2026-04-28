@@ -21,6 +21,7 @@ import {
   Mic,
   GraduationCap,
   BookOpen,
+  Mail,
 } from "lucide-react";
 import { JsonLd, serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
@@ -52,7 +53,7 @@ const painPoints = [
     text: "你在自己的脈絡裡面太久，很多預設你根本看不見。別人問一句「你為什麼這樣做」，你才會說出真正的答案。獨自自助時，這個關鍵的反問環節最容易被跳過。",
   },
   {
-    title: "自助跑時容易跳過難題",
+    title: "自己做，容易跳過難題",
     text: "用 AI 訪談自己的時候，你卡住、你含糊、你打哈哈，AI 不會逼你。結果產出的 10 份文件看起來完整，但讀起來空——因為最關鍵的那幾題，你從沒誠實面對過。",
   },
 ];
@@ -103,7 +104,7 @@ const process = [
     Icon: RefreshCw,
     week: "第 30 天後",
     title: "1 次校準 review（可加購）",
-    desc: "若有需要，可加購此服務：使用屆滿一個月之後，再開一次 30 分鐘視訊會議。這時候，你會知道哪幾份文件不夠準、哪幾份沒在用、哪幾份想加什麼？我們一起集思廣益，進行修改。歡迎來信洽詢。",
+    desc: "若有需要，可加購此服務：使用屆滿一個月之後，再開一次 30 分鐘視訊會議。這時候，你會知道哪幾份文件不夠準、哪幾份沒在用、哪幾份想加什麼？我們一起集思廣益，進行修改。",
   },
 ];
 
@@ -124,7 +125,7 @@ const notFitYou = [
 const faqs = [
   {
     q: "跟免費模板差在哪？",
-    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格 Profile），自己填、自己訪自己、自己放進 AI 工作區。這個 DFY 服務是「客製版」：Vista 親自訪談你 60 分鐘，產出完整 10 份個人化文件，再協助你整合到你選用的 AI 工作區。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
+    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格檔案），自己填、自己訪自己、自己放進 AI 工作區。這個 DFY 服務是「客製版」：Vista 親自訪談你 60 分鐘，產出完整 10 份個人化文件，再協助你整合到你選用的 AI 工作區。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
   },
   {
     q: "我的資料會外洩嗎？",
@@ -189,7 +190,7 @@ export default function ContextArchitectureDFYPage() {
               放進你的 Claude Project 或其他 AI 工作區。
             </p>
             <p className="mx-auto mt-3 max-w-xl text-base text-stone-500">
-              適合知識工作者、獨立創作者、教學者、研究者。
+              適合知識工作者、獨立創作者、教學者或研究者。
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-500">
@@ -361,6 +362,16 @@ export default function ContextArchitectureDFYPage() {
                         <p className="mt-2 text-base text-stone-600 leading-relaxed">
                           {desc}
                         </p>
+                        {week === "第 30 天後" && (
+                          <a
+                            href="mailto:iamvista@gmail.com?subject=AI%20%E5%80%8B%E4%BA%BA%E8%84%88%E7%B5%A1%E5%BA%AB%20DFY%20%EF%BD%9C%2030%20%E5%A4%A9%E6%A0%A1%E6%BA%96%20review%20%E5%8A%A0%E8%B3%BC%E6%B4%BD%E8%A9%A2"
+                            className="group mt-4 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-5 py-2.5 text-sm font-semibold text-primary shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary/10 hover:shadow-md"
+                          >
+                            <Mail className="h-4 w-4" />
+                            <span>來信洽詢加購：iamvista@gmail.com</span>
+                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </CardContent>

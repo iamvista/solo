@@ -1,11 +1,11 @@
 ---
-name: 寫作風格 Profile（簡版）
+name: 寫作風格檔案（簡版）
 last_updated: YYYY-MM-DD
 version: 1
 status: draft
 ---
 
-# 寫作風格 Profile（簡版）
+# 寫作風格檔案（簡版）
 
 > 這是你寫作的指紋，也是一份寫作者重新認識自己的語言地圖。
 >
