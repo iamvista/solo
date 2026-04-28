@@ -29,11 +29,11 @@ import { JsonLd, serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema
 export const metadata: Metadata = {
   title: "AI 個人脈絡庫：Done-For-You 顧問服務｜Vista",
   description:
-    "Vista 親自訪談你 90 分鐘，協助你建立完整 10 份 AI 個人脈絡庫，並放進 Claude Project 或其他 AI 工作區。適合知識工作者、Solo Creator、教學者、研究者。",
+    "Vista 親自訪談你 60 分鐘，協助你建立完整 10 份 AI 個人脈絡庫，並放進 Claude Project 或其他 AI 工作區。適合知識工作者、獨立創作者、教學者、研究者。",
   openGraph: {
     title: "AI 個人脈絡庫：Done-For-You 顧問服務｜Vista",
     description:
-      "90 分鐘訪談、10 份文件、放進你的 AI 工作區。讓 AI 從泛用助理更接近懂你脈絡的協作夥伴。",
+      "60 分鐘訪談、10 份文件、放進你的 AI 工作區。讓 AI 從泛用助理更接近懂你脈絡的協作夥伴。",
   },
   alternates: {
     canonical: "https://www.solo.tw/ai-context-library-dfy",
@@ -44,12 +44,12 @@ export const metadata: Metadata = {
 
 const painPoints = [
   {
-    title: "你看完電子報想做，但沒時間",
+    title: "你很想做，但沒時間",
     text: "免費模板擺在那裡，你知道值得做。可是要訪自己、整理 10 份文件、再整合進 AI 工作區，整套流程一個下午根本走不完，又沒有人盯，最後就擱著。",
   },
   {
-    title: "自己訪自己很難，需要外部視角",
-    text: "你在自己的脈絡裡面太久，很多預設你根本看不見。別人問一句「你為什麼這樣做」，你才會說出真正的答案。Solo 自助時，這個關鍵的反問環節最容易被跳過。",
+    title: "自己訪談自己很難，需要外部視角",
+    text: "你在自己的脈絡裡面太久，很多預設你根本看不見。別人問一句「你為什麼這樣做」，你才會說出真正的答案。獨自自助時，這個關鍵的反問環節最容易被跳過。",
   },
   {
     title: "自助跑時容易跳過難題",
@@ -60,23 +60,18 @@ const painPoints = [
 const deliverables = [
   {
     Icon: Video,
-    title: "90 分鐘 1-on-1 視訊訪談（Vista 親自）",
-    desc: "Vista 帶著一份預備好的訪綱跟你對話。會逼你講清楚那些「平常不會去講」的事：你真正在賣什麼、你的讀者是誰、你怕被誰看穿。整段錄影你可以下載回看。",
+    title: "60 分鐘 1-on-1 視訊訪談（Vista 親自）",
+    desc: "Vista 帶著一份預備好的訪綱跟你對話。會逼你講清楚那些平常不會去講的事：你真正在賣什麼、你的讀者是誰、你怕被誰看穿。整段錄影，方便你可以下載回看。",
   },
   {
     Icon: FileText,
     title: "10 份結構化 markdown 文件",
-    desc: "定位、讀者、思想、內容、風格、知識資產、工具棧、標竿作品、研究脈絡、受眾語料。每一份都是可貼進 Claude Project 即用的格式，不是抽象框架。",
+    desc: "定位、讀者、思想、內容、風格、知識資產、工具棧、標竿作品、研究脈絡與受眾語料。每一份都是可貼進 Claude Project 即用的格式，不是抽象框架。",
   },
   {
     Icon: PackageCheck,
-    title: "安裝到你的 Claude Project（協助設定）",
-    desc: "訪談後 7 天內交付，附一場 30 分鐘協助安裝視訊：把 10 份文件安裝到你指定的 Claude Project（或多個 Project），確認 AI 真的能引用這些脈絡才算完成。",
-  },
-  {
-    Icon: RefreshCw,
-    title: "30 天後一次免費 review + 校準",
-    desc: "用了一個月之後，你會發現某幾份文件不夠準。這時候我們再開一次 60 分鐘視訊，根據你實際使用 AI 的對話片段，把不準的部分校正回來。",
+    title: "Claude Project 導入教學",
+    desc: "訪談後 7 天內交付，提供教學文件，方便你把 10 份文件安裝到指定的 Claude Project，確認 AI 真的能引用這些脈絡。",
   },
   {
     Icon: FolderTree,
@@ -90,25 +85,25 @@ const process = [
     Icon: BookOpen,
     week: "第 1 週",
     title: "填預備問卷 → 預約訪談",
-    desc: "付款後你會收到一份 30 題的預備問卷與預約連結。問卷不是隨便填，它會逼你先想過一輪——這樣訪談當天我們才能直接進深水區。",
+    desc: "付款後你會收到一份 30 題的預備問卷與預約連結。問卷不是隨便填，它會逼你先想過一輪——如此一來，訪談當天我們才能直接切入主題。",
   },
   {
     Icon: Mic,
     week: "訪談當天",
-    title: "90 分鐘訪談（錄影回放可下載）",
-    desc: "Google Meet 或 Zoom 視訊，全程錄影，你可以下載原檔。訪談會分三段：你是誰、你寫給誰、你怎麼想。中間我會反覆追問，逼你說出最精準的版本。",
+    title: "60 分鐘訪談（訪談錄影可下載回放）",
+    desc: "Google Meet 視訊會議，全程錄影，你可以下載原檔。訪談會分三段：你是誰、你寫給誰、你怎麼想。中間我會反覆追問，逼你說出最精準的版本。",
   },
   {
     Icon: PackageCheck,
     week: "訪談後 7 天",
     title: "交付 10 份文件 + 安裝指引",
-    desc: "我會根據訪談錄音與問卷，產出 10 份結構化 markdown 文件，附一場 30 分鐘 Zoom 協助你放進 Claude Project，確認 AI 真的能引用這些脈絡。",
+    desc: "我會根據訪談錄音與問卷，產出 10 份結構化 markdown 文件，附一份完整教學文件，指引你導入 Claude Project，確認 AI 真的能引用這些脈絡。",
   },
   {
     Icon: RefreshCw,
     week: "第 30 天後",
-    title: "1 次校準 review",
-    desc: "你用一個月之後再開一次 60 分鐘視訊。這時候你會知道哪幾份文件「不夠準」、哪幾份「沒在用」、哪幾份「想加什麼」。我們現場一起改。",
+    title: "1 次校準 review（可加購）",
+    desc: "若有需要，可加購此服務：使用屆滿一個月之後，再開一次 30 分鐘視訊會議。這時候，你會知道哪幾份文件不夠準、哪幾份沒在用、哪幾份想加什麼？我們一起集思廣益，進行修改。歡迎來信洽詢。",
   },
 ];
 
@@ -116,20 +111,20 @@ const fitYou = [
   "已經有讀者或客戶基礎，不是從零開始",
   "想用 AI 放大產出，不是想取代 AI 思考",
   "願意誠實面對自己，包括還沒想清楚的那幾題",
-  "知識工作者、Solo creator、教學者、研究者",
+  "知識工作者、獨立創作者、教學者、研究者",
 ];
 
 const notFitYou = [
   "完全 0 受眾、還在找方向的階段",
   "想要一份速成 prompt、複製貼上就能用的人",
   "預期付錢之後不需要花 2-3 小時參與訪談的人",
-  "希望 AI 完全代替你思考、產出、決策的人",
+  "希望 AI 完全代替你思考、產出與做決策的人",
 ];
 
 const faqs = [
   {
     q: "跟免費模板差在哪？",
-    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格 Profile），自己填、自己訪自己、自己放進 AI 工作區。這個 DFY 服務是「客製版」：Vista 親自訪談你 90 分鐘，產出完整 10 份個人化文件，再協助你整合到你選用的 AI 工作區。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
+    a: "免費模板是「自助版」：你下載 2 份 markdown 範本（個人定位卡、寫作風格 Profile），自己填、自己訪自己、自己放進 AI 工作區。這個 DFY 服務是「客製版」：Vista 親自訪談你 60 分鐘，產出完整 10 份個人化文件，再協助你整合到你選用的 AI 工作區。如果你時間多、願意自己跑流程，免費模板就夠了；如果你想要外部視角逼出真實答案、又不想花 2-3 個下午自己摸，DFY 比較適合。",
   },
   {
     q: "我的資料會外洩嗎？",
@@ -149,7 +144,7 @@ const faqs = [
   },
   {
     q: "這個方法跟海外的 context-first 工作流有什麼差別？",
-    a: "「上下文比 prompt 重要」這個方向，近年在海外 AI Operator 社群已是趨勢。但海外案例多半服務於 SaaS、電商或銷售漏斗型的 internet business owner。對華語世界的知識工作者、講師、顧問、作者與 Solo Creator 來說，真正需要的不是更重的 funnel，而是能保存思想脈絡、研究積累、寫作風格與內容資產的個人脈絡庫。AI 個人脈絡庫的 10 份文件設計、訪談方法、產出格式與 AI 工作區整合流程，都是 Vista 為這個族群原創設計，與任何海外產品無從屬關係。",
+    a: "「上下文比 prompt 重要」這個方向，近年在海外 AI Operator 社群已是趨勢。但海外案例多半服務於 SaaS、電商或銷售漏斗型的 internet business owner。對華語世界的知識工作者、講師、顧問、作者與獨立創作者來說，真正需要的不是更重的 funnel，而是能保存思想脈絡、研究積累、寫作風格與內容資產的個人脈絡庫。AI 個人脈絡庫的 10 份文件設計、訪談方法、產出格式與 AI 工作區整合流程，都是 Vista 為這個族群原創設計，與任何海外產品無從屬關係。",
   },
 ];
 
@@ -165,7 +160,7 @@ export default function ContextArchitectureDFYPage() {
         data={serviceSchema({
           name: "AI 個人脈絡庫：Done-For-You 顧問服務",
           description:
-            "Vista 親自訪談 90 分鐘，協助建立完整 10 份 AI 個人脈絡庫，可放進 Claude Project 或其他 AI 工作區。",
+            "Vista 親自訪談 60 分鐘，協助建立完整 10 份 AI 個人脈絡庫，可放進 Claude Project 或其他 AI 工作區。",
           url: "https://www.solo.tw/ai-context-library-dfy",
           price: 12000,
         })}
@@ -189,18 +184,18 @@ export default function ContextArchitectureDFYPage() {
               AI 個人脈絡庫：Done-For-You 顧問服務
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-stone-600 sm:text-xl leading-relaxed">
-              Vista 親自訪談你 90 分鐘，協助你建立完整 10 份 AI 個人脈絡庫，
+              Vista 親自訪談你 60 分鐘，協助你建立完整 10 份 AI 個人脈絡庫，
               <br className="hidden sm:block" />
               放進你的 Claude Project 或其他 AI 工作區。
             </p>
             <p className="mx-auto mt-3 max-w-xl text-base text-stone-500">
-              適合知識工作者、Solo creator、教學者、研究者。
+              適合知識工作者、獨立創作者、教學者、研究者。
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-500">
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
-                90 分鐘 Vista 親自訪談
+                60 分鐘 Vista 親自訪談
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -208,11 +203,7 @@ export default function ContextArchitectureDFYPage() {
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
-                協助放進 Claude Project
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-primary" />
-                30 天後免費校準
+                提供 Claude Project 導入教學文件
               </span>
             </div>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -239,7 +230,7 @@ export default function ContextArchitectureDFYPage() {
           <section className="py-14 sm:py-16">
             <div className="mx-auto max-w-3xl">
               <h2 className="text-2xl font-bold sm:text-3xl text-stone-900">
-                你看完電子報，知道值得做。
+                你知道值得做，
               </h2>
               <p className="mt-2 text-xl text-primary font-semibold">
                 可是真要動手，總會卡在三件事。
@@ -415,7 +406,7 @@ export default function ContextArchitectureDFYPage() {
                   <ul className="mt-6 space-y-3 text-base text-stone-600 flex-1">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>90 分鐘 Vista 親自訪談</span>
+                      <span>60 分鐘 Vista 親自訪談</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -423,11 +414,7 @@ export default function ContextArchitectureDFYPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>協助安裝到你的 Claude Project</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>30 天後 1 次免費校準</span>
+                      <span>提供 Claude Project 導入教學文件</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -435,7 +422,7 @@ export default function ContextArchitectureDFYPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>訪談錄影回放可下載</span>
+                      <span>訪談錄影可下載回放</span>
                     </li>
                   </ul>
                   <div className="mt-6">
@@ -506,7 +493,7 @@ export default function ContextArchitectureDFYPage() {
               這 10 份文件能怎麼用？
             </h2>
             <p className="mt-3 text-center text-base text-stone-500">
-              放進 Claude Project 之後，你的 AI 才是真的「認識你」。
+              放進 AI 工作區之後，你的 AI 在每次協作時都會多一份可參照的脈絡底稿。
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <Card className="border-stone-200">
@@ -540,7 +527,7 @@ export default function ContextArchitectureDFYPage() {
                   <div className="flex items-center gap-2 mb-3">
                     <Compass className="h-5 w-5 text-primary shrink-0" />
                     <h3 className="font-semibold text-stone-900 text-lg">
-                      Solo Creator
+                      獨立創作者
                     </h3>
                   </div>
                   <p className="text-base text-stone-600 leading-relaxed">
@@ -594,7 +581,7 @@ export default function ContextArchitectureDFYPage() {
                 花一個下午的時間，把你之後一年要做的事情交給 AI
               </h2>
               <p className="mt-3 text-base text-stone-600 max-w-xl mx-auto leading-relaxed">
-                Vista 親自訪談你 90 分鐘，產出 10 份個人脈絡文件，安裝到你的 Claude Project 或其他 AI 工作區。30 天之後再校準一次，整套服務跑完，你的 AI 在每次協作時都會多一份可參照的脈絡底稿。
+                Vista 親自訪談你 60 分鐘，產出 10 份個人脈絡文件，附完整教學文件指引你導入 Claude Project 或其他 AI 工作區。整套服務跑完，你的 AI 在每次協作時都會多一份可參照的脈絡底稿。
               </p>
               <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <Button size="lg" className="h-12 px-8 text-base" asChild>

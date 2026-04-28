@@ -8,6 +8,14 @@ import {
   FileText,
   Sparkles,
   Mail,
+  Bot,
+  MessageCircle,
+  Gem,
+  BookOpen,
+  ChevronDown,
+  CheckCircle2,
+  Lightbulb,
+  AlertCircle,
 } from "lucide-react";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
@@ -61,6 +69,168 @@ const templates = [
   },
 ];
 
+const installPlatforms = [
+  {
+    id: "claude",
+    name: "Claude Project",
+    tagline: "推薦寫作主力",
+    plan: "Claude Pro 以上",
+    difficulty: "⭐",
+    Icon: Bot,
+    accent: "border-l-amber-500",
+    iconBg: "bg-amber-50 text-amber-700",
+    defaultOpen: true,
+    steps: [
+      {
+        title: "建立 Project",
+        body: "打開 claude.ai 登入。左側欄點「Projects」→「+ New Project」，命名為「{你的名字} 脈絡庫」（例如「Vista 脈絡庫」）。描述欄填一句話定位即可。",
+      },
+      {
+        title: "上傳 10 份 Markdown",
+        body: "進入 Project，找到「Project knowledge」（中文介面叫「專案知識」）區塊，點「+ Add content」或拖曳 10 個 .md 檔進去。每份檔 1–10KB，幾秒內完成。",
+      },
+      {
+        title: "設定 Custom Instructions",
+        body: "點 Project 設定（齒輪圖示），在 Custom Instructions 欄位貼上下方內容：",
+        code: `你正在跟一位個人創作者協作。Project 裡的 10 份 Markdown 是這位創作者的個人脈絡庫，每次回答前請先參照相關文件。
+
+寫作前的內部檢查：
+- 銷售文案、開頭段：先看 02-audience.md 和 10-voice-of-customer.md
+- 觀點型內容：先看 03-belief-map.md
+- 風格對齊：先看 05-voice-profile.md
+- 引用作品：優先用 06-knowledge-assets.md，不要編造引用
+- 工具教學：只用 07-tech-stack.md 列的工具
+- 規劃內容：依 04-content-matrix.md 的黃金組合
+
+回答時請告訴我你引用了哪幾份檔案。`,
+      },
+      {
+        title: "驗證安裝",
+        body: "開新對話輸入測試 prompt：",
+        code: `請依照 05-voice-profile.md 的風格，寫一段 100 字介紹我自己的工作。寫完後告訴我你引用了哪些維度。`,
+      },
+    ],
+    note: "Claude 不會永久學會這些內容，每次對話開始時會把 Project knowledge 載入當次上下文。修改檔案後要重新上傳才會生效。",
+  },
+  {
+    id: "chatgpt",
+    name: "ChatGPT Project",
+    tagline: "推薦多模態主力",
+    plan: "ChatGPT Plus 以上",
+    difficulty: "⭐",
+    Icon: MessageCircle,
+    accent: "border-l-emerald-500",
+    iconBg: "bg-emerald-50 text-emerald-700",
+    defaultOpen: false,
+    steps: [
+      {
+        title: "建立 Project",
+        body: "打開 chatgpt.com 登入。左側欄找到「Projects」區塊，點「+」建立。命名為「{你的名字} 脈絡庫」。",
+      },
+      {
+        title: "上傳 10 份 Markdown",
+        body: "進入 Project，點「Files」或「Add files」，一次選 10 份 .md 上傳。ChatGPT 會幫每份建索引。",
+      },
+      {
+        title: "設定 Project Instructions",
+        body: "點「Instructions」區塊，貼上下方內容：",
+        code: `你正在跟一位個人創作者協作。Project Files 裡有 10 份 Markdown，是這位創作者的個人脈絡庫。
+
+每次回答前的優先順序：
+1. 銷售／開頭段：先讀 02-audience.md、10-voice-of-customer.md
+2. 觀點型內容：先讀 03-belief-map.md
+3. 風格對齊：先讀 05-voice-profile.md
+4. 引用作品：用 06-knowledge-assets.md，不要編造
+5. 工具教學：只用 07-tech-stack.md 列的工具
+6. 內容規劃：依 04-content-matrix.md 的黃金組合
+
+回答時請告訴我你引用了哪幾份檔案。`,
+      },
+      {
+        title: "驗證安裝",
+        body: "新對話輸入：",
+        code: `參考 02-audience.md 和 05-voice-profile.md，幫我寫一個 Threads 貼文 hook，題目自選。寫完告訴我你怎麼引用這兩份的。`,
+      },
+    ],
+    note: "Plus 方案 Project Files 上限通常 20 個檔，10 份模板綽綽有餘。ChatGPT 對中文 retrieval 偶爾不穩定，重要對話建議在 prompt 裡明確點名要參考哪份檔。",
+  },
+  {
+    id: "gemini",
+    name: "Gemini Gem",
+    tagline: "Google Workspace 整合",
+    plan: "Gemini Advanced",
+    difficulty: "⭐⭐",
+    Icon: Gem,
+    accent: "border-l-sky-500",
+    iconBg: "bg-sky-50 text-sky-700",
+    defaultOpen: false,
+    steps: [
+      {
+        title: "建立 Gem",
+        body: "打開 gemini.google.com，左側欄找「Gem manager」，點「+ New Gem」。命名為「{你的名字} 脈絡庫」。",
+      },
+      {
+        title: "設定 Gem Instructions",
+        body: "在「Instructions」欄位貼上下方內容：",
+        code: `你是一位個人創作者的長期協作夥伴。下方 Knowledge 區的 10 份 Markdown 是這位創作者的個人脈絡庫。
+
+回應前請先參照：
+- 02-audience：讀者畫像
+- 03-belief-map：思想立場
+- 05-voice-profile：寫作風格
+- 06-knowledge-assets：作品清單
+- 07-tech-stack：工具棧
+- 10-voice-of-customer：受眾原話
+
+寫銷售、開頭、客戶回信時優先引用 10-voice-of-customer 的原話。
+寫觀點型內容時嚴格依 03-belief-map 的立場。`,
+      },
+      {
+        title: "上傳 Markdown 到 Knowledge",
+        body: "在 Gem 編輯介面找「Knowledge」區，一次選 10 份 .md 上傳。Gemini 會花 10–30 秒解析。",
+      },
+      {
+        title: "儲存並驗證",
+        body: "點「Save」儲存 Gem。打開 Gem 開新對話：",
+        code: `依照 03-belief-map.md，寫一段我會反對的觀點，並用我的語氣反駁。`,
+      },
+    ],
+    note: "Gem Knowledge 檔案數上限通常是 10 個（剛好等於我們的 10 份模板，但沒空間再加）。修改檔案要重新上傳並儲存 Gem。",
+  },
+  {
+    id: "notebooklm",
+    name: "NotebookLM",
+    tagline: "免費，研究參照主力",
+    plan: "免費（Google 帳號）",
+    difficulty: "⭐",
+    Icon: BookOpen,
+    accent: "border-l-violet-500",
+    iconBg: "bg-violet-50 text-violet-700",
+    defaultOpen: false,
+    steps: [
+      {
+        title: "建立 Notebook",
+        body: "打開 notebooklm.google.com，點「+ Create new notebook」。命名為「{你的名字} 脈絡庫」。",
+      },
+      {
+        title: "上傳 10 份 Markdown 為 Sources",
+        body: "在 Notebook 內點「+ Add source」→「Upload file」，一次選 10 份 .md。每份約 5–10 秒完成索引。",
+      },
+      {
+        title: "跟 Notebook 對話",
+        body: "NotebookLM 不像 Claude／ChatGPT 是 chat 助手定位，它更偏「研究工具」。可以直接在輸入框問：",
+        code: `依照 03-belief-map 的立場，寫一篇 600 字反駁「AI 會取代寫作者」的短文。`,
+      },
+      {
+        title: "驗證安裝",
+        body: "問一個只有你的脈絡庫才能回答的問題：",
+        code: `我反對的 3 個流行觀點是什麼？`,
+      },
+    ],
+    note: "強項：跟你的資料對話、source citation、Audio Overview（podcast 風格音訊）、一鍵生 Mind Map。弱項：替你產出新內容的流暢度不如 Claude／ChatGPT。建議當研究輔助、不當主力。",
+  },
+];
+
 const dfyBullets = [
   "個人定位卡",
   "讀者畫像",
@@ -83,7 +253,7 @@ const faqItems = [
   {
     question: "這兩份模板適合誰下載？",
     answer:
-      "適合知識工作者、講師、顧問、作者、研究者，以及靠觀點與寫作變現的 Solo Creator。只要你常用 Claude、ChatGPT、Gemini、NotebookLM 之類的 AI 工具寫作或思考，這兩份模板就能幫你大幅提升輸出可用率。",
+      "適合知識工作者、講師、顧問、作者、研究者，以及靠觀點與寫作變現的 獨立創作者。只要你常用 Claude、ChatGPT、Gemini、NotebookLM 之類的 AI 工具寫作或思考，這兩份模板就能幫你大幅提升輸出可用率。",
   },
   {
     question: "下載要付費或留 Email 嗎？",
@@ -108,7 +278,7 @@ const faqItems = [
   {
     question: "這個方法跟海外的 context-first 工作流有什麼差別？",
     answer:
-      "「上下文比 prompt 重要」這個方向，近年在海外 AI Operator 社群已是趨勢。但海外案例多半服務於 SaaS、電商或銷售漏斗型的 internet business owner。對華語世界的知識工作者、講師、顧問、作者與 Solo Creator 來說，真正需要的不是更重的 funnel，而是能保存思想脈絡、研究積累、寫作風格與內容資產的個人脈絡庫。AI 個人脈絡庫的 10 份文件設計、訪談方法與產出格式都是 Vista 為這個族群原創設計。",
+      "「上下文比 prompt 重要」這個方向，近年在海外 AI Operator 社群已是趨勢。但海外案例多半服務於 SaaS、電商或銷售漏斗型的 internet business owner。對華語世界的知識工作者、講師、顧問、作者與獨立創作者來說，真正需要的不是更重的 funnel，而是能保存思想脈絡、研究積累、寫作風格與內容資產的個人脈絡庫。AI 個人脈絡庫的 10 份文件設計、訪談方法與產出格式都是 Vista 為這個族群原創設計。",
   },
 ];
 
@@ -167,12 +337,12 @@ export default function ContextLibraryPage() {
                 AI 不知道你的受眾是誰，不知道你真正想服務的人，也不知道哪些題目你想深耕、哪些領域你根本不想碰。於是，它只能把你當成一個泛用的「知識工作者」，用一種看起來正確、其實沒有靈魂的方式替你寫作。這不是 prompt 的問題，而是上下文的問題。
               </p>
               <p>
-                近年海外 AI Operator 社群很流行一種 context-first 的工作法：與其每次都重新修 prompt，不如先把自己的商業定位、產品、受眾、語氣、知識資產與工作流程，整理成一套 AI 可以長期讀取的脈絡文件。
+                如 AI Operator 等海外社群很流行一種 context-first 的工作法：與其每次都重新修 prompt，不如先把自己的商業定位、產品、受眾、語氣、知識資產與工作流程，整理成一套 AI 可以長期讀取的脈絡文件。
               </p>
               <p>
                 我很認同這個方向。但我也發現，許多海外案例主要服務於 SaaS、電商或強銷售漏斗型的 internet business owner；對華語世界的{" "}
                 <span className="font-bold text-stone-900">
-                  知識工作者、講師、顧問、作者與 Solo Creator
+                  知識工作者、講師、顧問、作者與獨立創作者
                 </span>
                 來說，我們真正需要的不是更重的 funnel，而是一套能保存思想脈絡、研究積累、寫作風格與內容資產的個人脈絡庫。
               </p>
@@ -245,6 +415,132 @@ export default function ContextLibraryPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Install Guide */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+              <Bot className="h-3.5 w-3.5" />
+              下一步
+            </span>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
+              四大平臺安裝教學
+            </h2>
+            <p className="mt-3 text-base text-stone-500">
+              下載完模板後，跟著步驟做，10 分鐘就能放進你的 AI 工作區。
+              <br className="hidden sm:block" />
+              建議至少裝兩個：一個主力寫作（Claude／ChatGPT 二選一），一個研究參照（NotebookLM）。
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-3xl space-y-4">
+            {installPlatforms.map((p) => {
+              const Icon = p.Icon;
+              return (
+                <details
+                  key={p.id}
+                  open={p.defaultOpen}
+                  className={`group overflow-hidden rounded-2xl border border-stone-200 border-l-4 ${p.accent} bg-white shadow-sm transition-all`}
+                >
+                  <summary className="flex cursor-pointer list-none items-center gap-4 p-5 sm:p-6 [&::-webkit-details-marker]:hidden">
+                    <div
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${p.iconBg}`}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                        <h3 className="text-lg font-bold text-stone-900">
+                          {p.name}
+                        </h3>
+                        <span className="text-xs font-medium text-stone-500">
+                          {p.tagline}
+                        </span>
+                      </div>
+                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-stone-500">
+                        <span>方案：{p.plan}</span>
+                        <span aria-hidden>·</span>
+                        <span>難度 {p.difficulty}</span>
+                      </div>
+                    </div>
+                    <ChevronDown className="h-5 w-5 shrink-0 text-stone-400 transition-transform group-open:rotate-180" />
+                  </summary>
+
+                  <div className="border-t border-stone-100 bg-stone-50/50 p-6 sm:p-8">
+                    <ol className="space-y-6">
+                      {p.steps.map((step, i) => (
+                        <li key={i} className="flex gap-4">
+                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+                            {i + 1}
+                          </div>
+                          <div className="flex-1 pt-0.5">
+                            <h4 className="text-base font-bold text-stone-900">
+                              {step.title}
+                            </h4>
+                            <p className="mt-2 text-sm leading-relaxed text-stone-600">
+                              {step.body}
+                            </p>
+                            {step.code && (
+                              <pre className="mt-3 overflow-x-auto rounded-lg bg-stone-900 p-4 text-xs leading-relaxed text-stone-100">
+                                <code className="whitespace-pre-wrap break-words">
+                                  {step.code}
+                                </code>
+                              </pre>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+
+                    <div className="mt-6 flex gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
+                      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
+                      <p className="text-xs leading-relaxed text-amber-900">
+                        <span className="font-semibold">注意：</span>
+                        {p.note}
+                      </p>
+                    </div>
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+
+          <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-50 to-white p-6 sm:p-8">
+            <div className="flex items-start gap-3">
+              <Lightbulb className="mt-1 h-5 w-5 shrink-0 text-primary" />
+              <div>
+                <h3 className="text-base font-bold text-stone-900">
+                  跨平臺使用技巧
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm leading-relaxed text-stone-600">
+                  <li className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>
+                      <span className="font-semibold">prompt 引用慣例：</span>
+                      明確點名比丟出去讓 AI 自己找有效得多。例如：「依照 05-voice-profile 的『禁忌清單』，寫一段⋯⋯」「對標 02-audience 的『代表受眾 1』，回答⋯⋯」
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>
+                      <span className="font-semibold">同步紀律：</span>
+                      10 份模板更新後，主動重新上傳到所有已安裝的平臺。建議每月最後一個週日做「脈絡庫同步日」，calendar 設成 recurring event。
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>
+                      <span className="font-semibold">驗證 checklist：</span>
+                      安裝完問三題：「我反對的 3 個流行觀點是什麼？」「我最常用的 5 個慣用詞是什麼？」「我的代表受眾 1 是誰？」三題答得準代表載入成功。
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
