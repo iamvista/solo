@@ -14,14 +14,14 @@ import { JsonLd, breadcrumbSchema, faqSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "AI 個人脈絡庫：兩份免費模板｜solo.tw",
   description:
-    "兩份免費模板，讓 AI 更懂你的定位、受眾與寫作風格。可放進 Claude Project、ChatGPT Project 或其他 AI 工作區使用。",
+    "一份寫給 AI 讀的風格底稿，也是寫作者重新認識自己的語言地圖。兩份免費模板，提高 AI 輸出接近你的機率。可放進 Claude Project、ChatGPT Project 或其他 AI 工作區使用。",
   openGraph: {
     title: "AI 個人脈絡庫：兩份免費模板",
     description:
-      "讓 AI 從泛用助理變成真正理解你的協作夥伴。純 Markdown 檔，不留 Email。",
+      "讓 AI 從泛用助理更接近懂你脈絡的協作夥伴。純 Markdown 檔，不留 Email。",
   },
   alternates: {
-    canonical: "https://www.solo.tw/tools/context-architecture",
+    canonical: "https://www.solo.tw/tools/ai-context-library",
   },
 };
 
@@ -43,19 +43,21 @@ const templates = [
     hint: "下載後可直接填寫並放進 AI 工作區使用",
   },
   {
-    badge: "模板 2 ／ 5 個維度",
+    badge: "模板 2 ／ 7 個維度 + 範例樣本",
     title: "寫作風格 Profile（簡版）",
-    desc: "這是一份寫給 AI 看的「寫作指紋」。如果少了這份文件，AI 很容易用華語自媒體的平均語氣替你寫作：看似流暢，卻不像你。",
+    desc: "這是你寫作的指紋。AI 的預訓練語料裡沒有完整的「你」，只有大量平均化的語言樣本。這份檔給 AI 一份可參照的風格底稿：你常用哪些詞、避開哪些詞、句子怎麼轉折、段落怎麼呼吸、文章如何從場景推進到觀點。",
     bullets: [
       "語氣調性",
       "用詞偏好",
       "句式結構",
-      "修辭習慣",
-      "排版方式",
+      "修辭手法",
+      "排版習慣",
+      "觀點結構（你的思考順序）",
+      "禁忌清單（不要怎麼寫）",
     ],
     href: "/templates/voice-profile-template.md",
     filename: "voice-profile-template.md",
-    hint: "每個欄位都附有範例，可以照著填或重新檢視自己的風格",
+    hint: "每個維度都附範例答案，最後可附 2–3 段代表作品供 AI 參照",
   },
 ];
 
@@ -76,7 +78,7 @@ const faqItems = [
   {
     question: "什麼是 AI 個人脈絡庫？",
     answer:
-      "AI 個人脈絡庫是一套灌進 AI 工作區的長期上下文文件，內容涵蓋你的定位、受眾、思想、內容、風格、知識資產等十個維度。它解決的不是 prompt 問題，而是 AI 不認識你這個人的問題。完整版有 10 份文件，這頁免費提供其中兩份門檻最高的入門模板。",
+      "AI 個人脈絡庫是一套放進 AI 工作區的長期上下文文件，內容涵蓋你的定位、受眾、思想、內容、風格、知識資產等十個維度。它不會讓 AI 真的「懂」你，但會在每次協作時多一份可參照的風格底稿，提高輸出「接近你」的機率。完整版有 10 份文件，這頁免費提供其中兩份門檻最高的入門模板。",
   },
   {
     question: "這兩份模板適合誰下載？",
@@ -119,7 +121,7 @@ export default function ContextLibraryPage() {
           { name: "工具與資源", href: "/tools" },
           {
             name: "AI 個人脈絡庫",
-            href: "/tools/context-architecture",
+            href: "/tools/ai-context-library",
           },
         ])}
       />
@@ -142,7 +144,7 @@ export default function ContextLibraryPage() {
               AI 個人脈絡庫
             </h1>
             <p className="mt-4 text-lg font-semibold text-stone-700 sm:text-xl">
-              兩份免費模板，讓 AI 更懂你的定位、受眾與寫作風格
+              兩份免費模板，讓 AI 輸出更接近你的定位、受眾與寫作風格
             </p>
             <p className="mt-6 text-base leading-relaxed text-stone-500 sm:text-lg">
               AI 寫得不像你，很多時候不是因為你 prompt 下得不夠好。
@@ -182,7 +184,7 @@ export default function ContextLibraryPage() {
                 。這頁先開放其中兩份免費模板：個人定位卡、寫作風格 Profile，這是 10 份裡面門檻最高、最多人不知道怎麼開頭的兩份。
               </p>
               <p>
-                這兩份不是寫給人看的自我介紹，而是寫給 AI 讀的工作底稿。當 AI 讀懂這兩份文件，它才有可能從「泛用助理」變成真正理解你的協作夥伴。
+                這兩份不是寫給人看的自我介紹，而是寫給 AI 讀的工作底稿。當 AI 在每次協作時能參照這兩份文件，它就有更高機率從「泛用助理」更接近一個懂你脈絡的協作夥伴。
               </p>
             </div>
           </div>
@@ -273,7 +275,7 @@ export default function ContextLibraryPage() {
               asChild
               className="h-12 px-8 shadow-sm shadow-primary/15"
             >
-              <Link href="/context-architecture-dfy">
+              <Link href="/ai-context-library-dfy">
                 查看進階版服務
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

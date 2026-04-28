@@ -33,10 +33,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI 個人脈絡庫：Done-For-You 顧問服務｜Vista",
     description:
-      "90 分鐘訪談、10 份文件、放進你的 AI 工作區。讓 AI 從泛用助理變成真正理解你的協作夥伴。",
+      "90 分鐘訪談、10 份文件、放進你的 AI 工作區。讓 AI 從泛用助理更接近懂你脈絡的協作夥伴。",
   },
   alternates: {
-    canonical: "https://www.solo.tw/context-architecture-dfy",
+    canonical: "https://www.solo.tw/ai-context-library-dfy",
   },
 };
 
@@ -71,7 +71,7 @@ const deliverables = [
   {
     Icon: PackageCheck,
     title: "安裝到你的 Claude Project（協助設定）",
-    desc: "訪談後 7 天內交付，附一場 30 分鐘協助安裝視訊：把 10 份文件灌進你指定的 Claude Project（或多個 Project），確認 AI 真的吃進這些脈絡才算完成。",
+    desc: "訪談後 7 天內交付，附一場 30 分鐘協助安裝視訊：把 10 份文件安裝到你指定的 Claude Project（或多個 Project），確認 AI 真的能引用這些脈絡才算完成。",
   },
   {
     Icon: RefreshCw,
@@ -166,14 +166,14 @@ export default function ContextArchitectureDFYPage() {
           name: "AI 個人脈絡庫：Done-For-You 顧問服務",
           description:
             "Vista 親自訪談 90 分鐘，協助建立完整 10 份 AI 個人脈絡庫，可放進 Claude Project 或其他 AI 工作區。",
-          url: "https://www.solo.tw/context-architecture-dfy",
+          url: "https://www.solo.tw/ai-context-library-dfy",
           price: 12000,
         })}
       />
       <JsonLd
         data={breadcrumbSchema([
           { name: "首頁", href: "/" },
-          { name: "AI 個人脈絡庫 DFY", href: "/context-architecture-dfy" },
+          { name: "AI 個人脈絡庫 DFY", href: "/ai-context-library-dfy" },
         ])}
       />
       <JsonLd data={faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a })))} />
@@ -225,7 +225,7 @@ export default function ContextArchitectureDFYPage() {
                 className="h-12 px-8 text-base"
                 asChild
               >
-                <Link href="/tools/context-architecture">先看免費模板</Link>
+                <Link href="/tools/ai-context-library">先看免費模板</Link>
               </Button>
             </div>
             <p className="mt-4 text-sm text-stone-500">
@@ -594,7 +594,7 @@ export default function ContextArchitectureDFYPage() {
                 花一個下午的時間，把你之後一年要做的事情交給 AI
               </h2>
               <p className="mt-3 text-base text-stone-600 max-w-xl mx-auto leading-relaxed">
-                Vista 親自訪談你 90 分鐘，產出 10 份個人脈絡文件，灌進你的 Claude Project。30 天之後再校準一次，整套服務跑完，你的 AI 就真的認識你了。
+                Vista 親自訪談你 90 分鐘，產出 10 份個人脈絡文件，安裝到你的 Claude Project 或其他 AI 工作區。30 天之後再校準一次，整套服務跑完，你的 AI 在每次協作時都會多一份可參照的脈絡底稿。
               </p>
               <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <Button size="lg" className="h-12 px-8 text-base" asChild>
@@ -609,7 +609,7 @@ export default function ContextArchitectureDFYPage() {
                   className="h-12 px-8 text-base"
                   asChild
                 >
-                  <Link href="/tools/context-architecture">先看免費模板</Link>
+                  <Link href="/tools/ai-context-library">先看免費模板</Link>
                 </Button>
               </div>
               <p className="mt-4 text-sm text-stone-500">

@@ -17,7 +17,7 @@ export interface ProductConfig {
 }
 
 /**
- * Context Architecture Done-For-You 服務（90 分鐘訪談 + 10 份文件 + 灌進 Claude Project）
+ * AI 個人脈絡庫 Done-For-You 服務（90 分鐘訪談 + 10 份文件 + 安裝到 Claude Project）
  *
  * TODO（上線前必做）：
  * 1. Vista 在 Recur 後臺建立 ONE_TIME 產品「個人 Context Architecture DFY」
