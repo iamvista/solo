@@ -7,7 +7,7 @@ import { ArrowRight, Check } from "lucide-react";
 export const metadata: Metadata = {
   title: "Second Brain Lab | 35 天 AI 第二大腦陪跑營 — Vista Cheng",
   description:
-    "35 天，把你五年的素材變成可問答的第二大腦。NotebookLM + Obsidian + Claude Skills 三件套，6/1 開營，限 50 人。",
+    "35 天，把你五年的素材變成可問答的第二大腦。NotebookLM + Obsidian + Claude Skills 三利器，6/1 開營，限 50 人。",
   alternates: { canonical: "https://brain.solo.tw" },
   openGraph: {
     title: "Second Brain Lab：35 天，讓硬碟裡的鬼魂開始說話。",
@@ -40,7 +40,7 @@ const curriculum = [
   {
     week: "W4",
     date: "6/22–6/28",
-    title: "整合 + 跨庫查詢 + 個人 AI 助理 v0.1",
+    title: "整合 + 跨資料庫查詢 + 個人 AI 助理 v0.1",
     output: "你的個人 GPT",
   },
   {
@@ -68,10 +68,10 @@ const faqs = [
   },
   {
     q: "我已經是重度 Obsidian / Heptabase / Notion 用戶呢？",
-    a: "你不會被退費，反而能跳過工具基礎，直接吃 cross-notebook query 跟 Skills 整合那層。",
+    a: "那太好了，可以跳過工具設定與學習，直接開始使用。",
   },
   {
-    q: "我已經有寫日記、復盤的習慣了，這個課對我有用嗎？",
+    q: "我已經有寫日記、覆盤的習慣了，這個課對我有用嗎？",
     a: "非常適合。寫日記是把你的經驗整理出來，這個課是把你接觸到的外部素材整理成可問答系統。兩件事互補，不衝突。",
   },
   {
