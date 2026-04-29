@@ -15,6 +15,14 @@ const AUTH_ROUTES = [
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get("host") ?? "";
+
+  // Handle brain.solo.tw subdomain → /brain rewrite
+  if (host.startsWith("brain.")) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname === "/" ? "/brain" : `/brain${pathname}`;
+    return NextResponse.rewrite(url);
+  }
 
   // Handle /@username → /u/username rewrite
   if (pathname.startsWith("/@")) {
