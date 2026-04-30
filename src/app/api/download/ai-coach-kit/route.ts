@@ -3,12 +3,16 @@ import { createClient } from "@supabase/supabase-js";
 import { head } from "@vercel/blob";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function GET(request: NextRequest) {
+  const supabase = getSupabase();
+
   // Per-IP rate limit: 30 attempts/minute. Tokens are 122-bit UUIDs so
   // brute-force is infeasible, but this caps abusive scanning / log spam
   // and gives us an extra brake if a token ever leaks.
