@@ -80,7 +80,7 @@ const faqs = [
   },
   {
     q: "NotebookLM 改版怎麼辦？",
-    a: "我教的是素材分類 → Notebook 邊界 → 跨庫查詢的工程方法，不是 GUI 操作。工具改版我會在 Discord 補充。",
+    a: "我主要教的是素材分類，我會分享跨資料庫查詢的方法。",
   },
   {
     q: "退費政策？",
@@ -149,7 +149,7 @@ export default function BrainLandingPage() {
             你硬碟裡那些鬼魂
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-stone-500">
-            你不是不認真，你是在囤資料，不是在建系統。
+            你不是不認真，你是在囤積資料，不是在建立系統。
           </p>
 
           <div className="mt-16 grid gap-8 md:grid-cols-3">
@@ -253,6 +253,96 @@ export default function BrainLandingPage() {
         </div>
       </section>
 
+      {/* Free Primer */}
+      <section className="bg-gradient-to-b from-amber-50 to-stone-50 py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-white px-4 py-1.5">
+              <span className="text-xs font-semibold text-amber-700">
+                免費前導教材
+              </span>
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+              還沒準備好報名？
+              <br className="sm:hidden" />
+              <span className="text-amber-700">先用這份簡報暖身。</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
+              我把 NotebookLM 的入門全貌做成一份免費簡報——
+              <span className="font-semibold text-stone-900">31 張投影片、約 60 分鐘</span>
+              ，從註冊、Steven Johnson 八大專家建議，到學生與職場人士的實戰場景，全部走完。
+            </p>
+          </div>
+
+          <Card className="mx-auto mt-12 max-w-3xl overflow-hidden border-amber-200 bg-white p-0">
+            <div className="grid gap-0 sm:grid-cols-5">
+              <div className="relative bg-gradient-to-br from-amber-100 to-orange-100 p-8 sm:col-span-2 sm:p-10">
+                <div className="text-5xl">📓</div>
+                <h3 className="mt-4 text-xl font-bold text-stone-900">
+                  Google NotebookLM
+                  <br />
+                  新手入門
+                </h3>
+                <p className="mt-2 text-sm text-stone-600">
+                  從 0 到第一份會回話的筆記本
+                </p>
+                <div className="mt-6 space-y-1 text-xs text-stone-500">
+                  <div>📊 31 張投影片</div>
+                  <div>⏱️ 約 60 分鐘</div>
+                  <div>🆓 免費觀看，免註冊</div>
+                </div>
+              </div>
+              <div className="p-8 sm:col-span-3 sm:p-10">
+                <div className="text-sm font-semibold text-amber-700">你會學到</div>
+                <ul className="mt-4 space-y-3 text-stone-700">
+                  {[
+                    "NotebookLM 是什麼、和 ChatGPT 差別在哪",
+                    "註冊到第一份筆記本的最短路徑（5 步驟）",
+                    "Steven Johnson 親授的 8 個官方建議（中文版）",
+                    "學生 × 職場人士分眾用法 + 即學即用練習",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <Check className="mt-1 h-4 w-4 flex-shrink-0 text-amber-600" />
+                      <span className="text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button
+                    asChild
+                    className="bg-amber-600 text-white hover:bg-amber-700"
+                  >
+                    <a
+                      href="https://slides.vista.tw/notebooklm-beginner-guide/"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      立即觀看簡報
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button asChild variant="ghost" className="text-stone-700">
+                    <a
+                      href="https://slides.vista.tw/notebooklm-beginner-guide/notebooklm-beginner-guide.pdf"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      下載 PDF
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-stone-500">
+            看完這份簡報，你已經能獨立建第一個 Notebook。
+            <br className="sm:hidden" />
+            想把它變成可長期累積的系統，就是 Second Brain Lab 要陪你走的 35 天。
+          </p>
+        </div>
+      </section>
+
       {/* Proof */}
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -305,7 +395,7 @@ export default function BrainLandingPage() {
       <section id="enroll" className="bg-stone-900 py-20 text-stone-50 sm:py-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
-            你拿到什麼
+            你可以得到什麼
           </h2>
 
           <div className="mt-12 overflow-hidden rounded-xl border border-stone-700 bg-stone-800">
