@@ -270,7 +270,7 @@ export default function BrainLandingPage() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
               我把 NotebookLM 的入門全貌做成一份免費簡報——
               <span className="font-semibold text-stone-900">31 張投影片、約 60 分鐘</span>
-              ，從註冊、Steven Johnson 八大專家建議，到學生與職場人士的實戰場景，全部走完。
+              ，從註冊、Steven Johnson 的專家建議，到學生與職場人士的實戰場景，全部走完。
             </p>
           </div>
 
@@ -298,7 +298,7 @@ export default function BrainLandingPage() {
                   {[
                     "NotebookLM 是什麼、和 ChatGPT 差別在哪",
                     "註冊到第一份筆記本的最短路徑（5 步驟）",
-                    "Steven Johnson 親授的 8 個官方建議（中文版）",
+                    "Steven Johnson 親授的官方建議（中文版）",
                     "學生 × 職場人士分眾用法 + 即學即用練習",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-2">
