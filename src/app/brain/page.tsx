@@ -5,14 +5,15 @@ import { Card } from "@/components/ui/card";
 import { ArrowRight, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Second Brain Lab | 35 天 AI 第二大腦陪跑營 — Vista Cheng",
+  title: "副腦計畫｜Brain+1 Lab：35 天 AI 副腦陪跑營｜Vista Cheng",
   description:
-    "35 天，把你五年的素材變成可問答的第二大腦。NotebookLM + Obsidian + Claude Skills 三利器，6/1 開營，限 50 人。",
+    "35 天，把你累積多年的素材變成可問答的副腦。NotebookLM + Obsidian + Claude Skills 三個利器，6/1 開營。",
+  metadataBase: new URL("https://brain.solo.tw"),
   alternates: { canonical: "https://brain.solo.tw" },
   openGraph: {
-    title: "Second Brain Lab：35 天，讓硬碟裡的鬼魂開始說話。",
+    title: "副腦計畫｜Brain+1 Lab：35 天，給你的大腦 +1 個 AI 副駕。",
     description:
-      "把你五年的素材變成可問答的第二大腦。6/1 開營，限 50 人。",
+      "把你五年的素材變成可問答的副腦。6/1 開營，限 100 人。",
     type: "website",
     url: "https://brain.solo.tw",
   },
@@ -23,7 +24,7 @@ const curriculum = [
     week: "W1",
     date: "6/1–6/7",
     title: "知識庫地基 + Notebook #1：書與論文",
-    output: "第一個會回話的 Notebook",
+    output: "第一個會回話的筆記本",
   },
   {
     week: "W2",
@@ -47,7 +48,7 @@ const curriculum = [
     week: "鞏固週",
     date: "6/29–7/5",
     title: "自由實作 + Demo Day",
-    output: "上臺示範你的鬼魂怎麼回話",
+    output: "上臺示範你的 AI 副腦怎麼回話",
   },
 ];
 
@@ -57,26 +58,21 @@ const offerItems = [
   { item: "4 場線上直播 + 結營 Demo Day", value: "7,500" },
   { item: "每週限 5 名作品批改", value: "4,000" },
   { item: "Obsidian 個人知識庫範本", value: "2,500" },
-  { item: "Discord 永久社群", value: "2,000" },
-  { item: "學前環境設定直播（5/31）", value: "1,500" },
+  { item: "LINE 社群", value: "2,000" },
 ];
 
 const faqs = [
   {
-    q: "我完全沒用過 NotebookLM 怎麼辦？",
-    a: "5/31 有環境設定直播，從 0 開始。",
-  },
-  {
-    q: "我已經是重度 Obsidian / Heptabase / Notion 用戶呢？",
+    q: "我已經是重度 Obsidian / Heptabase / Notion 使用者了！",
     a: "那太好了，可以跳過工具設定與學習，直接開始使用。",
   },
   {
-    q: "我已經有寫日記、覆盤的習慣了，這個課對我有用嗎？",
-    a: "非常適合。寫日記是把你的經驗整理出來，這個課是把你接觸到的外部素材整理成可問答系統。兩件事互補，不衝突。",
+    q: "我已經有寫日記、覆盤的習慣了，這個訓練營對我有用嗎？",
+    a: "非常適合。寫日記是把你的經驗整理出來，這個訓練營是把你接觸到的外部素材整理成可問答的系統。兩件事互補，不衝突。",
   },
   {
     q: "直播時間無法配合？",
-    a: "全程錄影回放。但 Demo Day（7/5 日）建議到場。",
+    a: "全程錄影回放。但 Demo Day（7/4 週六）建議上線觀摩。",
   },
   {
     q: "NotebookLM 改版怎麼辦？",
@@ -106,21 +102,21 @@ export default function BrainLandingPage() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
               </span>
               <span className="text-sm font-medium text-stone-300">
-                6/1 開營｜限 50 人｜首梯
+                6/1 開營｜限 100 人｜首梯
               </span>
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              35 天
+              35 天，
               <br className="sm:hidden" />
-              <span className="text-amber-400">讓硬碟裡的鬼魂</span>
+              給你的大腦
               <br />
-              開始說話。
+              <span className="text-amber-400">+1</span> 個 AI 副駕。
             </h1>
 
             <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-stone-300 sm:text-xl">
-              <span className="font-semibold text-stone-100">Second Brain Lab</span>
-              ：把你五年的素材，變成可問答的第二大腦。
+              <span className="font-semibold text-stone-100">副腦計畫｜Brain+1 Lab</span>
+              ：把你五年的素材，變成可問答的副腦。
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
@@ -131,12 +127,12 @@ export default function BrainLandingPage() {
                 </Link>
               </Button>
               <Button size="lg" variant="ghost" asChild className="text-stone-200 hover:bg-stone-800 hover:text-stone-50">
-                <Link href="#curriculum">先看課程內容</Link>
+                <Link href="#curriculum">先看訓練營內容</Link>
               </Button>
             </div>
 
             <p className="mt-6 text-sm text-stone-400">
-              5/24 早鳥截止｜限額 20 名
+              5/24 早鳥截止
             </p>
           </div>
         </div>
@@ -146,7 +142,7 @@ export default function BrainLandingPage() {
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
-            你硬碟裡那些鬼魂
+            你硬碟裡的那些鬼魂
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-stone-500">
             你不是不認真，你是在囤積資料，不是在建立系統。
@@ -159,7 +155,7 @@ export default function BrainLandingPage() {
                 你存了，但找不到
               </h3>
               <p className="mt-4 leading-relaxed text-stone-600">
-                Pocket 裡 800 篇文章、Notion 裡 200 個頁面、Drive 裡 50 GB PDF。每次要寫東西、做簡報，你還是回去 Google。
+                Readwise Reader 裡的 800 篇文章、Notion 裡的 200 筆紀錄、Google Drive 裡的 50 GB 文件。每次要寫東西、做簡報，你還是回去 Google。
               </p>
             </Card>
 
@@ -169,7 +165,7 @@ export default function BrainLandingPage() {
                 你聽了，但想不起來
               </h3>
               <p className="mt-4 leading-relaxed text-stone-600">
-                一週聽 5 集 podcast、看 1 本書、追 3 個 newsletter。三個月後，你只記得有一集講了什麼很棒的東西，但說不出來是什麼。
+                一週聽 5 集 podcast、讀 1 本書或看 3 封電子報。三個月後，你只記得有一集講了什麼很棒的東西，但說不出來是什麼？
               </p>
             </Card>
 
@@ -179,7 +175,7 @@ export default function BrainLandingPage() {
                 你有筆記，但生不出洞見
               </h3>
               <p className="mt-4 leading-relaxed text-stone-600">
-                你已經用 Notion / Obsidian / Heptabase。但你的筆記只是更整齊的墳場。AI 工具一直更新，你不知道從哪裡開始整合。
+                你已經用 Notion、Obsidian 或 Heptabase。但你的筆記只是更整齊的墳場。AI 工具一直更新，你不知道從哪裡開始整合？
               </p>
             </Card>
           </div>
@@ -200,7 +196,7 @@ export default function BrainLandingPage() {
             {[
               "我去年讀的那本《XXX》，作者對 OO 主題的核心論點是什麼？",
               "我這 5 年聽過的 podcast 裡，誰提過 OO 的概念？",
-              "我兩年前那份會議記錄，當時客戶的真正擔憂是什麼？",
+              "我半年前的那份會議記錄，當時客戶的真正擔憂是什麼？",
             ].map((q) => (
               <div
                 key={q}
@@ -214,7 +210,7 @@ export default function BrainLandingPage() {
 
           <p className="mx-auto mt-12 max-w-3xl text-center text-stone-600">
             <span className="font-semibold text-stone-900">怎麼做到</span>
-            ：每天 15 分鐘 × 3 個專題 Notebook × NotebookLM + Obsidian + Claude Skills 三件套。
+            ：每天 15 分鐘 × 3 個專題筆記 × NotebookLM + Obsidian + Claude Skills 三個利器。
           </p>
 
           <div className="mt-12 overflow-hidden rounded-xl border border-stone-200 bg-white">
@@ -269,8 +265,8 @@ export default function BrainLandingPage() {
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
               我把 NotebookLM 的入門全貌做成一份免費簡報——
-              <span className="font-semibold text-stone-900">31 張投影片、約 60 分鐘</span>
-              ，從註冊、Steven Johnson 的專家建議，到學生與職場人士的實戰場景，全部走完。
+              <span className="font-semibold text-stone-900">34 張投影片、約 50 分鐘可以看完</span>
+              ，從註冊、Steven Johnson 的專家建議，到學生與職場人士的實戰場景，全部為你引路。
             </p>
           </div>
 
@@ -287,8 +283,8 @@ export default function BrainLandingPage() {
                   只讀你給的資料，回答都附原文引註
                 </p>
                 <div className="mt-6 space-y-1 text-xs text-stone-500">
-                  <div>📊 31 張投影片</div>
-                  <div>⏱️ 約 60 分鐘</div>
+                  <div>📊 34 張投影片</div>
+                  <div>⏱️ 約 50 分鐘</div>
                   <div>🆓 免費觀看，免註冊</div>
                 </div>
               </div>
@@ -336,9 +332,9 @@ export default function BrainLandingPage() {
           </Card>
 
           <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-stone-500">
-            看完這份簡報，你已經能獨立建第一個 Notebook。
+            看完這份簡報，你已經能獨立建第一個筆記本。
             <br className="sm:hidden" />
-            想把它變成可長期累積的系統，就是 Second Brain Lab 要陪你走的 35 天。
+            想把它變成可長期累積的系統，就是副腦計畫要陪你走的 35 天。
           </p>
         </div>
       </section>
@@ -371,20 +367,20 @@ export default function BrainLandingPage() {
 
           <div className="mt-16 rounded-xl border border-stone-200 bg-stone-50 p-8">
             <h3 className="text-xl font-bold text-stone-900">
-              我跟其他 AI 老師的差異
+              我跟其他 AI 講師的差異
             </h3>
             <ul className="mt-6 space-y-4 text-stone-700">
               <li>
-                <span className="font-semibold text-stone-900">不是研究 AI 工具的人</span>
+                <span className="font-semibold text-stone-900">不只是研究 AI 工具的人</span>
                 ，是靠 AI 工具經營一人公司的人
               </li>
               <li>
-                <span className="font-semibold text-stone-900">不是教知識管理的人</span>
-                ，是自己蓋了知識管理系統再公開的人
+                <span className="font-semibold text-stone-900">不只是教知識管理的人</span>
+                ，是自己建構了知識管理系統再公開的人
               </li>
               <li>
-                <span className="font-semibold text-stone-900">不是介紹新工具的人</span>
-                ，是教你工具會變、原理不變的人
+                <span className="font-semibold text-stone-900">不只是介紹新工具的人</span>
+                ，是教你從工具思維進階到系統思維的人
               </li>
             </ul>
           </div>
@@ -425,11 +421,11 @@ export default function BrainLandingPage() {
               NT$ 6,800
             </div>
             <div className="mt-2 text-sm text-stone-300">
-              早鳥前 20 名｜5/24 截止
+              早鳥優惠於 5/24 截止
             </div>
             <div className="mt-6">
               <Button size="lg" asChild className="bg-amber-500 text-stone-900 hover:bg-amber-400">
-                <Link href="https://buy.recur.tw/6zAIB9BQO1xZCT0m" target="_blank" rel="noopener">
+                <Link href="https://buy.recur.tw/Kfcg1iHhdRWU18rq" target="_blank" rel="noopener">
                   立即報名
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -470,12 +466,12 @@ export default function BrainLandingPage() {
             6/1 開營，35 天從這裡開始。
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-stone-300">
-            限 50 人。早鳥前 20 名優惠至 5/24。
+            限 100 人。早鳥優惠至 5/24。
           </p>
           <div className="mt-10">
             <Button size="lg" asChild className="bg-amber-500 text-stone-900 hover:bg-amber-400">
-              <Link href="https://buy.recur.tw/6zAIB9BQO1xZCT0m" target="_blank" rel="noopener">
-                我要把鬼魂叫醒
+              <Link href="https://buy.recur.tw/Kfcg1iHhdRWU18rq" target="_blank" rel="noopener">
+                立即報名｜為我的腦 +1
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
