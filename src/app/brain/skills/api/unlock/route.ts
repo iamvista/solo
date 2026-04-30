@@ -17,12 +17,15 @@ export async function POST(request: Request) {
   const host = request.headers.get("host") ?? url.host;
   const proto = request.headers.get("x-forwarded-proto") ?? "https";
   const baseExternal = `${proto}://${host}`;
+  const isBrainHost = host.startsWith("brain.");
+  const skillsPath = isBrainHost ? "/skills" : "/brain/skills";
+  const unlockPath = isBrainHost ? "/skills/unlock" : "/brain/skills/unlock";
 
   if (password !== expected) {
-    return NextResponse.redirect(`${baseExternal}/skills/unlock?error=1`, { status: 303 });
+    return NextResponse.redirect(`${baseExternal}${unlockPath}?error=1`, { status: 303 });
   }
 
-  const response = NextResponse.redirect(`${baseExternal}/skills`, { status: 303 });
+  const response = NextResponse.redirect(`${baseExternal}${skillsPath}`, { status: 303 });
   response.cookies.set(COOKIE_NAME, "1", {
     httpOnly: true,
     sameSite: "lax",

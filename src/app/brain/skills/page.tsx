@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -24,7 +24,10 @@ export default async function SkillsManualPage() {
   const unlocked = cookieStore.get(COOKIE_NAME)?.value === "1";
 
   if (!unlocked) {
-    redirect("/brain/skills/unlock");
+    const headersList = await headers();
+    const host = headersList.get("host") ?? "";
+    const isBrainHost = host.startsWith("brain.");
+    redirect(isBrainHost ? "/skills/unlock" : "/brain/skills/unlock");
   }
 
   const markdown = await getManual();

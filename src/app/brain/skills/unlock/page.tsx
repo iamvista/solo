@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -14,6 +15,11 @@ interface PageProps {
 export default async function UnlockPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const hasError = params?.error === "1";
+
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "";
+  const isBrainHost = host.startsWith("brain.");
+  const formAction = isBrainHost ? "/skills/api/unlock" : "/brain/skills/api/unlock";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-900 via-stone-800 to-stone-900 text-stone-50">
@@ -41,7 +47,7 @@ export default async function UnlockPage({ searchParams }: PageProps) {
 
         <form
           method="post"
-          action="/skills/api/unlock"
+          action={formAction}
           className="mt-10 w-full rounded-xl border border-stone-700 bg-stone-900/60 p-6 backdrop-blur-sm"
         >
           <label className="block text-sm font-medium text-stone-300">
