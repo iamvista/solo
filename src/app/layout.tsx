@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { headers } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
@@ -134,11 +135,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "";
+  const isBrainSubdomain = host.startsWith("brain.");
+
   return (
     <html lang="zh-TW">
       <head>
@@ -176,9 +181,9 @@ export default function RootLayout({
       </head>
       <body className={`${notoSansTC.variable} font-sans antialiased`}>
         <div className="flex min-h-screen flex-col">
-          <Header />
+          {!isBrainSubdomain && <Header />}
           <main className="flex-1">{children}</main>
-          <Footer />
+          {!isBrainSubdomain && <Footer />}
         </div>
       </body>
     </html>
