@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "副腦計畫｜Brain+1 Lab：35 天，給你的大腦 +1 個 AI 副駕。",
     description:
-      "把你五年的素材變成可問答的副腦。6/1 開營，限 100 人。",
+      "把你累積多年的素材變成可問答的副腦。6/1 開營，限 100 人。",
     type: "website",
     url: "https://brain.solo.tw",
   },
@@ -48,22 +48,22 @@ const curriculum = [
     week: "鞏固週",
     date: "6/29–7/5",
     title: "自由實作 + Demo Day",
-    output: "上臺示範你的 AI 副腦怎麼回話",
+    output: "夥伴分享你如何活用 AI 副腦",
   },
 ];
 
 const offerItems = [
   { item: "3 個專題 Notebook 建置實作", value: "9,000" },
   { item: "6 個 Claude Skills 授權使用", value: "8,000" },
-  { item: "4 場線上直播 + 結營 Demo Day", value: "7,500" },
-  { item: "每週限 5 名作品批改", value: "4,000" },
+  { item: "線上直播 + 結營 Demo Day", value: "7,500" },
+  { item: "每週限 5 名 1 對 1 諮詢（採登記制，先到先諮詢）", value: "4,000" },
   { item: "Obsidian 個人知識庫範本", value: "2,500" },
   { item: "LINE 社群", value: "2,000" },
 ];
 
 const faqs = [
   {
-    q: "我已經是重度 Obsidian / Heptabase / Notion 使用者了！",
+    q: "我已經是重度的 NotebookLM 使用者了！",
     a: "那太好了，可以跳過工具設定與學習，直接開始使用。",
   },
   {
@@ -116,7 +116,7 @@ export default function BrainLandingPage() {
 
             <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-stone-300 sm:text-xl">
               <span className="font-semibold text-stone-100">副腦計畫｜Brain+1 Lab</span>
-              ：把你五年的素材，變成可問答的副腦。
+              ：把你累積多年的素材，變成可問答的副腦。
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
@@ -195,7 +195,7 @@ export default function BrainLandingPage() {
           <div className="mx-auto mt-8 max-w-3xl space-y-3">
             {[
               "我去年讀的那本《XXX》，作者對 OO 主題的核心論點是什麼？",
-              "我這 5 年聽過的 podcast 裡，誰提過 OO 的概念？",
+              "我聽過的 podcast 裡，誰提過 OO 的概念？",
               "我半年前的那份會議記錄，當時客戶的真正擔憂是什麼？",
             ].map((q) => (
               <div
@@ -264,7 +264,7 @@ export default function BrainLandingPage() {
               <span className="text-amber-700">先用這份簡報暖身。</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
-              我把 NotebookLM 的入門全貌做成一份免費簡報——
+              我把 NotebookLM 的入門情報，製作成一份免費的教學簡報——
               <span className="font-semibold text-stone-900">34 張投影片、約 50 分鐘可以看完</span>
               ，從註冊、Steven Johnson 的專家建議，到學生與職場人士的實戰場景，全部為你引路。
             </p>
@@ -334,7 +334,7 @@ export default function BrainLandingPage() {
           <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-stone-500">
             看完這份簡報，你已經能獨立建第一個筆記本。
             <br className="sm:hidden" />
-            想把它變成可長期累積的系統，就是副腦計畫要陪你走的 35 天。
+            想把它變成可累積的系統，就是副腦計畫要陪你走的 35 天。
           </p>
         </div>
       </section>
