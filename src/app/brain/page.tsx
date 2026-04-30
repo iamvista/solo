@@ -284,7 +284,7 @@ export default function BrainLandingPage() {
                   新手入門
                 </h3>
                 <p className="mt-2 text-sm text-stone-600">
-                  從 0 到第一份會回話的筆記本
+                  只讀你給的資料，回答都附原文引註
                 </p>
                 <div className="mt-6 space-y-1 text-xs text-stone-500">
                   <div>📊 31 張投影片</div>
