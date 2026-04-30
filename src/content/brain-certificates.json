@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$comment": "副腦計畫｜Brain+1 Lab 結業證書資料庫。Vista 結業時把達標學員填入 certificates[]，commit + push 後 brain.solo.tw/cert/[id] 立即生效。",
+  "cohorts": {
+    "BPL-2026-S1": {
+      "label": "首梯",
+      "period": "2026.06.01 – 2026.07.04",
+      "duration_days": 35,
+      "instructor": "Vista Cheng"
+    }
+  },
+  "certificates": [
+    {
+      "id": "BPL-2026-S1-DEMO",
+      "name": "範本學員",
+      "cohort": "BPL-2026-S1",
+      "issued_date": "2026-07-04",
+      "achievements": [
+        "35 天打卡達標（80% 以上）",
+        "完成 3 個 NotebookLM Notebook",
+        "Demo Day 上臺示範"
+      ]
+    }
+  ]
+}
