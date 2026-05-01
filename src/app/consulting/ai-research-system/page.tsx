@@ -11,7 +11,6 @@ import {
   Layers,
   Wand2,
   ShieldCheck,
-  Lock,
   Mail,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -113,8 +112,7 @@ const plans = [
     originalPrice: "NT$ 79,800",
     saving: "開站優惠 6 折",
     badge: "首批限額 2 名",
-    available: false,
-    availableFrom: "2026 年 6 月起接案",
+    available: true,
     icon: Wand2,
     includes: [
       "包含「AI 研究與寫作引擎」全部內容",
@@ -192,8 +190,8 @@ const faqs = [
     a: "標準 4 週交付。如果你時間緊（例如要趕一個寫作 deadline），可壓縮到 2–3 週但需確認檔期；如果你工作忙無法配合，可拉長到 6–8 週。",
   },
   {
-    q: "完整知識作業系統為什麼要等 6 月？",
-    a: "完整版需要 8 週深度合作，為確保品質首批僅開放 2 個名額。我會先把「AI 研究與寫作引擎」的交付流程跑穩，再正式接完整版。現在來信加入候補可鎖定開站優惠價，6 月開始接案時優先處理。",
+    q: "完整知識作業系統的限額怎麼計算？",
+    a: "完整版需要 8 週深度合作，為確保交付品質首批僅開放 2 個名額。建議先從藍圖或引擎方案開始，待我把交付流程跑穩，再正式承接完整版。歡迎來信加入候補，鎖定開站優惠價。",
   },
   {
     q: "這套系統會幫我用 AI 代寫論文嗎？",
@@ -392,13 +390,6 @@ export default function AIResearchSystemPage() {
                       <span className="mt-1 inline-block rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700">
                         {plan.saving}
                       </span>
-
-                      {!plan.available && plan.availableFrom && (
-                        <div className="mt-3 flex items-center gap-2 rounded-lg bg-stone-50 px-3 py-2 text-xs text-stone-600">
-                          <Lock className="h-3.5 w-3.5" />
-                          <span>{plan.availableFrom}</span>
-                        </div>
-                      )}
 
                       <Button
                         asChild
