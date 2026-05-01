@@ -61,9 +61,9 @@ const plans = [
     id: "blueprint",
     name: "AI 研究系統設計藍圖",
     duration: "1 週內交付｜入門首選",
-    desc: "用一次深度訪談，幫你規劃個人 AI 研究系統的整體架構，並把可立即使用的 Prompt、模板、SOP 一次給你。適合想先試水溫、自己動手、預算友善的研究者與創作者。",
-    promoPrice: "NT$ 6,800",
-    originalPrice: "NT$ 9,800",
+    desc: "用一次深度訪談，幫你規劃個人 AI 研究系統的整體架構，並把可立即使用的 Prompt、Skill、結構藍圖與 SOP 一次給你。適合想先試水溫、自己動手、預算友善的研究者與創作者。",
+    promoPrice: "NT$ 8,800",
+    originalPrice: "NT$ 12,800",
     saving: "開站優惠約 7 折",
     badge: "最多人選",
     available: true,
@@ -71,13 +71,13 @@ const plans = [
     includes: [
       "90 分鐘 1:1 設計訪談：盤點現況、釐清目標",
       "個人系統架構圖（PDF）：工具串接設計與資料流",
-      "客製 Prompt 庫 20+：依你的研究／寫作領域量身寫",
+      "客製 Prompt 庫 12–15 條：依你的研究／寫作領域量身寫",
       "NotebookLM 主題模板 × 2：資料夾結構、source 分類、命名規範",
-      "Obsidian / Notion 筆記框架模板：可直接匯入使用",
+      "個人知識庫結構藍圖：含 Notion 實作步驟（亦可套用其他工具）",
       "Vista 私房 Skill 1 份（例：研究主題探勘 / 文獻摘要工作流）",
       "工具棧建議書：付費 / 免費替代方案對照",
-      "自學 SOP 文件 5–8 頁：每日、每週循環指引",
-      "30 分鐘交付 review session",
+      "自學 SOP 文件：每日、每週、每月循環指引",
+      "30 分鐘交付 review session（含陪建第一個資料庫）",
       "14 天 LINE 文字支援",
     ],
   },
@@ -96,7 +96,7 @@ const plans = [
       "啟動訪談 90 分鐘 + 個人系統架構圖",
       "建構 2–3 個主題 NotebookLM（含 source 規範與命名）",
       "MCP 自動化模組（基本款）：自動同步、跨 notebook 查詢",
-      "客製 Prompt 庫 50+ + 多份 Skill / 模板",
+      "客製 Prompt 庫 30+ 條 + 多份 Skill / 模板",
       "工作流 SOP 文件：每日 / 每週使用步驟",
       "1:1 諮詢 4 次（共 6 小時）",
       "30 天 LINE 即時支援",
@@ -179,7 +179,7 @@ const faqs = [
   },
   {
     q: "「設計藍圖」和「研究與寫作引擎」差在哪？我該怎麼選？",
-    a: "藍圖（NT$ 6,800）是 1 週交付：90 分鐘訪談 + 個人架構圖 + 客製 Prompt 20+ + NotebookLM / Obsidian 模板 + Skill + SOP 文件。你拿到後可以自己動手建。引擎（NT$ 24,800）是 4 週交付：我直接幫你把 NotebookLM、自動化、Prompt 50+ 全部建好，含 4 次 1:1 諮詢與 30 天 LINE 支援。建議從藍圖開始試水溫，覺得對盤再升級到引擎，已付的藍圖費用可折抵。",
+    a: "藍圖（NT$ 8,800）是 1 週交付：90 分鐘訪談 + 個人架構圖 + 客製 Prompt 12–15 條 + NotebookLM 模板 + 知識庫結構藍圖 + Skill + SOP 文件，並含 30 分鐘陪建 review。你拿到後可以自己動手建。引擎（NT$ 24,800）是 4 週交付：我直接幫你把 NotebookLM、自動化、Prompt 30+ 全部建好，含 4 次 1:1 諮詢與 30 天 LINE 支援。建議從藍圖開始試水溫，覺得對盤再升級到引擎，已付的藍圖費用可折抵。",
   },
   {
     q: "成果能帶走嗎？離開合作後還能用嗎？",
@@ -210,9 +210,9 @@ export default function AIResearchSystemPage() {
         data={serviceSchema({
           name: "AI 研究系統設計藍圖",
           description:
-            "用一次深度訪談，幫你規劃個人 AI 研究系統的整體架構，並交付可立即使用的 Prompt、Skill、模板與 SOP。1 週內完成。",
+            "用一次深度訪談，幫你規劃個人 AI 研究系統的整體架構，並交付可立即使用的 Prompt、Skill、結構藍圖與 SOP。1 週內完成。",
           url: "https://www.solo.tw/consulting/ai-research-system",
-          price: 6800,
+          price: 8800,
         })}
       />
       <JsonLd
@@ -250,7 +250,7 @@ export default function AIResearchSystemPage() {
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                 <Button asChild size="lg" className="w-full sm:w-auto">
                   <a href="#plans">
-                    NT$ 6,800 起，查看方案
+                    NT$ 8,800 起，查看方案
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>

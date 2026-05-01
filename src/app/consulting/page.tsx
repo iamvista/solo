@@ -233,13 +233,13 @@ export default function ConsultingPage() {
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2 text-xs">
                   <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    NT$ 6,800 起
+                    NT$ 8,800 起
                   </span>
                   <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    Prompt 庫 + Skill + 模板
+                    Prompt 庫 + Skill + 結構藍圖
                   </span>
                   <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    NotebookLM × Obsidian × MCP
+                    NotebookLM × MCP 串接
                   </span>
                 </div>
               </div>
