@@ -40,7 +40,7 @@ const services = [
     desc: "不用從零開始。下載 Notion 模板、Prompt 工具包，直接套用到你的事業。",
     price: "NT$300 起",
     cta: "查看產品",
-    href: "/products",
+    href: "/tools#digital-products",
     highlight: false,
   },
 ];

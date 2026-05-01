@@ -567,7 +567,7 @@ export default function ContextLibraryPage() {
               asChild
               className="h-12 px-8 shadow-sm shadow-primary/15"
             >
-              <Link href="/ai-context-library-dfy">
+              <Link href="/tools/ai-context-library-dfy">
                 查看進階版服務
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

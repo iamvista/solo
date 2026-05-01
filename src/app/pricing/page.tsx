@@ -86,7 +86,7 @@ const services = [
       "含使用教學說明",
     ],
     cta: "查看產品",
-    href: "/products",
+    href: "/tools#digital-products",
     highlight: false,
   },
 ];

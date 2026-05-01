@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       "60 分鐘訪談、10 份文件、放進你的 AI 工作區。讓 AI 從泛用助理更接近懂你脈絡的協作夥伴。",
   },
   alternates: {
-    canonical: "https://www.solo.tw/ai-context-library-dfy",
+    canonical: "https://www.solo.tw/tools/ai-context-library-dfy",
   },
 };
 
@@ -162,14 +162,15 @@ export default function ContextArchitectureDFYPage() {
           name: "AI 個人脈絡庫：Done-For-You 顧問服務",
           description:
             "Vista 親自訪談 60 分鐘，協助建立完整 10 份 AI 個人脈絡庫，可放進 Claude Project 或其他 AI 工作區。",
-          url: "https://www.solo.tw/ai-context-library-dfy",
+          url: "https://www.solo.tw/tools/ai-context-library-dfy",
           price: 12000,
         })}
       />
       <JsonLd
         data={breadcrumbSchema([
           { name: "首頁", href: "/" },
-          { name: "AI 個人脈絡庫 DFY", href: "/ai-context-library-dfy" },
+          { name: "工具與資源", href: "/tools" },
+          { name: "AI 個人脈絡庫 DFY", href: "/tools/ai-context-library-dfy" },
         ])}
       />
       <JsonLd data={faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a })))} />

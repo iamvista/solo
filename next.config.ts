@@ -31,7 +31,19 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/context-architecture-dfy",
-        destination: "/ai-context-library-dfy",
+        destination: "/tools/ai-context-library-dfy",
+        permanent: true,
+      },
+      // 路徑一致性遷移（2026-05-01）：DFY 收進 /tools/ 底下與 ai-context-library 對齊
+      {
+        source: "/ai-context-library-dfy",
+        destination: "/tools/ai-context-library-dfy",
+        permanent: true,
+      },
+      // IA 整併（2026-05-01）：/products 著陸頁退役，/tools 為單一 hub。子路由 /products/:slug 不受影響。
+      {
+        source: "/products",
+        destination: "/tools",
         permanent: true,
       },
     ];

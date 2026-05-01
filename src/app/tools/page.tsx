@@ -171,7 +171,7 @@ export default function ToolsPage() {
                 asChild
                 className="h-12 border-stone-300 px-6 text-stone-700 hover:bg-stone-50"
               >
-                <Link href="/products">
+                <Link href="#digital-products">
                   瀏覽數位產品
                   <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Link>
@@ -269,8 +269,11 @@ export default function ToolsPage() {
         </div>
       </section>
 
-      {/* ─── 數位產品（/products） ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 to-white py-16 sm:py-20">
+      {/* ─── 數位產品 ─── */}
+      <section
+        id="digital-products"
+        className="relative overflow-hidden bg-gradient-to-b from-stone-50 to-white py-16 sm:py-20 scroll-mt-20"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
@@ -329,20 +332,6 @@ export default function ToolsPage() {
                 </Link>
               );
             })}
-          </div>
-
-          <div className="mt-8 text-center">
-            <Button
-              variant="outline"
-              size="sm"
-              asChild
-              className="border-stone-300 text-stone-700 hover:bg-stone-50"
-            >
-              <Link href="/products">
-                查看所有產品
-                <ArrowRight className="ml-1.5 h-4 w-4" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>

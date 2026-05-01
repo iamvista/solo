@@ -80,7 +80,7 @@ export function CheckoutButton({
 
       if (!user?.email) {
         const returnUrl = encodeURIComponent(
-          "/ai-context-library-dfy#pricing"
+          "/tools/ai-context-library-dfy#pricing"
         );
         window.location.href = `/auth/login?redirect=${returnUrl}`;
         return;
@@ -95,7 +95,7 @@ export function CheckoutButton({
       await recur.redirectToCheckout({
         productId,
         successUrl: `${window.location.origin}/payment/success?type=service&product=ai-context-library-dfy`,
-        cancelUrl: `${window.location.origin}/ai-context-library-dfy#pricing`,
+        cancelUrl: `${window.location.origin}/tools/ai-context-library-dfy#pricing`,
         customerEmail: user.email,
       });
     } catch {
