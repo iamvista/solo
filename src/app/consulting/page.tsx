@@ -229,17 +229,17 @@ export default function ConsultingPage() {
                 <p className="mt-3 text-base leading-relaxed text-stone-500">
                   上面的 90 分鐘工具導入幫你跑通一個工具。如果你要的是一套可以
                   <strong className="text-stone-700">長期累積、會自動化、串好整條工作流</strong>
-                  的個人系統，可以看看 4 週與 8 週的深度建構方案。
+                  的個人系統，從 1 週藍圖到 8 週完整建構都有。
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2 text-xs">
                   <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
+                    NT$ 6,800 起
+                  </span>
+                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
+                    Prompt 庫 + Skill + 模板
+                  </span>
+                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
                     NotebookLM × Obsidian × MCP
-                  </span>
-                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    4 週交付 NT$ 24,800 起
-                  </span>
-                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    含 1:1 諮詢 + LINE 支援
                   </span>
                 </div>
               </div>

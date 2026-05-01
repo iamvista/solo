@@ -59,22 +59,45 @@ const painPoints = [
 
 const plans = [
   {
+    id: "blueprint",
+    name: "AI 研究系統設計藍圖",
+    duration: "1 週內交付｜入門首選",
+    desc: "用一次深度訪談，幫你規劃個人 AI 研究系統的整體架構，並把可立即使用的 Prompt、模板、SOP 一次給你。適合想先試水溫、自己動手、預算友善的研究者與創作者。",
+    promoPrice: "NT$ 6,800",
+    originalPrice: "NT$ 9,800",
+    saving: "開站優惠約 7 折",
+    badge: "最多人選",
+    available: true,
+    icon: Brain,
+    includes: [
+      "90 分鐘 1:1 設計訪談：盤點現況、釐清目標",
+      "個人系統架構圖（PDF）：工具串接設計與資料流",
+      "客製 Prompt 庫 20+：依你的研究／寫作領域量身寫",
+      "NotebookLM 主題模板 × 2：資料夾結構、source 分類、命名規範",
+      "Obsidian / Notion 筆記框架模板：可直接匯入使用",
+      "Vista 私房 Skill 1 份（例：研究主題探勘 / 文獻摘要工作流）",
+      "工具棧建議書：付費 / 免費替代方案對照",
+      "自學 SOP 文件 5–8 頁：每日、每週循環指引",
+      "30 分鐘交付 review session",
+      "14 天 LINE 文字支援",
+    ],
+  },
+  {
     id: "engine",
     name: "AI 研究與寫作引擎",
-    duration: "4 週交付",
-    desc: "為你量身建好一套可長期使用的個人 AI 系統。從研究、整理到寫作，一條工作流跑完。",
+    duration: "4 週交付｜深度建構",
+    desc: "我直接幫你把整套系統建好。從訪談、架構、建構、自動化到陪跑，4 週交付一套可以長期使用的個人 AI 工作流。",
     promoPrice: "NT$ 24,800",
     originalPrice: "NT$ 39,800",
     saving: "開站優惠 6 折",
-    badge: "主推方案",
+    badge: "深度建構",
     available: true,
     icon: Sparkles,
     includes: [
-      "啟動訪談 90 分鐘：盤點現有資料、研究習慣、目標",
-      "個人系統架構圖：客製的工具串接設計",
+      "啟動訪談 90 分鐘 + 個人系統架構圖",
       "建構 2–3 個主題 NotebookLM（含 source 規範與命名）",
-      "MCP 自動化模組（基本款）：自動同步資料來源、跨 notebook 查詢",
-      "客製 Prompt 庫 50+：依你的內容領域量身寫",
+      "MCP 自動化模組（基本款）：自動同步、跨 notebook 查詢",
+      "客製 Prompt 庫 50+ + 多份 Skill / 模板",
       "工作流 SOP 文件：每日 / 每週使用步驟",
       "1:1 諮詢 4 次（共 6 小時）",
       "30 天 LINE 即時支援",
@@ -84,7 +107,7 @@ const plans = [
   {
     id: "system",
     name: "完整知識作業系統",
-    duration: "8 週交付",
+    duration: "8 週交付｜限額 2 名",
     desc: "適合年收百萬以上的創作者、顧問、企業主。把研究、寫作、內容生產整合成一條完整的內容資產生產線。",
     promoPrice: "NT$ 49,800",
     originalPrice: "NT$ 79,800",
@@ -154,7 +177,11 @@ const faqs = [
   },
   {
     q: "和現有的「AI 工具導入 NT$ 3,990」有什麼不同？",
-    a: "AI 工具導入是 90 分鐘單次設定，幫你跑通一個工具。本方案是 4 週的系統建構：交付的是一套可長期累積的個人系統，含多個 notebooks、自動化、SOP 文件，並有 1:1 陪跑與 LINE 支援。",
+    a: "AI 工具導入是 90 分鐘單次設定，幫你跑通一個工具。本服務（藍圖 / 引擎 / 完整系統）是個人 AI 研究系統的整體規劃與建構：藍圖給你架構與模板自己動手，引擎與完整系統由我直接幫你建好整套工作流。",
+  },
+  {
+    q: "「設計藍圖」和「研究與寫作引擎」差在哪？我該怎麼選？",
+    a: "藍圖（NT$ 6,800）是 1 週交付：90 分鐘訪談 + 個人架構圖 + 客製 Prompt 20+ + NotebookLM / Obsidian 模板 + Skill + SOP 文件。你拿到後可以自己動手建。引擎（NT$ 24,800）是 4 週交付：我直接幫你把 NotebookLM、自動化、Prompt 50+ 全部建好，含 4 次 1:1 諮詢與 30 天 LINE 支援。建議從藍圖開始試水溫，覺得對盤再升級到引擎，已付的藍圖費用可折抵。",
   },
   {
     q: "成果能帶走嗎？離開合作後還能用嗎？",
@@ -183,11 +210,11 @@ export default function AIResearchSystemPage() {
     <>
       <JsonLd
         data={serviceSchema({
-          name: "個人 AI 研究與寫作引擎",
+          name: "AI 研究系統設計藍圖",
           description:
-            "為你量身建好一套可長期使用的個人 AI 系統。NotebookLM、Obsidian、MCP 自動化串接，4 週交付。",
+            "用一次深度訪談，幫你規劃個人 AI 研究系統的整體架構，並交付可立即使用的 Prompt、Skill、模板與 SOP。1 週內完成。",
           url: "https://www.solo.tw/consulting/ai-research-system",
-          price: 24800,
+          price: 6800,
         })}
       />
       <JsonLd
@@ -219,13 +246,13 @@ export default function AIResearchSystemPage() {
               <p className="mt-5 text-lg text-stone-500 sm:text-xl">
                 不只是教你工具，
                 <br className="hidden sm:block" />
-                是幫你建好一套可以長期使用、會累積、能持續產生價值的個人 AI 系統。
+                是幫你規劃並建好一套可以長期使用、會累積、能持續產生價值的個人 AI 系統。
               </p>
 
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                 <Button asChild size="lg" className="w-full sm:w-auto">
                   <a href="#plans">
-                    查看方案
+                    NT$ 6,800 起，查看方案
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
@@ -240,7 +267,7 @@ export default function AIResearchSystemPage() {
               </div>
 
               <p className="mt-6 text-xs text-stone-400">
-                4 週交付｜含 1:1 諮詢與 LINE 支援
+                從 1 週藍圖到 8 週完整建構｜含 1:1 諮詢、Prompt 庫、Skill 與模板
               </p>
             </div>
           </div>
@@ -287,25 +314,25 @@ export default function AIResearchSystemPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
-                兩種深度，看你要走多遠
+                從藍圖到完整建構，三種深度任你選
               </h2>
               <p className="mt-3 text-base text-stone-500">
-                先把研究與寫作工作流跑順，或一次把整個內容生產系統建好。
+                建議從「設計藍圖」開始，先拿到實用的 Prompt、模板與 SOP。
+                <br className="hidden sm:block" />
+                想要我直接幫你建好，可選 4 週引擎或 8 週完整系統。
               </p>
             </div>
 
             <div className="mx-auto mt-10 mb-6 max-w-2xl rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-center">
               <p className="text-sm font-medium text-amber-800">
-                🎉 <span className="font-bold">開站限定優惠</span> ：兩個方案皆享{" "}
-                <span className="font-bold text-primary">6 折</span>
-                ，名額有限，額滿恢復原價
+                🎉 <span className="font-bold">開站限定優惠</span> ：所有方案皆享開站特惠價，名額有限，額滿恢復原價
               </p>
             </div>
 
-            <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
+            <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-3">
               {plans.map((plan) => {
                 const Icon = plan.icon;
-                const isMain = plan.id === "engine";
+                const isMain = plan.id === "blueprint";
                 return (
                   <div
                     key={plan.id}
@@ -397,10 +424,12 @@ export default function AIResearchSystemPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
-                4 週交付流程
+                深度建構：4 週交付流程
               </h2>
               <p className="mt-3 text-base text-stone-500">
-                以「AI 研究與寫作引擎」方案為例
+                以「AI 研究與寫作引擎」方案為例。
+                <br className="hidden sm:block" />
+                若選「設計藍圖」入門包，1 週內完成訪談與交付。
               </p>
             </div>
 
@@ -469,7 +498,7 @@ export default function AIResearchSystemPage() {
                   ))}
                 </ul>
                 <p className="mt-5 text-xs text-stone-400">
-                  如果你屬於後者，建議先從{" "}
+                  如果你只想專注學會單一工具，建議從{" "}
                   <Link
                     href="/consulting"
                     className="text-primary underline-offset-2 hover:underline"
@@ -491,7 +520,7 @@ export default function AIResearchSystemPage() {
                 關於 Vista
               </h2>
               <p className="mt-4 text-base leading-relaxed text-stone-600">
-                我長期經營
+                我長期經營{" "}
                 <Link
                   href="https://vista.tw"
                   target="_blank"
