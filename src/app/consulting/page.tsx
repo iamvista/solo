@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MessageCircle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Calendar, Clock, MessageCircle, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import { CalEmbed } from "@/components/consulting/CalEmbed";
 import { JsonLd, serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
@@ -207,6 +207,51 @@ export default function ConsultingPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* 深度系統建構導流 */}
+      <section className="bg-white pb-16 sm:pb-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-white to-stone-50 p-8 sm:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+                    更深度的合作
+                  </p>
+                </div>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
+                  想把研究與寫作，串成一套你自己的 AI 系統？
+                </h3>
+                <p className="mt-3 text-base leading-relaxed text-stone-500">
+                  上面的 90 分鐘工具導入幫你跑通一個工具。如果你要的是一套可以
+                  <strong className="text-stone-700">長期累積、會自動化、串好整條工作流</strong>
+                  的個人系統，可以看看 4 週與 8 週的深度建構方案。
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2 text-xs">
+                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
+                    NotebookLM × Obsidian × MCP
+                  </span>
+                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
+                    4 週交付 NT$ 24,800 起
+                  </span>
+                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
+                    含 1:1 諮詢 + LINE 支援
+                  </span>
+                </div>
+              </div>
+              <div className="flex shrink-0 lg:flex-col">
+                <Button asChild size="lg" className="w-full lg:w-auto">
+                  <Link href="/consulting/ai-research-system">
+                    了解 AI 研究系統
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
