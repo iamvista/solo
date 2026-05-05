@@ -31,15 +31,22 @@ function formatPrice(price: number): string {
   return `NT$${price.toLocaleString()}`;
 }
 
-/* ─── Cover Image (convention: /images/workshops/cover-{id}.webp) ─── */
-function getCoverImage(id: string): string {
-  return `/images/workshops/cover-${id}.webp`;
+/* ─── Cover Image (convention: /images/workshops/cover-{id}.webp，沒有靜態檔則 fallback 到該課 OG 動態路由) ─── */
+const COURSES_WITHOUT_STATIC_COVER = new Set<string>([
+  "ai-proposal-spotlight",
+]);
+
+function getCoverImage(workshop: Pick<Workshop, "id" | "url" | "isExternal">): string {
+  if (!workshop.isExternal && COURSES_WITHOUT_STATIC_COVER.has(workshop.id)) {
+    return `${workshop.url}/og`;
+  }
+  return `/images/workshops/cover-${workshop.id}.webp`;
 }
 
 /* ─── Workshop Card ─── */
 function WorkshopCard({ workshop }: { workshop: Workshop }) {
   const status = statusConfig[workshop.status];
-  const coverSrc = getCoverImage(workshop.id);
+  const coverSrc = getCoverImage(workshop);
   const LinkWrapper = workshop.isExternal ? "a" : Link;
   const linkProps = workshop.isExternal
     ? { href: workshop.url, target: "_blank" as const, rel: "noopener noreferrer" }
@@ -196,7 +203,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
 /* ─── Featured Course Card ─── */
 function FeaturedCard({ workshop }: { workshop: Workshop }) {
   const status = statusConfig[workshop.status];
-  const coverSrc = getCoverImage(workshop.id);
+  const coverSrc = getCoverImage(workshop);
 
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-stone-900 to-stone-800/90 text-white shadow-xl transition-all duration-300 hover:shadow-2xl">
