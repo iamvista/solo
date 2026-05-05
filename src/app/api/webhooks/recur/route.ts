@@ -12,7 +12,15 @@ import {
 } from "@/lib/recur-product-config";
 import { getCourseConfig } from "@/lib/courses-config";
 
-const recur = new Recur(process.env.RECUR_SECRET_KEY ?? "");
+let _recur: Recur | null = null;
+function getRecur(): Recur {
+  if (!_recur) {
+    const key = process.env.RECUR_SECRET_KEY;
+    if (!key) throw new Error("RECUR_SECRET_KEY not set");
+    _recur = new Recur(key);
+  }
+  return _recur;
+}
 
 const DOWNLOAD_TTL_HOURS = 72;
 const MAX_DOWNLOADS = 3;
@@ -39,7 +47,7 @@ export async function POST(request: Request) {
 
   let event;
   try {
-    event = recur.webhooks.verify(payload, signature, secret);
+    event = getRecur().webhooks.verify(payload, signature, secret);
   } catch {
     return Response.json({ error: "Invalid signature" }, { status: 401 });
   }
