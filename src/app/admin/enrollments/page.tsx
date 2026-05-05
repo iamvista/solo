@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
+import { DeleteEnrollmentButton } from "./DeleteButton";
 
 export const metadata: Metadata = {
   title: "課程報名名單 | 後台",
@@ -132,9 +133,27 @@ export default async function AdminEnrollmentsPage({ searchParams }: PageProps) 
             </code>
           </p>
         </div>
-        <Button variant="outline" asChild>
-          <Link href="/admin">← 返回後臺</Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" asChild>
+            <a
+              href={`/api/admin/enrollments/export${
+                courseFilter || statusFilter
+                  ? `?${[
+                      courseFilter ? `course=${courseFilter}` : "",
+                      statusFilter ? `status=${statusFilter}` : "",
+                    ]
+                      .filter(Boolean)
+                      .join("&")}`
+                  : ""
+              }`}
+            >
+              📄 匯出 CSV
+            </a>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/admin">← 返回後臺</Link>
+          </Button>
+        </div>
       </div>
 
       {/* 統計卡 */}
@@ -352,6 +371,12 @@ export default async function AdminEnrollmentsPage({ searchParams }: PageProps) 
                                 行銷同意：{e.marketing_consent ? "✓" : "✗"} ｜
                                 E-mail 寄出：{e.email_confirmation_sent_at ? "✓" : "✗"} ｜
                                 SMS 寄出：{e.sms_confirmation_sent_at ? "✓" : "✗"}
+                              </div>
+                              <div className="mt-2 flex justify-end border-t pt-2">
+                                <DeleteEnrollmentButton
+                                  enrollmentId={e.id}
+                                  enrollmentLabel={`${e.name} / ${e.email}`}
+                                />
                               </div>
                             </div>
                           </details>
