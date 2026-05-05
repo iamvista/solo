@@ -60,11 +60,11 @@ export function AICoachKitPurchaseEmail({
             下載後請參考工具包內的零基礎指南，一步步設定你的 AI 實踐教練。
           </Text>
           <Text style={text}>
-            若有任何問題，歡迎回信{" "}
-            <Link href="mailto:support@solo.tw" style={link}>
-              support@solo.tw
+            若有任何問題，歡迎寄信至{" "}
+            <Link href="mailto:iamvista@gmail.com" style={link}>
+              iamvista@gmail.com
             </Link>
-            ，我們會盡快協助。
+            {" "}聯繫。
           </Text>
 
           <Hr style={hr} />

@@ -29,8 +29,8 @@ export type ProductEmailConfig =
 export const AI_COACH_KIT_PRODUCT_ID = "xqvb9nqxtehhfesuhequm9jp";
 
 const COURSE_PROPOSAL_NEXT_STEPS = [
-  "開課前 7 天會寄出含教室地址、停車資訊、課前準備清單的提醒信",
-  "開課當週若有任何臨時調整，會以 email 與簡訊雙重通知",
+  "開課前 2 天會寄出含教室地址、課前準備清單等資訊的提醒信",
+  "開課當週若因故有任何臨時調整，會以 E-mail 與簡訊雙重通知",
   "建議準備一份「下週要交的真實提案」，課堂上直接優化最有感",
 ];
 

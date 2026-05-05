@@ -42,14 +42,14 @@ export async function GET(request: NextRequest) {
 
   if (new Date(tokenRecord.expires_at) < new Date()) {
     return NextResponse.json(
-      { error: "下載連結已過期，請聯繫 support@solo.tw" },
+      { error: "下載連結已過期，請聯繫 iamvista@gmail.com" },
       { status: 410 }
     );
   }
 
   if (tokenRecord.download_count >= tokenRecord.max_downloads) {
     return NextResponse.json(
-      { error: "已達下載次數上限，請聯繫 support@solo.tw" },
+      { error: "已達下載次數上限，請聯繫 iamvista@gmail.com" },
       { status: 429 }
     );
   }
@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     console.error("[download] blob fetch failed", err);
     return NextResponse.json(
-      { error: "檔案暫時無法取得，請聯繫 support@solo.tw" },
+      { error: "檔案暫時無法取得，請聯繫 iamvista@gmail.com" },
       { status: 500 },
     );
   }

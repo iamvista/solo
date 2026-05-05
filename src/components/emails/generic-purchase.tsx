@@ -30,7 +30,7 @@ const COPY: Record<
   course: {
     tag: "🎉 課程報名成功",
     heading: "感謝報名，我們課堂見",
-    preview: "感謝報名 — 課前提醒信會在開課前 7 天寄出",
+    preview: "感謝報名 — 課前提醒信會在開課前 2 天寄出",
     intro: (name) =>
       `哈囉，感謝你報名《${name}》。你的名額已經保留，以下是訂單資訊與接下來的安排。`,
   },
@@ -99,11 +99,11 @@ export function GenericPurchaseEmail({
           )}
 
           <Text style={text}>
-            若有任何問題，歡迎直接回信，或寄至{" "}
-            <Link href="mailto:support@solo.tw" style={link}>
-              support@solo.tw
+            若有任何問題，歡迎寄信至{" "}
+            <Link href="mailto:iamvista@gmail.com" style={link}>
+              iamvista@gmail.com
             </Link>
-            。
+            {" "}聯繫。
           </Text>
 
           <Hr style={hr} />
