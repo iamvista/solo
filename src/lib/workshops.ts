@@ -84,7 +84,7 @@ export const workshops: Workshop[] = [
   {
     id: "ai-proposal-spotlight",
     title: "AI 提案亮點實戰課",
-    subtitle: "讓主管與客戶更容易點頭｜一天帶走可直接用的優化草稿",
+    subtitle: "讓主管與客戶更容易點頭｜一天帶走可直接用的優化解決方案",
     description:
       "你的提案不是寫得不夠好，而是還沒找到讓對方點頭的理由。一天 6 小時，用 AI 把「沒亮點」變成「非做不可」，現場完成一份你下週就要交的提案。",
     instructor: jianming,
@@ -106,7 +106,7 @@ export const workshops: Workshop[] = [
     url: "/courses/ai-proposal-spotlight",
     isExternal: false,
     highlights: [
-      "現場完成一份可直接交出去的提案優化草稿",
+      "現場完成一份可直接交出去的優化版的提案",
       "帶走 5 樣實戰工具：檢核表、12 維拆解、30 種改法、Prompt 模板",
       "解決「這個沒有亮點」「再評估看看」「沒有非做不可」三大被退件死因",
       "限 16 名小班・早鳥贈限量《創新的秘密》工具牌（市面買不到）",

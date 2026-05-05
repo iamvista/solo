@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "讓主管與客戶更容易點頭的 AI 提案亮點實戰課｜2026/6/13 臺北",
     description:
-      "用 AI 找到讓對方點頭的理由，現場完成一份可直接交出去的提案優化草稿。陳建銘老師親授・限 16 名・早鳥 NT$4,980。",
+      "用 AI 找到讓對方點頭的理由，現場完成一份可直接交出去的優化版的提案。陳建銘老師親授・限 16 名・早鳥 NT$4,980。",
     images: [
       {
         url: "/courses/ai-proposal-spotlight/og",
@@ -85,7 +85,7 @@ const tools = [
   },
   {
     no: "05",
-    name: "提案優化草稿 ×1",
+    name: "優化版的提案 ×1",
     desc: "課堂中用你自己的真實提案完成優化版，帶回去下週直接交。",
   },
 ];
@@ -185,7 +185,7 @@ export default function AiProposalSpotlightPage() {
         data={courseSchema({
           name: "讓主管與客戶更容易點頭的 AI 提案亮點實戰課",
           description:
-            "一天 6 小時，用 AI 把「沒亮點」變成「非做不可」。帶走 5 樣實戰工具與一份可立即交出去的提案優化草稿。",
+            "一天 6 小時，用 AI 把「沒亮點」變成「非做不可」。帶走 5 樣實戰工具與一份可立即交出去的優化版的提案。",
           url: "https://www.solo.tw/courses/ai-proposal-spotlight",
           instructor: "陳建銘",
           price: 4980,
@@ -235,7 +235,7 @@ export default function AiProposalSpotlightPage() {
               </span>
             </p>
             <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-              一天現場做完，帶走一份你下週就要交的提案優化草稿。
+              一天現場做完，帶走一份你下週就要交的優化版的提案。
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
