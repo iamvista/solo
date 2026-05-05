@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
-import { getCourseConfig, resolvePricing } from "@/lib/courses-config";
+import { getCourseConfig, availablePlans } from "@/lib/courses-config";
 import { CourseRegistrationForm } from "./CourseRegistrationForm";
 
 interface PageProps {
@@ -25,7 +25,9 @@ export default async function RegisterPage({ params }: PageProps) {
   const course = getCourseConfig(slug);
   if (!course) notFound();
 
-  const pricing = resolvePricing(course);
+  const plans = availablePlans(course);
+  const defaultPlan = plans[0]?.plan ?? "regular";
+  const headlinePlan = plans[0];
   const publishableKey = process.env.NEXT_PUBLIC_RECUR_PUBLISHABLE_KEY ?? "";
 
   return (
@@ -64,8 +66,10 @@ export default async function RegisterPage({ params }: PageProps) {
             <div className="flex items-center gap-2">
               <span>💰</span>
               <span>
-                NT${pricing.amount.toLocaleString()}
-                {pricing.isEarlyBird && (
+                {headlinePlan
+                  ? `NT$${headlinePlan.amount.toLocaleString()} 起`
+                  : "—"}
+                {headlinePlan?.plan === "early_bird" && (
                   <span className="ml-2 rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-semibold text-amber-700">
                     早鳥
                   </span>
@@ -89,7 +93,8 @@ export default async function RegisterPage({ params }: PageProps) {
           <div className="mt-10">
             <CourseRegistrationForm
               course={course}
-              pricing={pricing}
+              plans={plans}
+              defaultPlan={defaultPlan}
               publishableKey={publishableKey}
             />
           </div>

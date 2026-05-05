@@ -101,9 +101,10 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   await sendGenericConfirmation({ config, orderId, email, amount });
 
-  // 若是課程，再嘗試發 SMS（從 enrollment 撈 phone）
+  // 若是課程，再嘗試發 SMS（從 enrollment 撈 phone）+ 雙人同行夥伴 email
   if (config.kind === "course" && enrollmentId) {
     await sendCourseSms({ enrollmentId, config });
+    await sendCompanionEmail({ enrollmentId, config });
   }
 }
 
@@ -157,7 +158,9 @@ async function sendCourseSms({
     const sb = getSupabase();
     const { data, error } = await sb
       .from("course_enrollments")
-      .select("phone, name, course_id")
+      .select(
+        "phone, name, course_id, plan, companion_name, companion_email, companion_phone",
+      )
       .eq("id", enrollmentId)
       .maybeSingle();
     if (error || !data?.phone) {
@@ -176,8 +179,55 @@ async function sendCourseSms({
         .update({ sms_confirmation_sent_at: new Date().toISOString() })
         .eq("id", enrollmentId);
     }
+    // 雙人同行：也發給夥伴
+    if (data.plan === "dual" && data.companion_phone) {
+      const companionBody = `【${config.productName}】${
+        data.companion_name ?? "同行夥伴"
+      } 的報名確認！${dateLine}・地點報名後告知。— solo.tw`;
+      await sendSms(data.companion_phone, companionBody);
+    }
   } catch (e) {
     console.error("[recur webhook] sendCourseSms threw", e);
+  }
+}
+
+async function sendCompanionEmail({
+  enrollmentId,
+  config,
+}: {
+  enrollmentId: string;
+  config: Extract<ProductEmailConfig, { kind: "course" }>;
+}) {
+  try {
+    const sb = getSupabase();
+    const { data } = await sb
+      .from("course_enrollments")
+      .select(
+        "plan, companion_name, companion_email, recur_order_id, amount",
+      )
+      .eq("id", enrollmentId)
+      .maybeSingle();
+    if (!data || data.plan !== "dual" || !data.companion_email) return;
+
+    const amountFormatted =
+      typeof data.amount === "number"
+        ? `NT$${data.amount.toLocaleString()}`
+        : undefined;
+
+    await sendEmail({
+      to: data.companion_email,
+      subject: `感謝報名《${config.productName}》——課堂見`,
+      react: GenericPurchaseEmail({
+        kind: "course",
+        productName: config.productName,
+        orderNumber: data.recur_order_id ?? enrollmentId,
+        amountFormatted,
+        whatsNext: config.whatsNext,
+        detailUrl: config.detailUrl,
+      }),
+    });
+  } catch (e) {
+    console.error("[recur webhook] sendCompanionEmail threw", e);
   }
 }
 

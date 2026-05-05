@@ -83,10 +83,10 @@ export type WorkshopCategory = keyof typeof categories;
 export const workshops: Workshop[] = [
   {
     id: "ai-proposal-spotlight",
-    title: "AI 提案亮點實戰課",
-    subtitle: "讓主管與客戶更容易點頭｜一天帶走可直接用的優化解決方案",
+    title: "AI 提案成交力",
+    subtitle: "讓主管與客戶點頭的實戰工作坊｜陳建銘老師親授",
     description:
-      "你的提案不是寫得不夠好，而是還沒找到讓對方點頭的理由。一天 6 小時，用 AI 把「沒亮點」變成「非做不可」，現場完成一份你下週就要交的提案。",
+      "你的提案其實並不差，而是還沒找到讓對方點頭的那個理由。用「靈感製造機法則」把『沒亮點』變成『非做不可』，現場做出一份下週可呈交的優化版提案。",
     instructor: jianming,
     emoji: "✨",
     date: "2026/6/13（六）",
@@ -106,10 +106,10 @@ export const workshops: Workshop[] = [
     url: "/courses/ai-proposal-spotlight",
     isExternal: false,
     highlights: [
-      "現場完成一份可直接交出去的優化版的提案",
-      "帶走 5 樣實戰工具：檢核表、12 維拆解、30 種改法、Prompt 模板",
-      "解決「這個沒有亮點」「再評估看看」「沒有非做不可」三大被退件死因",
-      "限 16 名小班・早鳥贈限量《創新的秘密》工具牌（市面買不到）",
+      "用靈感製造機法則找到讓對方點頭的理由，再讓 AI 把亮點放大",
+      "5 樣實戰工具：檢核表、12 維拆解、30 種改法、Prompt 模板、優化版提案",
+      "雙人同行 NT$8,888（兩人互相扮演提案方/決策方練習）",
+      "限 16 名小班・含精美午餐・早鳥贈限量《創新的秘密》工具牌",
     ],
     category: "innovation",
   },

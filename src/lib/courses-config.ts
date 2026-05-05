@@ -28,6 +28,10 @@ export interface CourseConfig {
   recurProductIdRegular: string;
   /** 原價金額 */
   regularPrice: number;
+  /** 雙人同行 Recur 產品 ID（選填） */
+  recurProductIdDual?: string;
+  /** 雙人同行金額 */
+  dualPrice?: number;
   /** Recur 公開金鑰（前端 SDK 用）由環境變數注入 */
   /** 課程詳細頁路徑（用於回退連結） */
   detailUrl: string;
@@ -52,6 +56,8 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     earlyBirdDeadline: "2026-05-30",
     recurProductIdRegular: "k0kbiflm1tckzvqd39u4uw3w",
     regularPrice: 7800,
+    recurProductIdDual: "lzg8am8dx7bb5n26f74xeoop",
+    dualPrice: 8888,
     detailUrl: "/courses/ai-proposal-spotlight",
     hasMeal: true,
     customQuestionLabel: "目前最卡住的提案問題（選填，但寫了講師會優先在課堂上回答）",
@@ -71,25 +77,106 @@ export function isEarlyBirdActive(config: CourseConfig, now: Date = new Date()):
   return now <= deadline;
 }
 
-/** 取得目前該收的價格與對應 product ID */
+export type PricingPlan = "early_bird" | "regular" | "dual";
+
+export interface ResolvedPricing {
+  plan: PricingPlan;
+  productId: string;
+  amount: number;
+  isEarlyBird: boolean;
+}
+
+/** 取得目前該收的價格與對應 product ID（單人預設早鳥／原價自動切） */
 export function resolvePricing(
   config: CourseConfig,
   now: Date = new Date(),
-): { productId: string; amount: number; isEarlyBird: boolean } {
+  plan: PricingPlan = "early_bird",
+): ResolvedPricing {
   if (
+    plan === "dual" &&
+    config.recurProductIdDual &&
+    config.dualPrice !== undefined
+  ) {
+    return {
+      plan: "dual",
+      productId: config.recurProductIdDual,
+      amount: config.dualPrice,
+      isEarlyBird: false,
+    };
+  }
+
+  if (
+    plan === "early_bird" &&
     config.recurProductIdEarlyBird &&
     config.earlyBirdPrice !== undefined &&
     isEarlyBirdActive(config, now)
   ) {
     return {
+      plan: "early_bird",
       productId: config.recurProductIdEarlyBird,
       amount: config.earlyBirdPrice,
       isEarlyBird: true,
     };
   }
   return {
+    plan: "regular",
     productId: config.recurProductIdRegular,
     amount: config.regularPrice,
     isEarlyBird: false,
   };
+}
+
+/** 列出該課所有可選方案（給表單 radio 用） */
+export function availablePlans(
+  config: CourseConfig,
+  now: Date = new Date(),
+): Array<{
+  plan: PricingPlan;
+  label: string;
+  amount: number;
+  description?: string;
+  productId: string;
+}> {
+  const plans: Array<{
+    plan: PricingPlan;
+    label: string;
+    amount: number;
+    description?: string;
+    productId: string;
+  }> = [];
+
+  if (
+    config.recurProductIdEarlyBird &&
+    config.earlyBirdPrice !== undefined &&
+    isEarlyBirdActive(config, now)
+  ) {
+    plans.push({
+      plan: "early_bird",
+      label: "單人早鳥",
+      amount: config.earlyBirdPrice,
+      description: config.earlyBirdDeadline
+        ? `${config.earlyBirdDeadline} 截止`
+        : undefined,
+      productId: config.recurProductIdEarlyBird,
+    });
+  } else {
+    plans.push({
+      plan: "regular",
+      label: "單人原價",
+      amount: config.regularPrice,
+      productId: config.recurProductIdRegular,
+    });
+  }
+
+  if (config.recurProductIdDual && config.dualPrice !== undefined) {
+    plans.push({
+      plan: "dual",
+      label: "雙人同行",
+      amount: config.dualPrice,
+      description: "兩人同行可在課堂互相扮演提案方與決策方",
+      productId: config.recurProductIdDual,
+    });
+  }
+
+  return plans;
 }

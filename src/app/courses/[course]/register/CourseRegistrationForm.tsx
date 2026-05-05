@@ -1,22 +1,31 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useTransition, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { CourseConfig } from "@/lib/courses-config";
+import type { CourseConfig, PricingPlan } from "@/lib/courses-config";
 import { loadRecurFromCdn } from "@/lib/recur-checkout-types";
+
+interface PlanOption {
+  plan: PricingPlan;
+  label: string;
+  amount: number;
+  description?: string;
+  productId: string;
+}
 
 interface Props {
   course: CourseConfig;
-  pricing: { productId: string; amount: number; isEarlyBird: boolean };
+  plans: PlanOption[];
+  defaultPlan: PricingPlan;
   publishableKey: string;
 }
 
 interface FormState {
+  plan: PricingPlan;
   email: string;
   name: string;
   phone: string;
@@ -31,6 +40,9 @@ interface FormState {
   invoiceCompany: string;
   invoiceTaxId: string;
   marketingConsent: boolean;
+  companionName: string;
+  companionEmail: string;
+  companionPhone: string;
 }
 
 const ATTRIBUTION_OPTIONS = [
@@ -44,11 +56,16 @@ const ATTRIBUTION_OPTIONS = [
 
 const DIETARY_OPTIONS = ["葷食皆可", "素食", "海鮮過敏", "其他過敏（請說明）"];
 
-export function CourseRegistrationForm({ course, pricing, publishableKey }: Props) {
-  const router = useRouter();
+export function CourseRegistrationForm({
+  course,
+  plans,
+  defaultPlan,
+  publishableKey,
+}: Props) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({
+    plan: defaultPlan,
     email: "",
     name: "",
     phone: "",
@@ -63,7 +80,16 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
     invoiceCompany: "",
     invoiceTaxId: "",
     marketingConsent: true,
+    companionName: "",
+    companionEmail: "",
+    companionPhone: "",
   });
+
+  const selectedPlan = useMemo(
+    () => plans.find((p) => p.plan === form.plan) ?? plans[0],
+    [plans, form.plan],
+  );
+  const isDual = form.plan === "dual";
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -76,6 +102,17 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
     if (!form.email.trim() || !form.name.trim() || !form.phone.trim()) {
       setError("E-mail、姓名、手機是必填欄位。");
       return;
+    }
+
+    if (isDual) {
+      if (
+        !form.companionName.trim() ||
+        !form.companionEmail.trim() ||
+        !form.companionPhone.trim()
+      ) {
+        setError("選擇雙人同行方案時，同行夥伴的姓名、E-mail、手機都是必填。");
+        return;
+      }
     }
 
     startTransition(async () => {
@@ -132,6 +169,49 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
         </div>
       )}
 
+      {/* 方案選擇 */}
+      <section>
+        <h2 className="text-base font-semibold text-foreground">選擇報名方案</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          雙人同行可在課堂互相扮演提案方與決策方，練習效果更完整。
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {plans.map((p) => {
+            const active = form.plan === p.plan;
+            return (
+              <label
+                key={p.plan}
+                className={`relative flex cursor-pointer flex-col gap-1 rounded-xl border-2 p-4 transition-colors ${
+                  active
+                    ? "border-primary bg-amber-50/50"
+                    : "border-stone-200 bg-card hover:border-stone-300"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="plan"
+                  value={p.plan}
+                  checked={active}
+                  onChange={() => update("plan", p.plan)}
+                  className="sr-only"
+                />
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-base font-semibold">{p.label}</span>
+                  <span className="text-2xl font-bold text-primary">
+                    NT${p.amount.toLocaleString()}
+                  </span>
+                </div>
+                {p.description && (
+                  <span className="text-xs text-muted-foreground">
+                    {p.description}
+                  </span>
+                )}
+              </label>
+            );
+          })}
+        </div>
+      </section>
+
       {/* 必填區塊 */}
       <section>
         <h2 className="text-base font-semibold text-foreground">聯絡資料（必填）</h2>
@@ -182,6 +262,56 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
           </div>
         </div>
       </section>
+
+      {/* 雙人同行：同行夥伴資料 */}
+      {isDual && (
+        <section className="rounded-xl border-2 border-amber-300 bg-amber-50/40 p-5">
+          <h2 className="text-base font-semibold text-foreground">
+            👫 同行夥伴資料（必填）
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            雙人同行方案需提供另一位夥伴的聯絡方式，課前提醒會同時寄給雙方。
+          </p>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label htmlFor="companionEmail">
+                夥伴 E-mail <span className="text-rose-600">*</span>
+              </Label>
+              <Input
+                id="companionEmail"
+                type="email"
+                required={isDual}
+                value={form.companionEmail}
+                onChange={(e) => update("companionEmail", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="companionName">
+                夥伴姓名 <span className="text-rose-600">*</span>
+              </Label>
+              <Input
+                id="companionName"
+                required={isDual}
+                value={form.companionName}
+                onChange={(e) => update("companionName", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="companionPhone">
+                夥伴手機 <span className="text-rose-600">*</span>
+              </Label>
+              <Input
+                id="companionPhone"
+                required={isDual}
+                value={form.companionPhone}
+                onChange={(e) => update("companionPhone", e.target.value)}
+                placeholder="0912345678 或 +886912345678"
+                inputMode="tel"
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 背景區塊 */}
       <section>
@@ -370,14 +500,21 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
 
       <div className="rounded-xl border-2 border-primary/30 bg-amber-50/30 p-5">
         <div className="flex items-baseline justify-between">
-          <span className="text-sm text-muted-foreground">本次應付</span>
+          <span className="text-sm text-muted-foreground">
+            本次應付（{selectedPlan.label}）
+          </span>
           <span className="text-3xl font-bold text-primary">
-            NT${pricing.amount.toLocaleString()}
+            NT${selectedPlan.amount.toLocaleString()}
           </span>
         </div>
-        {pricing.isEarlyBird && (
+        {selectedPlan.plan === "early_bird" && course.earlyBirdDeadline && (
           <p className="mt-1 text-right text-xs text-emerald-700">
             ⚡ 早鳥優惠（{course.earlyBirdDeadline} 截止）
+          </p>
+        )}
+        {isDual && (
+          <p className="mt-1 text-right text-xs text-amber-700">
+            👫 兩人同行・雙方都會收到課前提醒
           </p>
         )}
         <Button
@@ -389,7 +526,7 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
           {pending ? "處理中…請稍候" : "確認資料・前往付款"}
         </Button>
         <p className="mt-3 text-xs text-muted-foreground">
-          按下後會跳轉到 PAYUNi 信用卡刷卡頁。開課前 7 天可全額退費。
+          按下後會跳轉到 PAYUNi 信用卡刷卡頁。開課前 2026/6/6 前可全額退費。
         </p>
       </div>
     </form>

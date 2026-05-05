@@ -62,6 +62,13 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
   },
+  lzg8am8dx7bb5n26f74xeoop: {
+    kind: "course",
+    productId: "lzg8am8dx7bb5n26f74xeoop",
+    productName: "AI 提案亮點實戰課・雙人同行（2026/6/13 臺北）",
+    whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
+  },
 
   // 副腦計畫 Brain+1 Lab（35 天陪跑營）
   n9l5pxhjrvy0o94igqw2vpcp: {

@@ -66,25 +66,25 @@ export async function GET() {
 
           <h1
             style={{
-              fontSize: "54px",
+              fontSize: "50px",
               fontWeight: 900,
               color: "#1a1a2e",
               lineHeight: 1.2,
               margin: 0,
             }}
           >
-            讓主管與客戶更容易點頭的
+            讓主管與客戶點頭的
           </h1>
           <h1
             style={{
-              fontSize: "60px",
+              fontSize: "64px",
               fontWeight: 900,
               color: "#EA580C",
               lineHeight: 1.2,
               margin: "4px 0 0 0",
             }}
           >
-            AI 提案亮點實戰課
+            AI 提案成交力
           </h1>
 
           <p
@@ -95,9 +95,9 @@ export async function GET() {
               lineHeight: 1.5,
             }}
           >
-            你的提案不是寫得不夠好，
+            你的提案其實並不差，
             <br />
-            而是還沒找到讓對方點頭的理由。
+            而是還沒找到讓對方點頭的那個理由。
           </p>
         </div>
 
@@ -180,6 +180,16 @@ export async function GET() {
               }}
             >
               原價 NT$ 7,800
+            </span>
+            <span
+              style={{
+                fontSize: "14px",
+                color: "#92400e",
+                fontWeight: 600,
+                marginTop: "8px",
+              }}
+            >
+              👫 雙人同行 NT$ 8,888
             </span>
           </div>
         </div>
