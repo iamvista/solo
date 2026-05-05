@@ -357,7 +357,7 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
           htmlFor="marketingConsent"
           className="cursor-pointer text-sm font-normal leading-relaxed text-muted-foreground"
         >
-          我願意收到 solo.tw 後續的課程開班、學習資源等訊息。隨時可在電子報底部退訂。
+          我願意收到 Vista 電子報與相關課程的開班通知、學習資源等訊息。隨時可在電子報底部退訂。
         </Label>
       </section>
 
