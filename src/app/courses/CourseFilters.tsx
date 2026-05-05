@@ -31,15 +31,8 @@ function formatPrice(price: number): string {
   return `NT$${price.toLocaleString()}`;
 }
 
-/* ─── Cover Image (convention: /images/workshops/cover-{id}.webp，沒有靜態檔則 fallback 到該課 OG 動態路由) ─── */
-const COURSES_WITHOUT_STATIC_COVER = new Set<string>([
-  "ai-proposal-spotlight",
-]);
-
-function getCoverImage(workshop: Pick<Workshop, "id" | "url" | "isExternal">): string {
-  if (!workshop.isExternal && COURSES_WITHOUT_STATIC_COVER.has(workshop.id)) {
-    return `${workshop.url}/og`;
-  }
+/* ─── Cover Image (convention: /images/workshops/cover-{id}.webp) ─── */
+function getCoverImage(workshop: Pick<Workshop, "id">): string {
   return `/images/workshops/cover-${workshop.id}.webp`;
 }
 
