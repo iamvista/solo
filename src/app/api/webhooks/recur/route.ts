@@ -80,7 +80,6 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
   const email = data.customer?.email;
   const productId = pickProductId(data);
   const amount = data.amount;
-  const enrollmentId = data.metadata?.enrollment_id;
 
   if (!email) {
     console.warn("[recur webhook] order.paid missing email", eventId, orderId);
@@ -89,9 +88,32 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   const config = resolveProductConfig(productId, pickProductName(data));
 
-  // 若有 enrollment_id（從表單流程進來），更新課程報名紀錄並發 SMS
+  // 嘗試找對應的 enrollment：先看 metadata（recur SDK 目前不支援，但留著未來相容），
+  // 再用 email + product_id 反查最新一筆 pending enrollment（fallback 路徑）
+  let enrollmentId: string | undefined = data.metadata?.enrollment_id;
+  if (!enrollmentId) {
+    enrollmentId = (await findPendingEnrollment(email, productId)) ?? undefined;
+    if (enrollmentId) {
+      console.log(
+        "[recur webhook] enrollment matched by email fallback",
+        enrollmentId,
+        "for order",
+        orderId,
+      );
+    }
+  }
+
   if (enrollmentId) {
     await markEnrollmentPaid({ enrollmentId, orderId, productId, amount });
+  } else {
+    console.warn(
+      "[recur webhook] no enrollment found for paid order",
+      orderId,
+      "email",
+      email,
+      "product",
+      productId,
+    );
   }
 
   if (config.kind === "ai-coach-kit") {
@@ -113,6 +135,35 @@ function getSupabase(): SupabaseClient {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
+}
+
+/** 用 email + product 反查最新一筆 pending enrollment id，fallback 用，因為 SDK 沒帶 metadata */
+async function findPendingEnrollment(
+  email: string,
+  productId: string | undefined,
+): Promise<string | null> {
+  try {
+    const sb = getSupabase();
+    let query = sb
+      .from("course_enrollments")
+      .select("id")
+      .eq("email", email)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false })
+      .limit(1);
+    if (productId) {
+      query = query.eq("recur_product_id", productId);
+    }
+    const { data, error } = await query.maybeSingle();
+    if (error) {
+      console.error("[recur webhook] findPendingEnrollment query error", error);
+      return null;
+    }
+    return data?.id ?? null;
+  } catch (e) {
+    console.error("[recur webhook] findPendingEnrollment threw", e);
+    return null;
+  }
 }
 
 async function markEnrollmentPaid({
