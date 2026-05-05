@@ -262,7 +262,7 @@ export default function AiProposalSpotlightPage() {
           {/* ====== 痛點共鳴 ====== */}
           <section className="py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              你是不是也聽過這些「軟釘子」？
+              你是不是也碰過這些軟釘子？
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
               退件時最讓人受傷的，不是被罵，是這幾句聽起來很客氣的回應。
