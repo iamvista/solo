@@ -82,6 +82,38 @@ export type WorkshopCategory = keyof typeof categories;
 // 工作坊列表
 export const workshops: Workshop[] = [
   {
+    id: "ai-proposal-spotlight",
+    title: "AI 提案亮點實戰課",
+    subtitle: "讓主管與客戶更容易點頭｜一天帶走可直接用的優化草稿",
+    description:
+      "你的提案不是寫得不夠好，而是還沒找到讓對方點頭的理由。一天 6 小時，用 AI 把『沒亮點』變成『非做不可』，現場完成一份你下週就要交的提案。",
+    instructor: jianming,
+    emoji: "✨",
+    date: "2026/6/13（六）",
+    sortDate: "2026-06-13",
+    time: "9:00–16:00",
+    duration: "6 小時",
+    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 16,
+    featured: true,
+    price: {
+      original: 7800,
+      earlyBird: 4980,
+      earlyBirdDeadline: "2026/5/30",
+    },
+    tags: ["AI", "提案", "職場進化", "說服"],
+    status: "open",
+    url: "/courses/ai-proposal-spotlight",
+    isExternal: false,
+    highlights: [
+      "現場完成一份可直接交出去的提案優化草稿",
+      "帶走 5 樣實戰工具：檢核表、12 維拆解、30 種改法、Prompt 模板",
+      "解決『這個沒有亮點』『再評估看看』『沒有非做不可』三大被退件死因",
+      "限 16 名小班・早鳥贈限量《創新的秘密》工具牌（市面買不到）",
+    ],
+    category: "innovation",
+  },
+  {
     id: "ai-command-center",
     title: "用 AI 建你的個人指揮中心",
     subtitle: "6 小時帶走一套能跑的目標管理 × 知識管理 × AI 自動化系統",
