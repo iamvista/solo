@@ -1,7 +1,8 @@
 import { Recur } from "recur-tw/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
 import { sendEmail } from "@/lib/email";
+import { sendSms } from "@/lib/sms";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
 import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
 import {
@@ -9,6 +10,7 @@ import {
   resolveProductConfig,
   type ProductEmailConfig,
 } from "@/lib/recur-product-config";
+import { getCourseConfig } from "@/lib/courses-config";
 
 const recur = new Recur(process.env.RECUR_SECRET_KEY ?? "");
 
@@ -22,6 +24,7 @@ type OrderPaidData = {
   product_id?: string;
   customer?: { email?: string; name?: string | null };
   items?: Array<{ product_id?: string; product_name?: string }>;
+  metadata?: Record<string, string>;
 };
 
 export async function POST(request: Request) {
@@ -77,6 +80,7 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
   const email = data.customer?.email;
   const productId = pickProductId(data);
   const amount = data.amount;
+  const enrollmentId = data.metadata?.enrollment_id;
 
   if (!email) {
     console.warn("[recur webhook] order.paid missing email", eventId, orderId);
@@ -85,18 +89,115 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   const config = resolveProductConfig(productId, pickProductName(data));
 
+  // 若有 enrollment_id（從表單流程進來），更新課程報名紀錄並發 SMS
+  if (enrollmentId) {
+    await markEnrollmentPaid({ enrollmentId, orderId, productId, amount });
+  }
+
   if (config.kind === "ai-coach-kit") {
     await fulfilAiCoachKit({ orderId, email, amount });
     return;
   }
 
   await sendGenericConfirmation({ config, orderId, email, amount });
+
+  // 若是課程，再嘗試發 SMS（從 enrollment 撈 phone）
+  if (config.kind === "course" && enrollmentId) {
+    await sendCourseSms({ enrollmentId, config });
+  }
+}
+
+function getSupabase(): SupabaseClient {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
+
+async function markEnrollmentPaid({
+  enrollmentId,
+  orderId,
+  productId,
+  amount,
+}: {
+  enrollmentId: string;
+  orderId: string;
+  productId?: string;
+  amount?: number;
+}) {
+  try {
+    const sb = getSupabase();
+    const { error } = await sb
+      .from("course_enrollments")
+      .update({
+        status: "paid",
+        recur_order_id: orderId,
+        recur_product_id: productId,
+        amount,
+        paid_at: new Date().toISOString(),
+        email_confirmation_sent_at: new Date().toISOString(),
+      })
+      .eq("id", enrollmentId);
+    if (error) {
+      console.error("[recur webhook] mark enrollment paid failed", error);
+    }
+  } catch (e) {
+    console.error("[recur webhook] markEnrollmentPaid threw", e);
+  }
+}
+
+async function sendCourseSms({
+  enrollmentId,
+  config,
+}: {
+  enrollmentId: string;
+  config: Extract<ProductEmailConfig, { kind: "course" }>;
+}) {
+  try {
+    const sb = getSupabase();
+    const { data, error } = await sb
+      .from("course_enrollments")
+      .select("phone, name, course_id")
+      .eq("id", enrollmentId)
+      .maybeSingle();
+    if (error || !data?.phone) {
+      console.warn("[recur webhook] no phone for enrollment", enrollmentId, error);
+      return;
+    }
+    const courseConfig = getCourseConfig(data.course_id);
+    const dateLine = courseConfig
+      ? `${courseConfig.date} ${courseConfig.time}`
+      : "開課時間請見 email";
+    const body = `【${config.productName}】${data.name ?? "你"}的報名確認！${dateLine}・地點報名後告知。詳細資訊已寄到你的 email。— solo.tw`;
+    const result = await sendSms(data.phone, body);
+    if (result.success) {
+      await sb
+        .from("course_enrollments")
+        .update({ sms_confirmation_sent_at: new Date().toISOString() })
+        .eq("id", enrollmentId);
+    }
+  } catch (e) {
+    console.error("[recur webhook] sendCourseSms threw", e);
+  }
 }
 
 async function handleOrderFailed(eventId: string, data: OrderPaidData) {
   const orderId = data.id;
   const email = data.customer?.email;
   const productId = pickProductId(data);
+  const enrollmentId = data.metadata?.enrollment_id;
+  // 標記 enrollment 為失敗，方便主動聯繫補刷
+  if (enrollmentId) {
+    try {
+      const sb = getSupabase();
+      await sb
+        .from("course_enrollments")
+        .update({ status: "failed", recur_order_id: orderId })
+        .eq("id", enrollmentId);
+    } catch (e) {
+      console.error("[recur webhook] mark enrollment failed threw", e);
+    }
+  }
   console.warn(
     "[recur webhook] order.payment_failed",
     eventId,
@@ -142,10 +243,7 @@ async function fulfilAiCoachKit({
   email: string;
   amount?: number;
 }) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
+  const supabase = getSupabase();
 
   const { data: existing } = await supabase
     .from("download_tokens")

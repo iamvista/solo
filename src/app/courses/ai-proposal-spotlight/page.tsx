@@ -27,9 +27,8 @@ export const metadata: Metadata = {
   },
 };
 
-// recur.tw 付款連結
-const REGISTER_URL = "https://buy.recur.tw/9iIwUICrFaEGIXm6"; // 早鳥 NT$4,980（5/30 截止）
-const REGISTER_URL_REGULAR = "https://buy.recur.tw/O3305hcrDJn9XBqD"; // 原價 NT$7,800
+// 報名表單路徑（強制收 email + 姓名 + 手機 + 其他）
+const REGISTER_URL = "/courses/ai-proposal-spotlight/register";
 
 const painPoints = [
   {
@@ -636,22 +635,13 @@ export default function AiProposalSpotlightPage() {
                     className="h-12 w-full max-w-sm px-8 text-base"
                     asChild
                   >
-                    <a
-                      href={REGISTER_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <Link href={REGISTER_URL}>
                       立即以早鳥價 NT$4,980 報名
-                    </a>
+                    </Link>
                   </Button>
-                  <a
-                    href={REGISTER_URL_REGULAR}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-muted-foreground underline-offset-2 hover:underline"
-                  >
-                    錯過早鳥？以原價 NT$7,800 報名
-                  </a>
+                  <p className="text-xs text-muted-foreground">
+                    填寫資料 → 跳轉刷卡 → 課前 7 天會收到含教室地址的提醒信
+                  </p>
                   <p className="text-xs text-muted-foreground">
                     開課前 7 天可全額退費・可開立公司報帳收據
                   </p>
