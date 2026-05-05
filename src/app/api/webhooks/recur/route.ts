@@ -3,19 +3,25 @@ import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
 import { sendEmail } from "@/lib/email";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
+import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
+import {
+  AI_COACH_KIT_PRODUCT_ID,
+  resolveProductConfig,
+  type ProductEmailConfig,
+} from "@/lib/recur-product-config";
 
 const recur = new Recur(process.env.RECUR_SECRET_KEY ?? "");
 
 const DOWNLOAD_TTL_HOURS = 72;
 const MAX_DOWNLOADS = 3;
-const AI_COACH_KIT_PRODUCT_ID = "xqvb9nqxtehhfesuhequm9jp";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.solo.tw";
 
 type OrderPaidData = {
   id: string;
   amount?: number;
   product_id?: string;
-  customer?: { email?: string };
+  customer?: { email?: string; name?: string | null };
+  items?: Array<{ product_id?: string; product_name?: string }>;
 };
 
 export async function POST(request: Request) {
@@ -38,6 +44,8 @@ export async function POST(request: Request) {
   try {
     if (event.type === "order.paid") {
       await handleOrderPaid(event.id, event.data as unknown as OrderPaidData);
+    } else if (event.type === "order.payment_failed") {
+      await handleOrderFailed(event.id, event.data as unknown as OrderPaidData);
     } else if (event.type === "checkout.completed") {
       console.log(
         "[recur webhook] checkout.completed acknowledged; fulfillment runs on order.paid",
@@ -56,10 +64,18 @@ export async function POST(request: Request) {
   return Response.json({ received: true });
 }
 
+function pickProductId(data: OrderPaidData): string | undefined {
+  return data.product_id ?? data.items?.[0]?.product_id;
+}
+
+function pickProductName(data: OrderPaidData): string | undefined {
+  return data.items?.[0]?.product_name;
+}
+
 async function handleOrderPaid(eventId: string, data: OrderPaidData) {
   const orderId = data.id;
   const email = data.customer?.email;
-  const productId = data.product_id;
+  const productId = pickProductId(data);
   const amount = data.amount;
 
   if (!email) {
@@ -67,14 +83,65 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
     return;
   }
 
-  if (productId && productId !== AI_COACH_KIT_PRODUCT_ID) {
-    console.log(
-      "[recur webhook] order.paid for non-AI-coach-kit product, skipping",
-      productId,
-    );
+  const config = resolveProductConfig(productId, pickProductName(data));
+
+  if (config.kind === "ai-coach-kit") {
+    await fulfilAiCoachKit({ orderId, email, amount });
     return;
   }
 
+  await sendGenericConfirmation({ config, orderId, email, amount });
+}
+
+async function handleOrderFailed(eventId: string, data: OrderPaidData) {
+  const orderId = data.id;
+  const email = data.customer?.email;
+  const productId = pickProductId(data);
+  console.warn(
+    "[recur webhook] order.payment_failed",
+    eventId,
+    "order",
+    orderId,
+    "product",
+    productId,
+    "email",
+    email ?? "(unknown)",
+  );
+  // 內部告警：寄一封到 admin 信箱，方便主動聯繫客戶補刷
+  const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
+  if (!adminEmail) return;
+  try {
+    await sendEmail({
+      to: adminEmail,
+      subject: `[recur] 付款失敗 — ${orderId}`,
+      react: GenericPurchaseEmail({
+        kind: "default",
+        productName: pickProductName(data) ?? `(product_id=${productId ?? "?"})`,
+        orderNumber: orderId,
+        amountFormatted:
+          typeof data.amount === "number"
+            ? `NT$${data.amount.toLocaleString()}`
+            : undefined,
+        whatsNext: [
+          `客戶 email：${email ?? "(未提供)"}`,
+          "請主動聯繫確認是否要協助補刷或換卡",
+        ],
+      }),
+    });
+  } catch (e) {
+    console.error("[recur webhook] admin notify failed", e);
+  }
+}
+
+async function fulfilAiCoachKit({
+  orderId,
+  email,
+  amount,
+}: {
+  orderId: string;
+  email: string;
+  amount?: number;
+}) {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -133,5 +200,56 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
     email,
     "order",
     orderId,
+  );
+  // 標記避免 unused
+  void AI_COACH_KIT_PRODUCT_ID;
+}
+
+async function sendGenericConfirmation({
+  config,
+  orderId,
+  email,
+  amount,
+}: {
+  config: Exclude<ProductEmailConfig, { kind: "ai-coach-kit" }>;
+  orderId: string;
+  email: string;
+  amount?: number;
+}) {
+  const amountFormatted =
+    typeof amount === "number" ? `NT$${amount.toLocaleString()}` : undefined;
+
+  const subjectByKind: Record<typeof config.kind, string> = {
+    course: `感謝報名《${config.productName}》——課堂見`,
+    donation: `謝謝你的支持——${config.productName}`,
+    default: `已收到你的款項——${config.productName}`,
+  };
+
+  const result = await sendEmail({
+    to: email,
+    subject: subjectByKind[config.kind],
+    react: GenericPurchaseEmail({
+      kind: config.kind,
+      productName: config.productName,
+      orderNumber: orderId,
+      amountFormatted,
+      whatsNext: config.kind === "course" ? config.whatsNext : undefined,
+      detailUrl: config.kind === "course" ? config.detailUrl : undefined,
+    }),
+  });
+
+  if (!result.success) {
+    console.error("[recur webhook] generic email send failed", result.error);
+    throw result.error;
+  }
+  console.log(
+    "[recur webhook] sent",
+    config.kind,
+    "email to",
+    email,
+    "order",
+    orderId,
+    "product",
+    config.productId,
   );
 }

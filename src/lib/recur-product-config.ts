@@ -1,0 +1,116 @@
+/**
+ * Recur 產品 → 確認信類型對應表。
+ * 新增產品時在這裡登記，webhook handler 會自動依這份設定發信。
+ */
+
+export type ProductEmailConfig =
+  | {
+      kind: "ai-coach-kit";
+      productId: "xqvb9nqxtehhfesuhequm9jp";
+    }
+  | {
+      kind: "course";
+      productId: string;
+      productName: string;
+      whatsNext: string[];
+      detailUrl?: string;
+    }
+  | {
+      kind: "donation";
+      productId: string;
+      productName: string;
+    }
+  | {
+      kind: "default";
+      productId: string;
+      productName: string;
+    };
+
+export const AI_COACH_KIT_PRODUCT_ID = "xqvb9nqxtehhfesuhequm9jp";
+
+const COURSE_PROPOSAL_NEXT_STEPS = [
+  "開課前 7 天會寄出含教室地址、停車資訊、課前準備清單的提醒信",
+  "開課當週若有任何臨時調整，會以 email 與簡訊雙重通知",
+  "建議準備一份「下週要交的真實提案」，課堂上直接優化最有感",
+];
+
+const COURSE_BRAIN_LAB_NEXT_STEPS = [
+  "6/1 正式開營，開營前 3 天會寄出 LINE / Slack 群組邀請連結",
+  "課前會發送「副腦原料盤點清單」，請依清單匯整你 3-5 年內的素材",
+  "陪跑營為期 35 天，每週固定 1 次直播 + 每日小任務",
+];
+
+const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
+  // AI 教練工坊（既有下載流程）
+  [AI_COACH_KIT_PRODUCT_ID]: {
+    kind: "ai-coach-kit",
+    productId: AI_COACH_KIT_PRODUCT_ID,
+  },
+
+  // AI 提案亮點實戰課（2026/6/13 臺北）
+  k0kbiflm1tckzvqd39u4uw3w: {
+    kind: "course",
+    productId: "k0kbiflm1tckzvqd39u4uw3w",
+    productName: "AI 提案亮點實戰課（2026/6/13 臺北）",
+    whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
+  },
+  ayaalujxfzgv6c4r0i8n8qkp: {
+    kind: "course",
+    productId: "ayaalujxfzgv6c4r0i8n8qkp",
+    productName: "AI 提案亮點實戰課・早鳥（2026/6/13 臺北）",
+    whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
+  },
+
+  // 副腦計畫 Brain+1 Lab（35 天陪跑營）
+  n9l5pxhjrvy0o94igqw2vpcp: {
+    kind: "course",
+    productId: "n9l5pxhjrvy0o94igqw2vpcp",
+    productName: "副腦計畫 Brain+1 Lab（35 天 AI 副腦陪跑營）",
+    whatsNext: COURSE_BRAIN_LAB_NEXT_STEPS,
+  },
+  gb1rmyp2vpgwvy9qnjfaca0c: {
+    kind: "course",
+    productId: "gb1rmyp2vpgwvy9qnjfaca0c",
+    productName: "副腦計畫 Brain+1 Lab・早鳥（35 天 AI 副腦陪跑營）",
+    whatsNext: COURSE_BRAIN_LAB_NEXT_STEPS,
+  },
+
+  // 支持寫作（小額斗內）
+  zuh0uke6ts1e7656juk97ob9: {
+    kind: "donation",
+    productId: "zuh0uke6ts1e7656juk97ob9",
+    productName: "支持寫作 - 一個月的鼓勵",
+  },
+  v4dpcyliegt2d3s9uh6wfqoc: {
+    kind: "donation",
+    productId: "v4dpcyliegt2d3s9uh6wfqoc",
+    productName: "支持寫作 - 一週能量",
+  },
+  jtv3eigwnw4jjyqpev1pqojq: {
+    kind: "donation",
+    productId: "jtv3eigwnw4jjyqpev1pqojq",
+    productName: "支持寫作 - 一頓午餐",
+  },
+  msxyvif5senhaxv53u11tklm: {
+    kind: "donation",
+    productId: "msxyvif5senhaxv53u11tklm",
+    productName: "支持寫作 - 一杯咖啡",
+  },
+};
+
+export function resolveProductConfig(
+  productId: string | undefined,
+  productNameFallback?: string,
+): ProductEmailConfig {
+  if (productId && PRODUCT_CONFIG_MAP[productId]) {
+    return PRODUCT_CONFIG_MAP[productId];
+  }
+  // 未登記產品也要寄一封通用確認信，避免客戶孤兒
+  return {
+    kind: "default",
+    productId: productId ?? "unknown",
+    productName: productNameFallback ?? "你的訂單",
+  };
+}
