@@ -334,7 +334,7 @@ export default function EventUpdateForm({ eventId, event }: Props) {
             {showPreview && (
               <div className="mt-3 rounded-lg border bg-muted/30 p-5">
                 <p className="mb-1 text-xs text-muted-foreground">
-                  寄件者：自由人學院 &lt;events@solo.tw&gt;
+                  寄件者：自由人學院（回覆會送到 iamvista@gmail.com）
                 </p>
                 <p className="mb-3 text-xs text-muted-foreground">
                   主旨：{title || "（未填寫）"}

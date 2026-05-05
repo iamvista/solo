@@ -9,8 +9,11 @@ function getResend() {
   return resend;
 }
 
+// 寄件人位址必須在 Resend 已驗證的網域底下，所以維持 solo.tw（無法用 gmail 作 From）。
+// 收件人按「回覆」會送到 REPLY_TO（預設 iamvista@gmail.com）。
 const FROM_EMAIL = process.env.FROM_EMAIL || "events@solo.tw";
 const FROM_NAME = process.env.FROM_NAME || "自由人學院";
+const REPLY_TO = process.env.REPLY_TO_EMAIL || "iamvista@gmail.com";
 
 /** Send a single email */
 export async function sendEmail({
@@ -18,11 +21,13 @@ export async function sendEmail({
   subject,
   react,
   from,
+  replyTo,
 }: {
   to: string | string[];
   subject: string;
   react: React.ReactElement;
   from?: string;
+  replyTo?: string;
 }) {
   try {
     const { data, error } = await getResend().emails.send({
@@ -30,6 +35,7 @@ export async function sendEmail({
       to: Array.isArray(to) ? to : [to],
       subject,
       react,
+      replyTo: replyTo || REPLY_TO,
     });
 
     if (error) {
@@ -66,6 +72,7 @@ export async function sendBatchEmails(
         to: [e.to],
         subject: e.subject,
         react: e.react,
+        replyTo: REPLY_TO,
       })),
     );
 

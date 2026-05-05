@@ -31,7 +31,7 @@ const snippets = [
   { label: "問候語", insert: "如有任何疑問，歡迎回覆此信。" },
   {
     label: "聯絡資訊",
-    insert: "\n📧 聯絡信箱：events@solo.tw\n📞 聯絡電話：",
+    insert: "\n📧 聯絡信箱：iamvista@gmail.com\n📞 聯絡電話：",
   },
 ];
 

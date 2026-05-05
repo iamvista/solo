@@ -1016,7 +1016,7 @@ ls ~/.claude/skills/
 - **LINE 群組**：學員報名後加入，永久存在
 - **Vista 1-on-1 諮詢**：每週限 5 名（先到先諮詢，30 分鐘）
 - **Discord**（已停用）：副腦計畫只用 LINE
-- **緊急聯繫**：Email vista@solo.tw（48 小時內回覆）
+- **緊急聯繫**：E-mail iamvista@gmail.com（48 小時內回覆）
 
 ---
 
