@@ -44,10 +44,10 @@ export async function POST(request: Request) {
   const name = body.name?.trim();
   const phoneRaw = body.phone?.trim();
   if (!email || !name || !phoneRaw) {
-    return bad("Email、姓名、手機為必填");
+    return bad("E-mail、姓名、手機為必填");
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return bad("Email 格式不正確");
+    return bad("E-mail 格式不正確");
   }
 
   const phoneParsed = normalizePhone(phoneRaw);

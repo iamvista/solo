@@ -74,7 +74,7 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
     setError(null);
 
     if (!form.email.trim() || !form.name.trim() || !form.phone.trim()) {
-      setError("Email、姓名、手機是必填欄位。");
+      setError("E-mail、姓名、手機是必填欄位。");
       return;
     }
 
@@ -141,7 +141,7 @@ export function CourseRegistrationForm({ course, pricing, publishableKey }: Prop
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <div className="space-y-1.5 sm:col-span-2">
             <Label htmlFor="email">
-              Email <span className="text-rose-600">*</span>
+              E-mail <span className="text-rose-600">*</span>
             </Label>
             <Input
               id="email"

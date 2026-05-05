@@ -83,7 +83,7 @@ export default async function RegisterSuccessPage({ params, searchParams }: Page
           </li>
           <li>
             2. 確認的話，<strong className="text-foreground">5 分鐘內</strong>
-            會收到一封報名確認 Email。
+            會收到一封報名確認 E-mail。
             收不到請看垃圾信件匣或聯絡客服。
           </li>
           <li>3. 開課前 2 天會再寄一封含教室地址、課前準備清單等資訊的提醒信。</li>

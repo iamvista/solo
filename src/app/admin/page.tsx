@@ -70,6 +70,9 @@ export default async function AdminPage() {
           <Button variant="outline" asChild className="h-11 px-4 text-base">
             <Link href="/admin/newsletter">📬 電子報</Link>
           </Button>
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin/enrollments">🎓 課程報名</Link>
+          </Button>
         </div>
       </div>
 
