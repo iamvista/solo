@@ -4,23 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-
-interface RecurInstance {
-  redirectToCheckout: (options: {
-    productId: string;
-    successUrl: string;
-    cancelUrl: string;
-    customerEmail?: string;
-  }) => Promise<void>;
-}
-
-declare global {
-  interface Window {
-    RecurCheckout?: {
-      init: (config: { publishableKey: string }) => RecurInstance;
-    };
-  }
-}
+import type { RecurInstance } from "@/lib/recur-checkout-types";
 
 const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_RECUR_PUBLISHABLE_KEY ?? "";
 
