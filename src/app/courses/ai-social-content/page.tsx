@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 const REGISTER_URL =
-  "https://vista.oen.tw/good/3BsCF6UYdoTzxxiKfmPuUX5GF2k?from=vista&m=cash";
+  "https://vista.oen.tw/good/3DKelkbTQs4WTT99dRqUM84FAhK?from=vista&m=cash";
 
 const painPoints = [
   {
@@ -226,7 +226,7 @@ const faqs = [
 export default function AISocialContentPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "用 AI 寫出讓人忍不住留言的社群內容 ｜好評加開", description: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統", url: "https://www.solo.tw/courses/ai-social-content", instructor: "Susie Li", price: 3500, duration: "PT3H", startDate: "2026-05-03", location: "臺北市" })} />
+      <JsonLd data={courseSchema({ name: "用 AI 寫出讓人忍不住留言的社群內容 ｜好評加開", description: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統", url: "https://www.solo.tw/courses/ai-social-content", instructor: "Susie Li", price: 3500, duration: "PT3H", startDate: "2026-05-30", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 社群內容", href: "/courses/ai-social-content" }])} />
     <div>
       {/* ====== Hero ====== */}
@@ -236,7 +236,7 @@ export default function AISocialContentPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            💬 3 小時實戰工作坊 — 2026 年 5 月 3 日（日）
+            💬 3 小時實戰工作坊 — 2026 年 5 月 30 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             用 AI 寫出讓人忍不住留言的社群內容 ｜好評加開
@@ -625,7 +625,7 @@ export default function AISocialContentPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026 年 5 月 3 日（日）</span>
+                    <span className="font-medium">2026 年 5 月 30 日（六）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
