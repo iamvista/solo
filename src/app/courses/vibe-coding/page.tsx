@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 const REGISTER_URL =
-  "https://vista.oen.tw/good/3BsHIWR5mdHHEWQRqx2geNvyv6X?from=vista&m=cash";
+  "https://vista.oen.tw/good/3DO8GAVOUeKyCmlTXIeXulCbtEQ?from=vista&m=cash";
 
 const painPoints = [
   {
@@ -379,7 +379,7 @@ export default function VibeCodingPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            {"\u{1F4BB}"} 3 小時實戰工作坊 — 第 6 班｜2026 年 5 月 9 日（六）
+            {"\u{1F4BB}"} 3 小時實戰工作坊 — 第 7 班｜2026 年 6 月 6 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Vibe Coding 實戰工作坊
@@ -841,7 +841,7 @@ export default function VibeCodingPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F4C5}"}</span>
-                    <span className="font-medium">第 6 班｜2026 年 5 月 9 日（六）</span>
+                    <span className="font-medium">第 7 班｜2026 年 6 月 6 日（六）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F558}"}</span>

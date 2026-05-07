@@ -60,7 +60,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              第 6 班｜2026/5/9（六）
+              第 7 班｜2026/6/6（六）
             </span>
           </div>
 
