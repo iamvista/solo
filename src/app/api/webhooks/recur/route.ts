@@ -400,6 +400,19 @@ async function fulfilAiCoachKit({
 
   if (!result.success) {
     console.error("[recur webhook] sendEmail failed", result.error);
+    await notifyAdminEmailFailure({
+      reason: "AI 教練工坊下載信寄送失敗",
+      orderId,
+      customerEmail: email,
+      productName: "AI 教練工坊",
+      amount,
+      recoveryNote: [
+        `下載連結：${downloadUrl}`,
+        `Token 已寫入 download_tokens 表，${DOWNLOAD_TTL_HOURS} 小時內有效，最多下載 ${MAX_DOWNLOADS} 次。`,
+        "請手動轉寄上方連結給客戶。",
+      ].join("\n"),
+      error: result.error,
+    });
     throw result.error;
   }
   console.log(
@@ -447,6 +460,23 @@ async function sendGenericConfirmation({
 
   if (!result.success) {
     console.error("[recur webhook] generic email send failed", result.error);
+    await notifyAdminEmailFailure({
+      reason: `${config.kind} 確認信寄送失敗`,
+      orderId,
+      customerEmail: email,
+      productName: config.productName,
+      amount,
+      recoveryNote: [
+        "Enrollment 已標記為 paid（如有），DB 端無資料遺失。",
+        "請手動補寄確認信，或主動聯繫客戶確認資料。",
+        config.kind === "course"
+          ? "若為課程，後續 SMS 與雙人同行 email 也會中斷，請一併補發。"
+          : "",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+      error: result.error,
+    });
     throw result.error;
   }
   console.log(
@@ -459,4 +489,66 @@ async function sendGenericConfirmation({
     "product",
     config.productId,
   );
+}
+
+async function notifyAdminEmailFailure({
+  reason,
+  orderId,
+  customerEmail,
+  productName,
+  amount,
+  recoveryNote,
+  error,
+}: {
+  reason: string;
+  orderId: string;
+  customerEmail: string;
+  productName?: string;
+  amount?: number;
+  recoveryNote?: string;
+  error?: unknown;
+}) {
+  const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
+  if (!adminEmail) {
+    console.error(
+      "[recur webhook] ADMIN_NOTIFY_EMAIL not set; cannot escalate email failure",
+      orderId,
+    );
+    return;
+  }
+  try {
+    const amountFormatted =
+      typeof amount === "number"
+        ? `NT$${amount.toLocaleString()}`
+        : "(未知金額)";
+    const errorText =
+      error instanceof Error
+        ? error.message
+        : error
+          ? JSON.stringify(error)
+          : "(無錯誤訊息)";
+    const whatsNext = [
+      `客戶 email：${customerEmail}`,
+      `產品：${productName ?? "(未知產品)"}`,
+      `金額：${amountFormatted}`,
+      `失敗原因：${reason}`,
+      `Email 服務錯誤：${errorText}`,
+    ];
+    if (recoveryNote) {
+      whatsNext.push("", "—— 補救動作 ——", recoveryNote);
+    }
+    await sendEmail({
+      to: adminEmail,
+      subject: `[recur] 商品 email 寄送失敗 — ${orderId}`,
+      react: GenericPurchaseEmail({
+        kind: "default",
+        productName: `[寄信失敗告警] ${productName ?? orderId}`,
+        orderNumber: orderId,
+        amountFormatted,
+        whatsNext,
+      }),
+    });
+  } catch (e) {
+    console.error("[recur webhook] notifyAdminEmailFailure threw", e);
+  }
 }
