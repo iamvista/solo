@@ -305,6 +305,21 @@ const studentWorks = [
     batch: "第 5 班",
     url: "https://bengotw.netlify.app",
   },
+  {
+    name: "林克威 AI 品牌行銷顧問",
+    batch: "第 6 班",
+    url: "https://lucky-hamster-d5b74e.netlify.app",
+  },
+  {
+    name: "高傳成 化妝品安全評估專家",
+    batch: "第 6 班",
+    url: "https://chuancheng.netlify.app",
+  },
+  {
+    name: "吳佳真 雙語提問溝通教練",
+    batch: "第 6 班",
+    url: "https://sophiatalk.netlify.app",
+  },
 ];
 
 const targetAudience = [
