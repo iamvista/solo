@@ -237,6 +237,50 @@ const testimonials = [
       "AI 負責流程，人負責觀點。",
     ],
   },
+  {
+    name: "Josh Chao",
+    headline: "「靠，原來可以這樣」",
+    highlights: [
+      "今天是我第一次真的花錢去上 AI 的課。過去總覺得網路上看看 prompt 就夠了，結果才發現自己只是在瞎子摸象。",
+      "親眼見識到 AI Agent 的運作：透過預先設定好的 skills，把一個個工作流串起來，讓 AI 不只是回答問題，而是幫你把整個內容產製流程跑完。",
+      "搜尋資料、分析研究、彙整輸出全部交給 AI，省下來的時間放在 AI 還沒辦法取代的地方——創意發想、真實互動、策略判斷。",
+    ],
+  },
+  {
+    name: "藍均屏（Daphne Lan）",
+    headline: "8:30 開放場地就坐滿超過一半",
+    highlights: [
+      "Vista 把自己長時間研究的結果，在短短 3 小時想辦法輸出給我們，課程實在非常緊湊。",
+      "不是工程師背景，要看終端機還是驚驚的，但總是起了頭、入了門，也試出成果。",
+      "我的工作是培訓人，現在再加上要培訓 AI！",
+    ],
+  },
+  {
+    name: "彭之偉（Allen Peng）",
+    headline: "等於養了一個 5 人團隊的助理",
+    highlights: [
+      "終於上到 Vista 大大的課，滿滿的收穫、大大的滿足！",
+      "這次學到的是 Claude Cowork（桌面協作）與 Claude Code（終端機），跟原本只會的 Claude Chat（網頁版）完全不同層次。",
+      "在 AI 飛快進步的時代，靠員工、靠別人，不如靠自己把 AI Agents 養起來。",
+    ],
+  },
+  {
+    name: "Ru",
+    headline: "把個人的風格與品味實踐在與 AI 的協作",
+    highlights: [
+      "課程提供的工具、架構，是以作家、寫作者、文字工作者的思維去開發的。",
+      "在人人都可以應用 AI 產文的時代，能上到能將個人風格與品味實踐在與 AI 協作過程的課程，受益良多。",
+    ],
+  },
+  {
+    name: "馬紹恩",
+    headline: "Skill 不只是 prompt，而是可以被觸發詞啟動的工作流模組",
+    highlights: [
+      "透過 SKILL.md 把自己的 know-how 拆解、固化下來，讓 AI 變成真正能複製專業判斷的工具。",
+      "content-pipeline 五層架構 idea → research → write → refine → distribute，一個指令啟動後自動串接，中途還能暫停確認、彈性跳過。",
+      "AI Agent 時代的工作方式很具體：重點不是會用幾個工具，而是把自己的專業流程拆解成可被 AI 重複執行的 Skill。",
+    ],
+  },
 ];
 
 export default function AIContentPage() {
@@ -610,32 +654,34 @@ export default function AIContentPage() {
               </CardContent>
             </Card>
 
-            {/* Testimonial 2 - 謝克群 */}
-            <Card className="border-muted">
-              <CardContent className="p-6 sm:p-8">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-3xl text-primary/30">&ldquo;</span>
-                  <div>
-                    <p className="text-base font-bold text-foreground">
-                      {testimonials[1].name}
-                    </p>
-                  </div>
-                </div>
-                <p className="text-lg font-semibold text-foreground mb-4">
-                  {testimonials[1].headline}
-                </p>
-                <div className="space-y-3">
-                  {testimonials[1].highlights.map((highlight, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <span className="text-primary shrink-0 mt-1">&#8226;</span>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {highlight}
+            {/* Testimonials 2..N — 文字版 */}
+            {testimonials.slice(1).map((t) => (
+              <Card key={t.name} className="border-muted">
+                <CardContent className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-3xl text-primary/30">&ldquo;</span>
+                    <div>
+                      <p className="text-base font-bold text-foreground">
+                        {t.name}
                       </p>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                  </div>
+                  <p className="text-lg font-semibold text-foreground mb-4">
+                    {t.headline}
+                  </p>
+                  <div className="space-y-3">
+                    {t.highlights.map((highlight, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <span className="text-primary shrink-0 mt-1">&#8226;</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {highlight}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 
