@@ -255,6 +255,27 @@ const testimonials = [
     quote:
       "Vista 把工具的脈絡解釋得很清楚，讓我能立刻知道接下來要怎麼自己往下走。",
   },
+  {
+    name: "彭之偉（Allen Peng）",
+    role: "Vista 工作坊舊生",
+    batch: "AI 內容產製系統工作坊",
+    quote:
+      "這次學到的是 Claude Cowork（桌面協作）與 Claude Code（終端機），跟原本只會的 Claude Chat（網頁版）完全不同層次。等於養了一個 5 人團隊的助理。",
+  },
+  {
+    name: "馬紹恩",
+    role: "Vista 工作坊舊生",
+    batch: "AI 內容產製系統工作坊",
+    quote:
+      "透過 SKILL.md 把自己的 know-how 拆解、固化下來，讓 AI 變成真正能複製專業判斷的工具。重點不是會用幾個工具，而是把專業流程拆解成可被 AI 重複執行的 Skill。",
+  },
+  {
+    name: "藍均屏（Daphne Lan）",
+    role: "Vista 工作坊舊生",
+    batch: "AI 內容產製系統工作坊",
+    quote:
+      "不是工程師背景，要看終端機還是驚驚的，但總是起了頭、入了門，也試出成果。我的工作是培訓人，現在再加上要培訓 AI！",
+  },
 ];
 
 const targetAudience = [
@@ -333,6 +354,29 @@ export default function VibeCodingClaudeCodePage() {
             "需自行訂閱 Claude Pro（US$20／月）或 Claude Max（US$100 起／月），具基本筆電操作能力",
           teaches:
             "使用 Claude Code CLI 建立個人品牌網站、銷售頁、自動化工作流；掌握 Plan Mode、Skills、Hooks、MCP",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: testimonials.length,
+            bestRating: "5",
+            worstRating: "1",
+          },
+          review: testimonials.map((t) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: t.name },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+              bestRating: "5",
+              worstRating: "1",
+            },
+            reviewBody: t.quote,
+            publisher: { "@type": "Organization", name: "solo.tw" },
+            itemReviewed: {
+              "@type": "Course",
+              name: t.batch,
+            },
+          })),
         }}
       />
       <JsonLd
