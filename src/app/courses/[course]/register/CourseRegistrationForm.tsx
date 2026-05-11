@@ -342,7 +342,7 @@ export function CourseRegistrationForm({
               required={isAlumni}
               value={form.alumniCertificate}
               onChange={(e) => update("alumniCertificate", e.target.value)}
-              placeholder="例：第 5 班・2026/4/12 上課・OEN 訂單編號 ABC123；或：第 6 班・林克威介紹參加・報名信件主旨『Vibe Coding 工作坊報名確認』；或：原報名 E-mail（若與本次相同可不填）。"
+              placeholder="例：第 5 班・2026/4/12 上課・OEN 訂單編號 ABC123；或：第 6 班・報名信件主旨『Vibe Coding 工作坊報名確認』；或：原報名 E-mail（若與本次相同可不填）。"
             />
             <p className="text-xs text-muted-foreground">
               若查無紀錄會聯絡你補件，補件成功才會發送付款連結。如需協助請來信
