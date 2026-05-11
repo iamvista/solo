@@ -17,6 +17,7 @@ const COLUMNS: { key: string; label: string }[] = [
   { key: "job_title", label: "職稱" },
   { key: "attribution", label: "歸因" },
   { key: "current_proposal_pain", label: "提案痛點" },
+  { key: "alumni_certificate", label: "舊生憑證" },
   { key: "question", label: "想問講師" },
   { key: "line_id", label: "LINE" },
   { key: "facebook", label: "Facebook" },

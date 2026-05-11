@@ -32,6 +32,12 @@ export interface CourseConfig {
   recurProductIdDual?: string;
   /** 雙人同行金額 */
   dualPrice?: number;
+  /** 舊生優惠 Recur 產品 ID（選填，需在 alumni 欄位提交過去報名憑證） */
+  recurProductIdAlumni?: string;
+  /** 舊生優惠金額 */
+  alumniPrice?: number;
+  /** 舊生優惠的提示說明（顯示在表單方案卡片下） */
+  alumniNote?: string;
   /** Recur 公開金鑰（前端 SDK 用）由環境變數注入 */
   /** 課程詳細頁路徑（用於回退連結） */
   detailUrl: string;
@@ -40,6 +46,8 @@ export interface CourseConfig {
   /** 客製欄位：「目前最想解決的提案問題」這類有上下文的提示文 */
   customQuestionLabel?: string;
   customQuestionPlaceholder?: string;
+  /** 報名前提示（顯示在表單頁頂部與課程資訊區，例如「需自備 Claude Pro 訂閱」） */
+  preRegistrationNotice?: string;
 }
 
 export const COURSE_CONFIGS: Record<string, CourseConfig> = {
@@ -64,6 +72,28 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     customQuestionPlaceholder:
       "例：每次提案到一半就被主管說『沒亮點』，但我也不知道她想要什麼……",
   },
+  "vibe-coding-claude-code": {
+    slug: "vibe-coding-claude-code",
+    title: "Vibe Coding for Claude Code 實戰工作坊",
+    subtitle: "用 Claude Code 在終端機裡 3 小時打造你的數位資產",
+    date: "2026/6/27（六）",
+    time: "9:00–12:00（3 小時）",
+    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 12,
+    recurProductIdRegular: "xi7s0fxgw8zxetstmv2xv7lc",
+    regularPrice: 4500,
+    recurProductIdAlumni: "qs4uz4gbiarnwflfok8u4szw",
+    alumniPrice: 3500,
+    alumniNote:
+      "限曾上過 Antigravity 版 Vibe Coding 工作坊的學員，請在備註欄填寫過去報名憑證；信任制報名 + 課前抽查",
+    detailUrl: "/courses/vibe-coding-claude-code",
+    customQuestionLabel:
+      "目前最想用 Claude Code 解決的事（選填，但寫了講師會優先在課堂上示範）",
+    customQuestionPlaceholder:
+      "例：想做一個服務銷售頁、想把舊網站搬到自己能改的版本、想自動化我的內容工作流……",
+    preRegistrationNotice:
+      "本課程使用 Claude Code（CLI 版本），請於課前自行訂閱 Claude Pro（每月 US$20）或 Claude Max（每月 US$100 起），並在筆電安裝完成。詳細安裝指南課前一週寄送。",
+  },
 };
 
 export function getCourseConfig(slug: string): CourseConfig | null {
@@ -77,7 +107,7 @@ export function isEarlyBirdActive(config: CourseConfig, now: Date = new Date()):
   return now <= deadline;
 }
 
-export type PricingPlan = "early_bird" | "regular" | "dual";
+export type PricingPlan = "early_bird" | "regular" | "dual" | "alumni";
 
 export interface ResolvedPricing {
   plan: PricingPlan;
@@ -92,6 +122,19 @@ export function resolvePricing(
   now: Date = new Date(),
   plan: PricingPlan = "early_bird",
 ): ResolvedPricing {
+  if (
+    plan === "alumni" &&
+    config.recurProductIdAlumni &&
+    config.alumniPrice !== undefined
+  ) {
+    return {
+      plan: "alumni",
+      productId: config.recurProductIdAlumni,
+      amount: config.alumniPrice,
+      isEarlyBird: false,
+    };
+  }
+
   if (
     plan === "dual" &&
     config.recurProductIdDual &&
@@ -175,6 +218,18 @@ export function availablePlans(
       amount: config.dualPrice,
       description: "兩人同行可在課堂互相扮演提案方與決策方",
       productId: config.recurProductIdDual,
+    });
+  }
+
+  if (config.recurProductIdAlumni && config.alumniPrice !== undefined) {
+    plans.push({
+      plan: "alumni",
+      label: "舊生優惠",
+      amount: config.alumniPrice,
+      description:
+        config.alumniNote ??
+        "限曾上過同系列工作坊的學員，請在備註欄填寫過去報名憑證",
+      productId: config.recurProductIdAlumni,
     });
   }
 

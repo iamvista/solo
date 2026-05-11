@@ -19,6 +19,7 @@ interface RegisterRequest {
   attribution?: string;
   question?: string;
   currentProposalPain?: string;
+  alumniCertificate?: string;
   lineId?: string;
   facebook?: string;
   dietary?: string;
@@ -72,6 +73,19 @@ export async function POST(request: Request) {
   const plan: PricingPlan = body.plan ?? "early_bird";
   const pricing = resolvePricing(course, new Date(), plan);
 
+  // 舊生優惠：必須提供報名憑證
+  const alumniCertificate = body.alumniCertificate?.trim();
+  if (pricing.plan === "alumni") {
+    if (!alumniCertificate) {
+      return bad(
+        "舊生優惠請在備註欄填寫過去報名憑證（梯次／日期／訂單號等）。",
+      );
+    }
+    if (alumniCertificate.length < 4) {
+      return bad("舊生報名憑證請寫清楚一些（至少 4 個字以上）。");
+    }
+  }
+
   // 雙人同行：驗證夥伴資料
   let companionEmailNorm: string | null = null;
   let companionPhoneNorm: ReturnType<typeof normalizePhone> = null;
@@ -112,6 +126,7 @@ export async function POST(request: Request) {
       attribution: body.attribution?.trim() || null,
       question: body.question?.trim() || null,
       current_proposal_pain: body.currentProposalPain?.trim() || null,
+      alumni_certificate: alumniCertificate || null,
       line_id: body.lineId?.trim() || null,
       facebook: body.facebook?.trim() || null,
       dietary: body.dietary?.trim() || null,
@@ -143,6 +158,10 @@ export async function POST(request: Request) {
   if (body.lineId?.trim()) metadata.line_id = body.lineId.trim();
   if (body.invoiceTaxId) metadata.invoice_tax_id = body.invoiceTaxId.trim();
   if (companionEmailNorm) metadata.companion_email = companionEmailNorm;
+  if (alumniCertificate) {
+    // 截短到 200 字以內，避免超過 Recur metadata 限制
+    metadata.alumni_certificate = alumniCertificate.slice(0, 200);
+  }
 
   return Response.json({
     ok: true,

@@ -79,6 +79,20 @@ export default async function RegisterPage({ params }: PageProps) {
           </div>
         </div>
 
+        {course.preRegistrationNotice && (
+          <div className="mt-5 rounded-xl border-2 border-amber-300 bg-amber-50/60 p-4 text-sm leading-relaxed text-amber-900">
+            <div className="flex items-start gap-2">
+              <span className="mt-0.5">⚠️</span>
+              <div>
+                <p className="font-semibold text-amber-950">報名前請先確認</p>
+                <p className="mt-1 text-amber-900/90">
+                  {course.preRegistrationNotice}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {!publishableKey ? (
           <div className="mt-10 rounded-xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-900">
             尚未設定 Recur publishable key（NEXT_PUBLIC_RECUR_PUBLISHABLE_KEY）。

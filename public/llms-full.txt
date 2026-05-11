@@ -1,9 +1,9 @@
 # solo.tw | 自由人學院 — Full Content Index
 
-> 完整內容索引：共 5 個課程與 51 篇文章，供 AI 客戶端檢索與引用。
+> 完整內容索引：共 6 個課程與 51 篇文章，供 AI 客戶端檢索與引用。
 
 站點：https://www.solo.tw
-更新時間：2026-05-07T08:19:20.696Z
+更新時間：2026-05-11T05:34:06.423Z
 
 ## 所有課程與工作坊
 
@@ -42,6 +42,18 @@
 - 狀態: open
 - 分類: ai
 - 價格: 原價 NT$6,500；早鳥 NT$4,000
+
+### Vibe Coding for Claude Code 實戰工作坊
+- URL: https://www.solo.tw/courses/vibe-coding-claude-code
+- 定位: 在終端機裡 3 小時打造你的數位資產（Claude Code 首發班）
+- 描述: Anthropic 官方 CLI、旗艦級 Claude 模型、整個資料夾的上下文。3 小時跑通 Plan Mode、Skills、Hooks、MCP，舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。
+- 日期: 2026 年 6 月 27 日（六） 9:00–12:00
+- 時長: 3 小時
+- 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
+- 名額: 12 人
+- 狀態: open
+- 分類: ai
+- 價格: 定價 NT$4,500
 
 ### AI 內容產製系統工作坊
 - URL: https://www.solo.tw/courses/ai-content

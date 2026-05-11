@@ -25,6 +25,7 @@ interface Enrollment {
   attribution: string | null;
   question: string | null;
   current_proposal_pain: string | null;
+  alumni_certificate: string | null;
   line_id: string | null;
   facebook: string | null;
   dietary: string | null;
@@ -335,6 +336,12 @@ export default async function AdminEnrollmentsPage({ searchParams }: PageProps) 
                                 <div>
                                   <span className="text-muted-foreground">提案痛點：</span>
                                   {e.current_proposal_pain}
+                                </div>
+                              )}
+                              {e.alumni_certificate && (
+                                <div>
+                                  <span className="text-muted-foreground">舊生憑證：</span>
+                                  {e.alumni_certificate}
                                 </div>
                               )}
                               {e.question && (

@@ -34,6 +34,7 @@ interface FormState {
   attribution: string;
   question: string;
   currentProposalPain: string;
+  alumniCertificate: string;
   lineId: string;
   facebook: string;
   dietary: string;
@@ -74,6 +75,7 @@ export function CourseRegistrationForm({
     attribution: "",
     question: "",
     currentProposalPain: "",
+    alumniCertificate: "",
     lineId: "",
     facebook: "",
     dietary: "",
@@ -90,6 +92,7 @@ export function CourseRegistrationForm({
     [plans, form.plan],
   );
   const isDual = form.plan === "dual";
+  const isAlumni = form.plan === "alumni";
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -113,6 +116,13 @@ export function CourseRegistrationForm({
         setError("選擇雙人同行方案時，同行夥伴的姓名、E-mail、手機都是必填。");
         return;
       }
+    }
+
+    if (isAlumni && !form.alumniCertificate.trim()) {
+      setError(
+        "選擇舊生優惠方案時，請在備註欄填寫過去報名憑證（如報名信件主旨／日期／訂單編號／梯次）。",
+      );
+      return;
     }
 
     startTransition(async () => {
@@ -309,6 +319,35 @@ export function CourseRegistrationForm({
                 inputMode="tel"
               />
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* 舊生優惠：報名憑證 */}
+      {isAlumni && (
+        <section className="rounded-xl border-2 border-primary/30 bg-primary/5 p-5">
+          <h2 className="text-base font-semibold text-foreground">
+            🎓 舊生報名憑證（必填）
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            舊生優惠採信任制，請在下方填寫你過去上 Antigravity 版 Vibe Coding 工作坊的可佐證資訊（任一即可），課前會抽查比對名單。
+          </p>
+          <div className="mt-4 space-y-1.5">
+            <Label htmlFor="alumniCertificate">
+              過去報名資訊 <span className="text-rose-600">*</span>
+            </Label>
+            <Textarea
+              id="alumniCertificate"
+              rows={4}
+              required={isAlumni}
+              value={form.alumniCertificate}
+              onChange={(e) => update("alumniCertificate", e.target.value)}
+              placeholder="例：第 5 班・2026/4/12 上課・OEN 訂單編號 ABC123；或：第 6 班・林克威介紹參加・報名信件主旨『Vibe Coding 工作坊報名確認』；或：原報名 E-mail（若與本次相同可不填）。"
+            />
+            <p className="text-xs text-muted-foreground">
+              若查無紀錄會聯絡你補件，補件成功才會發送付款連結。如需協助請來信
+              iamvista@gmail.com。
+            </p>
           </div>
         </section>
       )}
@@ -515,6 +554,11 @@ export function CourseRegistrationForm({
         {isDual && (
           <p className="mt-1 text-right text-xs text-amber-700">
             👫 兩人同行・雙方都會收到課前提醒
+          </p>
+        )}
+        {isAlumni && (
+          <p className="mt-1 text-right text-xs text-primary">
+            🎓 舊生優惠・課前抽查比對名單
           </p>
         )}
         <Button
