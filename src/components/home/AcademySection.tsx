@@ -10,7 +10,7 @@ const courses = [
     price: "NT$2,980",
     originalPrice: "NT$3,980",
     badge: "早鳥優惠",
-    href: "https://learn.solo.tw/courses/vibe-coding",
+    href: "https://www.solo.tw/courses/vibe-coding",
     lessons: 21,
     chapters: 6,
   },
@@ -100,7 +100,7 @@ export function AcademySection() {
             variant="outline"
             className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
           >
-            <Link href="https://learn.solo.tw" target="_blank">
+            <Link href="/courses">
               瀏覽所有線上課程
               <svg
                 className="ml-2 h-4 w-4"

@@ -56,7 +56,7 @@ const roadmap: RoadmapPhase[] = [
       { title: "定價頁 & 諮詢頁", desc: "開站優惠定價、FAQ、服務方案完整呈現", status: "done" },
       { title: "SEO & AEO 基礎建設", desc: "Sitemap、robots.txt、JSON-LD、Person schema", status: "done" },
       { title: "全站安全強化", desc: "付款驗證、rate limiting、CSP headers", status: "done" },
-      { title: "learn.solo.tw 課程上架", desc: "Vibe Coding 實戰課程、Cloudflare Stream", status: "in-progress" },
+      { title: "線上課程平臺上架", desc: "Vibe Coding 實戰課程，評估第三方平臺與自建", status: "in-progress" },
       { title: "數位產品販售", desc: "Notion 模板、Prompt 工具包、PAYUNi 付款", status: "in-progress" },
     ],
   },

@@ -65,11 +65,11 @@ const services = [
     features: [
       "錄播影片，自由安排學習進度",
       "章節式架構，由淺入深",
-      "Cloudflare Stream 高品質影片",
+      "高品質影片串流",
       "持續更新課程內容",
     ],
     cta: "瀏覽課程",
-    href: "https://learn.solo.tw",
+    href: "/courses",
     highlight: false,
   },
   {

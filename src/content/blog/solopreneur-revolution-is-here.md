@@ -76,7 +76,7 @@ Ben 用 [Polsia](https://polsia.ai) 做同樣的事，從輸入想法到看到�
 
 不是因為覺得自己做得不夠好，而是意識到用 AI 放大個人產出這件事的可能性，比我之前想像的大太多了。
 
-我目前在做的事——[工作坊](https://www.solo.tw/courses)、[1-on-1 諮詢](https://www.solo.tw/consulting)、[線上課程](https://learn.solo.tw)、寫文章——本質上還是在用 AI 加速我自己的工作。但 Ben 做的，是用 AI 替代整個團隊。
+我目前在做的事——[工作坊](https://www.solo.tw/courses)、[1-on-1 諮詢](https://www.solo.tw/consulting)、線上課程（即將推出）、寫文章——本質上還是在用 AI 加速我自己的工作。但 Ben 做的，是用 AI 替代整個團隊。
 
 這兩個層次的差距，就是 SOLO 方法論裡 [Leverage（槓桿放大）](https://www.solo.tw/growth)和 Outgrow（超越成長）之間的距離。
 

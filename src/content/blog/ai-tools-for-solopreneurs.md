@@ -30,13 +30,13 @@ tags:
 
 我每天用 Claude Code 做的事：
 
-**建網站和做產品。**不只是 solo.tw，我的線上課程平臺 [learn.solo.tw](https://learn.solo.tw)、各種落地頁和工具，全部是 Claude Code 幫我蓋的。
+**建網站和做產品。**不只是 [solo.tw](https://www.solo.tw)，我的[線上課程平臺](https://www.solo.tw/courses)、各種落地頁和工具，全部是 Claude Code 幫我蓋的。
 
 **自動化工作流程。**把重複性的工作——像是批次處理圖片、產生報表、整理資料——寫成腳本，跑一次就搞定。
 
 **解決技術問題。**遇到 bug 或報錯，貼給它看，它不只告訴你為什麼出錯，還直接幫你修好。
 
-即使你不是工程師，Claude Code 也值得學。我未來會在 [learn.solo.tw](https://learn.solo.tw) 上開設一門 Vibe Coding 課程，就是專門教非工程師怎麼用 AI 打造自己的數位產品。
+即使你不是工程師，Claude Code 也值得學。我也在《[Vibe Coding × Claude Code 實戰工作坊](https://www.solo.tw/courses/vibe-coding-claude-code)》專門教非工程師怎麼用 AI 打造自己的數位產品。
 
 ---
 

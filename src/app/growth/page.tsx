@@ -76,7 +76,7 @@ const stages = [
       "將反覆教的內容打包成線上課程",
       "建立可擴展的數位產品（模板、工具包）",
     ],
-    cta: { text: "瀏覽線上課程", href: "https://learn.solo.tw" },
+    cta: { text: "瀏覽線上課程", href: "/courses" },
     gradient: "from-violet-500 to-purple-500",
     bgLight: "bg-violet-50",
     border: "border-violet-200",

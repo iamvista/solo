@@ -181,7 +181,7 @@ tags:
 - `/growth` — SOLO 成長路徑
 - `/about` — 關於 Vista
 - `/blog/其他文章slug` — 相關文章互連
-- `https://learn.solo.tw` — 線上學習平臺
+- ~~`https://learn.solo.tw`~~ — 暫不使用（2026-05-11 起冷凍，未來改用 Teachify 或重啟自建後再開放）
 
 ### 外部連結
 

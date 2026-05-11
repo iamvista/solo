@@ -30,7 +30,7 @@ const services = [
     desc: "Vibe Coding、AI 內容產製……把工作坊精華濃縮成隨時都能看的線上課程。",
     price: "NT$2,980 起",
     cta: "瀏覽課程",
-    href: "https://learn.solo.tw",
+    href: "/courses",
     highlight: false,
   },
   {

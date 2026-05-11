@@ -252,7 +252,7 @@ export default function AboutPage() {
                 icon: BookOpen,
                 title: "線上課程",
                 desc: "Vibe Coding、AI 內容產製……隨時學、反覆看。",
-                href: "https://learn.solo.tw",
+                href: "/courses",
               },
               {
                 icon: Pen,
