@@ -43,6 +43,8 @@ export interface CourseConfig {
   detailUrl: string;
   /** 是否包含午餐（決定要不要顯示飲食欄位） */
   hasMeal?: boolean;
+  /** 隱藏「公司報帳發票」區塊（無法開立電子發票時使用） */
+  hideInvoiceSection?: boolean;
   /** 客製欄位：「目前最想解決的提案問題」這類有上下文的提示文 */
   customQuestionLabel?: string;
   customQuestionPlaceholder?: string;
@@ -87,6 +89,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     alumniNote:
       "限曾上過 Antigravity 版 Vibe Coding 工作坊的學員，請在備註欄填寫過去報名憑證；信任制報名 + 課前抽查",
     detailUrl: "/courses/vibe-coding-claude-code",
+    hideInvoiceSection: true,
     customQuestionLabel:
       "目前最想用 Claude Code 解決的事（選填，但寫了講師會優先在課堂上示範）",
     customQuestionPlaceholder:

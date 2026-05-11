@@ -486,6 +486,7 @@ export function CourseRegistrationForm({
       )}
 
       {/* 公司報帳 */}
+      {!course.hideInvoiceSection && (
       <section>
         <h2 className="text-base font-semibold text-foreground">公司報帳發票（選填）</h2>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -513,6 +514,7 @@ export function CourseRegistrationForm({
           </div>
         </div>
       </section>
+      )}
 
       {/* 行銷同意 */}
       <section className="flex items-start gap-3 rounded-lg border bg-stone-50 p-4">
