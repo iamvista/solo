@@ -49,6 +49,7 @@ const vista: Instructor = {
 const jianming: Instructor = {
   name: "陳建銘",
   title: "創新先生・職場創新顧問",
+  avatar: "/images/workshops/instructor-jianming.webp",
   url: "https://www.innovators.tw",
 };
 
