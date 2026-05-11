@@ -72,7 +72,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     hasMeal: true,
     customQuestionLabel: "目前最卡住的提案問題（選填，但寫了講師會優先在課堂上回答）",
     customQuestionPlaceholder:
-      "例：每次提案到一半就被主管說「沒亮點」，但我也不知道她想要什麼……",
+      "例：每次提案到一半就被主管說『沒亮點』，但我也不知道她想要什麼……",
   },
   "vibe-coding-claude-code": {
     slug: "vibe-coding-claude-code",
