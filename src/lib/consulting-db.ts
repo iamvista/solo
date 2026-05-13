@@ -190,6 +190,31 @@ export async function listSessionsForEnrollment(enrollmentId: string) {
   return data;
 }
 
+export async function deleteLead(id: string) {
+  const supabase = createServiceClient();
+  const { error } = await supabase.from("consulting_leads").delete().eq("id", id);
+  if (error) throw error;
+  return { id };
+}
+
+/**
+ * 把 approved 超過 7 天但仍未 enrolled 的 lead 自動標為 stale。
+ * Return 受影響的筆數。Server-side only。
+ */
+export async function markStaleApprovedLeads(): Promise<number> {
+  const supabase = createServiceClient();
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setUTCDate(sevenDaysAgo.getUTCDate() - 7);
+  const { data, error } = await supabase
+    .from("consulting_leads")
+    .update({ status: "stale", updated_at: new Date().toISOString() })
+    .eq("status", "approved")
+    .lt("updated_at", sevenDaysAgo.toISOString())
+    .select("id");
+  if (error) throw error;
+  return data?.length ?? 0;
+}
+
 export async function insertSession(params: {
   enrollmentId: string;
   sessionDate: string;

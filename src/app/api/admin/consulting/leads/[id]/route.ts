@@ -1,9 +1,26 @@
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/supabase/admin";
-import { updateLeadStatus } from "@/lib/consulting-db";
+import { updateLeadStatus, deleteLead } from "@/lib/consulting-db";
 import { sendEmail } from "@/lib/email";
 import { ConsultingCheckoutLinkEmail } from "@/components/emails/consulting-checkout-link";
 import { getPlanBySlug } from "@/lib/consulting-config";
+
+export async function DELETE(
+  _req: Request,
+  ctx: { params: Promise<{ id: string }> },
+) {
+  if (!(await isAdmin())) {
+    return NextResponse.json({ ok: false, error: "forbidden" }, { status: 403 });
+  }
+  const { id } = await ctx.params;
+  try {
+    await deleteLead(id);
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "unknown_error";
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
+  }
+}
 
 type LeadStatus = "approved" | "rejected" | "enrolled" | "stale";
 

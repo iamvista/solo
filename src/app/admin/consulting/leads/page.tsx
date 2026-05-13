@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
-import { listLeads } from "@/lib/consulting-db";
+import { listLeads, markStaleApprovedLeads } from "@/lib/consulting-db";
 import { LeadList } from "@/components/admin/consulting/LeadList";
 
 export const metadata: Metadata = {
@@ -16,6 +16,7 @@ export default async function AdminConsultingLeadsPage() {
   const adminAccess = await isAdmin();
   if (!adminAccess) redirect("/");
 
+  const staleCount = await markStaleApprovedLeads().catch(() => 0);
   const leads = await listLeads();
 
   return (
@@ -26,6 +27,11 @@ export default async function AdminConsultingLeadsPage() {
           <h1 className="text-2xl font-bold sm:text-3xl">Consulting Leads</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             共 {leads.length} 筆需求單，按建立時間排序。
+            {staleCount > 0 && (
+              <span className="ml-2 text-orange-600">
+                （本次自動標 {staleCount} 筆 approved &gt; 7 天 的為 stale）
+              </span>
+            )}
           </p>
         </div>
         <div className="flex gap-2">
