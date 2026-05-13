@@ -50,27 +50,55 @@ export async function PATCH(
 
   if (status === "approved") {
     const plan = getPlanBySlug(updated.plan);
-    if (plan) {
-      const checkoutUrl = `https://recur.tw/checkout/${plan.recurProductId}?lead_id=${id}`;
-      try {
-        await sendEmail({
-          to: updated.email,
-          subject: `${updated.name}，您的 1-on-1 量身陪跑付款連結`,
-          react: ConsultingCheckoutLinkEmail({
-            name: updated.name,
-            plan: plan.label,
-            checkoutUrl,
-            vistaMessage: body.vistaNotes ?? "",
-          }),
-        });
-      } catch (err) {
-        console.error("[admin consulting leads PATCH] sendEmail failed", err);
-        return NextResponse.json(
-          { ok: true, lead: updated, emailError: true },
-          { status: 200 },
-        );
-      }
+    if (!plan) {
+      // 學員選 'undecided' → 沒對應方案，approve 但不寄付款連結
+      return NextResponse.json({
+        ok: true,
+        lead: updated,
+        emailSkipped: true,
+        emailSkippedReason:
+          "學員方案為「還沒決定」（undecided），無對應 productId，未寄付款連結。請手動回信討論方案。",
+      });
     }
+
+    const checkoutUrl = `https://recur.tw/checkout/${plan.recurProductId}?lead_id=${id}`;
+    const result = await sendEmail({
+      to: updated.email,
+      subject: `${updated.name}，您的 1-on-1 量身陪跑付款連結`,
+      react: ConsultingCheckoutLinkEmail({
+        name: updated.name,
+        plan: plan.label,
+        checkoutUrl,
+        vistaMessage: body.vistaNotes ?? "",
+      }),
+    });
+
+    if (!result.success) {
+      const detail =
+        result.error instanceof Error
+          ? result.error.message
+          : typeof result.error === "object"
+            ? JSON.stringify(result.error)
+            : String(result.error);
+      console.error(
+        "[admin consulting leads PATCH] sendEmail failed",
+        result.error,
+      );
+      return NextResponse.json({
+        ok: true,
+        lead: updated,
+        emailError: true,
+        emailErrorDetail: detail,
+        checkoutUrl, // 讓 Vista 手動複製寄出
+      });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      lead: updated,
+      emailSent: true,
+      checkoutUrl,
+    });
   }
 
   return NextResponse.json({ ok: true, lead: updated });

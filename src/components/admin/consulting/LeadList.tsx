@@ -29,12 +29,24 @@ export function LeadList({ leads }: { leads: Lead[] }) {
       body: JSON.stringify({ status, vistaNotes }),
     });
     setWorking(null);
-    if (res.ok) {
-      location.reload();
-    } else {
-      const data = await res.json().catch(() => ({}));
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
       alert(`更新失敗：${data?.error ?? res.statusText}`);
+      return;
     }
+
+    if (data.emailSkipped) {
+      alert(`Lead 已 approve，但未寄付款連結。原因：${data.emailSkippedReason}`);
+    } else if (data.emailError) {
+      alert(
+        `Lead 已 approve，但 email 寄送失敗：\n\n${data.emailErrorDetail}\n\n付款連結（請手動複製寄出）：\n${data.checkoutUrl}`,
+      );
+    } else if (data.emailSent) {
+      alert(`Lead 已 approve、付款連結信件已寄出。\n\n連結：${data.checkoutUrl}`);
+    }
+
+    location.reload();
   }
 
   if (leads.length === 0) {
