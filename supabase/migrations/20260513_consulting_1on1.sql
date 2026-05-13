@@ -64,16 +64,49 @@ CREATE TABLE consulting_sessions (
 CREATE INDEX idx_consulting_sessions_enrollment_id ON consulting_sessions(enrollment_id);
 CREATE INDEX idx_consulting_sessions_date ON consulting_sessions(session_date DESC);
 
--- 剩餘時數 view
+-- 剩餘時數 view（展開欄位寫法，避開 Supabase SQL Editor 對 e.* + GROUP BY id 的 parser 限制）
 CREATE VIEW consulting_enrollments_with_balance AS
 SELECT
-  e.*,
+  e.id,
+  e.lead_id,
+  e.name,
+  e.email,
+  e.contact_method,
+  e.contact_id,
+  e.plan,
+  e.total_hours,
+  e.recur_product_id,
+  e.recur_payment_id,
+  e.purchased_at,
+  e.expires_at,
+  e.extended_once,
+  e.status,
+  e.transferred_to,
+  e.created_at,
+  e.updated_at,
   COALESCE(SUM(s.hours_used), 0) AS hours_used,
   e.total_hours - COALESCE(SUM(s.hours_used), 0) AS hours_remaining,
   MAX(s.session_date) AS last_session_date
 FROM consulting_enrollments e
 LEFT JOIN consulting_sessions s ON s.enrollment_id = e.id
-GROUP BY e.id;
+GROUP BY
+  e.id,
+  e.lead_id,
+  e.name,
+  e.email,
+  e.contact_method,
+  e.contact_id,
+  e.plan,
+  e.total_hours,
+  e.recur_product_id,
+  e.recur_payment_id,
+  e.purchased_at,
+  e.expires_at,
+  e.extended_once,
+  e.status,
+  e.transferred_to,
+  e.created_at,
+  e.updated_at;
 
 -- RLS: 只允許 service role 操作（admin only）
 ALTER TABLE consulting_leads ENABLE ROW LEVEL SECURITY;
