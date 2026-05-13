@@ -5,12 +5,14 @@ import { sendEmail } from "@/lib/email";
 import { sendSms } from "@/lib/sms";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
 import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
+import { ConsultingEnrollmentWelcomeEmail } from "@/components/emails/consulting-enrollment-welcome";
 import {
   AI_COACH_KIT_PRODUCT_ID,
   resolveProductConfig,
   type ProductEmailConfig,
 } from "@/lib/recur-product-config";
 import { getCourseConfig } from "@/lib/courses-config";
+import { createEnrollment, updateLeadStatus } from "@/lib/consulting-db";
 
 let _recur: Recur | null = null;
 function getRecur(): Recur {
@@ -130,16 +132,7 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
   }
 
   if (config.kind === "consulting") {
-    // TODO(Task 9): 接入 consulting enrollment handler（建立 hour bank、寄專屬歡迎信）
-    console.warn(
-      "[recur webhook] consulting kind not yet handled; pending Task 9",
-      "product",
-      config.productId,
-      "email",
-      email,
-      "order",
-      orderId,
-    );
+    await fulfilConsulting({ config, orderId, data });
     return;
   }
 
@@ -437,6 +430,127 @@ async function fulfilAiCoachKit({
   );
   // 標記避免 unused
   void AI_COACH_KIT_PRODUCT_ID;
+}
+
+async function fulfilConsulting({
+  config,
+  orderId,
+  data,
+}: {
+  config: Extract<ProductEmailConfig, { kind: "consulting" }>;
+  orderId: string;
+  data: OrderPaidData;
+}) {
+  const email = data.customer?.email;
+  if (!email) {
+    console.warn("[recur webhook] consulting fulfilment missing email", orderId);
+    return;
+  }
+  const customerName = data.customer?.name?.trim() || email;
+  const leadId = data.metadata?.leadId ?? data.metadata?.lead_id ?? null;
+  const contactMethod = data.metadata?.contactMethod ?? data.metadata?.contact_method;
+  const contactId = data.metadata?.contactId ?? data.metadata?.contact_id;
+  const paymentId = data.metadata?.paymentId ?? data.metadata?.payment_id ?? orderId;
+  const purchasedAt = new Date();
+
+  // 1. 建立 enrollment（hour bank）
+  let enrollment: Awaited<ReturnType<typeof createEnrollment>>;
+  try {
+    enrollment = await createEnrollment({
+      leadId: leadId ?? null,
+      name: customerName,
+      email,
+      contactMethod,
+      contactId,
+      plan: config.plan,
+      totalHours: config.hours,
+      recurProductId: config.productId,
+      recurPaymentId: paymentId,
+      purchasedAt,
+    });
+  } catch (err) {
+    console.error("[recur webhook] createEnrollment failed (consulting)", err);
+    await notifyAdminEmailFailure({
+      reason: "consulting enrollment 建立失敗",
+      orderId,
+      customerEmail: email,
+      productName: config.productName,
+      amount: data.amount,
+      recoveryNote: [
+        `客戶 email：${email}`,
+        `Plan：${config.plan}（${config.hours} 小時）`,
+        `Recur product：${config.productId}`,
+        `Recur payment（or order）：${paymentId}`,
+        leadId ? `Lead ID：${leadId}` : "Lead ID：(無 — webhook metadata 未帶)",
+        "請手動建立 consulting_enrollments 紀錄並補寄歡迎信。",
+      ].join("\n"),
+      error: err,
+    });
+    throw err;
+  }
+
+  // 2. 更新 lead.status='enrolled'（若有 leadId）
+  if (leadId) {
+    try {
+      await updateLeadStatus(leadId, "enrolled");
+    } catch (err) {
+      console.error(
+        "[recur webhook] updateLeadStatus failed (consulting)",
+        leadId,
+        err,
+      );
+      // 不擋 enrollment 流程
+    }
+  }
+
+  // 3. 寄歡迎信
+  try {
+    const result = await sendEmail({
+      to: email,
+      subject: `${customerName}，您的 1-on-1 量身陪跑已啟動`,
+      react: ConsultingEnrollmentWelcomeEmail({
+        name: customerName,
+        plan: config.productName,
+        totalHours: config.hours,
+        expiresAt: enrollment.expires_at,
+      }),
+    });
+    if (!result.success) {
+      console.error(
+        "[recur webhook] consulting welcome email failed",
+        result.error,
+      );
+      await notifyAdminEmailFailure({
+        reason: "consulting 歡迎信寄送失敗",
+        orderId,
+        customerEmail: email,
+        productName: config.productName,
+        amount: data.amount,
+        recoveryNote: [
+          `Enrollment 已建立（id=${enrollment.id}），DB 資料無遺失。`,
+          "請手動補寄歡迎信，並主動聯繫客戶確認首場時段。",
+        ].join("\n"),
+        error: result.error,
+      });
+    }
+  } catch (err) {
+    console.error(
+      "[recur webhook] consulting welcome email threw",
+      err,
+    );
+    // 不擋 enrollment（已建立）
+  }
+
+  console.log(
+    "[recur webhook] consulting enrollment created",
+    enrollment.id,
+    "plan",
+    config.plan,
+    "email",
+    email,
+    "order",
+    orderId,
+  );
 }
 
 async function sendGenericConfirmation({
