@@ -9,7 +9,7 @@ export function Hero() {
           不只是教您 AI，更是陪您突破卡關瓶頸
         </h1>
         <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-          Google Meet 1-on-1。從 1 小時諮詢到 20 小時長期陪跑，您的問題就是這堂課。
+          Google Meet 1-on-1。從 1 小時諮詢到 20 小時長期陪跑，針對您的問題與需求提供服務。
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Button asChild size="lg">

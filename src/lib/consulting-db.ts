@@ -1,6 +1,6 @@
 // src/lib/consulting-db.ts
 import { z } from "zod";
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import {
   EXPIRY_MONTHS,
   type ConsultingPlanSlug,
@@ -63,7 +63,7 @@ export function computeExpiresAt(
 // DB operations
 // ────────────────────────────────────────
 export async function insertLead(payload: LeadPayload) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("consulting_leads")
     .insert({
@@ -92,7 +92,7 @@ export async function insertLead(payload: LeadPayload) {
 }
 
 export async function listLeads(status?: string) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   let query = supabase
     .from("consulting_leads")
     .select("*")
@@ -108,7 +108,7 @@ export async function updateLeadStatus(
   status: "approved" | "rejected" | "enrolled" | "stale",
   vistaNotes?: string,
 ) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("consulting_leads")
     .update({
@@ -135,7 +135,7 @@ export async function createEnrollment(params: {
   recurPaymentId: string;
   purchasedAt: Date;
 }) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const expiresAt = computeExpiresAt(params.purchasedAt);
   const { data, error } = await supabase
     .from("consulting_enrollments")
@@ -159,7 +159,7 @@ export async function createEnrollment(params: {
 }
 
 export async function listEnrollmentsWithBalance() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("consulting_enrollments_with_balance")
     .select("*")
@@ -169,7 +169,7 @@ export async function listEnrollmentsWithBalance() {
 }
 
 export async function getEnrollmentWithBalance(id: string) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("consulting_enrollments_with_balance")
     .select("*")
@@ -180,7 +180,7 @@ export async function getEnrollmentWithBalance(id: string) {
 }
 
 export async function listSessionsForEnrollment(enrollmentId: string) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("consulting_sessions")
     .select("*")
@@ -200,7 +200,7 @@ export async function insertSession(params: {
   sharedDocUrl?: string;
   vistaNotes?: string;
 }) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("consulting_sessions")
     .insert({

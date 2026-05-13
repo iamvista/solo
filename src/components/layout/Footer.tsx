@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const footerLinks = {
   product: [
-    { name: "免費諮詢", href: "/consulting" },
+    { name: "1-on-1 諮詢", href: "/consulting" },
     { name: "事業健檢", href: "/diagnose" },
     { name: "課程與工作坊", href: "/courses" },
     { name: "成長路徑", href: "/growth" },

@@ -4,7 +4,7 @@ export function PricingLadder() {
   return (
     <section className="bg-muted/30 py-20">
       <div className="container mx-auto max-w-5xl px-4">
-        <h2 className="text-3xl font-bold text-center">依需求選時數，越多越划算</h2>
+        <h2 className="text-3xl font-bold text-center">依需求選時數，一次選購愈多愈划算</h2>
         <p className="mt-3 text-center text-muted-foreground">
           自付款日起 6 個月內用完，可延期一次（+3 個月）
         </p>

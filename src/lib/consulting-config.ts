@@ -51,7 +51,7 @@ export const CONSULTING_TOPICS: ConsultingTopic[] = [
     slug: "solo-os",
     emoji: "🎛",
     group: "workflow",
-    title: "Solo OS：個人作業系統建置",
+    title: "個人作業系統建置",
     oneLiner: "把 Calendar / Notion / Anytype / Obsidian 串成能運作的一人事業系統",
     takeaway: "個人化作業系統設定 + 工作流 SOP",
   },
@@ -157,7 +157,7 @@ export const CONSULTING_DESIRED_START = [
   { value: "this_week", label: "本週" },
   { value: "2_weeks", label: "兩週內" },
   { value: "1_month", label: "一個月內" },
-  { value: "no_rush", label: "還沒急" },
+  { value: "no_rush", label: "兩個月內" },
 ] as const;
 
 export const CONSULTING_ATTRIBUTION = [
