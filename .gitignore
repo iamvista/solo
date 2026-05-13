@@ -46,3 +46,6 @@ openspec/.vector-search.db*
 
 # private files (digital products) — moved to Vercel Blob (2026-04-26 migration)
 /private/*.zip
+
+# Brainstorming session scratch (Visual Companion)
+.superpowers/
