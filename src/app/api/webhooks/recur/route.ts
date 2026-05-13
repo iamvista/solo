@@ -129,6 +129,20 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
     return;
   }
 
+  if (config.kind === "consulting") {
+    // TODO(Task 9): 接入 consulting enrollment handler（建立 hour bank、寄專屬歡迎信）
+    console.warn(
+      "[recur webhook] consulting kind not yet handled; pending Task 9",
+      "product",
+      config.productId,
+      "email",
+      email,
+      "order",
+      orderId,
+    );
+    return;
+  }
+
   await sendGenericConfirmation({ config, orderId, email, amount });
 
   // 若是課程，再嘗試發 SMS（從 enrollment 撈 phone）+ 雙人同行夥伴 email
@@ -431,7 +445,7 @@ async function sendGenericConfirmation({
   email,
   amount,
 }: {
-  config: Exclude<ProductEmailConfig, { kind: "ai-coach-kit" }>;
+  config: Exclude<ProductEmailConfig, { kind: "ai-coach-kit" | "consulting" }>;
   orderId: string;
   email: string;
   amount?: number;

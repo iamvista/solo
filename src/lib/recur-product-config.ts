@@ -3,6 +3,8 @@
  * 新增產品時在這裡登記，webhook handler 會自動依這份設定發信。
  */
 
+export type ConsultingPlan = "1hr" | "3hr" | "5hr" | "10hr" | "20hr";
+
 export type ProductEmailConfig =
   | {
       kind: "ai-coach-kit";
@@ -14,6 +16,15 @@ export type ProductEmailConfig =
       productName: string;
       whatsNext: string[];
       detailUrl?: string;
+    }
+  | {
+      kind: "consulting";
+      productId: string;
+      productName: string;
+      plan: ConsultingPlan;
+      hours: number;
+      amount: number;
+      emailTemplate: "consulting-enrollment-welcome";
     }
   | {
       kind: "donation";
@@ -105,6 +116,53 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     productId: "gb1rmyp2vpgwvy9qnjfaca0c",
     productName: "副腦計畫 Brain+1 Lab・早鳥（35 天 AI 副腦陪跑營）",
     whatsNext: COURSE_BRAIN_LAB_NEXT_STEPS,
+  },
+
+  // 1-on-1 諮詢套票（顧問服務）
+  zimy2xm5pv24dfxx194axeev: {
+    kind: "consulting",
+    productId: "zimy2xm5pv24dfxx194axeev",
+    productName: "1 小時諮詢",
+    plan: "1hr",
+    hours: 1,
+    amount: 3000,
+    emailTemplate: "consulting-enrollment-welcome",
+  },
+  efmn8pw5tielzrgwffb76swd: {
+    kind: "consulting",
+    productId: "efmn8pw5tielzrgwffb76swd",
+    productName: "3 小時套票",
+    plan: "3hr",
+    hours: 3,
+    amount: 8400,
+    emailTemplate: "consulting-enrollment-welcome",
+  },
+  dwdt6ikhule9j0hs1px77rke: {
+    kind: "consulting",
+    productId: "dwdt6ikhule9j0hs1px77rke",
+    productName: "5 小時套票",
+    plan: "5hr",
+    hours: 5,
+    amount: 13500,
+    emailTemplate: "consulting-enrollment-welcome",
+  },
+  mndmvwsgvevq7ogdklt7i3h6: {
+    kind: "consulting",
+    productId: "mndmvwsgvevq7ogdklt7i3h6",
+    productName: "10 小時套票",
+    plan: "10hr",
+    hours: 10,
+    amount: 26000,
+    emailTemplate: "consulting-enrollment-welcome",
+  },
+  q2z9d2dd6vymycdq1b35iz2w: {
+    kind: "consulting",
+    productId: "q2z9d2dd6vymycdq1b35iz2w",
+    productName: "20 小時套票",
+    plan: "20hr",
+    hours: 20,
+    amount: 48000,
+    emailTemplate: "consulting-enrollment-welcome",
   },
 
   // 支持寫作（小額斗內）
