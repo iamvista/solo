@@ -10,11 +10,11 @@
 
 **Spec:** [`docs/superpowers/specs/2026-05-13-consulting-1on1-redesign.md`](../specs/2026-05-13-consulting-1on1-redesign.md)
 
-**未決問題（implementation 前需 Vista 確認）：**
-1. Spec §9.1 — Why 段引號內模擬學員引述，是真實引述還是改第三人稱？預設取代為第三人稱：「反覆收到類似的訊息：希望能單獨討論自己的狀況。」
-2. Spec §9.2 — 5 個 Recur productId：Vista 先在 recur.tw 後臺建立、把 ID 提供給 implementation agent；agent 先用 placeholder constants，待 Vista 提供後一次性 replace。
-3. Spec §9.3 — `CalEmbed.tsx` 廢棄評估：Task 23 會檢查 `ai-research-system` 是否引用，無引用即刪。
-4. Spec §9.5 — 婉拒信文案：先用標準模板 placeholder，Task 6 含 stub，Vista 再 polish。
+**未決問題狀態（2026-05-13 更新）：**
+1. ✅ Spec §9.1 — Why 段已採第三人稱：「反覆收到類似的訊息：希望能單獨討論自己的狀況。」
+2. ✅ Spec §9.2 — 5 個 Recur productId 已提供並 replace（1hr=zimy2xm5pv24dfxx194axeev / 3hr=efmn8pw5tielzrgwffb76swd / 5hr=dwdt6ikhule9j0hs1px77rke / 10hr=mndmvwsgvevq7ogdklt7i3h6 / 20hr=q2z9d2dd6vymycdq1b35iz2w）
+3. ⏳ Spec §9.3 — `CalEmbed.tsx` 廢棄評估：Task 23 會檢查 `ai-research-system` 是否引用，無引用即刪。
+4. ✅ Spec §9.5 — 婉拒信模板已提供（見 spec §11 附錄）
 
 ---
 
@@ -430,7 +430,7 @@
       pricePerHour: 3000,
       label: "1 小時諮詢",
       suitedFor: "試水溫、單點問題",
-      recurProductId: "PLACEHOLDER_1HR", // ⚠️ replace
+      recurProductId: "zimy2xm5pv24dfxx194axeev", // ⚠️ replace
     },
     {
       slug: "3hr",
@@ -439,7 +439,7 @@
       pricePerHour: 2800,
       label: "3 小時套票",
       suitedFor: "入門包、一個小主題收尾",
-      recurProductId: "PLACEHOLDER_3HR",
+      recurProductId: "efmn8pw5tielzrgwffb76swd",
     },
     {
       slug: "5hr",
@@ -448,7 +448,7 @@
       pricePerHour: 2700,
       label: "5 小時套票",
       suitedFor: "一個主題深入",
-      recurProductId: "PLACEHOLDER_5HR",
+      recurProductId: "dwdt6ikhule9j0hs1px77rke",
     },
     {
       slug: "10hr",
@@ -457,7 +457,7 @@
       pricePerHour: 2600,
       label: "10 小時套票",
       suitedFor: "跨主題、半年陪跑",
-      recurProductId: "PLACEHOLDER_10HR",
+      recurProductId: "mndmvwsgvevq7ogdklt7i3h6",
     },
     {
       slug: "20hr",
@@ -466,7 +466,7 @@
       pricePerHour: 2400,
       label: "20 小時套票",
       suitedFor: "長期顧問關係",
-      recurProductId: "PLACEHOLDER_20HR",
+      recurProductId: "q2z9d2dd6vymycdq1b35iz2w",
     },
   ];
 
@@ -1079,7 +1079,7 @@
 
   ```typescript
   // 在 productConfig map 中追加（key 為 placeholder，待 Vista 提供後 replace）
-  PLACEHOLDER_1HR: {
+  zimy2xm5pv24dfxx194axeev: {
     kind: "consulting" as const,
     plan: "1hr",
     hours: 1,
@@ -1087,27 +1087,19 @@
     productName: "1 小時諮詢",
     emailTemplate: "consulting-enrollment-welcome",
   },
-  PLACEHOLDER_3HR: { kind: "consulting", plan: "3hr", hours: 3, amount: 8400, productName: "3 小時套票", emailTemplate: "consulting-enrollment-welcome" },
-  PLACEHOLDER_5HR: { kind: "consulting", plan: "5hr", hours: 5, amount: 13500, productName: "5 小時套票", emailTemplate: "consulting-enrollment-welcome" },
-  PLACEHOLDER_10HR: { kind: "consulting", plan: "10hr", hours: 10, amount: 26000, productName: "10 小時套票", emailTemplate: "consulting-enrollment-welcome" },
-  PLACEHOLDER_20HR: { kind: "consulting", plan: "20hr", hours: 20, amount: 48000, productName: "20 小時套票", emailTemplate: "consulting-enrollment-welcome" },
+  efmn8pw5tielzrgwffb76swd: { kind: "consulting", plan: "3hr", hours: 3, amount: 8400, productName: "3 小時套票", emailTemplate: "consulting-enrollment-welcome" },
+  dwdt6ikhule9j0hs1px77rke: { kind: "consulting", plan: "5hr", hours: 5, amount: 13500, productName: "5 小時套票", emailTemplate: "consulting-enrollment-welcome" },
+  mndmvwsgvevq7ogdklt7i3h6: { kind: "consulting", plan: "10hr", hours: 10, amount: 26000, productName: "10 小時套票", emailTemplate: "consulting-enrollment-welcome" },
+  q2z9d2dd6vymycdq1b35iz2w: { kind: "consulting", plan: "20hr", hours: 20, amount: 48000, productName: "20 小時套票", emailTemplate: "consulting-enrollment-welcome" },
   ```
 
   並把 `kind` enum / union type 加入 `"consulting"`。
 
-- [ ] **Step 3：在 file header 加 TODO 提醒（implementation 時刪除）**
-
-  ```typescript
-  // ⚠️ TODO: Vista 在 recur.tw 後臺手動建立 5 個 consulting productId 後，
-  // 把上方 PLACEHOLDER_XHR 五個 key 替換成真實 productId。
-  // 然後同步更新 src/lib/consulting-config.ts 的 CONSULTING_PLANS[].recurProductId。
-  ```
-
-- [ ] **Step 4：Commit**
+- [ ] **Step 3：Commit**
 
   ```bash
   git add src/lib/recur-product-config.ts
-  git commit -m "feat(recur): register 5 consulting productId placeholders + add consulting kind"
+  git commit -m "feat(recur): register 5 consulting productId + add consulting kind"
   ```
 
 ---
@@ -1173,7 +1165,7 @@
     -H "x-recur-signature: <test-sig>" \
     -d '{
       "event": "payment.completed",
-      "productId": "PLACEHOLDER_1HR",
+      "productId": "zimy2xm5pv24dfxx194axeev",
       "paymentId": "test-pay-1",
       "customer": { "name": "Test", "email": "t@t.tw" },
       "metadata": { "leadId": "<existing-lead-uuid>" }
@@ -2506,11 +2498,11 @@
 
   記下 preview URL。
 
-- [ ] **Step 2：在 recur.tw 後臺手動建 5 個 productId（測試金額 NT$1）**
+- [ ] **Step 2：把 5 個 productId 的金額暫設為 NT$1（preview 測試用）**
 
-  > Vista 要做此動作，不是 agent。
-  > 建好後把 5 個 productId 提供給 agent，agent 一次性 replace `src/lib/consulting-config.ts` 與 `src/lib/recur-product-config.ts` 內的 PLACEHOLDER_XHR。
-  > 同時把 `expectedAmount` 暫改為 1（測試），等 prod 再改回真實金額。
+  > Vista 要做此動作。5 個 productId（見 §5.3）已建立並寫入 plan/spec。
+  > 在 recur.tw 後臺把這 5 個 productId 的 `amount` 暫改為 NT$1，preview 測試完才改回正式金額。
+  > Agent 端 code 內的 `amount` 維持寫正式金額（3000/8400/13500/26000/28000）；測試只測 webhook 是否正確處理付款事件、enrollment 是否建立、E-mail 是否寄出，**不**驗 `amount` 數值是否相符。
 
 - [ ] **Step 3：完整流程 smoke test**
 
@@ -2525,14 +2517,10 @@
 
 - [ ] **Step 4：修任何 bug、補測試後 commit**
 
-- [ ] **Step 5：把測試金額改回真實金額 + replace 5 個真 productId**
+- [ ] **Step 5：把 recur.tw 後臺 5 個 productId 的金額改回正式金額**
 
-  ```bash
-  # Vista 提供 5 個真實 productId 後
-  # agent 編輯 src/lib/consulting-config.ts + src/lib/recur-product-config.ts
-  git add -A
-  git commit -m "chore(consulting): wire real Recur productIds for production"
-  ```
+  > Vista 要做此動作。把 5 個 productId 在 recur.tw 後臺的 `amount` 從 NT$1 改回 3000/8400/13500/26000/48000。
+  > Agent 端 code 不需動（amount 一直寫正式金額）。
 
 ---
 

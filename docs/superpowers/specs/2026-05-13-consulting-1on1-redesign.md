@@ -212,12 +212,12 @@ Hero CTA 提供 [填表預約 →] 與 [看 7 個主題包 ↓] 兩個錨點，�
 在 1-on-1 裡，課程內容就是針對您的問題設計，按照您的節奏進行；
 產出就是您要帶走的東西。
 
-我在 solo.tw 開了一年多工作坊，反覆收到一句話：
-[⚠️ TODO：模擬學員引述需 Vista 確認是真實引述還是改第三人稱]
+我在 solo.tw 開了一年多工作坊，反覆收到類似的訊息：
+希望能單獨討論自己的狀況。
 這個服務就是回應這個請求。
 ```
 
-> ⚠️ **未決：** Vista 的禁用規則「引號只用於真實引述」，此處模擬學員引述需確認是否為真實引述。若否，改為第三人稱描述：「反覆收到類似的訊息：希望能單獨討論自己的狀況。」
+> ✅ 已採第三人稱描述（無引號）。若 Vista 後續確認有真實學員引述，再改回引號版本。
 
 ### 4.3 服務形式段
 
@@ -435,15 +435,15 @@ GROUP BY e.id;
 ```typescript
 // src/lib/recur-product-config.ts 新增
 {
-  '<recur-id-1hr>':  { kind: 'consulting', plan: '1hr',  hours: 1,  amount: 3000  },
-  '<recur-id-3hr>':  { kind: 'consulting', plan: '3hr',  hours: 3,  amount: 8400  },
-  '<recur-id-5hr>':  { kind: 'consulting', plan: '5hr',  hours: 5,  amount: 13500 },
-  '<recur-id-10hr>': { kind: 'consulting', plan: '10hr', hours: 10, amount: 26000 },
-  '<recur-id-20hr>': { kind: 'consulting', plan: '20hr', hours: 20, amount: 48000 },
+  'zimy2xm5pv24dfxx194axeev': { kind: 'consulting', plan: '1hr',  hours: 1,  amount: 3000  },
+  'efmn8pw5tielzrgwffb76swd': { kind: 'consulting', plan: '3hr',  hours: 3,  amount: 8400  },
+  'dwdt6ikhule9j0hs1px77rke': { kind: 'consulting', plan: '5hr',  hours: 5,  amount: 13500 },
+  'mndmvwsgvevq7ogdklt7i3h6': { kind: 'consulting', plan: '10hr', hours: 10, amount: 26000 },
+  'q2z9d2dd6vymycdq1b35iz2w': { kind: 'consulting', plan: '20hr', hours: 20, amount: 48000 },
 }
 ```
 
-> ⚠️ **未決：** 5 個 productId 是 Vista 在 recur.tw 後臺手動建立後告知 Sebastian，還是 Sebastian 先寫 placeholder 等補？
+> ✅ 5 個 productId 已由 Vista 於 2026-05-13 提供，已寫入 spec／plan。
 
 Recur webhook 觸發 `consulting` kind 時：
 1. 從 metadata 取 `lead_id`
@@ -602,13 +602,13 @@ export const metadata: Metadata = {
 
 ---
 
-## 9. 未決問題（需 Vista 在 spec review 階段拍板）
+## 9. 未決問題狀態
 
-1. **D 段 4.2 引號內模擬學員引述**是真實引述還是要改第三人稱？
-2. **Recur productId 建立負責人**：Vista 手動建好告訴 Sebastian，還是 Sebastian 先寫 placeholder 後補？
-3. **`CalEmbed.tsx` 廢棄與否**：要不要 Sebastian 在實作時先確認 `ai-research-system` 引用狀況再決定刪不刪？
-4. **後臺記錄 session 時，「同時寄通知信」checkbox 預設值**：建議 default true，但您決定。
-5. **lead 「approve / reject」按鈕觸發的信件文案**：rejection 信文案目前沒草稿，Vista 要不要先擬一份標準婉拒模板？
+1. ✅ **D 段 4.2 引號** — 已採第三人稱描述（2026-05-13 解決）
+2. ✅ **Recur productId** — Vista 提供 5 個真實 productId（1hr/3hr/5hr/10hr/20hr，見 §5.3）（2026-05-13 解決）
+3. ⏳ **`CalEmbed.tsx` 廢棄與否** — Plan Task 23 會在實作時檢查 `ai-research-system` 引用、無引用即刪
+4. ✅ **後臺記錄 session「同時寄通知信」default** — 已採 default true（plan §6.2）
+5. ✅ **婉拒信模板** — 已提供（見 §11 附錄）
 
 ---
 
@@ -617,3 +617,50 @@ export const metadata: Metadata = {
 | 日期 | 變更 | 作者 |
 |------|------|------|
 | 2026-05-13 | 初版（Brainstorming session 收尾） | Sebastian + Vista |
+| 2026-05-13 | 補：5 個 Recur productId 寫入；§4.2 採第三人稱；§9 未決問題 1/2/4/5 解決；新增 §11 婉拒信模板附錄 | Sebastian + Vista |
+
+---
+
+## 11. 附錄：婉拒信模板
+
+Vista 用 Gmail 手動寄出，非系統發送。場景四選一替換。
+
+```
+主旨：Re: [姓名] 的 1-on-1 量身陪跑申請
+
+[姓名] 您好，
+
+謝謝您填寫 1-on-1 量身陪跑的需求表單。
+我仔細看完您描述的卡關後，老實說，我覺得自己不是這個題目最合適的人。
+
+[依場景四選一]
+
+──────────────── 場景 A：程度不適配（太進階）
+您的程度與想要解的問題，已經比我這一年的學員平均高一階。
+與其讓您花錢但效率有限，不如建議您直接看 [推薦：specific 資源／同行]。
+
+──────────────── 場景 B：程度不適配（太基礎）
+您目前的階段比較適合先打好基礎再進到 1-on-1。
+我推薦您先看 solo.tw 既有的 [推薦：specific 工作坊／免費資源]，
+完成基本練習後若還有卡關，再回來找我。
+
+──────────────── 場景 C：主題不在能力圈
+這個題目其實不是我這一年多最熟的方向，
+若我硬接，可能會浪費您寶貴的時間與金錢。
+我推薦 [推薦：specific 同行]，他在這方面比我深。
+
+──────────────── 場景 D：時段排不開
+最近兩三個月我的 1-on-1 時段已經滿了。
+若您不急，可以等到 [日期] 再開放預約，那時會優先回覆您；
+若需要立即解決，建議考慮 [推薦：工作坊／同行]。
+
+────────────────
+
+抱歉沒能直接接您的這個題目，
+但希望我的轉介對您有幫助。
+
+祝您一切順利。
+
+Vista
+solo.tw
+```
