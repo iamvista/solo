@@ -135,7 +135,7 @@ export default function AboutPage() {
               <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
                 <Button size="lg" asChild>
                   <Link href="/consulting">
-                    預約免費諮詢
+                    預約 1-on-1 諮詢
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -322,7 +322,7 @@ export default function AboutPage() {
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button size="lg" asChild>
                 <Link href="/consulting">
-                  預約免費諮詢
+                  預約 1-on-1 諮詢
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

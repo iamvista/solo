@@ -46,7 +46,7 @@ export function HeroSection() {
             。
           </p>
 
-          {/* CTA buttons — 免費諮詢優先 */}
+          {/* CTA buttons — 諮詢優先 */}
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:mt-12 sm:flex-row sm:gap-5">
             <Button
               size="lg"
@@ -54,7 +54,7 @@ export function HeroSection() {
               className="h-14 w-full px-8 text-base font-semibold shadow-lg shadow-primary/15 hover:shadow-xl hover:shadow-primary/20 sm:w-auto sm:text-lg"
             >
               <Link href="/consulting">
-                預約免費諮詢
+                預約 1-on-1 諮詢
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
