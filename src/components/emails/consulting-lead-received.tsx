@@ -18,7 +18,7 @@ interface Props {
 }
 
 const PLAN_LABEL: Record<string, string> = {
-  "1hr": "1 小時體驗",
+  "1hr": "1 小時諮詢",
   "3hr": "3 小時套票",
   "5hr": "5 小時套票",
   "10hr": "10 小時套票",

@@ -47,13 +47,24 @@ export function AddSessionModal({ enrollmentId, onSaved }: Props) {
       }),
     });
     setSaving(false);
-    if (res.ok) {
-      setOpen(false);
-      onSaved();
-    } else {
-      const data = await res.json().catch(() => ({}));
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
       setError(data?.error ?? `HTTP ${res.status}`);
+      return;
     }
+    // 顯示 email 寄送結果（與 LeadList 一致）
+    if (notify) {
+      if (data.emailError) {
+        alert(
+          `Session 已記錄，但 session summary 通知信寄送失敗：\n\n${data.emailErrorDetail ?? "未知原因"}\n\n請手動 follow up 學員。`,
+        );
+      } else if (data.emailSent) {
+        // 寄成功不彈窗，避免干擾連續記錄；只在 console 留 trace
+        console.log("[AddSessionModal] session summary email sent");
+      }
+    }
+    setOpen(false);
+    onSaved();
   }
 
   if (!open) {

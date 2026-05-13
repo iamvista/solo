@@ -67,26 +67,55 @@ export async function POST(req: Request) {
   }
 
   if (body.notifyStudent) {
+    let enrollment;
     try {
-      const enrollment = await getEnrollmentWithBalance(body.enrollmentId);
-      await sendEmail({
-        to: enrollment.email,
-        subject: `${enrollment.name}，${body.sessionDate} 課程紀錄`,
-        react: ConsultingSessionSummaryEmail({
-          name: enrollment.name,
-          sessionDate: body.sessionDate,
-          hoursUsed: body.hoursUsed,
-          hoursRemaining: enrollment.hours_remaining,
-          topic: body.topic,
-        }),
-      });
+      enrollment = await getEnrollmentWithBalance(body.enrollmentId);
     } catch (err) {
-      console.error("[admin consulting sessions POST] notify failed", err);
-      return NextResponse.json(
-        { ok: true, session, emailError: true },
-        { status: 200 },
+      const message = err instanceof Error ? err.message : "unknown_error";
+      console.error(
+        "[admin consulting sessions POST] getEnrollment failed",
+        err,
       );
+      return NextResponse.json({
+        ok: true,
+        session,
+        emailError: true,
+        emailErrorDetail: `查詢學員資料失敗：${message}`,
+      });
     }
+
+    const result = await sendEmail({
+      to: enrollment.email,
+      subject: `${enrollment.name}，${body.sessionDate} 課程紀錄`,
+      react: ConsultingSessionSummaryEmail({
+        name: enrollment.name,
+        sessionDate: body.sessionDate,
+        hoursUsed: body.hoursUsed,
+        hoursRemaining: enrollment.hours_remaining,
+        topic: body.topic,
+      }),
+    });
+
+    if (!result.success) {
+      const detail =
+        result.error instanceof Error
+          ? result.error.message
+          : typeof result.error === "object"
+            ? JSON.stringify(result.error)
+            : String(result.error);
+      console.error(
+        "[admin consulting sessions POST] notify failed",
+        result.error,
+      );
+      return NextResponse.json({
+        ok: true,
+        session,
+        emailError: true,
+        emailErrorDetail: detail,
+      });
+    }
+
+    return NextResponse.json({ ok: true, session, emailSent: true });
   }
 
   return NextResponse.json({ ok: true, session });

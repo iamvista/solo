@@ -57,7 +57,7 @@ export async function POST(req: Request) {
   try {
     const lead = await insertLead(payload);
 
-    // 並行寄兩封信（fire-and-forget，不阻擋 response）
+    // 並行寄兩封信（fire-and-forget，不阻擋 response，但 sendEmail return-shape 失敗需主動 log）
     // TODO v2: subscribeNewsletter flag → newsletter_subscribers upsert
     Promise.allSettled([
       sendEmail({
@@ -74,7 +74,22 @@ export async function POST(req: Request) {
         subject: `🆕 新諮詢 lead：${payload.name}（${payload.plan}）`,
         react: ConsultingLeadInternalEmail({ lead }),
       }),
-    ]).catch((err) => console.error("email send failed", err));
+    ]).then((results) => {
+      const labels = ["lead-received (to student)", "lead-internal (to Vista)"];
+      results.forEach((result, i) => {
+        if (result.status === "rejected") {
+          console.error(
+            `[consulting/leads POST] ${labels[i]} threw`,
+            result.reason,
+          );
+        } else if (!result.value.success) {
+          console.error(
+            `[consulting/leads POST] ${labels[i]} send failed`,
+            result.value.error,
+          );
+        }
+      });
+    });
 
     return NextResponse.json({ ok: true, leadId: lead.id });
   } catch (err) {
