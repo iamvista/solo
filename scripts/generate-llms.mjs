@@ -188,6 +188,42 @@ function formatLatestBlog(posts, n = 10) {
   return lines.join('\n');
 }
 
+function formatConsultingSection() {
+  return [
+    '## 1-on-1 量身陪跑 (/consulting)',
+    '',
+    `URL: ${SITE}/consulting`,
+    '',
+    'Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑。由 Vista Cheng（鄭緯筌）親自帶領，協助自由工作者、講師、顧問、研究者把專業變成事業。',
+    '',
+    '### 主題包（7+1）',
+    '',
+    '- 💻 Vibe Coding 入門：第一個 web app／小工具，從零到上線',
+    '- 🌐 個人網站系統：仿 solo.tw / vista.tw 的一人媒體站',
+    '- 🎛 Solo OS：個人作業系統建置（Calendar / Notion / Anytype / Obsidian 整合）',
+    '- ✍️ 內容生產 Pipeline：研究 → 撰稿 → 去 AI 味 → 多平臺分發',
+    '- 🧠 第二大腦／知識管理：Wiki、backlink、AI 檢索',
+    '- 📚 AI 輔助學術寫作：文獻、Intro、方法、投稿',
+    '- 🎯 一人事業起步診斷：定位、產品、定價、首批客戶',
+    '- 🌀 客製需求',
+    '',
+    '### 階梯定價',
+    '',
+    '- 1hr 諮詢：NT$3,000',
+    '- 3hr 套票：NT$8,400（NT$2,800/hr）',
+    '- 5hr 套票：NT$13,500（NT$2,700/hr）',
+    '- 10hr 套票：NT$26,000（NT$2,600/hr）',
+    '- 20hr 套票：NT$48,000（NT$2,400/hr）',
+    '',
+    '套票使用期限 6 個月，可延期一次（+3 個月）。不退費，可一次性轉讓給 1 位他人。',
+    '',
+    '### 申請方式',
+    '',
+    '填表 → Vista 24 小時內回信 → 確認後寄付款連結 → 付款 → E-mail/LINE 議定時段',
+    '',
+  ].join('\n');
+}
+
 function formatFull(posts, workshops) {
   const lines = [
     '# solo.tw | 自由人學院 — Full Content Index',
@@ -198,6 +234,8 @@ function formatFull(posts, workshops) {
     `更新時間：${new Date().toISOString()}`,
     '',
   ];
+
+  lines.push(formatConsultingSection());
 
   if (workshops.length) {
     lines.push('## 所有課程與工作坊', '');
@@ -242,10 +280,15 @@ function main() {
   const posts = loadBlogPosts();
   const workshops = loadWorkshops();
 
+  const consultingSummary =
+    '## 1-on-1 量身陪跑\n\n' +
+    `Google Meet 1-on-1，從 1 小時諮詢（NT$3,000）到 20 小時長期陪跑（NT$48,000）。7+1 主題包：Vibe Coding、個人網站系統、Solo OS、內容生產 Pipeline、第二大腦、AI 輔助學術寫作、一人事業起步診斷、客製需求。詳情：${SITE}/consulting\n\n`;
+
   const llms =
     HEADER +
     '\n' +
     formatWorkshopsSection(workshops) +
+    consultingSummary +
     formatLatestBlog(posts, 10) +
     '## 平臺數據\n\n- 電子報訂閱者：18,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
     FOOTER_LINKS;

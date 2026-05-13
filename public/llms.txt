@@ -89,6 +89,10 @@
 - 名額: 20 人
 - 價格: 原價 NT$4,500；早鳥 NT$3,500
 - 報名/詳情: https://www.solo.tw/courses/ai-social-content
+## 1-on-1 量身陪跑
+
+Google Meet 1-on-1，從 1 小時諮詢（NT$3,000）到 20 小時長期陪跑（NT$48,000）。7+1 主題包：Vibe Coding、個人網站系統、Solo OS、內容生產 Pipeline、第二大腦、AI 輔助學術寫作、一人事業起步診斷、客製需求。詳情：https://www.solo.tw/consulting
+
 ## 最新文章
 
 - [我讀《AI First 自我升級革命》：當前 LINE 總經理說「All in AI」，他到底在說什麼？](https://www.solo.tw/blog/ai-first-book-review) (2026-04-06)
