@@ -1,338 +1,115 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MessageCircle, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
-import { CalEmbed } from "@/components/consulting/CalEmbed";
-import { JsonLd, serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { Hero } from "@/components/consulting/Hero";
+import { WhyOneOnOne } from "@/components/consulting/WhyOneOnOne";
+import { ServiceFormat } from "@/components/consulting/ServiceFormat";
+import { ThemeGrid } from "@/components/consulting/ThemeGrid";
+import { PricingLadder } from "@/components/consulting/PricingLadder";
+import { ProcessSteps } from "@/components/consulting/ProcessSteps";
+import { LeadForm } from "@/components/consulting/LeadForm";
+import { FAQ } from "@/components/consulting/FAQ";
+import {
+  JsonLd,
+  serviceSchema,
+  breadcrumbSchema,
+  faqSchema,
+} from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "1-on-1 諮詢 & 陪跑 | solo.tw",
+  title: "1-on-1 量身陪跑 | solo.tw",
   description:
-    "不知道下一步該怎麼走？一小時的深度對話，幫你理清方向、制定行動計畫。",
-  alternates: {
-    canonical: "https://www.solo.tw/consulting",
+    "不只是教您 AI，更是陪您突破卡關瓶頸。Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑，您的問題就是這堂課。",
+  alternates: { canonical: "https://www.solo.tw/consulting" },
+  openGraph: {
+    title: "1-on-1 量身陪跑 | solo.tw",
+    description: "不只是教您 AI，更是陪您突破卡關瓶頸。",
+    url: "https://www.solo.tw/consulting",
+    type: "website",
   },
 };
 
-
-const consultingTypes = [
+const FAQ_FOR_SCHEMA = [
   {
-    icon: MessageCircle,
-    title: "免費初談",
-    duration: "30 分鐘",
-    originalPrice: null,
-    promoPrice: "免費",
-    isFree: true,
-    badge: null,
-    desc: "不確定適不適合？先聊 30 分鐘，了解你的狀況，看看我能怎麼幫你。零風險、零壓力。",
-    includes: ["了解你目前的事業狀況", "初步方向建議", "推薦適合你的下一步"],
+    question: "跟你的工作坊有什麼不同？",
+    answer:
+      "工作坊是我教大家一個系統方法論，1-on-1 是我陪您解決您的問題。工作坊節奏固定、內容固定；1-on-1 整堂課的時間都用來處理您所遇到的問題。",
   },
   {
-    icon: Calendar,
-    title: "事業方向諮詢",
-    duration: "60 分鐘",
-    originalPrice: "NT$5,000",
-    promoPrice: "NT$2,490",
-    saving: "省 NT$2,510",
-    isFree: false,
-    badge: "最多人選",
-    desc: "適合剛起步或正在轉型的一人事業者，幫你釐清定位、制定行動計畫，不再原地打轉。",
-    includes: [
-      "60 分鐘深度一對一",
-      "現況分析與盲點診斷",
-      "個人化行動計畫（書面交付）",
-      "課後 30 天 Email 追蹤",
-    ],
+    question: "一定要先填表嗎？我已經確定要買 1 小時諮詢。",
+    answer:
+      "是的。需求表單是我判斷能不能幫您的依據，半小時內就能填完。填完我會 24 小時內回信，合適就寄付款連結，不合適會誠實告訴您。",
   },
   {
-    icon: Clock,
-    title: "AI 工具導入",
-    duration: "90 分鐘",
-    originalPrice: "NT$8,000",
-    promoPrice: "NT$3,990",
-    saving: "省 NT$4,010",
-    isFree: false,
-    badge: null,
-    desc: "針對你的事業場景，手把手帶你設定 AI 工作流。不是教你理論，是幫你設定好、立刻能用。",
-    includes: [
-      "90 分鐘實作 + 螢幕共享",
-      "客製 AI 工作流設定",
-      "工具選擇與串接建議",
-      "設定完成可立即使用",
-    ],
+    question: "不在臺灣可以嗎？",
+    answer: "可以。Google Meet 跨時區沒問題，議時段時告訴我時差即可。",
   },
   {
-    icon: Calendar,
-    title: "陪跑教練",
-    duration: "60 分鐘 × 4 次",
-    originalPrice: "NT$20,000",
-    promoPrice: "NT$9,900",
-    saving: "省 NT$10,100",
-    isFree: false,
-    badge: "最超值",
-    desc: "一個月的持續陪伴，每週一次深度對話。不只給方向，還盯你落地執行。",
-    includes: [
-      "四次 60 分鐘深度對話",
-      "每週進度追蹤與回饋",
-      "LINE 即時問答支援",
-      "結業後贈一次免費回顧諮詢",
-    ],
+    question: "上完課可以加購嗎？",
+    answer:
+      "當然。可以隨時跨方案升級（如 1hr 諮詢後再買 10hr 套票），已付的時數獨立計算、不退費也不被吃掉。",
+  },
+  {
+    question: "套票可以轉讓嗎？",
+    answer:
+      "可以，單張套票可一次性轉讓給 1 位他人，請來信申請。建議轉讓給有類似需求的人，效率最好。",
+  },
+  {
+    question: "取消政策？",
+    answer:
+      "開課前 48 小時取消 → 退回時數；24–48 小時 → 扣 0.5 小時；24 小時內 → 扣該場全部時數。",
+  },
+  {
+    question: "我的需求不在 7 個主題裡。",
+    answer:
+      "在表單裡選「我有別的需求」並描述。您的題目如果剛好我有把握，我會接；不是，會誠實告訴您比較適合的人。",
+  },
+  {
+    question: "我怎麼知道還剩多少時數？",
+    answer: "每堂課後 24 小時內，我會寄信通知。",
+  },
+  {
+    question: "可以錄影嗎？",
+    answer: "學員可自行錄影自留，我這端不主動錄製。",
   },
 ];
 
 export default function ConsultingPage() {
   return (
     <>
-      <JsonLd data={serviceSchema({ name: "1-on-1 事業方向諮詢", description: "60 分鐘深度一對一諮詢，幫你釐清定位、制定行動計畫", url: "https://www.solo.tw/consulting", price: 2490 })} />
-      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "諮詢", href: "/consulting" }])} />
-      <JsonLd data={faqSchema([
-        { question: "諮詢是線上還是線下？", answer: "以 Google Meet 線上進行為主，也可依需求安排臺北線下面談。" },
-        { question: "我還在很前期，適合預約嗎？", answer: "完全適合。越早釐清方向，越少走冤枉路。建議先做免費事業健檢，帶著結果來諮詢更有效率。" },
-        { question: "和工作坊有什麼不同？", answer: "工作坊是小班教學特定主題，諮詢是完全針對你的狀況一對一深入討論。兩者互補——工作坊學方法，諮詢解決你的個別問題。" },
-        { question: "如何付款？", answer: "確認預約後會提供付款連結，支援信用卡和 ATM 轉帳。" },
-      ])} />
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-16 sm:py-20 lg:py-24">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(168,140,110,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(168,140,110,0.04)_1px,transparent_1px)] bg-[size:48px_48px]" />
-        </div>
+      <JsonLd
+        data={serviceSchema({
+          name: "1-on-1 量身陪跑",
+          description:
+            "Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑。",
+          url: "https://www.solo.tw/consulting",
+          price: 3000,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", href: "/" },
+          { name: "Consulting", href: "/consulting" },
+        ])}
+      />
+      <JsonLd data={faqSchema(FAQ_FOR_SCHEMA)} />
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-              1-on-1 諮詢 & 陪跑
-            </p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl lg:text-5xl">
-              先聊聊，不收費
-            </h1>
-            <p className="mt-4 text-lg text-stone-500 sm:text-xl">
-              30 分鐘免費初談，了解你的狀況、看看我能怎麼幫你。
-              <br className="hidden sm:block" />
-              覺得適合，再選擇付費方案深入合作。
-            </p>
+      <Hero />
+      <WhyOneOnOne />
+      <ServiceFormat />
+      <ThemeGrid />
+      <PricingLadder />
+      <ProcessSteps />
+      <section className="bg-muted/30 py-20">
+        <div className="container mx-auto max-w-3xl px-4">
+          <h2 className="text-3xl font-bold text-center">告訴我您的卡關</h2>
+          <p className="mt-3 text-center text-muted-foreground">
+            5 分鐘填完，我 24 小時內回信。
+          </p>
+          <div className="mt-12">
+            <LeadForm />
           </div>
         </div>
       </section>
-
-      {/* 方案卡片 */}
-      <section className="bg-white py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* 開站優惠提示 */}
-          <div className="mx-auto mb-10 max-w-2xl rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-center">
-            <p className="text-sm font-medium text-amber-800">
-              🎉 <span className="font-bold">開站限定優惠</span> — 所有付費方案享 <span className="font-bold text-primary">5 折起</span>，名額有限，額滿恢復原價
-            </p>
-          </div>
-
-          <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-            {consultingTypes.map((item) => {
-              const Icon = item.icon;
-              const isPopular = item.badge === "最多人選";
-              return (
-                <div
-                  key={item.title}
-                  className={`relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md sm:p-7 ${
-                    item.isFree
-                      ? "border-primary/30 ring-1 ring-primary/10"
-                      : isPopular
-                        ? "border-primary/30 ring-2 ring-primary/10"
-                        : "border-stone-200 hover:border-stone-300"
-                  }`}
-                >
-                  {/* 標籤 */}
-                  {item.isFree && (
-                    <span className="absolute -top-3 right-5 rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white">
-                      推薦先從這裡開始
-                    </span>
-                  )}
-                  {item.badge && (
-                    <span className={`absolute -top-3 right-5 rounded-full px-3 py-1 text-xs font-semibold text-white ${
-                      isPopular ? "bg-primary" : "bg-amber-500"
-                    }`}>
-                      {item.badge}
-                    </span>
-                  )}
-
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-                    isPopular ? "bg-primary text-white" : "bg-primary/10 text-primary"
-                  }`}>
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-4 text-xl font-bold text-stone-900">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-stone-400">{item.duration}</p>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-500">
-                    {item.desc}
-                  </p>
-
-                  {/* 包含內容 */}
-                  <div className="mt-4 space-y-2 border-t border-stone-100 pt-4">
-                    {item.includes.map((inc) => (
-                      <div
-                        key={inc}
-                        className="flex items-center gap-2 text-sm text-stone-600"
-                      >
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
-                        {inc}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* 價格區 */}
-                  <div className="mt-5">
-                    {item.isFree ? (
-                      <p className="text-2xl font-bold text-emerald-600">免費</p>
-                    ) : (
-                      <div>
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-2xl font-bold text-stone-900">
-                            {item.promoPrice}
-                          </span>
-                          {item.originalPrice && (
-                            <span className="text-sm text-stone-400 line-through">
-                              {item.originalPrice}
-                            </span>
-                          )}
-                        </div>
-                        {item.saving && (
-                          <span className="mt-1 inline-block rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700">
-                            開站優惠 {item.saving}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 深度系統建構導流 */}
-      <section className="bg-white pb-16 sm:pb-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-white to-stone-50 p-8 sm:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                  <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-                    更深度的合作
-                  </p>
-                </div>
-                <h3 className="mt-3 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
-                  想把研究與寫作，串成一套你自己的 AI 系統？
-                </h3>
-                <p className="mt-3 text-base leading-relaxed text-stone-500">
-                  上面的 90 分鐘工具導入幫你跑通一個工具。如果你要的是一套可以
-                  <strong className="text-stone-700">長期累積、會自動化、串好整條工作流</strong>
-                  的個人系統，從 1 週藍圖到 8 週完整建構都有。
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    NT$ 8,800 起
-                  </span>
-                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    Prompt 庫 + Skill + 結構藍圖
-                  </span>
-                  <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                    NotebookLM × MCP 串接
-                  </span>
-                </div>
-              </div>
-              <div className="flex shrink-0 lg:flex-col">
-                <Button asChild size="lg" className="w-full lg:w-auto">
-                  <Link href="/consulting/ai-research-system">
-                    了解 AI 研究系統
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 預約區塊 */}
-      <section className="bg-stone-50 py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
-              預約諮詢時段
-            </h2>
-            <p className="mt-2 text-base text-stone-500">
-              選擇你方便的時間，30 分鐘免費初談。覺得適合再聊付費方案。
-            </p>
-          </div>
-
-          {/* Cal.com 嵌入 */}
-          <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
-            <div style={{ minHeight: 500 }}>
-              <CalEmbed calLink="vista/consulting" />
-            </div>
-          </div>
-
-          {/* 無 JS 時的後備連結 */}
-          <noscript>
-            <div className="mx-auto mt-6 text-center">
-              <a
-                href="https://cal.com/vista/consulting"
-                className="text-primary underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                前往 Cal.com 預約
-              </a>
-            </div>
-          </noscript>
-        </div>
-      </section>
-
-      {/* 常見問題 */}
-      <section className="bg-white py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
-            常見問題
-          </h2>
-
-          <div className="mt-10 space-y-6">
-            {[
-              {
-                q: "諮詢是線上還是線下？",
-                a: "以 Google Meet 線上進行為主，也可依需求安排臺北線下面談。",
-              },
-              {
-                q: "我還在很前期，適合預約嗎？",
-                a: "完全適合。越早釐清方向，越少走冤枉路。建議先做免費事業健檢，帶著結果來諮詢更有效率。",
-              },
-              {
-                q: "和工作坊有什麼不同？",
-                a: "工作坊是小班教學特定主題，諮詢是完全針對你的狀況一對一深入討論。兩者互補——工作坊學方法，諮詢解決你的個別問題。",
-              },
-              {
-                q: "如何付款？",
-                a: "確認預約後會提供付款連結，支援信用卡和 ATM 轉帳。",
-              },
-            ].map((faq) => (
-              <div
-                key={faq.q}
-                className="rounded-xl border border-stone-100 bg-stone-50/50 p-5"
-              >
-                <h3 className="text-base font-semibold text-stone-900">
-                  {faq.q}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-stone-500">
-                  {faq.a}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
+      <FAQ />
     </>
   );
 }
