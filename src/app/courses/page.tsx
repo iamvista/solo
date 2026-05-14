@@ -5,15 +5,27 @@ import { workshops } from "@/lib/workshops";
 import CourseFilters from "./CourseFilters";
 import { ArrowRight, Users, Sparkles, Target, Mail } from "lucide-react";
 import { SOCIAL_PROOF } from "@/lib/constants";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "課程與工作坊 | solo.tw",
+  title: "AI 課程與工作坊｜Vista Cheng × solo.tw",
   description:
-    "精選實戰課程與工作坊，涵蓋 AI 應用、樂齡理財、創新思維。小班制、重產出、即學即用。",
+    "Vista Cheng 主理的實戰課程與工作坊。AI 提案成交力、AI 指揮中心、Vibe Coding、AI 內容產製等。小班制、重產出、即學即用。",
+  keywords: [
+    "AI 工作坊",
+    "AI 課程",
+    "Vibe Coding 課程",
+    "Claude Code 課程",
+    "AI 提案",
+    "AI 內容產製",
+    "Vista Cheng",
+    "solo.tw",
+    "自由人學院",
+  ],
   openGraph: {
-    title: "課程與工作坊 | solo.tw",
+    title: "AI 課程與工作坊｜Vista Cheng × solo.tw",
     description:
-      "精選實戰課程與工作坊，涵蓋 AI 應用、樂齡理財、創新思維。小班制、重產出、即學即用。",
+      "實戰課程與工作坊：AI 提案成交力、AI 指揮中心、Vibe Coding、AI 內容產製。小班制、重產出、即學即用。",
     images: [
       {
         url: "/courses/og",
@@ -27,10 +39,29 @@ export const metadata: Metadata = {
   },
 };
 
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "AI 課程與工作坊",
+  url: "https://www.solo.tw/courses",
+  description:
+    "Vista Cheng 主理的實戰課程與工作坊。AI 提案、AI 指揮中心、Vibe Coding、AI 內容產製等。",
+  isPartOf: { "@type": "WebSite", url: "https://www.solo.tw" },
+  about: { "@type": "Person", "@id": "https://www.solo.tw/about#vista" },
+  inLanguage: "zh-TW",
+};
+
 /* ─── Page ─── */
 export default function CoursesPage() {
   return (
     <div className="relative">
+      <JsonLd data={collectionSchema} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", href: "/" },
+          { name: "Courses", href: "/courses" },
+        ])}
+      />
       {/* ─── Hero Section ─── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-12 sm:py-14 lg:py-16">
         {/* Background */}

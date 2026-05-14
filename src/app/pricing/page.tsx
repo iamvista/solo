@@ -10,14 +10,59 @@ import {
   FileDown,
   Mail,
 } from "lucide-react";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "服務方案與定價 | solo.tw",
+  title: "服務方案與定價｜AI 諮詢／工作坊／線上課程 | solo.tw",
   description:
-    "工作坊、1-on-1 諮詢、線上課程、模板工具包——選擇適合你的方式，開始放大你的一人事業。",
+    "Vista Cheng 的全部服務方案：1-on-1 量身陪跑（NT$3,000 起）、AI 工作坊、線上課程、模板工具包。選擇適合你的方式，開始放大你的一人事業。",
+  keywords: [
+    "AI 諮詢價格",
+    "AI 工作坊價格",
+    "1-on-1 諮詢費用",
+    "Vista Cheng",
+    "solo.tw",
+    "自由人學院",
+  ],
+  openGraph: {
+    title: "服務方案與定價｜solo.tw",
+    description:
+      "1-on-1 諮詢 NT$3,000 起、AI 工作坊、線上課程、模板工具包。",
+    url: "https://www.solo.tw/pricing",
+  },
   alternates: {
     canonical: "https://www.solo.tw/pricing",
   },
+};
+
+const offerCatalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "solo.tw 服務方案",
+  url: "https://www.solo.tw/pricing",
+  provider: { "@type": "Person", "@id": "https://www.solo.tw/about#vista" },
+  itemListElement: [
+    {
+      "@type": "Offer",
+      name: "1-on-1 量身陪跑",
+      description: "Google Meet 一對一線上諮詢，NT$3,000 起，5 種方案",
+      url: "https://www.solo.tw/consulting",
+      priceCurrency: "TWD",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: 3000,
+        maxPrice: 48000,
+        priceCurrency: "TWD",
+      },
+    },
+    {
+      "@type": "Offer",
+      name: "AI 工作坊",
+      description: "實戰課程：AI 提案、AI 指揮中心、Vibe Coding、AI 內容產製等",
+      url: "https://www.solo.tw/courses",
+      priceCurrency: "TWD",
+    },
+  ],
 };
 
 const services = [
@@ -94,6 +139,13 @@ const services = [
 export default function PricingPage() {
   return (
     <div className="min-h-screen">
+      <JsonLd data={offerCatalogSchema} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", href: "/" },
+          { name: "Pricing", href: "/pricing" },
+        ])}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-16 sm:py-20 lg:py-24">
         <div className="absolute inset-0 -z-10">

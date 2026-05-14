@@ -253,12 +253,11 @@ export function articleSchema(props: {
     dateModified: props.dateModified || props.datePublished,
     author: {
       "@type": "Person",
-      name: "Vista Cheng",
-      url: "https://www.solo.tw/about",
+      "@id": "https://www.solo.tw/about#vista",
     },
     publisher: {
       "@type": "Organization",
-      name: "solo.tw",
+      name: "solo.tw（自由人學院）",
       url: "https://www.solo.tw",
       logo: {
         "@type": "ImageObject",

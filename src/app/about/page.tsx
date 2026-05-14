@@ -12,11 +12,67 @@ import {
   Pen,
 } from "lucide-react";
 import { SOCIAL_PROOF } from "@/lib/constants";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "關於 Vista | solo.tw",
+  title: "關於 Vista Cheng（鄭緯筌）— 自由人學院創辦人 | solo.tw",
   description:
-    "Vista Cheng（鄭緯筌），AI 應用講師、一人事業教練。幫助自由工作者、講師和顧問用 AI 放大產出。18,000+ 電子報讀者、50+ 場工作坊。",
+    "Vista Cheng（鄭緯筌），自由人學院（solo.tw）創辦人、AI 應用講師、一人事業教練。著有近 20 本書，幫助自由工作者、講師和顧問用 AI 放大產出。18,000+ 電子報讀者、50+ 場工作坊。",
+  keywords: [
+    "Vista Cheng",
+    "鄭緯筌",
+    "自由人學院",
+    "solo.tw",
+    "AI 講師",
+    "一人事業教練",
+    "內容策略顧問",
+    "AI 工作坊",
+    "Vibe Coding",
+    "Claude Code",
+  ],
+  authors: [{ name: "Vista Cheng", url: "https://www.solo.tw/about" }],
+  alternates: { canonical: "https://www.solo.tw/about" },
+  openGraph: {
+    title: "Vista Cheng（鄭緯筌）— 自由人學院創辦人",
+    description:
+      "AI 應用講師、一人事業教練、內容策略顧問。著有近 20 本書，幫助自由工作者、講師和顧問用 AI 放大產出。",
+    url: "https://www.solo.tw/about",
+    siteName: "solo.tw",
+    locale: "zh_TW",
+    type: "profile",
+    images: [
+      {
+        url: "https://www.solo.tw/images/vista-profile.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vista Cheng — 自由人學院創辦人",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vista Cheng（鄭緯筌）— 自由人學院創辦人",
+    description:
+      "AI 應用講師、一人事業教練。18,000+ 電子報讀者、50+ 場工作坊。",
+    images: ["https://www.solo.tw/images/vista-profile.webp"],
+  },
+};
+
+/* ProfilePage schema — 對 Google rich result 與 LLM 引用最直接 */
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: "https://www.solo.tw/about",
+  mainEntity: {
+    "@type": "Person",
+    "@id": "https://www.solo.tw/about#vista",
+  },
+  about: {
+    "@type": "Person",
+    "@id": "https://www.solo.tw/about#vista",
+  },
+  dateModified: "2026-05-14",
+  inLanguage: "zh-TW",
 };
 
 const milestones = [
@@ -71,6 +127,13 @@ const socialLinks = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
+      <JsonLd data={profilePageSchema} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", href: "/" },
+          { name: "About", href: "/about" },
+        ])}
+      />
       {/* Hero — 照片 + 簡介 */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-14 sm:py-20">
         <div className="absolute inset-0 -z-10">
