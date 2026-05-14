@@ -14,6 +14,7 @@ export default async function PaymentSuccessPage({
 }) {
   const params = await searchParams;
   const isDigitalProduct = params.type === "download" && params.token;
+  const isConsulting = params.type === "consulting";
 
   return (
     <div className="mx-auto max-w-lg px-4 py-20 text-center sm:py-28">
@@ -29,7 +30,13 @@ export default async function PaymentSuccessPage({
           : "感謝你的購買，我們正在處理你的訂單。"}
         {!isDigitalProduct && <br />}
         {!isDigitalProduct &&
-          "購買確認信（含下載連結）會在幾秒內寄到你的 Email，請留意收件匣與垃圾信匣。"}
+          "購買確認信會在幾秒內寄到你的 Email，請留意收件匣與垃圾信匣。"}
+        {isConsulting && (
+          <>
+            <br />
+            請回信告知您方便的時段（含時區），我會盡快約定首場 Google Meet。
+          </>
+        )}
       </p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
         {isDigitalProduct ? (
