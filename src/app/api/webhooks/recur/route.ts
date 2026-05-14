@@ -12,7 +12,12 @@ import {
   type ProductEmailConfig,
 } from "@/lib/recur-product-config";
 import { getCourseConfig } from "@/lib/courses-config";
-import { createEnrollment, updateLeadStatus } from "@/lib/consulting-db";
+import {
+  createEnrollment,
+  updateLeadStatus,
+  findRecentApprovedLead,
+  attachLeadToEnrollment,
+} from "@/lib/consulting-db";
 
 let _recur: Recur | null = null;
 function getRecur(): Recur {
@@ -447,11 +452,41 @@ async function fulfilConsulting({
     return;
   }
   const customerName = data.customer?.name?.trim() || email;
-  const leadId = data.metadata?.leadId ?? data.metadata?.lead_id ?? null;
+  let leadId = data.metadata?.leadId ?? data.metadata?.lead_id ?? null;
   const contactMethod = data.metadata?.contactMethod ?? data.metadata?.contact_method;
   const contactId = data.metadata?.contactId ?? data.metadata?.contact_id;
   const paymentId = data.metadata?.paymentId ?? data.metadata?.payment_id ?? orderId;
   const purchasedAt = new Date();
+
+  // Fallback：Recur 目前未把 paymentLinks.create 設的 metadata 透傳到 order.paid，
+  // 改用 email + plan 找最近一筆 approved lead 對回。
+  if (!leadId) {
+    const fallback = await findRecentApprovedLead({
+      email,
+      plan: config.plan,
+    });
+    if (fallback) {
+      leadId = fallback.id;
+      console.log(
+        "[recur webhook] consulting lead matched by email fallback",
+        leadId,
+        "for order",
+        orderId,
+      );
+    } else {
+      console.warn(
+        "[recur webhook] consulting lead NOT matched (no metadata + fallback empty)",
+        "email",
+        email,
+        "plan",
+        config.plan,
+        "order",
+        orderId,
+        "data.metadata keys",
+        Object.keys(data.metadata ?? {}),
+      );
+    }
+  }
 
   // 1. 建立 enrollment（hour bank）
   let enrollment: Awaited<ReturnType<typeof createEnrollment>>;

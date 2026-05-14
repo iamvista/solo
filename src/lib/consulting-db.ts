@@ -103,6 +103,52 @@ export async function listLeads(status?: string) {
   return data;
 }
 
+/**
+ * Email + plan fallback to find the most recent `approved` lead.
+ * Used by webhook when payment metadata.lead_id is absent (Recur 目前未透傳).
+ */
+export async function findRecentApprovedLead(params: {
+  email: string;
+  plan: string;
+  daysWindow?: number;
+}): Promise<{ id: string } | null> {
+  const supabase = createServiceClient();
+  const since = new Date(
+    Date.now() - (params.daysWindow ?? 30) * 24 * 60 * 60 * 1000,
+  ).toISOString();
+  const { data, error } = await supabase
+    .from("consulting_leads")
+    .select("id")
+    .eq("email", params.email)
+    .eq("plan", params.plan)
+    .eq("status", "approved")
+    .gte("created_at", since)
+    .order("updated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (error) {
+    console.error("[consulting-db] findRecentApprovedLead error", error);
+    return null;
+  }
+  return data;
+}
+
+/**
+ * Backfill: attach a lead_id to an existing consulting_enrollment row
+ * (used when webhook initially saved the enrollment without a lead_id).
+ */
+export async function attachLeadToEnrollment(
+  enrollmentId: string,
+  leadId: string,
+) {
+  const supabase = createServiceClient();
+  const { error } = await supabase
+    .from("consulting_enrollments")
+    .update({ lead_id: leadId })
+    .eq("id", enrollmentId);
+  if (error) throw error;
+}
+
 export async function updateLeadStatus(
   id: string,
   status: "approved" | "rejected" | "enrolled" | "stale",
