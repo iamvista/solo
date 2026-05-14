@@ -12,7 +12,6 @@ import {
   serviceSchema,
   breadcrumbSchema,
   faqSchema,
-  personSchema,
 } from "@/lib/schema";
 import { CONSULTING_PLANS } from "@/lib/consulting-config";
 
@@ -157,35 +156,6 @@ export default function ConsultingPage() {
             description: `${p.suitedFor}。單價 NT$${p.pricePerHour.toLocaleString()}/小時。`,
             url: "https://www.solo.tw/consulting#pricing",
           })),
-        })}
-      />
-      <JsonLd
-        data={personSchema({
-          name: "Vista Cheng（鄭緯筌）",
-          url: "https://www.solo.tw/about",
-          jobTitle: "自由人學院創辦人 / AI 諮詢顧問 / 講師",
-          description:
-            "solo.tw（自由人學院）創辦人，協助講師、顧問、自由工作者用 AI 放大一人事業的產出。著有近 20 本書，提供 1-on-1 諮詢、工作坊與線上課程。",
-          image: "https://www.solo.tw/og",
-          worksForName: "solo.tw（自由人學院）",
-          worksForUrl: "https://www.solo.tw",
-          sameAs: [
-            "https://iamvista.substack.com",
-            "https://www.vista.tw",
-            "https://www.facebook.com/vista.tw",
-            "https://www.linkedin.com/in/vistacheng/",
-          ],
-          knowsAbout: [
-            "AI 應用",
-            "Vibe Coding",
-            "Claude Code",
-            "個人品牌",
-            "內容行銷",
-            "一人公司",
-            "Solopreneur",
-            "自由工作者",
-            "AI 學術寫作",
-          ],
         })}
       />
       <JsonLd

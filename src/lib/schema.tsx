@@ -108,13 +108,6 @@ export function serviceSchema(props: ServiceSchemaProps) {
     provider: {
       "@type": "Person",
       "@id": "https://www.solo.tw/about#vista",
-      name: "Vista Cheng",
-      url: "https://www.solo.tw/about",
-      worksFor: {
-        "@type": "Organization",
-        name: "solo.tw（自由人學院）",
-        url: "https://www.solo.tw",
-      },
     },
     ...(props.areaServed && {
       areaServed: props.areaServed.map((name) => ({ "@type": "Place", name })),

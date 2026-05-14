@@ -50,14 +50,32 @@ const websiteSchema = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": "https://www.solo.tw/about#vista",
   name: "Vista Cheng",
   alternateName: "鄭緯筌",
-  jobTitle: "AI 應用講師・一人事業教練",
+  jobTitle: "AI 應用講師・一人事業教練・自由人學院創辦人",
   url: "https://www.solo.tw/about",
   image: "https://www.solo.tw/images/vista-profile.webp",
   description:
-    "幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。18,000+ 電子報讀者、50+ 場工作坊。",
-  knowsAbout: ["AI 應用", "一人事業", "個人品牌", "內容策略", "工作坊設計"],
+    "幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。18,000+ 電子報讀者、50+ 場工作坊。提供 1-on-1 諮詢、線上課程與企業內訓。",
+  worksFor: {
+    "@type": "Organization",
+    name: "solo.tw（自由人學院）",
+    url: "https://www.solo.tw",
+  },
+  knowsAbout: [
+    "AI 應用",
+    "Vibe Coding",
+    "Claude Code",
+    "一人事業",
+    "個人品牌",
+    "內容策略",
+    "工作坊設計",
+    "AI 學術寫作",
+    "Solo OS",
+    "Solopreneur",
+    "第二大腦",
+  ],
   sameAs: [
     "https://www.facebook.com/iamvista",
     "https://www.instagram.com/vista",
@@ -65,6 +83,7 @@ const personSchema = {
     "https://www.linkedin.com/in/vistacheng/",
     "https://www.youtube.com/@vistacheng",
     "https://www.vista.tw",
+    "https://iamvista.substack.com",
   ],
 };
 
