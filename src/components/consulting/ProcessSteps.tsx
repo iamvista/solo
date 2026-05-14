@@ -10,7 +10,7 @@ export function ProcessSteps() {
   return (
     <section className="py-20">
       <div className="container mx-auto max-w-3xl px-4">
-        <h2 className="text-3xl font-bold text-center">從填表到上課，五步驟</h2>
+        <h2 className="text-3xl font-bold text-center">從填表到諮詢，只需五個步驟</h2>
         <ol className="mt-12 space-y-4">
           {steps.map((step, i) => (
             <li key={i} className="flex items-start gap-4 rounded-lg border bg-card p-4">
