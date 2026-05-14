@@ -12,7 +12,7 @@ export function ThemeGrid({ onSelectTopic }: Props) {
       <div className="container mx-auto max-w-6xl px-4">
         <h2 className="text-3xl font-bold text-center">您希望獲得哪些協助？</h2>
         <p className="mt-3 text-center text-muted-foreground">
-          七個主題是我這一年多最常被問的方向。您也可以開新題目，第八張卡就是給「不在上面」的人。
+          七個主題是我這一年多最常被問的方向。您也可以開新題目，第八張卡就是針對其他的需求。
         </p>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {CONSULTING_TOPICS.map((t) => (
