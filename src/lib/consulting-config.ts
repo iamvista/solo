@@ -131,7 +131,7 @@ export const CONSULTING_PLANS: ConsultingPlan[] = [
     totalPrice: 26000,
     pricePerHour: 2600,
     label: "10 小時套票",
-    suitedFor: "跨主題、半年陪跑",
+    suitedFor: "跨主題諮詢",
     recurProductId: "mndmvwsgvevq7ogdklt7i3h6",
   },
   {

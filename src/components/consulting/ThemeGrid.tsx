@@ -10,7 +10,7 @@ export function ThemeGrid({ onSelectTopic }: Props) {
   return (
     <section id="themes" className="py-20">
       <div className="container mx-auto max-w-6xl px-4">
-        <h2 className="text-3xl font-bold text-center">您今天卡在哪裡？</h2>
+        <h2 className="text-3xl font-bold text-center">您希望獲得哪些協助？</h2>
         <p className="mt-3 text-center text-muted-foreground">
           七個主題是我這一年多最常被問的方向。您也可以開新題目，第八張卡就是給「不在上面」的人。
         </p>
