@@ -191,7 +191,7 @@ export default function CoursesPage() {
                   企業內訓 / 客製工作坊
                 </h3>
                 <p className="mt-3 text-base text-stone-400 sm:text-lg">
-                  為團隊量身打造的培訓方案，涵蓋 AI 應用、創新思維、內容經營等主題。
+                  為團隊量身設計的培訓方案，涵蓋 AI 應用、創新思維、內容經營等主題。
                 </p>
                 <ul className="mt-5 space-y-3 text-sm text-stone-300">
                   {[

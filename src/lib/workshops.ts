@@ -118,7 +118,7 @@ export const workshops: Workshop[] = [
     title: "用 AI 建你的個人指揮中心",
     subtitle: "6 小時帶走一套能跑的目標管理 × 知識管理 × AI 自動化系統",
     description:
-      "用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流。不用寫程式，帶著能跑的系統回家。",
+      "用 Claude Code + Obsidian 建立目標管理、知識管理、AI 自動化工作流。不用寫程式，帶著能跑的系統回家。",
     instructor: vista,
     emoji: "🚀",
     date: "2026/5/16（六）",
@@ -147,7 +147,7 @@ export const workshops: Workshop[] = [
   {
     id: "vibe-coding",
     title: "Vibe Coding 實戰工作坊",
-    subtitle: "用 AI 打造你的數位資產，不需要寫程式",
+    subtitle: "用 AI 建立你的數位資產，不需要寫程式",
     description:
       "3 小時實作課程，學會用 AI 建立個人品牌網站、銷售頁、名單收集漏斗與互動工具。",
     instructor: vista,
@@ -178,7 +178,7 @@ export const workshops: Workshop[] = [
   {
     id: "vibe-coding-claude-code",
     title: "Vibe Coding for Claude Code 實戰工作坊",
-    subtitle: "在終端機裡 3 小時打造你的數位資產（Claude Code 首發班）",
+    subtitle: "在終端機裡 3 小時建立你的數位資產（Claude Code 首發班）",
     description:
       "Anthropic 官方 CLI、旗艦級 Claude 模型、整個資料夾的上下文。3 小時跑通 Plan Mode、Skills、Hooks、MCP，舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
     instructor: vista,

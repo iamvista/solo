@@ -3,7 +3,7 @@
 > 完整內容索引：共 6 個課程與 51 篇文章，供 AI 客戶端檢索與引用。
 
 站點：https://www.solo.tw
-更新時間：2026-05-13T06:05:43.900Z
+更新時間：2026-05-14T13:57:53.912Z
 
 ## 1-on-1 量身陪跑 (/consulting)
 
@@ -16,7 +16,7 @@ Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑。由 Vista Che
 - 💻 Vibe Coding 入門：第一個 web app／小工具，從零到上線
 - 🌐 個人網站系統：仿 solo.tw / vista.tw 的一人媒體站
 - 🎛 Solo OS：個人作業系統建置（Calendar / Notion / Anytype / Obsidian 整合）
-- ✍️ 內容生產 Pipeline：研究 → 撰稿 → 去 AI 味 → 多平臺分發
+- ✍️ 內容產製流水線：研究 → 撰稿 → 去 AI 味 → 多平臺分發
 - 🧠 第二大腦／知識管理：Wiki、backlink、AI 檢索
 - 📚 AI 輔助學術寫作：文獻、Intro、方法、投稿
 - 🎯 一人事業起步診斷：定位、產品、定價、首批客戶
@@ -53,7 +53,7 @@ Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑。由 Vista Che
 ### 用 AI 建你的個人指揮中心
 - URL: https://www.solo.tw/courses/ai-command-center
 - 定位: 6 小時帶走一套能跑的目標管理 × 知識管理 × AI 自動化系統
-- 描述: 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流。不用寫程式，帶著能跑的系統回家。
+- 描述: 用 Claude Code + Obsidian 建立目標管理、知識管理、AI 自動化工作流。不用寫程式，帶著能跑的系統回家。
 - 日期: 2026/5/16（六） 9:00–16:00
 - 時長: 6 小時
 - 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
@@ -64,7 +64,7 @@ Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑。由 Vista Che
 
 ### Vibe Coding 實戰工作坊
 - URL: https://www.solo.tw/courses/vibe-coding
-- 定位: 用 AI 打造你的數位資產，不需要寫程式
+- 定位: 用 AI 建立你的數位資產，不需要寫程式
 - 描述: 3 小時實作課程，學會用 AI 建立個人品牌網站、銷售頁、名單收集漏斗與互動工具。
 - 日期: 2026 年 6 月 6 日（六） 9:00–12:00
 - 時長: 3 小時
@@ -76,7 +76,7 @@ Google Meet 1-on-1，從 1 小時諮詢到 20 小時長期陪跑。由 Vista Che
 
 ### Vibe Coding for Claude Code 實戰工作坊
 - URL: https://www.solo.tw/courses/vibe-coding-claude-code
-- 定位: 在終端機裡 3 小時打造你的數位資產（Claude Code 首發班）
+- 定位: 在終端機裡 3 小時建立你的數位資產（Claude Code 首發班）
 - 描述: Anthropic 官方 CLI、旗艦級 Claude 模型、整個資料夾的上下文。3 小時跑通 Plan Mode、Skills、Hooks、MCP，舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。
 - 日期: 2026 年 6 月 27 日（六） 9:00–12:00
 - 時長: 3 小時

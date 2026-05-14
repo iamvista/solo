@@ -284,7 +284,7 @@ export default function PricingPage() {
                   企業內訓 / 客製工作坊
                 </h3>
                 <p className="mt-3 text-base text-stone-400">
-                  為團隊量身打造的培訓方案，涵蓋 AI 應用、創新思維、內容經營等主題。
+                  為團隊量身設計的培訓方案，涵蓋 AI 應用、創新思維、內容經營等主題。
                 </p>
                 <p className="mt-4 text-sm text-stone-500">
                   半天 NT$30,000 起，依主題與人數客製報價
