@@ -11,6 +11,10 @@ export function Hero() {
         <p className="mt-6 text-lg text-muted-foreground md:text-xl">
           Google Meet 1-on-1。從 1 小時諮詢到 20 小時長期陪跑，針對您的問題與需求提供服務。
         </p>
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
+          <strong className="text-foreground">1-on-1 量身陪跑</strong>是 Vista Cheng 親自帶的線上一對一諮詢；
+          整堂課的時間都用來處理您的具體問題，不是看著錄影檔自學。NT$3,000 起，方案有 5 種，買越多單價越優惠。
+        </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Button asChild size="lg">
             <Link href="#lead-form">填表預約 →</Link>

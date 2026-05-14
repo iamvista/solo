@@ -73,31 +73,105 @@ export function courseSchema(props: CourseSchemaProps) {
 }
 
 /* ─── Service Schema ─── */
+export interface ServiceOffer {
+  name: string;
+  price: number;
+  description?: string;
+  url?: string;
+}
+
 export interface ServiceSchemaProps {
   name: string;
   description: string;
   url: string;
-  price: number;
+  /** Lowest price for legacy single-offer call sites. Ignored when `offers` is provided. */
+  price?: number;
   priceCurrency?: string;
+  /** Detailed list of price points; produces an `offers` array for richer AEO/AI 引擎引用 */
+  offers?: ServiceOffer[];
+  priceRange?: string;
+  serviceType?: string;
+  areaServed?: string[];
+  image?: string;
 }
 
 export function serviceSchema(props: ServiceSchemaProps) {
+  const currency = props.priceCurrency || "TWD";
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name: props.name,
     description: props.description,
     url: props.url,
+    ...(props.serviceType && { serviceType: props.serviceType }),
+    ...(props.image && { image: props.image }),
     provider: {
       "@type": "Person",
+      "@id": "https://www.solo.tw/about#vista",
       name: "Vista Cheng",
       url: "https://www.solo.tw/about",
+      worksFor: {
+        "@type": "Organization",
+        name: "solo.tw（自由人學院）",
+        url: "https://www.solo.tw",
+      },
     },
-    offers: {
-      "@type": "Offer",
-      price: props.price,
-      priceCurrency: props.priceCurrency || "TWD",
-    },
+    ...(props.areaServed && {
+      areaServed: props.areaServed.map((name) => ({ "@type": "Place", name })),
+    }),
+    ...(props.priceRange && { priceRange: props.priceRange }),
+    offers:
+      props.offers && props.offers.length > 0
+        ? props.offers.map((o) => ({
+            "@type": "Offer",
+            name: o.name,
+            price: o.price,
+            priceCurrency: currency,
+            availability: "https://schema.org/InStock",
+            ...(o.description && { description: o.description }),
+            ...(o.url && { url: o.url }),
+          }))
+        : {
+            "@type": "Offer",
+            price: props.price ?? 0,
+            priceCurrency: currency,
+            availability: "https://schema.org/InStock",
+          },
+  };
+}
+
+/* ─── Person Schema ─── */
+export interface PersonSchemaProps {
+  name: string;
+  url: string;
+  jobTitle?: string;
+  description?: string;
+  image?: string;
+  worksForName?: string;
+  worksForUrl?: string;
+  sameAs?: string[];
+  knowsAbout?: string[];
+}
+
+export function personSchema(props: PersonSchemaProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${props.url}#vista`,
+    name: props.name,
+    url: props.url,
+    ...(props.jobTitle && { jobTitle: props.jobTitle }),
+    ...(props.description && { description: props.description }),
+    ...(props.image && { image: props.image }),
+    ...(props.worksForName && {
+      worksFor: {
+        "@type": "Organization",
+        name: props.worksForName,
+        ...(props.worksForUrl && { url: props.worksForUrl }),
+      },
+    }),
+    ...(props.sameAs && { sameAs: props.sameAs }),
+    ...(props.knowsAbout && { knowsAbout: props.knowsAbout }),
   };
 }
 
