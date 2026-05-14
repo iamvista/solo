@@ -541,6 +541,20 @@ async function fulfilConsulting({
     // 不擋 enrollment（已建立）
   }
 
+  // 4. 通知 admin（不擋主流程；失敗只 console.error）
+  await notifyAdminConsultingPaid({
+    orderId,
+    customerName,
+    customerEmail: email,
+    contactMethod,
+    contactId,
+    plan: config.productName,
+    hours: config.hours,
+    amount: data.amount,
+    leadId,
+    enrollmentId: enrollment.id,
+  });
+
   console.log(
     "[recur webhook] consulting enrollment created",
     enrollment.id,
@@ -551,6 +565,75 @@ async function fulfilConsulting({
     "order",
     orderId,
   );
+}
+
+async function notifyAdminConsultingPaid({
+  orderId,
+  customerName,
+  customerEmail,
+  contactMethod,
+  contactId,
+  plan,
+  hours,
+  amount,
+  leadId,
+  enrollmentId,
+}: {
+  orderId: string;
+  customerName: string;
+  customerEmail: string;
+  contactMethod?: string;
+  contactId?: string;
+  plan: string;
+  hours: number;
+  amount?: number;
+  leadId: string | null;
+  enrollmentId: string;
+}) {
+  const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
+  if (!adminEmail) {
+    console.error(
+      "[recur webhook] ADMIN_NOTIFY_EMAIL not set; cannot notify consulting paid",
+      orderId,
+    );
+    return;
+  }
+  try {
+    const amountFormatted =
+      typeof amount === "number" ? `NT$${amount.toLocaleString()}` : "(未知金額)";
+    const contactLine =
+      contactMethod && contactId
+        ? `${contactMethod.toUpperCase()}：${contactId}`
+        : "（未提供）";
+    const whatsNext = [
+      `學員：${customerName}`,
+      `Email：${customerEmail}`,
+      `偏好聯絡：${contactLine}`,
+      `方案：${plan}（${hours} 小時）`,
+      `金額：${amountFormatted}`,
+      `Order：${orderId}`,
+      leadId ? `Lead：${leadId}` : "Lead：(無)",
+      `Enrollment：${enrollmentId}`,
+      "",
+      "—— 下一步 ——",
+      "1. 主動回信／LINE 確認首場時段",
+      `2. 後台連結：${SITE_URL}/admin/consulting/enrollments/${enrollmentId}`,
+      leadId ? `3. 需求單：${SITE_URL}/admin/consulting/leads` : "",
+    ].filter(Boolean);
+    await sendEmail({
+      to: adminEmail,
+      subject: `[諮詢付款] ${customerName} — ${plan} ${amountFormatted}`,
+      react: GenericPurchaseEmail({
+        kind: "default",
+        productName: `諮詢付款成功 — ${plan}`,
+        orderNumber: orderId,
+        amountFormatted,
+        whatsNext,
+      }),
+    });
+  } catch (e) {
+    console.error("[recur webhook] notifyAdminConsultingPaid threw", e);
+  }
 }
 
 async function sendGenericConfirmation({

@@ -206,7 +206,7 @@ export function LeadList({ leads }: { leads: Lead[] }) {
               <td className="p-3">{l.topics.join(", ")}</td>
               <td className="p-3 max-w-md truncate">{l.specific_problem}</td>
               <td className="p-3">
-                <span className={badgeClass(l.status)}>{l.status}</span>
+                <span className={badgeClass(l.status)}>{statusLabel(l.status)}</span>
               </td>
               <td className="p-3 text-right">
                 <div className="flex flex-wrap justify-end gap-2">
@@ -403,7 +403,7 @@ export function LeadList({ leads }: { leads: Lead[] }) {
               <dt className="text-muted-foreground">狀態</dt>
               <dd>
                 <span className={badgeClass(detailModal.status)}>
-                  {detailModal.status}
+                  {statusLabel(detailModal.status)}
                 </span>
               </dd>
 
@@ -432,13 +432,25 @@ export function LeadList({ leads }: { leads: Lead[] }) {
   );
 }
 
+const STATUS_LABEL: Record<string, string> = {
+  pending: "待處理",
+  approved: "已核准（等付款）",
+  enrolled: "✅ 已付款",
+  rejected: "已拒絕",
+  stale: "已過期",
+};
+
+function statusLabel(s: string) {
+  return STATUS_LABEL[s] ?? s;
+}
+
 function badgeClass(s: string) {
   return (
     "px-2 py-1 rounded text-xs " +
     ({
       pending: "bg-yellow-100 text-yellow-800",
       approved: "bg-blue-100 text-blue-800",
-      enrolled: "bg-green-100 text-green-800",
+      enrolled: "bg-green-100 text-green-800 font-semibold",
       rejected: "bg-gray-100 text-gray-800",
       stale: "bg-red-100 text-red-800",
     }[s] ?? "bg-gray-100")

@@ -5,6 +5,60 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { isAdmin, getUserStats, getDiagnosisStats, getTrafficAnalysis } from "@/lib/supabase/admin";
 import { getEventStats } from "@/lib/supabase/events";
+import { createServiceClient } from "@/lib/supabase/service";
+
+type RecentPayment = {
+  kind: "course" | "consulting";
+  customerName: string;
+  email: string;
+  amount: number | null;
+  productName: string;
+  paidAt: string;
+  detailHref: string;
+};
+
+async function getRecentPayments(days: number): Promise<RecentPayment[]> {
+  const sb = createServiceClient();
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+
+  const [courseRes, consultingRes] = await Promise.all([
+    sb
+      .from("course_enrollments")
+      .select("id, name, email, amount, course_id, paid_at")
+      .eq("status", "paid")
+      .gte("paid_at", since)
+      .order("paid_at", { ascending: false }),
+    sb
+      .from("consulting_enrollments")
+      .select("id, name, email, plan, total_hours, purchased_at")
+      .gte("purchased_at", since)
+      .order("purchased_at", { ascending: false }),
+  ]);
+
+  const courses: RecentPayment[] = (courseRes.data ?? []).map((c) => ({
+    kind: "course",
+    customerName: c.name ?? "—",
+    email: c.email,
+    amount: c.amount ?? null,
+    productName: c.course_id ?? "課程",
+    paidAt: c.paid_at as string,
+    detailHref: `/admin/enrollments`,
+  }));
+
+  const consultings: RecentPayment[] = (consultingRes.data ?? []).map((e) => ({
+    kind: "consulting",
+    customerName: e.name ?? "—",
+    email: e.email,
+    amount: null,
+    productName: `${e.plan}（${e.total_hours} 小時）`,
+    paidAt: e.purchased_at as string,
+    detailHref: `/admin/consulting/enrollments/${e.id}`,
+  }));
+
+  return [...courses, ...consultings].sort((a, b) =>
+    b.paidAt.localeCompare(a.paidAt),
+  );
+}
 
 // Solo 類型資料
 const soloTypes: Record<string, { emoji: string; name: string }> = {
@@ -25,12 +79,15 @@ export default async function AdminPage() {
   }
 
   // 獲取所有統計數據
-  const [userStats, diagnosisStats, trafficAnalysis, eventStats] = await Promise.all([
+  const [userStats, diagnosisStats, trafficAnalysis, eventStats, recentPayments] = await Promise.all([
     getUserStats(),
     getDiagnosisStats(),
     getTrafficAnalysis(),
     getEventStats(),
+    getRecentPayments(7),
   ]);
+
+  const recentRevenue = recentPayments.reduce((sum, p) => sum + (p.amount ?? 0), 0);
 
   // 計算訂閱率
   const subscriptionRate = userStats.totalUsers > 0
@@ -73,7 +130,96 @@ export default async function AdminPage() {
           <Button variant="outline" asChild className="h-11 px-4 text-base">
             <Link href="/admin/enrollments">🎓 課程報名</Link>
           </Button>
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin/consulting/leads">📋 諮詢需求</Link>
+          </Button>
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin/consulting/enrollments">🎯 諮詢學員</Link>
+          </Button>
         </div>
+      </div>
+
+      {/* 最近 7 天收款（課程 + 諮詢整合） */}
+      <div className="mb-8">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-xl font-bold">💰 最近 7 天收款</h2>
+          <p className="text-sm text-muted-foreground">
+            共 {recentPayments.length} 筆
+            {recentRevenue > 0 && (
+              <>
+                ｜課程收入小計：
+                <span className="font-medium text-emerald-700">
+                  NT${recentRevenue.toLocaleString()}
+                </span>
+                <span className="ml-1 text-xs text-muted-foreground">
+                  （諮詢金額以 Recur 後台為準）
+                </span>
+              </>
+            )}
+          </p>
+        </div>
+        {recentPayments.length === 0 ? (
+          <Card>
+            <CardContent className="p-6 text-center text-sm text-muted-foreground">
+              近 7 天尚無付款紀錄。
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="overflow-x-auto rounded-lg border bg-card">
+            <table className="w-full text-sm">
+              <thead className="bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
+                <tr>
+                  <th className="p-3">類別</th>
+                  <th className="p-3">學員</th>
+                  <th className="p-3">商品／方案</th>
+                  <th className="p-3">金額</th>
+                  <th className="p-3">付款時間</th>
+                  <th className="p-3 text-right">後台</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentPayments.map((p, i) => (
+                  <tr key={`${p.kind}-${i}`} className="border-t">
+                    <td className="p-3">
+                      <Badge
+                        variant="outline"
+                        className={
+                          p.kind === "consulting"
+                            ? "border-purple-300 bg-purple-50 text-purple-800"
+                            : "border-blue-300 bg-blue-50 text-blue-800"
+                        }
+                      >
+                        {p.kind === "consulting" ? "🎯 諮詢" : "🎓 課程"}
+                      </Badge>
+                    </td>
+                    <td className="p-3 font-medium">
+                      {p.customerName}
+                      <br />
+                      <span className="text-xs text-muted-foreground">{p.email}</span>
+                    </td>
+                    <td className="p-3">{p.productName}</td>
+                    <td className="p-3 font-medium">
+                      {p.amount ? `NT$${p.amount.toLocaleString()}` : "—"}
+                    </td>
+                    <td className="p-3 text-xs text-muted-foreground">
+                      {new Date(p.paidAt).toLocaleString("zh-TW", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </td>
+                    <td className="p-3 text-right">
+                      <Button size="sm" variant="ghost" asChild>
+                        <Link href={p.detailHref}>查看 →</Link>
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* 用戶統計 */}
