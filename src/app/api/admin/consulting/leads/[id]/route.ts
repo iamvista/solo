@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
+import { Recur } from "recur-tw/server";
 import { isAdmin } from "@/lib/supabase/admin";
 import { updateLeadStatus, deleteLead } from "@/lib/consulting-db";
 import { sendEmail } from "@/lib/email";
 import { ConsultingCheckoutLinkEmail } from "@/components/emails/consulting-checkout-link";
 import { getPlanBySlug } from "@/lib/consulting-config";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.solo.tw";
+
+let _recur: Recur | null = null;
+function getRecur(): Recur {
+  if (!_recur) {
+    const key = process.env.RECUR_SECRET_KEY;
+    if (!key) throw new Error("RECUR_SECRET_KEY not set");
+    _recur = new Recur(key);
+  }
+  return _recur;
+}
 
 export async function DELETE(
   _req: Request,
@@ -78,7 +91,29 @@ export async function PATCH(
       });
     }
 
-    const checkoutUrl = `https://recur.tw/checkout/${plan.recurProductId}?lead_id=${id}`;
+    let checkoutUrl: string;
+    try {
+      const link = await getRecur().paymentLinks.create({
+        productId: plan.recurProductId,
+        successUrl: `${SITE_URL}/payment/success?type=consulting`,
+        maxCompletions: 1,
+        metadata: { lead_id: id },
+      });
+      checkoutUrl = link.url;
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      console.error(
+        "[admin consulting leads PATCH] paymentLinks.create failed",
+        err,
+      );
+      return NextResponse.json({
+        ok: true,
+        lead: updated,
+        paymentLinkError: true,
+        paymentLinkErrorDetail: detail,
+      });
+    }
+
     const result = await sendEmail({
       to: updated.email,
       subject: `${updated.name}，您的 1-on-1 量身陪跑付款連結`,
