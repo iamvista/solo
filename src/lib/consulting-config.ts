@@ -148,7 +148,7 @@ export const CONSULTING_PLANS: ConsultingPlan[] = [
 export const CONSULTING_LEVELS = [
   { value: "beginner", label: "完全新手，連 ChatGPT 都不太會用" },
   { value: "basic", label: "會用 ChatGPT / Claude，能寫基本 prompt" },
-  { value: "intermediate", label: "用過 Cursor / Claude Code，做過小東西" },
+  { value: "intermediate", label: "用過 Antigravity / Codex / Claude Code 等工具，做過小東西" },
   { value: "advanced", label: "已有作品，想升級工作流" },
   { value: "expert", label: "我是工程師／研究者，要進階知識" },
 ] as const;

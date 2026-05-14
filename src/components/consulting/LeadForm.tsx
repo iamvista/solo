@@ -56,7 +56,7 @@ interface Props {
 const CONTACT_METHODS: { value: ContactMethod; label: string }[] = [
   { value: "email", label: "E-mail" },
   { value: "line", label: "LINE" },
-  { value: "ig", label: "IG DM" },
+  { value: "ig", label: "Facebook / Instagram 私訊" },
 ];
 
 export function LeadForm({ prefillTopic }: Props) {
