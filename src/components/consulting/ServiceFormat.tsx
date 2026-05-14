@@ -6,13 +6,13 @@ const items = [
   },
   {
     icon: "📝",
-    title: "共寫工作檔",
-    desc: "每場開一份 Google Doc 或 GitHub repo，做完當下就帶走可用的產出，不依賴錄影檔。",
+    title: "共寫工作紀錄",
+    desc: "若有需要，可開一份 Google Doc，做完當下就帶走可用的產出，不依賴錄影檔。",
   },
   {
     icon: "🔁",
     title: "彈性節奏",
-    desc: "1 小時處理一個小問題，10 小時跨主題深耕，多久上一次、每次幾小時，您決定。",
+    desc: "1 小時處理一個小問題，10 小時跨主題深耕。多久上一次、每次幾小時，都由您決定。",
   },
 ];
 
@@ -20,7 +20,7 @@ export function ServiceFormat() {
   return (
     <section className="bg-muted/30 py-20">
       <div className="container mx-auto max-w-5xl px-4">
-        <h2 className="text-3xl font-bold text-center">我們怎麼一起工作</h2>
+        <h2 className="text-3xl font-bold text-center">我們怎麼一起工作？</h2>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {items.map((it) => (
             <div key={it.title} className="rounded-lg border bg-card p-6">

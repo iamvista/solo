@@ -59,7 +59,7 @@ export const CONSULTING_TOPICS: ConsultingTopic[] = [
     slug: "content-pipeline",
     emoji: "✍️",
     group: "workflow",
-    title: "內容生產 Pipeline",
+    title: "內容產製流水線",
     oneLiner: "研究 → 撰稿 → 去 AI 味 → 多平臺分發",
     takeaway: "個人化內容 pipeline + 模板包",
   },
@@ -150,7 +150,7 @@ export const CONSULTING_LEVELS = [
   { value: "basic", label: "會用 ChatGPT / Claude，能寫基本 prompt" },
   { value: "intermediate", label: "用過 Antigravity / Codex / Claude Code 等工具，做過小東西" },
   { value: "advanced", label: "已有作品，想升級工作流" },
-  { value: "expert", label: "我是工程師／研究者，要進階知識" },
+  { value: "expert", label: "我是工程師／研究者，想自我精進" },
 ] as const;
 
 export const CONSULTING_DESIRED_START = [
