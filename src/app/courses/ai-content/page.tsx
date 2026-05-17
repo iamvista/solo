@@ -599,7 +599,7 @@ export default function AIContentPage() {
                 <div className="flex items-start gap-2">
                   <span className="text-primary shrink-0">✓</span>
                   <span className="text-muted-foreground">
-                    18,000+ 電子報訂閱者
+                    18,500+ 電子報訂閱者
                   </span>
                 </div>
               </div>

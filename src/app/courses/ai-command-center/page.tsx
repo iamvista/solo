@@ -673,7 +673,7 @@ export default function AICommandCenterPage() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary shrink-0">✓</span>
-                    <span>電子報訂閱者超過 18,000 人</span>
+                    <span>電子報訂閱者超過 18,500 人</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary shrink-0">✓</span>
