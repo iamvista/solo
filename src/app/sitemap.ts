@@ -42,7 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── 課程詳情頁 ───────────────────────────────────────
   const coursePages: MetadataRoute.Sitemap = [
-    "ai-command-center",
     "ai-proposal-spotlight",
     "ai-social-content",
     "innovation-workshop",
