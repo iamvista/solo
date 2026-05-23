@@ -307,6 +307,15 @@ const testimonials = [
       "學習，從來不是為了追上別人，而是讓未來的自己擁有更多選擇。",
     ],
   },
+  {
+    name: "Rex Lin",
+    headline: "Claude Chat 像進餐廳單點，Skills 加入後就像點一份套餐",
+    highlights: [
+      "Skills 的使用是今天課程的重頭戲，在經過實際的操作後馬上有不同的感覺。",
+      "以往使用 Claude Chat 時比較像是進入餐廳單點，但 Skills 加入後就像是點一份套餐——雖然都能滿足需求，但感受度卻是大大的不同。",
+      "課程中也提到如何依照不同需求產生不同的文體，而每個文體的呈現方式跟重點又是什麼，整體真的讓人感到相當充實。",
+    ],
+  },
 ];
 
 export default function AIContentPage() {
