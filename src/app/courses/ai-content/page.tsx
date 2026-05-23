@@ -27,8 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL =
-  "https://vista.oen.tw/good/3BsEDb9HN70wF8ZZkq6f6ueOlTW?from=vista&m=cash";
+const REGISTER_URL = "https://buy.recur.tw/HqrdrZfJth37NtON";
 
 const painPoints = [
   {
@@ -281,12 +280,39 @@ const testimonials = [
       "AI Agent 時代的工作方式很具體：重點不是會用幾個工具，而是把自己的專業流程拆解成可被 AI 重複執行的 Skill。",
     ],
   },
+  {
+    name: "Amy 林玉菁",
+    headline: "課程結束，所學即能實際應用",
+    highlights: [
+      "Vista 老師涉獵領域多元，授課內容專業多元、深入淺出。",
+      "課程中實際帶操利用 Claude Code 撰寫文章／文案／社群貼文，還免費贈送 7 個 Skill。",
+      "課程物超所值，感謝老師傾囊相授！",
+    ],
+  },
+  {
+    name: "唐嘉偉 教授（澎湖科大）",
+    headline: "讓 Claude Code 成為一套系統化寫作流程的一部分",
+    highlights: [
+      "這堂課不只是學到一個工具，更讓我對 AI 時代的寫作方式有了新的理解。",
+      "從主題發想、資料整理、文章架構安排，到不同平臺內容的調整與發表，都可以透過更有方法的方式來完成。",
+      "善用 Claude Code，不只是讓寫作變快，更重要的是讓內容更有結構，也更貼近不同平臺的需求。",
+    ],
+  },
+  {
+    name: "Janet 朱雅靖",
+    headline: "AI 不只是科技，而是一項未來能力",
+    highlights: [
+      "Vista 老師早已開始將 AI 與內容創作、工作應用結合，把工具轉化成真正能落地的方法，讓 AI 不再只是概念。",
+      "老師說過：「最好的內容系統，不是取代你的思考，而是釋放你的時間，讓你能專注在真正重要的事：說出只有你能說的事。」",
+      "學習，從來不是為了追上別人，而是讓未來的自己擁有更多選擇。",
+    ],
+  },
 ];
 
 export default function AIContentPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-05-23", location: "臺北市" })} />
+      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-06-28", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 內容產製系統", href: "/courses/ai-content" }])} />
     <div>
       {/* ====== Hero ====== */}
@@ -296,7 +322,7 @@ export default function AIContentPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            ✍️ 3 小時實戰工作坊 — 2026 年 5 月 23 日（六）
+            ✍️ 3 小時實戰工作坊 — 2026 年 6 月 28 日（日）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             AI 內容產製系統工作坊
@@ -752,7 +778,7 @@ export default function AIContentPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026 年 5 月 23 日（六）</span>
+                    <span className="font-medium">2026 年 6 月 28 日（日）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
