@@ -58,7 +58,7 @@ const offerCatalogSchema = {
     {
       "@type": "Offer",
       name: "AI 工作坊",
-      description: "實戰課程：AI 提案、AI 指揮中心、Vibe Coding、AI 內容產製等",
+      description: "實戰課程：Vibe Coding、AI 內容產製等",
       url: "https://www.solo.tw/courses",
       priceCurrency: "TWD",
     },

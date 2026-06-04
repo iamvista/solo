@@ -302,7 +302,7 @@ export default function AboutPage() {
               {
                 icon: Mic,
                 title: "AI 工作坊 & 企業內訓",
-                desc: "小班制實戰教學，從社群內容到 AI 指揮中心，即學即用。",
+                desc: "小班制實戰教學，從 AI 內容產製到 Vibe Coding，即學即用。",
                 href: "/courses",
               },
               {

@@ -19,7 +19,7 @@ const features = [
       </svg>
     ),
     title: "工作坊 & 活動",
-    description: "實戰型工作坊，手把手帶你做。AI 指揮中心、個人品牌、變現策略等主題持續開課。",
+    description: "實戰型工作坊，手把手帶你做。Vibe Coding、個人品牌、變現策略等主題持續開課。",
     href: "/events",
     tag: "熱門",
   },
