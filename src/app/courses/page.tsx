@@ -10,7 +10,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "AI 課程與工作坊｜Vista Cheng × solo.tw",
   description:
-    "Vista Cheng 主理的實戰課程與工作坊。AI 提案成交力、AI 指揮中心、Vibe Coding、AI 內容產製等。小班制、重產出、即學即用。",
+    "Vista Cheng 主理的實戰課程與工作坊。Vibe Coding、AI 內容產製等。小班制、重產出、即學即用。",
   keywords: [
     "AI 工作坊",
     "AI 課程",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI 課程與工作坊｜Vista Cheng × solo.tw",
     description:
-      "實戰課程與工作坊：AI 提案成交力、AI 指揮中心、Vibe Coding、AI 內容產製。小班制、重產出、即學即用。",
+      "實戰課程與工作坊：Vibe Coding、AI 內容產製。小班制、重產出、即學即用。",
     images: [
       {
         url: "/courses/og",

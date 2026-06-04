@@ -8,7 +8,6 @@ description: Browse solo.tw's self-paced courses for independent professionals �
 solo.tw publishes self-paced courses for independent professionals who want to scale their practice without hiring a team.
 
 ## Active courses
-- AI Command Center — https://www.solo.tw/courses/ai-command-center
 - AI Content — https://www.solo.tw/courses/ai-content
 - Innovation Workshop — https://www.solo.tw/courses/innovation-workshop
 - Senior Asset Safety — https://www.solo.tw/courses/senior-asset-safety
