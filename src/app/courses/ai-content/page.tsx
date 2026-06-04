@@ -321,7 +321,7 @@ const testimonials = [
 export default function AIContentPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-06-28", location: "臺北市" })} />
+      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-07-12", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 內容產製系統", href: "/courses/ai-content" }])} />
     <div>
       {/* ====== Hero ====== */}
@@ -331,7 +331,7 @@ export default function AIContentPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            ✍️ 3 小時實戰工作坊 — 2026 年 6 月 28 日（日）
+            ✍️ 3 小時實戰工作坊 — 2026 年 7 月 12 日（日）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             AI 內容產製系統工作坊
@@ -787,7 +787,7 @@ export default function AIContentPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026 年 6 月 28 日（日）</span>
+                    <span className="font-medium">2026 年 7 月 12 日（日）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
