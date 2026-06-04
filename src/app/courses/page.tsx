@@ -45,7 +45,7 @@ const collectionSchema = {
   name: "AI 課程與工作坊",
   url: "https://www.solo.tw/courses",
   description:
-    "Vista Cheng 主理的實戰課程與工作坊。AI 提案、AI 指揮中心、Vibe Coding、AI 內容產製等。",
+    "Vista Cheng 主理的實戰課程與工作坊。Vibe Coding、AI 內容產製等。",
   isPartOf: { "@type": "WebSite", url: "https://www.solo.tw" },
   about: { "@type": "Person", "@id": "https://www.solo.tw/about#vista" },
   inLanguage: "zh-TW",

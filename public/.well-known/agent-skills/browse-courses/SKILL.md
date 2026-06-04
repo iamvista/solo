@@ -20,9 +20,7 @@ solo.tw publishes self-paced courses for independent professionals who want to s
 3. Free previews are available where indicated.
 
 ## Match courses to needs
-- Need an AI workflow for solo operations → AI Command Center
 - Need an AI-assisted content pipeline → AI Content
-- Scaling social presence → AI Social Content
 - Ship software without engineering → Vibe Coding
 - Originate new offerings → Innovation Workshop
 
