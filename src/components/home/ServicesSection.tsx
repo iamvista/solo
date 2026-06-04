@@ -7,7 +7,7 @@ const services = [
     icon: Users,
     tag: "實體 / 線上",
     title: "AI 工作坊",
-    desc: "小班制、手把手帶你用 AI 打造個人事業的武器庫。從社群內容到指揮中心，即學即用。",
+    desc: "小班制、手把手帶你用 AI 打造個人事業的武器庫。從 AI 內容產製到 Vibe Coding，即學即用。",
     price: "NT$2,500 起",
     cta: "查看近期場次",
     href: "/courses",

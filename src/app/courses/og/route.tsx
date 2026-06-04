@@ -165,9 +165,8 @@ export async function GET() {
         >
           {[
             { emoji: "✍️", name: "AI 內容產製系統", date: "7/12" },
-            { emoji: "🚀", name: "AI 個人指揮中心", date: "5/16" },
-            { emoji: "💻", name: "Vibe Coding 實戰", date: "5/9" },
-            { emoji: "💬", name: "AI 社群內容", date: "5/3" },
+            { emoji: "🤖", name: "Claude Code 實戰", date: "6/27" },
+            { emoji: "💻", name: "Vibe Coding 實戰", date: "6/6" },
           ].map((course) => (
             <div
               key={course.name}
