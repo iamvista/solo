@@ -46,6 +46,8 @@ openspec/.vector-search.db*
 
 # private files (digital products) — moved to Vercel Blob (2026-04-26 migration)
 /private/*.zip
+# local-only course takedown backups (RESTORE.md + .bak source)
+/private/course-backups/
 
 # Brainstorming session scratch (Visual Companion)
 .superpowers/

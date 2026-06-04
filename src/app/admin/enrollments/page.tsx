@@ -130,7 +130,7 @@ export default async function AdminEnrollmentsPage({ searchParams }: PageProps) 
           <p className="mt-1 text-sm text-muted-foreground">
             最多顯示最近 500 筆。可用網址 query 過濾：
             <code className="mx-1 rounded bg-stone-100 px-1.5 py-0.5 text-xs">
-              ?course=ai-proposal-spotlight&amp;status=paid
+              ?course=vibe-coding-claude-code&amp;status=paid
             </code>
           </p>
         </div>

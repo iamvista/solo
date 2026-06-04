@@ -39,12 +39,6 @@ export type ProductEmailConfig =
 
 export const AI_COACH_KIT_PRODUCT_ID = "xqvb9nqxtehhfesuhequm9jp";
 
-const COURSE_PROPOSAL_NEXT_STEPS = [
-  "開課前 2 天會寄出含教室地址、課前準備清單等資訊的提醒信",
-  "開課當週若因故有任何臨時調整，會以 E-mail 與簡訊雙重通知",
-  "建議準備一份「下週要交的真實提案」，課堂上直接優化最有感",
-];
-
 const COURSE_BRAIN_LAB_NEXT_STEPS = [
   "6/1 正式開營，開營前 3 天會寄出 LINE / Slack 群組邀請連結",
   "課前會發送「副腦原料盤點清單」，請依清單匯整你 3-5 年內的素材",
@@ -63,29 +57,6 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   [AI_COACH_KIT_PRODUCT_ID]: {
     kind: "ai-coach-kit",
     productId: AI_COACH_KIT_PRODUCT_ID,
-  },
-
-  // AI 提案亮點實戰課（2026/6/13 臺北）
-  k0kbiflm1tckzvqd39u4uw3w: {
-    kind: "course",
-    productId: "k0kbiflm1tckzvqd39u4uw3w",
-    productName: "AI 提案亮點實戰課（2026/6/13 臺北）",
-    whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
-    detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
-  },
-  ayaalujxfzgv6c4r0i8n8qkp: {
-    kind: "course",
-    productId: "ayaalujxfzgv6c4r0i8n8qkp",
-    productName: "AI 提案亮點實戰課・早鳥（2026/6/13 臺北）",
-    whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
-    detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
-  },
-  lzg8am8dx7bb5n26f74xeoop: {
-    kind: "course",
-    productId: "lzg8am8dx7bb5n26f74xeoop",
-    productName: "AI 提案亮點實戰課・雙人同行（2026/6/13 臺北）",
-    whatsNext: COURSE_PROPOSAL_NEXT_STEPS,
-    detailUrl: "https://www.solo.tw/courses/ai-proposal-spotlight",
   },
 
   // Vibe Coding for Claude Code 實戰工作坊（2026/6/27 臺北）

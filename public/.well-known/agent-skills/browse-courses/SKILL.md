@@ -10,7 +10,6 @@ solo.tw publishes self-paced courses for independent professionals who want to s
 ## Active courses
 - AI Command Center — https://www.solo.tw/courses/ai-command-center
 - AI Content — https://www.solo.tw/courses/ai-content
-- AI Social Content — https://www.solo.tw/courses/ai-social-content
 - Innovation Workshop — https://www.solo.tw/courses/innovation-workshop
 - Senior Asset Safety — https://www.solo.tw/courses/senior-asset-safety
 - Vibe Coding — https://www.solo.tw/courses/vibe-coding

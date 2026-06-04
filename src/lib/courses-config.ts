@@ -53,27 +53,6 @@ export interface CourseConfig {
 }
 
 export const COURSE_CONFIGS: Record<string, CourseConfig> = {
-  "ai-proposal-spotlight": {
-    slug: "ai-proposal-spotlight",
-    title: "AI 提案亮點實戰課",
-    subtitle: "讓主管與客戶更容易點頭｜陳建銘老師親授",
-    date: "2026/6/13（六）",
-    time: "9:00–16:00（含午休）",
-    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
-    capacity: 16,
-    recurProductIdEarlyBird: "ayaalujxfzgv6c4r0i8n8qkp",
-    earlyBirdPrice: 4980,
-    earlyBirdDeadline: "2026-05-30",
-    recurProductIdRegular: "k0kbiflm1tckzvqd39u4uw3w",
-    regularPrice: 7800,
-    recurProductIdDual: "lzg8am8dx7bb5n26f74xeoop",
-    dualPrice: 8888,
-    detailUrl: "/courses/ai-proposal-spotlight",
-    hasMeal: true,
-    customQuestionLabel: "目前最卡住的提案問題（選填，但寫了講師會優先在課堂上回答）",
-    customQuestionPlaceholder:
-      "例：每次提案到一半就被主管說『沒亮點』，但我也不知道她想要什麼……",
-  },
   "vibe-coding-claude-code": {
     slug: "vibe-coding-claude-code",
     title: "Vibe Coding for Claude Code 實戰工作坊",
