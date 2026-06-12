@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title:
     "AI 變現研究院｜學 AI，不如學會用 AI 賺錢・三位專家聯手 2026/7 臺北 | solo.tw",
   description:
-    "從「會用 AI」走到「用 AI 賺錢」，中間隔著定位、效率、變現三道關卡。Joyce 李文娟、Claire 張可佳、Vista 鄭緯筌三位專家各鎮守一關。2026 年 7/19、7/25、7/26 臺北實體小班。三課全修 NT$16,800，7/5 前早鳥 NT$15,800。",
+    "從「會用 AI」走到「用 AI 賺錢」，中間隔著定位、效率、變現三道關卡。Joyce 李文娟、Claire 張可佳、Vista 鄭緯筌三位專家、四堂課各鎮守一關。2026 年 7/4、7/11、7/18、7/25（每週六）臺北實體小班。單堂 NT$7,500，四堂套票 NT$19,800（原價 30,000）。",
   keywords: [
     "AI 變現",
     "AI 賺錢",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI 變現研究院｜學 AI，不如學會用 AI 賺錢",
     description:
-      "個人品牌 × AI 生產力 × 內容變現，三位專家陪你打造一條屬於自己的收入管道。2026/7 臺北・三課全修 NT$16,800。",
+      "個人品牌 × AI 生產力 × 內容變現，三位專家、四堂課陪你打造一條屬於自己的收入管道。2026/7 臺北・四堂套票 NT$19,800。",
     images: [
       {
         url: "/images/courses/ai-monetization-institute/hero.webp",
@@ -52,23 +52,22 @@ const courses = [
     axis: "個人品牌 × 影響力",
     name: "Joyce 李文娟",
     photo: "/images/courses/ai-monetization-institute/instructor-joyce.webp",
-    date: "7/19（日）",
+    date: "7/4（六）",
     accent: "rose" as const,
-    bio: "真正的媒體天后：從聯合報財經記者、臺視主播，到非凡電視臺新聞部經理、TVBS 新聞周刊與《女人我最大》總編輯，三十年媒體資歷，採訪過無數企業家與意見領袖，更親手打造過無數品牌故事。",
+    bio: "真正的媒體天后：從聯合報財經記者、臺視主播，到非凡電視臺新聞部經理、TVBS 新聞周刊與《女人我最大》總編輯，三十年媒體資歷，採訪過無數企業家與意見領袖，更親手打造過無數品牌故事。第一堂從「定位」與「表達」入手。",
     points: [
       "主播級表達力：讓人三分鐘記住你",
-      "個人品牌定位與包裝：找到你獨一無二的市場位置",
-      "影響力內容策略：讓專業被看見，而不是被埋沒",
+      "個人品牌定位：找到你獨一無二的市場位置",
     ],
     fit: "想建立個人品牌卻不知從何開始的專業工作者、講師、顧問、創業者。",
-    single: 10000,
+    single: 7500,
   },
   {
     no: "第二課",
     axis: "AI 落地 × 生產力",
     name: "Claire 張可佳",
     photo: "/images/courses/ai-monetization-institute/instructor-claire.webp",
-    date: "7/25（六）",
+    date: "7/11（六）",
     accent: "blue" as const,
     bio: "十七年資歷的資深工程師、《AI 職場超神助手》作者、Google Women Techmakers Ambassador，也是眾多企業 AI 導入的首選講師。她最擅長的，就是把看似艱深的 AI 技術，變成你明天就能用的工作流程。",
     points: [
@@ -78,14 +77,30 @@ const courses = [
       "企業 AI 導入實務：從個人效率到團隊戰力",
     ],
     fit: "想大幅提升工作效率的上班族、自由工作者、中小企業主與團隊主管。",
-    single: 5000,
+    single: 7500,
   },
   {
     no: "第三課",
+    axis: "個人品牌 × 影響力（Part 2）",
+    name: "Joyce 李文娟",
+    photo: "/images/courses/ai-monetization-institute/instructor-joyce.webp",
+    date: "7/18（六）",
+    accent: "rose" as const,
+    bio: "延續第一堂的定位基礎，第二堂帶你把定位「包裝」成讓人記得住的個人品牌，並設計能持續產出的影響力內容策略——把每一次曝光都變成資產。",
+    points: [
+      "個人品牌包裝：把定位變成別人記得住的形象",
+      "影響力內容策略：讓專業被看見，而不是被埋沒",
+      "舞臺魅力與鏡頭表現：把每一次曝光都變成資產",
+    ],
+    fit: "已有初步定位、想把個人品牌做得更立體、更有影響力的專業工作者。",
+    single: 7500,
+  },
+  {
+    no: "第四課",
     axis: "內容變現 × 流量力",
     name: "Vista 鄭緯筌",
     photo: "/images/courses/ai-monetization-institute/instructor-vista.webp",
-    date: "7/26（日）",
+    date: "7/25（六）",
     accent: "amber" as const,
     bio: "出版二十餘本著作的作家、「內容駭客」創辦人、企業顧問與大學講師，十多年來陪伴無數素人從零開始寫作、經營社群，進而建立自己的知識事業。",
     points: [
@@ -95,7 +110,7 @@ const courses = [
       "多元變現模式設計：課程、訂閱、顧問、聯盟——打造不只一條收入管道",
     ],
     fit: "想把知識與經驗變成收入的創作者、講師、專業人士與斜槓工作者。",
-    single: 5000,
+    single: 7500,
   },
 ];
 
@@ -120,9 +135,10 @@ const trust = [
 ];
 
 const pricingRows = [
-  { plan: "個人品牌 × 影響力（Joyce）", detail: "單堂", price: "NT$10,000" },
-  { plan: "AI 落地 × 生產力（Claire）", detail: "單堂", price: "NT$5,000" },
-  { plan: "內容變現 × 流量力（Vista）", detail: "單堂", price: "NT$5,000" },
+  { plan: "7/4 個人品牌 × 影響力 Part 1（Joyce）", detail: "單堂", price: "NT$7,500" },
+  { plan: "7/11 AI 落地 × 生產力（Claire）", detail: "單堂", price: "NT$7,500" },
+  { plan: "7/18 個人品牌 × 影響力 Part 2（Joyce）", detail: "單堂", price: "NT$7,500" },
+  { plan: "7/25 內容變現 × 流量力（Vista）", detail: "單堂", price: "NT$7,500" },
 ];
 
 const takeaways = [
@@ -134,11 +150,11 @@ const takeaways = [
 const faqs = [
   {
     q: "可以只報其中一堂課嗎？",
-    a: "可以。三堂課皆可單堂報名：個人品牌 × 影響力（Joyce）NT$10,000、AI 落地 × 生產力（Claire）NT$5,000、內容變現 × 流量力（Vista）NT$5,000。但三堂是設計過的完整路徑（定位 → 工具 → 內容 → 流量 → 變現），全修方案 NT$16,800 等於現省 NT$3,200，最划算。",
+    a: "可以。四堂皆可單堂報名，每堂 NT$7,500。但四堂是設計過的完整路徑（定位 → 工具 → 內容 → 流量 → 變現），四堂套票 NT$19,800 等於現省 NT$10,200，最划算。",
   },
   {
-    q: "三課全修方案有什麼加碼優惠？",
-    a: "全修原價合計 NT$20,000，全修方案 NT$16,800（現省 NT$3,200）。7/5（日）前完成報名並繳費，再折至 NT$15,800；兩人同時報名全修方案，每人再折 NT$500。早鳥與雙人同行可疊加。",
+    q: "Joyce 老師為什麼上兩堂？四堂套票怎麼算最划算？",
+    a: "Joyce 的「個人品牌 × 影響力」分 Part 1（7/4 定位與表達）與 Part 2（7/18 包裝與影響力內容策略）兩堂，循序把個人品牌做完整。四堂單買合計 NT$30,000，套票方案 NT$19,800，現省 NT$10,200，等於不到七折，一次到位最完整。",
   },
   {
     q: "完全沒有 AI 基礎，適合來上嗎？",
@@ -146,7 +162,7 @@ const faqs = [
   },
   {
     q: "上課地點與形式？",
-    a: "臺北市中山區松江路 64 巷 6 號（捷運松江南京站步行可達），小班實體教學，現場實作與問答。三堂皆為上午 9:00 至 12:00。",
+    a: "臺北市中山區松江路 64 巷 6 號（捷運松江南京站步行可達），小班實體教學，現場實作與問答。四堂皆為上午 9:00 至 12:00。",
   },
   {
     q: "退費政策？",
@@ -162,12 +178,12 @@ export default function AiMonetizationInstitutePage() {
           ...courseSchema({
             name: "AI 變現研究院",
             description:
-              "個人品牌 × AI 生產力 × 內容變現，三位專家聯手，陪你打造一條屬於自己的收入管道。三堂完整學習路徑，2026/7 臺北實體小班。",
+              "個人品牌 × AI 生產力 × 內容變現，三位專家聯手，陪你打造一條屬於自己的收入管道。四堂完整學習路徑，2026/7 臺北實體小班。",
             url: "https://www.solo.tw/courses/ai-monetization-institute",
             instructor: "李文娟、張可佳、鄭緯筌",
-            price: 16800,
-            duration: "PT9H",
-            startDate: "2026-07-19",
+            price: 19800,
+            duration: "PT12H",
+            startDate: "2026-07-04",
             location: "臺北市中山區松江路 64 巷 6 號",
             image:
               "https://www.solo.tw/images/courses/ai-monetization-institute/hero.webp",
@@ -193,7 +209,7 @@ export default function AiMonetizationInstitutePage() {
               variant="secondary"
               className="mb-5 px-4 py-2 text-sm sm:text-base"
             >
-              {"\u{1F4B0}"} AI 變現研究院｜2026 年 7/19、7/25、7/26 臺北
+              {"\u{1F4B0}"} AI 變現研究院｜2026 年 7/4、7/11、7/18、7/25 臺北（每週六）
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
               學了一堆 AI 工具，
@@ -228,7 +244,7 @@ export default function AiMonetizationInstitutePage() {
                 className="h-12 border-white/30 bg-white/5 px-8 text-base text-white hover:bg-white/10 hover:text-white"
                 asChild
               >
-                <a href="#courses">查看三堂課</a>
+                <a href="#courses">查看四堂課</a>
               </Button>
             </div>
           </div>
@@ -256,7 +272,7 @@ export default function AiMonetizationInstitutePage() {
               三位專家 × 三大主軸 × 一個目標
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              三位老師，各自鎮守變現路上最關鍵的一道關卡。
+              三位老師、四堂課，各自鎮守變現路上最關鍵的一道關卡（Joyce 老師主講兩堂）。
             </p>
 
             <div className="mt-10 space-y-6">
@@ -347,7 +363,7 @@ export default function AiMonetizationInstitutePage() {
               五大學習階段，打造完整的 AI 變現力
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              三門課不是三場零散的講座，而是一條設計過的路徑。
+              四堂課不是四場零散的講座，而是一條設計過的路徑。
             </p>
             <div className="mt-10 grid gap-3 sm:grid-cols-5">
               {stages.map((s, i) => (
@@ -409,7 +425,7 @@ export default function AiMonetizationInstitutePage() {
                   <span>{"\u{1F4C5}"}</span>
                   <span>
                     <span className="font-medium text-foreground">上課日期：</span>
-                    7/19（日）、7/25（六）、7/26（日）
+                    7/4（六）、7/11（六）、7/18（六）、7/25（六）
                   </span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
@@ -470,46 +486,26 @@ export default function AiMonetizationInstitutePage() {
                   <div className="flex flex-wrap items-end justify-between gap-3">
                     <div>
                       <p className="text-sm font-semibold text-foreground">
-                        🎯 三課全修方案
+                        🎯 四堂套票方案
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        三堂完整學習路徑（定位 → 工具 → 內容 → 流量 → 變現）
+                        四堂完整學習路徑（定位 → 工具 → 內容 → 流量 → 變現）
                       </p>
                     </div>
                     <div className="text-right">
                       <span className="text-2xl font-bold text-primary">
-                        NT$16,800
+                        NT$19,800
                       </span>
                       <span className="ml-2 text-sm text-muted-foreground line-through">
-                        NT$20,000
+                        NT$30,000
                       </span>
-                      <p className="text-xs text-emerald-600">現省 NT$3,200</p>
+                      <p className="text-xs text-emerald-600">現省 NT$10,200</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Add-on offers */}
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-lg border border-amber-300 bg-amber-50/60 p-4 text-sm dark:bg-amber-950/20">
-                    <p className="font-semibold text-amber-900 dark:text-amber-200">
-                      🐦 早鳥價 NT$15,800
-                    </p>
-                    <p className="mt-1 text-amber-800/90 dark:text-amber-200/80">
-                      7/5（日）前完成報名並繳費，三課全修再折 NT$1,000。
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-sky-300 bg-sky-50/60 p-4 text-sm dark:bg-sky-950/20">
-                    <p className="font-semibold text-sky-900 dark:text-sky-200">
-                      👥 雙人同行 每人再折 NT$500
-                    </p>
-                    <p className="mt-1 text-sky-800/90 dark:text-sky-200/80">
-                      兩人同時報名全修方案，可與早鳥優惠疊加。
-                    </p>
-                  </div>
-                </div>
-
                 <p className="mt-5 text-center text-sm text-muted-foreground">
-                  換算下來，早鳥全修等於用不到八折的價格，一次補齊「品牌、效率、變現」三塊拼圖。
+                  四堂一次報，等於用不到七折的價格，一次補齊「品牌、效率、變現」三塊拼圖。
                 </p>
 
                 <div className="mt-6">
@@ -546,7 +542,7 @@ export default function AiMonetizationInstitutePage() {
               你會帶走什麼？
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              上完三堂課，你將擁有：
+              上完四堂課，你將擁有：
             </p>
             <div className="mx-auto mt-8 max-w-lg space-y-3">
               {takeaways.map((t, i) => (
