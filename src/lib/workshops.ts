@@ -58,6 +58,13 @@ const runsheng: Instructor = {
   avatar: "/images/workshops/instructor-runsheng-avatar.webp",
 };
 
+// AI 變現研究院為三師聯合授課，列表卡片以研究院為單位呈現
+const monetizationInstitute: Instructor = {
+  name: "Joyce・Claire・Vista",
+  title: "三位專家聯手授課",
+  avatar: "/images/courses/ai-monetization-institute/instructor-vista.webp",
+};
+
 // 課程分類
 export const categories = {
   ai: { label: "AI 應用系列", emoji: "🤖" },
@@ -69,6 +76,37 @@ export type WorkshopCategory = keyof typeof categories;
 
 // 工作坊列表
 export const workshops: Workshop[] = [
+  {
+    id: "ai-monetization-institute",
+    title: "AI 變現研究院",
+    subtitle: "學 AI，不如學會用 AI 賺錢｜三位專家 × 三大主軸 × 一個目標",
+    description:
+      "從「會用 AI」走到「用 AI 賺錢」，中間隔著定位、效率、變現三道關卡。三位老師各鎮守一關，陪你打造一條屬於自己的收入管道。三課全修 NT$16,800，7/5 前早鳥 NT$15,800。",
+    instructor: monetizationInstitute,
+    emoji: "💰",
+    date: "2026 年 7/19、7/25、7/26",
+    sortDate: "2026-07-19",
+    time: "上午 9:00–12:00",
+    duration: "3 堂 × 3 小時",
+    location: "臺北市中山區松江路 64 巷 6 號（捷運松江南京站步行可達）",
+    capacity: 20,
+    price: {
+      original: 20000,
+      earlyBird: 15800,
+      earlyBirdDeadline: "2026/7/5",
+    },
+    tags: ["AI", "個人品牌", "內容變現", "聯合授課"],
+    status: "open",
+    url: "/courses/ai-monetization-institute",
+    isExternal: false,
+    highlights: [
+      "個人品牌、AI 生產力、內容變現三大關卡一次補齊",
+      "Joyce 李文娟、Claire 張可佳、Vista 鄭緯筌三師聯手",
+      "五大學習階段：定位 → 工具 → 內容 → 流量 → 變現",
+      "三課全修現省 NT$3,200，早鳥再折、雙人同行加碼",
+    ],
+    category: "ai",
+  },
   {
     id: "vibe-coding",
     title: "Vibe Coding 實戰工作坊",
@@ -136,7 +174,7 @@ export const workshops: Workshop[] = [
     title: "AI 內容產製系統工作坊",
     subtitle: "一份素材，自動產出六種格式",
     description:
-      "3 小時實作課程，用 Claude Code 建立完整的內容產製系統，從輸入到多平台分發一次搞定。",
+      "3 小時實作課程，用 Claude Code 建立完整的內容產製系統，從輸入到多平臺分發一次搞定。",
     instructor: vista,
     emoji: "✍️",
     date: "2026 年 7 月 12 日（日）",
