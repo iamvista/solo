@@ -807,20 +807,11 @@ export default function AIContentPage() {
 
                 <div className="space-y-3">
                   <div>
-                    <p className="text-sm text-muted-foreground">定價</p>
-                    <p className="text-lg text-muted-foreground line-through">
-                      NT$7,000
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">早鳥優惠</p>
-                    <p className="text-2xl font-bold text-primary">NT$5,000</p>
+                    <p className="text-sm text-muted-foreground">課程費用</p>
+                    <p className="text-3xl font-bold text-primary">NT$5,000</p>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      省下 NT$2,000
+                      3 小時實作・含課後學員 LINE 群組
                     </p>
-                    <Badge variant="outline" className="mt-1 text-xs">
-                      開課前 14 天截止
-                    </Badge>
                   </div>
                 </div>
               </div>
