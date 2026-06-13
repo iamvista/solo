@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { CourseConfig, PricingPlan } from "@/lib/courses-config";
 import { loadRecurFromCdn } from "@/lib/recur-checkout-types";
+import { normalizePhone } from "@/lib/phone";
 
 interface PlanOption {
   plan: PricingPlan;
@@ -93,6 +94,16 @@ export function CourseRegistrationForm({
   const isDual = form.plan === "dual";
   const isAlumni = form.plan === "alumni";
 
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const phoneError = useMemo(() => {
+    if (!phoneTouched) return null;
+    const v = form.phone.trim();
+    if (!v) return null;
+    return normalizePhone(v)
+      ? null
+      : "手機號碼看起來不完整或格式不對，請填完整 10 碼（09 開頭，例 0912345678）或帶國碼的國際號碼。";
+  }, [phoneTouched, form.phone]);
+
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
@@ -103,6 +114,12 @@ export function CourseRegistrationForm({
 
     if (!form.email.trim() || !form.name.trim() || !form.phone.trim()) {
       setError("E-mail、姓名、手機是必填欄位。");
+      return;
+    }
+
+    if (!normalizePhone(form.phone)) {
+      setPhoneTouched(true);
+      setError("手機號碼格式不正確，請填完整 10 碼（09 開頭）或帶國碼的國際號碼。");
       return;
     }
 
@@ -262,12 +279,21 @@ export function CourseRegistrationForm({
               required
               value={form.phone}
               onChange={(e) => update("phone", e.target.value)}
+              onBlur={() => setPhoneTouched(true)}
               placeholder="0912345678 或 +886912345678"
               inputMode="tel"
+              aria-invalid={!!phoneError}
+              className={
+                phoneError ? "border-rose-400 focus-visible:ring-rose-300" : undefined
+              }
             />
-            <p className="text-xs text-muted-foreground">
-              臺灣手機請填完整 10 碼（09 開頭，例 0912345678）；國際號碼請帶國碼（例 +886、+81）。
-            </p>
+            {phoneError ? (
+              <p className="text-xs text-rose-600">{phoneError}</p>
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                臺灣手機請填完整 10 碼（09 開頭，例 0912345678）；國際號碼請帶國碼（例 +886、+81）。
+              </p>
+            )}
           </div>
         </div>
       </section>
