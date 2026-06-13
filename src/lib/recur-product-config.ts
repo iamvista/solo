@@ -59,6 +59,13 @@ const COURSE_AI_CONTENT_NEXT_STEPS = [
   "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
 ];
 
+const COURSE_VIBE_CODING_NEXT_STEPS = [
+  "課前準備好一個 AI 工具帳號（Gemini／Claude／ChatGPT 擇一即可）",
+  "帶上你想製作的網站內容素材（文字、圖片、Logo 等）",
+  "開課前 2 天會寄出含教室地址、Wi-Fi、課前準備清單的提醒信",
+  "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
+];
+
 const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   // AI 教練工坊（既有下載流程）
   [AI_COACH_KIT_PRODUCT_ID]: {
@@ -89,6 +96,15 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     productName: "AI 內容產製系統工作坊（2026/7/12 臺北）",
     whatsNext: COURSE_AI_CONTENT_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-content",
+  },
+
+  // Vibe Coding 實戰工作坊（第 8 班・2026/7/26 臺北）
+  y7q482kwsc16h7iw3akwufzq: {
+    kind: "course",
+    productId: "y7q482kwsc16h7iw3akwufzq",
+    productName: "Vibe Coding 實戰工作坊（第 8 班・2026/7/26 臺北）",
+    whatsNext: COURSE_VIBE_CODING_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/vibe-coding",
   },
 
   // 副腦計畫 Brain+1 Lab（35 天陪跑營）
