@@ -52,6 +52,13 @@ const COURSE_VIBE_CODING_CC_NEXT_STEPS = [
   "若你是 Antigravity 版舊生，課前會抽查比對名單；如有疑問請來信 iamvista@gmail.com",
 ];
 
+const COURSE_AI_CONTENT_NEXT_STEPS = [
+  "請先自行訂閱 Claude Pro（US$20／月），課程實作會用到，課程不代付",
+  "請準備 2-3 篇你過去寫的文章，課堂會用來建立你的個人風格檔案",
+  "開課前 2 天會寄出含教室地址、Wi-Fi、課前準備清單的提醒信",
+  "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
+];
+
 const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   // AI 教練工坊（既有下載流程）
   [AI_COACH_KIT_PRODUCT_ID]: {
@@ -73,6 +80,15 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     productName: "Vibe Coding for Claude Code 實戰工作坊・舊生優惠（2026/6/27 臺北）",
     whatsNext: COURSE_VIBE_CODING_CC_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/vibe-coding-claude-code",
+  },
+
+  // AI 內容產製系統工作坊（2026/7/12 臺北）
+  dh7c5hemsl333g4wsiroq6gq: {
+    kind: "course",
+    productId: "dh7c5hemsl333g4wsiroq6gq",
+    productName: "AI 內容產製系統工作坊（2026/7/12 臺北）",
+    whatsNext: COURSE_AI_CONTENT_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-content",
   },
 
   // 副腦計畫 Brain+1 Lab（35 天陪跑營）

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
@@ -67,6 +68,45 @@ export default async function RegisterSuccessPage({ params, searchParams }: Page
           ? "付款已確認、名額已保留。"
           : "信用卡授權已送出。請依照下方說明確認你真的有完成付款。"}
       </p>
+
+      {/* 最後一步：加入 LINE 領取上課資訊。第二聯絡管道，就算 Email 打錯也聯絡得上 */}
+      <div
+        className="mx-auto mt-8 max-w-md rounded-2xl border-2 p-6 text-left"
+        style={{ borderColor: "#06C755", backgroundColor: "rgba(6,199,85,0.06)" }}
+      >
+        <p className="text-base font-bold text-foreground">
+          ✅ 最後一步：加入 LINE 領取上課資訊
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          上課提醒、教室地址、課前準備都會透過 LINE 傳給你。就算 Email 沒收到，加了 LINE 一定聯絡得上。
+        </p>
+        <div className="mt-4 flex flex-col items-center gap-4 sm:flex-row">
+          <Image
+            src="/images/line-oa-qr.png"
+            alt="加入 Vista LINE 官方帳號 QR Code"
+            width={132}
+            height={132}
+            className="rounded-lg border bg-white p-1"
+          />
+          <div className="flex-1 space-y-2 text-center sm:text-left">
+            <a
+              href="https://line.me/R/ti/p/@016mxqyl"
+              target="_blank"
+              rel="noopener"
+              className="inline-flex h-11 w-full items-center justify-center rounded-lg px-6 text-base font-semibold text-white sm:w-auto"
+              style={{ backgroundColor: "#06C755" }}
+            >
+              加入 LINE 好友
+            </a>
+            <p className="text-xs text-muted-foreground">
+              或在 LINE 搜尋 ID：
+              <span className="font-mono font-semibold text-foreground">
+                @016mxqyl
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="mt-8 rounded-xl border bg-card p-6 text-left">
         <p className="text-sm font-semibold text-foreground">📋 你的下一步</p>

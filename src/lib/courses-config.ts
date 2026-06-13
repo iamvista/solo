@@ -76,6 +76,25 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     preRegistrationNotice:
       "本課程使用 Claude Code（CLI 版本），請於課前自行訂閱 Claude Pro（每月 US$20）或 Claude Max（每月 US$100 起），並在筆電安裝完成。詳細安裝指南課前一週寄送。",
   },
+  "ai-content": {
+    slug: "ai-content",
+    title: "AI 內容產製系統工作坊",
+    subtitle: "一份素材，自動產出六種格式：3 小時建立你的內容產製系統",
+    date: "2026/7/12（日）",
+    time: "9:00–12:00（3 小時，含休息）",
+    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 16,
+    recurProductIdRegular: "dh7c5hemsl333g4wsiroq6gq",
+    regularPrice: 5000,
+    detailUrl: "/courses/ai-content",
+    hideInvoiceSection: true,
+    customQuestionLabel:
+      "目前最想用 AI 解決的內容產製問題（選填，但寫了講師會優先在課堂上示範）",
+    customQuestionPlaceholder:
+      "例：想把一篇長文自動拆成電子報＋社群貼文、想讓 AI 寫出我的風格、想自動化產業趨勢研究……",
+    preRegistrationNotice:
+      "本課程實作會用到 Claude Code，請於課前自行訂閱 Claude Pro（每月 US$20），並準備 2-3 篇你過去寫的文章（課堂會用來建立你的個人風格檔案）。",
+  },
 };
 
 export function getCourseConfig(slug: string): CourseConfig | null {

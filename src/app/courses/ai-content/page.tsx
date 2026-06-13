@@ -27,8 +27,6 @@ export const metadata: Metadata = {
   },
 };
 
-const REGISTER_URL = "https://buy.recur.tw/HqrdrZfJth37NtON";
-
 const painPoints = [
   {
     emoji: "😩",
@@ -850,12 +848,12 @@ export default function AIContentPage() {
                   className="h-12 w-full text-base"
                   asChild
                 >
-                  <a href={REGISTER_URL}>立即報名</a>
+                  <Link href="/courses/ai-content/register">立即報名</Link>
                 </Button>
               </div>
 
               <p className="mt-4 text-center text-sm text-muted-foreground">
-                點擊報名後將寄送詳細資訊至您的信箱
+                點擊後填寫報名表（含手機，方便課前聯絡你），再前往刷卡
               </p>
             </CardContent>
           </Card>
