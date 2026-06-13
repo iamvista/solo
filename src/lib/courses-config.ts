@@ -85,7 +85,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 16,
     recurProductIdRegular: "gngyqhltfyujbl0wjd78304x",
-    regularPrice: 1,
+    regularPrice: 5000,
     detailUrl: "/courses/ai-content",
     hideInvoiceSection: true,
     customQuestionLabel:

@@ -266,7 +266,7 @@ export function CourseRegistrationForm({
               inputMode="tel"
             />
             <p className="text-xs text-muted-foreground">
-              臺灣手機輸入 09 開頭即可；國際號碼請帶國碼（例 +1, +81）。
+              臺灣手機請填完整 10 碼（09 開頭，例 0912345678）；國際號碼請帶國碼（例 +886、+81）。
             </p>
           </div>
         </div>
@@ -571,7 +571,7 @@ export function CourseRegistrationForm({
           {pending ? "處理中…請稍候" : "確認資料・前往付款"}
         </Button>
         <p className="mt-3 text-xs text-muted-foreground">
-          按下後會跳轉到 PAYUNi 信用卡刷卡頁。開課前 2026/6/6 前可全額退費。
+          按下後會跳轉到 PAYUNi 信用卡刷卡頁。開課前可全額退費（需扣除金流手續費）。
         </p>
       </div>
     </form>
