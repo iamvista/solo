@@ -9,6 +9,18 @@ function mockReq(body: unknown, ip = "1.2.3.4") {
   });
 }
 
+// after() 在單元測試沒有請求情境會丟錯；mock 成直接執行 callback。
+vi.mock("next/server", async () => {
+  const actual =
+    await vi.importActual<typeof import("next/server")>("next/server");
+  return {
+    ...actual,
+    after: (fn: () => unknown) => {
+      void fn();
+    },
+  };
+});
+
 vi.mock("@/lib/consulting-db", async () => {
   const actual = await vi.importActual<typeof import("@/lib/consulting-db")>(
     "@/lib/consulting-db",

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { validateLeadPayload, insertLead } from "@/lib/consulting-db";
 import { sendEmail } from "@/lib/email";
 import { ConsultingLeadReceivedEmail } from "@/components/emails/consulting-lead-received";
@@ -57,10 +57,11 @@ export async function POST(req: Request) {
   try {
     const lead = await insertLead(payload);
 
-    // 並行寄兩封信（fire-and-forget，不阻擋 response，但 sendEmail return-shape 失敗需主動 log）
+    // 寄兩封信。用 after() 確保在回應送出後仍會執行（Vercel serverless 下，return 後的
+    // bare fire-and-forget 會被凍結而漏寄）；循序 await 避免並行競爭，逐封記錄失敗。
     // TODO v2: subscribeNewsletter flag → newsletter_subscribers upsert
-    Promise.allSettled([
-      sendEmail({
+    after(async () => {
+      const received = await sendEmail({
         to: payload.email,
         subject: "需求表單收到了 — Vista",
         react: ConsultingLeadReceivedEmail({
@@ -68,27 +69,25 @@ export async function POST(req: Request) {
           plan: payload.plan,
           topics: payload.topics,
         }),
-      }),
-      sendEmail({
+      });
+      if (!received.success) {
+        console.error(
+          "[consulting/leads POST] lead-received (to student) send failed",
+          received.error,
+        );
+      }
+
+      const internal = await sendEmail({
         to: "iamvista@gmail.com",
         subject: `🆕 新諮詢 lead：${payload.name}（${payload.plan}）`,
         react: ConsultingLeadInternalEmail({ lead }),
-      }),
-    ]).then((results) => {
-      const labels = ["lead-received (to student)", "lead-internal (to Vista)"];
-      results.forEach((result, i) => {
-        if (result.status === "rejected") {
-          console.error(
-            `[consulting/leads POST] ${labels[i]} threw`,
-            result.reason,
-          );
-        } else if (!result.value.success) {
-          console.error(
-            `[consulting/leads POST] ${labels[i]} send failed`,
-            result.value.error,
-          );
-        }
       });
+      if (!internal.success) {
+        console.error(
+          "[consulting/leads POST] lead-internal (to Vista) send failed",
+          internal.error,
+        );
+      }
     });
 
     return NextResponse.json({ ok: true, leadId: lead.id });
