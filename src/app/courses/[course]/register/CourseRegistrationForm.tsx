@@ -50,7 +50,6 @@ const ATTRIBUTION_OPTIONS = [
   "朋友／同事推薦",
   "Vista 的電子報",
   "Vista 的 FB／IG／Threads",
-  "陳建銘老師的分享",
   "搜尋引擎找到的",
   "其他（請在備註說明）",
 ];

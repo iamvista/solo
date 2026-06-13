@@ -2,7 +2,6 @@ import { Recur } from "recur-tw/server";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
 import { sendEmail } from "@/lib/email";
-import { sendSms } from "@/lib/sms";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
 import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
 import { ConsultingEnrollmentWelcomeEmail } from "@/components/emails/consulting-enrollment-welcome";
@@ -11,7 +10,6 @@ import {
   resolveProductConfig,
   type ProductEmailConfig,
 } from "@/lib/recur-product-config";
-import { getCourseConfig } from "@/lib/courses-config";
 import {
   createEnrollment,
   updateLeadStatus,
@@ -143,9 +141,8 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   await sendGenericConfirmation({ config, orderId, email, amount });
 
-  // 若是課程，再嘗試發 SMS（從 enrollment 撈 phone）+ 雙人同行夥伴 email
+  // 若是課程，通知雙人同行夥伴 email
   if (config.kind === "course" && enrollmentId) {
-    await sendCourseSms({ enrollmentId, config });
     await sendCompanionEmail({ enrollmentId, config });
   }
 }
@@ -215,50 +212,6 @@ async function markEnrollmentPaid({
     }
   } catch (e) {
     console.error("[recur webhook] markEnrollmentPaid threw", e);
-  }
-}
-
-async function sendCourseSms({
-  enrollmentId,
-  config,
-}: {
-  enrollmentId: string;
-  config: Extract<ProductEmailConfig, { kind: "course" }>;
-}) {
-  try {
-    const sb = getSupabase();
-    const { data, error } = await sb
-      .from("course_enrollments")
-      .select(
-        "phone, name, course_id, plan, companion_name, companion_email, companion_phone",
-      )
-      .eq("id", enrollmentId)
-      .maybeSingle();
-    if (error || !data?.phone) {
-      console.warn("[recur webhook] no phone for enrollment", enrollmentId, error);
-      return;
-    }
-    const courseConfig = getCourseConfig(data.course_id);
-    const dateLine = courseConfig
-      ? `${courseConfig.date} ${courseConfig.time}`
-      : "開課時間請見 email";
-    const body = `【${config.productName}】${data.name ?? "你"}的報名確認！${dateLine}・地點報名後告知。詳細資訊已寄到你的 email。— solo.tw`;
-    const result = await sendSms(data.phone, body);
-    if (result.success) {
-      await sb
-        .from("course_enrollments")
-        .update({ sms_confirmation_sent_at: new Date().toISOString() })
-        .eq("id", enrollmentId);
-    }
-    // 雙人同行：也發給夥伴
-    if (data.plan === "dual" && data.companion_phone) {
-      const companionBody = `【${config.productName}】${
-        data.companion_name ?? "同行夥伴"
-      } 的報名確認！${dateLine}・地點報名後告知。— solo.tw`;
-      await sendSms(data.companion_phone, companionBody);
-    }
-  } catch (e) {
-    console.error("[recur webhook] sendCourseSms threw", e);
   }
 }
 
