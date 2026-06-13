@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { normalizePhone } from "@/lib/phone";
 import { sendEmail } from "@/lib/email";
@@ -131,9 +131,11 @@ export async function POST(req: Request) {
     return bad("internal_error", 500);
   }
 
-  // 並行寄兩封信（fire-and-forget，不阻擋 response）
-  Promise.allSettled([
-    sendEmail({
+  // 寄兩封信。用 after() 確保在回應送出後仍會執行（Vercel serverless 下，
+  // 直接 fire-and-forget 的工作會在 return 後被凍結而漏寄）；循序 await 避免並行競爭，
+  // 並逐封記錄失敗，方便日後排查。
+  after(async () => {
+    const internal = await sendEmail({
       to: "iamvista@gmail.com",
       subject: `🆕 AI 變現研究院報名：${name}（NT$${amount.toLocaleString()}）`,
       react: AiMonetizationRegisterInternalEmail({
@@ -148,8 +150,12 @@ export async function POST(req: Request) {
         lineId: body.lineId?.trim() || null,
         question: body.question?.trim() || null,
       }),
-    }),
-    sendEmail({
+    });
+    if (!internal.success) {
+      console.error("[ai-monetization/register] internal email failed", internal.error);
+    }
+
+    const confirm = await sendEmail({
       to: email,
       subject: "AI 變現研究院・報名資料已收到",
       react: AiMonetizationRegisterConfirmEmail({
@@ -158,16 +164,10 @@ export async function POST(req: Request) {
         amount,
         transferLast5,
       }),
-    }),
-  ]).then((results) => {
-    const labels = ["register-internal (to Vista)", "register-confirm (to student)"];
-    results.forEach((result, i) => {
-      if (result.status === "rejected") {
-        console.error(`[ai-monetization/register] ${labels[i]} threw`, result.reason);
-      } else if (!result.value.success) {
-        console.error(`[ai-monetization/register] ${labels[i]} send failed`, result.value.error);
-      }
     });
+    if (!confirm.success) {
+      console.error("[ai-monetization/register] confirm email failed", confirm.error);
+    }
   });
 
   return NextResponse.json({ ok: true, enrollmentId: row.id, amount });
