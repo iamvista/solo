@@ -83,9 +83,9 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   },
 
   // AI 內容產製系統工作坊（2026/7/12 臺北）
-  dh7c5hemsl333g4wsiroq6gq: {
+  gngyqhltfyujbl0wjd78304x: {
     kind: "course",
-    productId: "dh7c5hemsl333g4wsiroq6gq",
+    productId: "gngyqhltfyujbl0wjd78304x",
     productName: "AI 內容產製系統工作坊（2026/7/12 臺北）",
     whatsNext: COURSE_AI_CONTENT_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-content",

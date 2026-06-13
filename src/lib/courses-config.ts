@@ -84,8 +84,8 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     time: "9:00–12:00（3 小時，含休息）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 16,
-    recurProductIdRegular: "dh7c5hemsl333g4wsiroq6gq",
-    regularPrice: 5000,
+    recurProductIdRegular: "gngyqhltfyujbl0wjd78304x",
+    regularPrice: 1,
     detailUrl: "/courses/ai-content",
     hideInvoiceSection: true,
     customQuestionLabel:
