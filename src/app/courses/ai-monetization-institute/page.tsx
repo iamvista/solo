@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { RegistrationForm } from "./RegistrationForm";
 
 export const metadata: Metadata = {
   title:
@@ -38,13 +39,6 @@ export const metadata: Metadata = {
     canonical: "https://www.solo.tw/courses/ai-monetization-institute",
   },
 };
-
-// 串接外部報名表單：拿到正式報名表單網址後換掉下方連結即可。
-// 在表單連結就緒前，報名按鈕會自動 fallback 到 email，避免上線後連到無效連結。
-const REGISTER_URL = "https://forms.gle/REPLACE_ME";
-const FORM_READY = !REGISTER_URL.includes("REPLACE_ME");
-const REGISTER_FALLBACK =
-  "mailto:iamvista@gmail.com?subject=AI%20%E8%AE%8A%E7%8F%BE%E7%A0%94%E7%A9%B6%E9%99%A2%E5%A0%B1%E5%90%8D";
 
 const courses = [
   {
@@ -508,32 +502,15 @@ export default function AiMonetizationInstitutePage() {
                   四堂一次報，等於用不到七折的價格，一次補齊「品牌、效率、變現」三塊拼圖。
                 </p>
 
-                <div className="mt-6">
-                  <Button size="lg" className="h-12 w-full text-base" asChild>
-                    {FORM_READY ? (
-                      <a
-                        href={REGISTER_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        立即報名
-                      </a>
-                    ) : (
-                      <a href={REGISTER_FALLBACK}>立即報名（來信報名）</a>
-                    )}
-                  </Button>
-                  <p className="mt-3 text-center text-sm text-muted-foreground">
-                    名額有限。報名或繳費有任何問題，歡迎來信{" "}
-                    <a
-                      href="mailto:iamvista@gmail.com?subject=AI%20%E8%AE%8A%E7%8F%BE%E7%A0%94%E7%A9%B6%E9%99%A2%E5%A0%B1%E5%90%8D"
-                      className="text-primary underline underline-offset-2"
-                    >
-                      iamvista@gmail.com
-                    </a>
-                  </p>
-                </div>
+                <p className="mt-6 text-center text-sm font-medium text-foreground">
+                  名額有限，採銀行匯款報名 ↓ 請於下方填寫報名與匯款資訊
+                </p>
               </CardContent>
             </Card>
+
+            <div className="mt-10">
+              <RegistrationForm />
+            </div>
           </section>
 
           {/* ====== Takeaways ====== */}
