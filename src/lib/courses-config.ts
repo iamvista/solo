@@ -104,7 +104,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 12,
     recurProductIdRegular: "y7q482kwsc16h7iw3akwufzq",
-    regularPrice: 1,
+    regularPrice: 4000,
     detailUrl: "/courses/vibe-coding",
     hideInvoiceSection: true,
     customQuestionLabel:
