@@ -5,6 +5,7 @@ import "./globals.css";
 import { headers } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 /* ── JSON-LD 結構化數據 ── */
 const organizationSchema = {
@@ -204,6 +205,7 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
           {!isBrainSubdomain && <Footer />}
         </div>
+        <Analytics />
       </body>
     </html>
   );
