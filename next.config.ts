@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 已下架課程救流量（2026-06-17）：/courses/ai-social-content 已 404，
+      // GA4 顯示每月仍有 ~230 次造訪，轉到 Susie 作者頁（含候補）把死流量變名單
+      {
+        source: "/courses/ai-social-content",
+        destination: "/teachers/susie",
+        permanent: true,
+      },
       // 講師頁網址統一（2026-06-17）：/t → /teachers、個別頁 /t/:slug → /teachers/:slug
       {
         source: "/t",
