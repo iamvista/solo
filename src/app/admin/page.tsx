@@ -131,6 +131,9 @@ export default async function AdminPage() {
             <Link href="/admin/enrollments">🎓 課程報名</Link>
           </Button>
           <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin/waitlist">⏳ 候補名單</Link>
+          </Button>
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
             <Link href="/admin/consulting/leads">📋 諮詢需求</Link>
           </Button>
           <Button variant="outline" asChild className="h-11 px-4 text-base">
