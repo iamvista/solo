@@ -83,6 +83,16 @@ const runsheng: Instructor = {
   avatar: "/images/workshops/instructor-runsheng-avatar.webp",
 };
 
+const susie: Instructor = {
+  name: "Susie Li",
+  title: "社群內容策略師・心理學碩士・資深媒體人",
+  avatar: "/images/workshops/instructor-susie-2.webp",
+  slug: "susie",
+  bio: "心理學 × 內容力：從零打造不靠廣告的真實社群影響力。",
+  longBio:
+    "從臺灣媒體圈出發，移居海外後從零開始經營個人粉專，不靠廣告預算、不靠演算法紅利，純粹用內容的力量建立影響力。\n擁有心理學碩士背景與多年主流媒體經驗，深諳內容產製邏輯，更理解人為什麼會想回應、想分享。",
+};
+
 // AI 變現研究院為三師聯合授課，列表卡片以研究院為單位呈現
 const monetizationInstitute: Instructor = {
   name: "Joyce・Claire・Vista",
@@ -220,6 +230,39 @@ export const workshops: Workshop[] = [
       "一份內容自動轉六種格式",
       "用 Claude Code 實作完整系統",
       "學員好評推薦的實戰課程",
+    ],
+    category: "ai",
+  },
+  {
+    id: "ai-social-content",
+    title: "用 AI 寫出讓人忍不住留言的社群內容",
+    subtitle: "心理學 × AI 提問術，3 小時帶走一套高互動內容產製系統",
+    description:
+      "結合社群互動心理學與 AI 協作，學會設計讓人想按讚、想留言、想分享的內容。不只教你下 prompt，而是教你一套從靈感到發布的完整系統。",
+    instructor: susie,
+    emoji: "💬",
+    date: "2026 年 5 月（已開三班）",
+    sortDate: "2026-05-30",
+    time: "9:00–12:00",
+    duration: "3 小時",
+    location: "臺北市區",
+    capacity: 20,
+    price: {
+      original: 4500,
+      earlyBird: 3500,
+      earlyBirdDeadline: "開課前 14 天",
+    },
+    tags: ["AI", "社群經營", "內容策略", "心理學"],
+    status: "ended",
+    cohort: "已開三班",
+    endedNote: "好評加開三班、結訓學員口碑推薦；想上下一梯可在下方留下聯絡方式。",
+    url: "/courses/ai-social-content",
+    isExternal: false,
+    highlights: [
+      "學會五種高互動內容的心理學模型",
+      "用 AI 產出有溫度、有互動的社群貼文",
+      "帶走一套從靈感到發布的內容工作流",
+      "現場完成一篇可直接發布的高互動貼文",
     ],
     category: "ai",
   },

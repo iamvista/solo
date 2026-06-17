@@ -53,6 +53,8 @@ const collectionSchema = {
 
 /* ─── Page ─── */
 export default function CoursesPage() {
+  // 已結束的課只在作者頁陳列，不計入公開課程數、也不傳給列表元件
+  const visibleWorkshops = workshops.filter((w) => w.status !== "ended");
   return (
     <div className="relative">
       <JsonLd data={collectionSchema} />
@@ -97,7 +99,7 @@ export default function CoursesPage() {
             <div className="mx-auto mt-6 grid max-w-md grid-cols-3 gap-6 sm:gap-8">
               <div className="text-center">
                 <p className="text-2xl font-bold text-stone-900 sm:text-3xl">
-                  {workshops.length}
+                  {visibleWorkshops.length}
                 </p>
                 <p className="mt-1 text-xs text-stone-500 sm:text-sm">
                   門精選課程
@@ -127,7 +129,7 @@ export default function CoursesPage() {
       {/* ─── Main Content ─── */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Course Filters & Grid (Client Component) */}
-        <CourseFilters workshops={workshops} />
+        <CourseFilters workshops={visibleWorkshops} />
 
         {/* ─── Why Choose Us ─── */}
         <section className="mt-14 sm:mt-16">
