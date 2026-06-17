@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
 import { createServiceClient } from "@/lib/supabase/service";
+import { DeleteSubscriberButton } from "./DeleteSubscriberButton";
 
 async function getNewsletterStats() {
   try {
@@ -33,7 +34,7 @@ async function getNewsletterStats() {
         .limit(50),
       supabase
         .from("newsletter_subscribers")
-        .select("source")
+        .select("source, tags")
         .eq("status", "active"),
       supabase
         .from("newsletter_subscribers")
@@ -42,11 +43,17 @@ async function getNewsletterStats() {
         .gte("subscribed_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
     ]);
 
-    // 計算來源分佈
+    // 計算來源分佈與標籤分佈（標籤用於「依清單匯出」，如 instructor:susie）
     const sourceCounts: Record<string, number> = {};
+    const tagCounts: Record<string, number> = {};
     sourceBreakdown?.forEach((row) => {
       const s = row.source || "unknown";
       sourceCounts[s] = (sourceCounts[s] || 0) + 1;
+      const tags = Array.isArray(row.tags) ? row.tags : [];
+      tags.forEach((t) => {
+        const key = String(t);
+        tagCounts[key] = (tagCounts[key] || 0) + 1;
+      });
     });
 
     return {
@@ -55,6 +62,7 @@ async function getNewsletterStats() {
       newLast7Days: last7DaySubs?.length || 0,
       recentSubscribers: recentSubs || [],
       sourceCounts,
+      tagCounts,
       error: null as string | null,
     };
   } catch (err) {
@@ -65,6 +73,7 @@ async function getNewsletterStats() {
       newLast7Days: 0,
       recentSubscribers: [] as Array<{ id: string; email: string; name: string | null; source: string; tags: string[]; subscribed_at: string; status: string }>,
       sourceCounts: {} as Record<string, number>,
+      tagCounts: {} as Record<string, number>,
       error: "無法載入統計資料" as string | null,
     };
   }
@@ -80,6 +89,13 @@ export default async function NewsletterAdminPage() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8);
 
+  const topTags = Object.entries(stats.tagCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 16);
+
+  // 變數化（而非字面字串）以避開 next/no-html-link-for-pages 對 API 下載連結的誤判
+  const exportAllHref = "/api/admin/newsletter/export";
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       {/* Header */}
@@ -91,9 +107,14 @@ export default async function NewsletterAdminPage() {
             管理電子報訂閱者名單與統計
           </p>
         </div>
-        <Button variant="outline" asChild className="h-11 px-4 text-base">
-          <Link href="/admin">← 回到後臺</Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button asChild className="h-11 px-4 text-base">
+            <a href={exportAllHref}>📄 匯出全部 CSV</a>
+          </Button>
+          <Button variant="outline" asChild className="h-11 px-4 text-base">
+            <Link href="/admin">← 回到後臺</Link>
+          </Button>
+        </div>
       </div>
 
       {/* Error banner */}
@@ -167,15 +188,47 @@ export default async function NewsletterAdminPage() {
           <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
             <div className="space-y-2">
               {topSources.map(([source, count]) => (
-                <div key={source} className="flex items-center justify-between rounded-lg bg-muted/50 p-2 px-3">
-                  <span className="font-medium">{source}</span>
-                  <Badge variant="secondary">{count}</Badge>
+                <div key={source} className="flex items-center justify-between gap-2 rounded-lg bg-muted/50 p-2 px-3">
+                  <span className="min-w-0 truncate font-medium">{source}</span>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <Badge variant="secondary">{count}</Badge>
+                    <a
+                      href={`/api/admin/newsletter/export?source=${encodeURIComponent(source)}`}
+                      className="text-xs text-primary hover:underline"
+                    >
+                      匯出
+                    </a>
+                  </div>
                 </div>
               ))}
               {topSources.length === 0 && (
                 <p className="text-sm text-muted-foreground">尚無訂閱者</p>
               )}
             </div>
+
+            {topTags.length > 0 && (
+              <div className="mt-5 border-t pt-4">
+                <p className="mb-2 text-sm font-semibold text-muted-foreground">
+                  🏷️ 依標籤匯出（如追蹤某位老師的人）
+                </p>
+                <div className="space-y-2">
+                  {topTags.map(([tag, count]) => (
+                    <div key={tag} className="flex items-center justify-between gap-2 rounded-lg bg-muted/50 p-2 px-3">
+                      <span className="min-w-0 truncate text-sm">{tag}</span>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <Badge variant="secondary">{count}</Badge>
+                        <a
+                          href={`/api/admin/newsletter/export?tag=${encodeURIComponent(tag)}`}
+                          className="text-xs text-primary hover:underline"
+                        >
+                          匯出
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -195,6 +248,7 @@ export default async function NewsletterAdminPage() {
                       <th className="pb-2 font-medium text-muted-foreground">來源</th>
                       <th className="pb-2 font-medium text-muted-foreground">標籤</th>
                       <th className="pb-2 text-right font-medium text-muted-foreground">日期</th>
+                      <th className="pb-2 text-right font-medium text-muted-foreground">操作</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -219,6 +273,12 @@ export default async function NewsletterAdminPage() {
                         </td>
                         <td className="whitespace-nowrap py-2.5 text-right text-muted-foreground">
                           {new Date(sub.subscribed_at).toLocaleDateString("zh-TW")}
+                        </td>
+                        <td className="py-2.5 pl-3 text-right">
+                          <DeleteSubscriberButton
+                            subscriberId={sub.id}
+                            subscriberLabel={sub.email}
+                          />
                         </td>
                       </tr>
                     ))}
