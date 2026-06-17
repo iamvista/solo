@@ -20,9 +20,28 @@
 ## 網址與路由
 
 - 作者頁：`solo.tw/t/[slug]`，例 `solo.tw/t/vista`。
-  - 選 `/t/` 前綴的理由：短、好記、可加書籤；與既有的 `reserved_usernames` / username 系統不衝突（不佔用根路徑 vanity URL）。
+  - 選 `/t/` 前綴的理由（實證,非偏好）：solo.tw **已有單字母前綴房規**——`/m/[slug]`(名單磁鐵)、`/r/[id]`、`/u/[username]`，`/t/[slug]` 完全融入;短、好記、適合口說/簡報/QR/加書籤;與根路徑那二十幾個既有頁面(about/blog/courses/community…)及 `@username` vanity 系統**零碰撞**。
+  - 不選 `/vista`(根路徑)：根命名空間已擠滿真實頁面,且與 `@username` 個人檔案系統衝突,需保留字守門,風險最高。
+  - 不選 `/teachers/vista`：語意較透明但變長、破壞單字母房規;透明度改由頁面大標補回即可。
 - 檔案：`src/app/t/[slug]/page.tsx`（Server Component，靜態生成 + `generateStaticParams` 列出所有有 slug 的老師）。
 - `generateMetadata`：標題＝「{老師名}｜{定位}」，含 OG 圖（沿用 `/og` 路由模式）。
+
+### 與 `@username` 個人檔案（`/u/[username]`）的分工
+
+solo.tw 已有 `solo.tw/@username`（rewrite 到 `/u/[username]`）的個人檔案系統。本作者頁**與它並存、職責切開**，避免「兩個 Vista 頁」造成混淆：
+
+| | `@vista`（`/u/[username]`） | `/t/vista`（本 spec） |
+|---|---|---|
+| 本質 | solo.tw **社群帳號身分卡** | **策展式作者銷售頁** |
+| 資料來源 | `profiles` 表（帳號驅動） | `workshops.ts`（編輯維護） |
+| 內容 | 等級/經驗值、一人事業主階段、會員徽章、加入日期 | 過去＋現在課程、候補捕捉、追蹤、LINE |
+| 誰有 | **任何註冊用戶**都有一個 | **只有老師**才有 |
+| 目的 | 社群身分、遊戲化、歸屬感 | 行銷、留客、回購 |
+| 維護者 | 用戶自己（設定頁） | 平台/老師（改 `workshops.ts`） |
+
+**互連（選配,Phase 2 可做）**：`/t/vista` 頁尾可放一個低調連結「Vista 的 solo.tw 社群檔案 →`@vista`」；反向 `@vista` 若是老師,個人檔案可加「我的課程頁 →`/t/vista`」。本期不強制,先讓 `/t/vista` 獨立完整。
+
+**未來若要合一**：可在 `profiles` 加 `instructor_slug` 欄位把兩者綁定,但屬 YAGNI,本期不做。
 
 ## 資料模型
 
