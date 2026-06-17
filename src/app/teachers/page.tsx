@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "合作講師｜solo.tw",
     description: "點進每位老師的專屬頁，看他們開過與正在招生的課程。",
-    url: "https://www.solo.tw/t",
+    url: "https://www.solo.tw/teachers",
   },
 };
 
@@ -42,7 +42,7 @@ export default function InstructorsIndexPage() {
           );
           const openCount = enrolling.length + comingSoon.length;
           return (
-            <Link key={ins.slug} href={`/t/${ins.slug}`} className="group">
+            <Link key={ins.slug} href={`/teachers/${ins.slug}`} className="group">
               <Card className="h-full transition-shadow group-hover:shadow-md">
                 <CardContent className="flex items-start gap-4 p-5">
                   {ins.avatar && (

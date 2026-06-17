@@ -336,7 +336,7 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
 export default function CourseFilters({ workshops }: { workshops: Workshop[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
 
-  // 已結束的課程只在作者頁（/t/[slug]）陳列當社會證明，不進公開課程列表
+  // 已結束的課程只在作者頁（/teachers/[slug]）陳列當社會證明，不進公開課程列表
   const visibleWorkshops = workshops.filter((w) => w.status !== "ended");
 
   const featuredWorkshop = visibleWorkshops.find((w) => w.featured);

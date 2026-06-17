@@ -59,7 +59,7 @@ export function WaitlistForm({
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim() || undefined,
-          source_page: `/t/${instructorSlug}`,
+          source_page: `/teachers/${instructorSlug}`,
         }),
       });
       const data = await res.json();

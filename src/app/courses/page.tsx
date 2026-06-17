@@ -248,7 +248,7 @@ export default function CoursesPage() {
             className="mt-4 h-11 border-stone-300 px-6 text-base"
             asChild
           >
-            <Link href="/t/vista">
+            <Link href="/teachers/vista">
               Vista 的課程主頁
               <ArrowRight className="ml-1.5 h-4 w-4" />
             </Link>

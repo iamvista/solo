@@ -28,7 +28,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://www.solo.tw/t/${slug}`,
+      url: `https://www.solo.tw/teachers/${slug}`,
       images: instructor.avatar ? [instructor.avatar] : undefined,
     },
   };

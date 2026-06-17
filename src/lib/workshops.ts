@@ -5,7 +5,7 @@ export interface Instructor {
   title: string;
   avatar?: string;
   url?: string;
-  /** 有 slug 才會生成作者頁 /t/[slug] */
+  /** 有 slug 才會生成作者頁 /teachers/[slug] */
   slug?: string;
   /** 一句定位（Hero 副標） */
   bio?: string;

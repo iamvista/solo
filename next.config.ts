@@ -16,6 +16,17 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 講師頁網址統一（2026-06-17）：/t → /teachers、個別頁 /t/:slug → /teachers/:slug
+      {
+        source: "/t",
+        destination: "/teachers",
+        permanent: true,
+      },
+      {
+        source: "/t/:slug*",
+        destination: "/teachers/:slug*",
+        permanent: true,
+      },
       // non-www → www 301 redirect（SEO 網域統一）
       {
         source: "/:path*",
