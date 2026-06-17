@@ -336,8 +336,11 @@ function FeaturedCard({ workshop }: { workshop: Workshop }) {
 export default function CourseFilters({ workshops }: { workshops: Workshop[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
 
-  const featuredWorkshop = workshops.find((w) => w.featured);
-  const filteredWorkshops = workshops
+  // 已結束的課程只在作者頁（/t/[slug]）陳列當社會證明，不進公開課程列表
+  const visibleWorkshops = workshops.filter((w) => w.status !== "ended");
+
+  const featuredWorkshop = visibleWorkshops.find((w) => w.featured);
+  const filteredWorkshops = visibleWorkshops
     .filter((w) => !w.featured)
     .filter((w) => activeFilter === "all" || w.category === activeFilter)
     .sort((a, b) => b.sortDate.localeCompare(a.sortDate));
@@ -363,13 +366,13 @@ export default function CourseFilters({ workshops }: { workshops: Workshop[] }) 
         <div role="tablist" aria-label="課程分類篩選" className="flex items-center gap-2 overflow-x-auto pb-1">
           {filterTabs.filter((tab) => {
             if (tab.key === "all") return true;
-            return workshops.some((w) => !w.featured && w.category === tab.key);
+            return visibleWorkshops.some((w) => !w.featured && w.category === tab.key);
           }).map((tab) => {
             const isActive = activeFilter === tab.key;
             const count =
               tab.key === "all"
-                ? workshops.filter((w) => !w.featured).length
-                : workshops.filter((w) => !w.featured && w.category === tab.key).length;
+                ? visibleWorkshops.filter((w) => !w.featured).length
+                : visibleWorkshops.filter((w) => !w.featured && w.category === tab.key).length;
 
             return (
               <button
