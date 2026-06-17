@@ -235,6 +235,24 @@ export default function CoursesPage() {
           </div>
         </section>
 
+        {/* ─── Author hub entry ─── */}
+        <div className="mb-12 text-center">
+          <Sparkles className="mx-auto h-8 w-8 text-stone-300" />
+          <p className="mt-3 text-base text-stone-500 sm:text-lg">
+            想隨時回來看 Vista 的所有課程？把這頁存起來，過去與最新梯次都在這裡
+          </p>
+          <Button
+            variant="outline"
+            className="mt-4 h-11 border-stone-300 px-6 text-base"
+            asChild
+          >
+            <Link href="/t/vista">
+              Vista 的課程主頁
+              <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+
         {/* ─── Newsletter CTA ─── */}
         <div className="mb-14 text-center sm:mb-16">
           <Mail className="mx-auto h-8 w-8 text-stone-300" />
