@@ -5,6 +5,16 @@ export interface Instructor {
   title: string;
   avatar?: string;
   url?: string;
+  /** 有 slug 才會生成作者頁 /t/[slug] */
+  slug?: string;
+  /** 一句定位（Hero 副標） */
+  bio?: string;
+  /** 段落式自我介紹，支援 \n 換行 */
+  longBio?: string;
+  /** 社群／官網連結 */
+  links?: { label: string; url: string }[];
+  /** 加 LINE 好友連結，預設沿用站台 LINE OA */
+  lineOaUrl?: string;
 }
 
 export interface WorkshopPrice {
@@ -30,12 +40,18 @@ export interface Workshop {
   capacity: number;
   price: WorkshopPrice;
   tags: string[];
-  status: "open" | "filling" | "full" | "coming_soon";
+  status: "open" | "filling" | "full" | "coming_soon" | "ended";
   url: string;
   isExternal: boolean;
   highlights: string[];
   category: "ai" | "finance" | "innovation";
   featured?: boolean;
+  /** 梯次標示，例 "第 8 班" */
+  cohort?: string;
+  /** 結束課補充，例 "已開 7 梯、結訓 90+ 人" */
+  endedNote?: string;
+  /** Phase 2：課程回顧頁連結 */
+  recapUrl?: string;
 }
 
 // 講師資料
@@ -44,6 +60,15 @@ const vista: Instructor = {
   title: "AI 應用培訓師・內容策略顧問",
   avatar: "/images/workshops/instructor-vista.webp",
   url: "https://www.vista.tw",
+  slug: "vista",
+  bio: "用 AI 把你的專業變成能上線、能變現的數位資產。",
+  longBio:
+    "鄭緯筌（Vista），AI 應用培訓師與內容策略顧問。\n陪伴上千位專業工作者，用 AI 與 vibe coding 把知識變成網站、課程與一人事業。\n相信工具是手段，留下能複利的數位資產才是目的。",
+  links: [
+    { label: "官網 vista.tw", url: "https://www.vista.tw" },
+    { label: "Threads", url: "https://www.threads.com/@vista" },
+    { label: "YouTube", url: "https://www.youtube.com/@vistacheng" },
+  ],
 };
 
 const wenhao: Instructor = {
@@ -199,3 +224,36 @@ export const workshops: Workshop[] = [
     category: "ai",
   },
 ];
+
+/** 取得有作者頁的老師（依 slug） */
+export function getInstructorBySlug(slug: string): Instructor | undefined {
+  return workshops.map((w) => w.instructor).find((i) => i.slug === slug);
+}
+
+/** 所有有 slug 的老師（給 generateStaticParams） */
+export function getAllInstructorSlugs(): string[] {
+  const slugs = workshops.map((w) => w.instructor.slug).filter(
+    (s): s is string => !!s,
+  );
+  return Array.from(new Set(slugs));
+}
+
+/** 取某老師的課，依狀態分三組；enrolling/comingSoon 由近到遠、ended 由新到舊 */
+export function getInstructorWorkshops(slug: string): {
+  enrolling: Workshop[];
+  comingSoon: Workshop[];
+  ended: Workshop[];
+} {
+  const mine = workshops.filter((w) => w.instructor.slug === slug);
+  const byDateAsc = (a: Workshop, b: Workshop) =>
+    a.sortDate.localeCompare(b.sortDate);
+  const byDateDesc = (a: Workshop, b: Workshop) =>
+    b.sortDate.localeCompare(a.sortDate);
+  return {
+    enrolling: mine
+      .filter((w) => ["open", "filling", "full"].includes(w.status))
+      .sort(byDateAsc),
+    comingSoon: mine.filter((w) => w.status === "coming_soon").sort(byDateAsc),
+    ended: mine.filter((w) => w.status === "ended").sort(byDateDesc),
+  };
+}
