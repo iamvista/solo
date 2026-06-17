@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
 import { createServiceClient } from "@/lib/supabase/service";
 import { DeleteSubscriberButton } from "./DeleteSubscriberButton";
+import { getAllInstructorSlugs, getInstructorBySlug } from "@/lib/workshops";
 
 async function getNewsletterStats() {
   try {
@@ -96,6 +97,15 @@ export default async function NewsletterAdminPage() {
   // 變數化（而非字面字串）以避開 next/no-html-link-for-pages 對 API 下載連結的誤判
   const exportAllHref = "/api/admin/newsletter/export";
 
+  // 老師追蹤名單：把「追蹤某位老師」的人數＋匯出鈕並排，免得使用者要自己找標籤
+  const instructorFollows = getAllInstructorSlugs()
+    .map((slug) => ({
+      slug,
+      name: getInstructorBySlug(slug)?.name ?? slug,
+      count: stats.tagCounts[`instructor:${slug}`] ?? 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       {/* Header */}
@@ -178,6 +188,52 @@ export default async function NewsletterAdminPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* 老師追蹤名單 */}
+      <Card className="mb-8">
+        <CardHeader className="p-5 sm:p-6">
+          <CardTitle className="text-xl">👥 老師追蹤名單</CardTitle>
+          <CardDescription>
+            在作者頁點「追蹤這位老師」的人。要通知某位老師的粉絲新課，點該老師的「匯出」即可。
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
+          {instructorFollows.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              尚無老師（在 workshops.ts 給老師 slug 後會出現）
+            </p>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {instructorFollows.map((ins) => (
+                <div
+                  key={ins.slug}
+                  className="flex items-center justify-between gap-3 rounded-lg border bg-muted/30 p-3 px-4"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{ins.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {ins.count} 人追蹤
+                    </p>
+                  </div>
+                  {ins.count > 0 ? (
+                    <Button asChild size="sm" variant="outline">
+                      <a
+                        href={`/api/admin/newsletter/export?tag=${encodeURIComponent(
+                          `instructor:${ins.slug}`,
+                        )}`}
+                      >
+                        匯出
+                      </a>
+                    </Button>
+                  ) : (
+                    <span className="text-xs text-muted-foreground">—</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Source breakdown */}
