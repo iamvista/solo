@@ -40,12 +40,25 @@ export async function POST(request: Request) {
     // 檢查是否已存在（包含已取消訂閱的）
     const { data: existing } = await supabase
       .from("newsletter_subscribers")
-      .select("id, status")
+      .select("id, status, tags")
       .eq("email", normalizedEmail)
       .maybeSingle();
 
     if (existing) {
       if (existing.status === "active") {
+        // 既有訂閱者若帶了新標籤（如 instructor:susie / waitlist:xxx），
+        // 合併進原有標籤——這樣「追蹤某位老師」對已訂閱者也有效，
+        // 否則既有訂閱者點追蹤會被靜默忽略、無法歸戶到該老師。
+        if (safeTags.length > 0) {
+          const current = Array.isArray(existing.tags) ? existing.tags : [];
+          const merged = Array.from(new Set([...current, ...safeTags]));
+          if (merged.length !== current.length) {
+            await supabase
+              .from("newsletter_subscribers")
+              .update({ tags: merged })
+              .eq("id", existing.id);
+          }
+        }
         // 統一回應訊息，避免 email 枚舉
         return NextResponse.json({ success: true, message: "訂閱成功" });
       }
