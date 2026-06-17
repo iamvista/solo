@@ -25,6 +25,7 @@ const statusConfig: Record<
   filling: { text: "即將額滿", className: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
   full: { text: "已額滿", className: "bg-gray-500/10 text-gray-500 border-gray-500/20" },
   coming_soon: { text: "即將開放", className: "bg-blue-500/10 text-blue-600 border-blue-500/20" },
+  ended: { text: "已結束", className: "bg-stone-500/10 text-stone-500 border-stone-500/20" },
 };
 
 function formatPrice(price: number): string {
