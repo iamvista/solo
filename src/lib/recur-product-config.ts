@@ -66,6 +66,13 @@ const COURSE_VIBE_CODING_NEXT_STEPS = [
   "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
 ];
 
+const COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS = [
+  "8/6（週四）晚上 8 點開營，開營前 3 天會寄出 Zoom 連結與社群（LINE）邀請",
+  "課前會寄出「課前概念問卷」與「專業資產盤點表」，請先填寫，幫助講師對應你的主題",
+  "每週四晚上直播 90 分鐘 + QA，課後寄出回放與當週實作作業，每週固定繳交與互評",
+  "VIP 診斷席學員會另外約課前診斷與課後一對一的時間；如有疑問請來信 iamvista@gmail.com",
+];
+
 const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   // AI 教練工坊（既有下載流程）
   [AI_COACH_KIT_PRODUCT_ID]: {
@@ -119,6 +126,29 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     productId: "gb1rmyp2vpgwvy9qnjfaca0c",
     productName: "副腦計畫 Brain+1 Lab・早鳥（35 天 AI 副腦陪跑營）",
     whatsNext: COURSE_BRAIN_LAB_NEXT_STEPS,
+  },
+
+  // 概念變現陪跑營（6 週線上・2026/8/6 起）
+  df2j3u3vfh8u2wwh14048yym: {
+    kind: "course",
+    productId: "df2j3u3vfh8u2wwh14048yym",
+    productName: "概念變現陪跑營（6 週線上・標準票）",
+    whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
+  },
+  jz9tbaygcitkkdpr3y5ah97z: {
+    kind: "course",
+    productId: "jz9tbaygcitkkdpr3y5ah97z",
+    productName: "概念變現陪跑營・VIP 診斷席（6 週線上）",
+    whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
+  },
+  bq16q93lbuddoarykucd311m: {
+    kind: "course",
+    productId: "bq16q93lbuddoarykucd311m",
+    productName: "概念變現陪跑營・雙人同行（6 週線上）",
+    whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
   },
 
   // 1-on-1 諮詢套票（顧問服務）
