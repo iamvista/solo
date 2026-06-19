@@ -391,7 +391,7 @@ export default function ConceptMonetizationBootcampPage() {
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
                     標準票全含，另加課前概念診斷、課後 30 分鐘一對一產品診斷、銷售角度個人化修改建議。
                   </p>
-                  <Button className="mt-5 w-full border-2 border-amber-500" variant="secondary" asChild>
+                  <Button className="mt-5 w-full border-2 border-amber-500 hover:bg-amber-100 hover:text-amber-900" variant="outline" asChild>
                     <a href={VIP_URL} target="_blank" rel="noopener noreferrer">
                       報名 VIP 診斷席
                     </a>
