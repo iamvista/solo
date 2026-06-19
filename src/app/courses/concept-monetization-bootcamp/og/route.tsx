@@ -58,7 +58,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              2026/8 創辦梯次・限 12 名
+              2026/8 創辦梯次・限 15 名
             </span>
           </div>
 

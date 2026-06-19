@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title:
     "概念變現陪跑營｜6 週，用 AI 把你的專業變成一個會賣的知識產品 2026/8 線上 | solo.tw",
   description:
-    "給已有專業、卻卡在「想很久卻沒做成產品」的講師、顧問、教練。6 週線上直播陪跑，用 AI 盤點專業、校準市場痛點、設計最小可賣產品，並真的發出第一波市場測試，結業帶走一頁式概念變現地圖。2026/8/6 起連續 6 週（週四晚上）線上小班，限 12 名。創辦梯次價 NT$9,999（原價 16,800）。",
+    "給已有專業、卻卡在「想很久卻沒做成產品」的講師、顧問、教練。6 週線上直播陪跑，用 AI 盤點專業、校準市場痛點、設計最小可賣產品，並真的發出第一波市場測試，結業帶走概念變現解決方案。2026/8/6 起連續 6 週（週四晚上）線上小班，限 15 名。創辦梯次價 NT$9,999（原價 16,800）。",
   keywords: [
     "知識變現",
     "知識產品化",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 const REGISTER_URL = "/courses/concept-monetization-bootcamp/register";
-const VIP_URL = "https://buy.recur.tw/4iFhwjmPKwqGu8Jm";
+const VIP_URL = "https://buy.recur.tw/OWrJsFtRPPl462r0";
 
 const weeks = [
   {
@@ -64,7 +64,7 @@ const weeks = [
   {
     w: "Week 6",
     title: "開賣計畫 + 成果發表",
-    desc: "把迭代後的版本收斂成第一波開賣計畫，上臺發表你的一頁式概念變現地圖。想一路做到開賣的人可升級 3 個月實戰營。",
+    desc: "把迭代後的版本收斂成第一波開賣計畫，上臺發表你的概念變現解決方案。想一路做到開賣的人可升級 3 個月實戰營。",
   },
 ];
 
@@ -112,7 +112,7 @@ const faqs = [
   },
   {
     q: "VIP 診斷席跟標準票差在哪？",
-    a: "VIP 診斷席（限 4 名）含 6 週直播陪跑全部內容，另加課前概念診斷、課後 30 分鐘一對一產品診斷，以及你的產品主題與銷售角度的個人化修改建議。適合想要更貼身回饋、加速做出成果的人。",
+    a: "VIP 診斷席（限 5 名）含 6 週直播陪跑全部內容，另加課前概念診斷、課後 30 分鐘一對一產品診斷，以及你的產品主題與銷售角度的個人化修改建議。適合想要更貼身回饋、加速做出成果的人。",
   },
   {
     q: "退費政策？",
@@ -128,13 +128,13 @@ export default function ConceptMonetizationBootcampPage() {
           ...courseSchema({
             name: "概念變現陪跑營",
             description:
-              "6 週線上直播陪跑，把你已有的專業變成可測試、會賣的知識產品。用 AI 盤點專業、校準市場痛點、設計最小可賣產品並發出第一波市場測試，結業帶走一頁式概念變現地圖。",
+              "6 週線上直播陪跑，把你已有的專業變成可測試、會賣的知識產品。用 AI 盤點專業、校準市場痛點、設計最小可賣產品並發出第一波市場測試，結業帶走概念變現解決方案。",
             url: "https://www.solo.tw/courses/concept-monetization-bootcamp",
             instructor: "鄭緯筌（Vista）",
             price: 9999,
             duration: "PT9H",
             startDate: "2026-08-06",
-            location: "線上 Zoom",
+            location: "線上 Google Meet",
           }),
         }}
       />
@@ -188,7 +188,7 @@ export default function ConceptMonetizationBootcampPage() {
               </Button>
             </div>
             <p className="mt-6 text-sm text-white/60">
-              創辦梯次價 NT$9,999（原價 16,800）・限 12 名
+              創辦梯次價 NT$9,999（原價 16,800）・限 15 名
             </p>
           </div>
         </section>
@@ -286,7 +286,7 @@ export default function ConceptMonetizationBootcampPage() {
           {/* ====== Takeaways ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              6 週後，你會帶走一份「一頁式概念變現地圖」
+              6 週後，你會帶走一份「概念變現解決方案」
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
               你帶一個專業進來，帶一個已經在市場測試中的產品出去。
@@ -329,14 +329,14 @@ export default function ConceptMonetizationBootcampPage() {
                   <span>{"\u{1F4CD}"}</span>
                   <span>
                     <span className="font-medium text-foreground">上課形式：</span>
-                    線上 Zoom，全程錄影、提供回放
+                    線上 Google Meet，搭配 LINE 群組互動討論，全程錄影、提供回放
                   </span>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
                   <span>{"\u{1F465}"}</span>
                   <span>
                     <span className="font-medium text-foreground">名額：</span>
-                    限 12 名小班，含社群互評與每週作業
+                    限 15 名小班，含社群互評與每週作業
                   </span>
                 </div>
               </CardContent>
@@ -380,7 +380,7 @@ export default function ConceptMonetizationBootcampPage() {
                       VIP 診斷席
                     </p>
                     <Badge variant="outline" className="text-xs">
-                      限 4 名
+                      限 5 名
                     </Badge>
                   </div>
                   <div className="mt-2">

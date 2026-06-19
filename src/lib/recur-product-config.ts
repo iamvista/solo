@@ -67,7 +67,7 @@ const COURSE_VIBE_CODING_NEXT_STEPS = [
 ];
 
 const COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS = [
-  "8/6（週四）晚上 8 點開營，開營前 3 天會寄出 Zoom 連結與社群（LINE）邀請",
+  "8/6（週四）晚上 8 點開營，開營前 3 天會寄出 Google Meet 連結與 LINE 群組邀請",
   "課前會寄出「課前概念問卷」與「專業資產盤點表」，請先填寫，幫助講師對應你的主題",
   "每週四晚上直播 90 分鐘 + QA，課後寄出回放與當週實作作業，每週固定繳交與互評",
   "VIP 診斷席學員會另外約課前診斷與課後一對一的時間；如有疑問請來信 iamvista@gmail.com",
