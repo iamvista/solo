@@ -114,6 +114,27 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     preRegistrationNotice:
       "課前建議先準備一個 AI 工具帳號（Gemini／Claude／ChatGPT 擇一即可），並帶上你想製作的網站內容素材（文字、圖片、Logo 等）。請攜帶筆電（Mac 或 Windows）。",
   },
+  "concept-monetization-bootcamp": {
+    slug: "concept-monetization-bootcamp",
+    title: "概念變現陪跑營",
+    subtitle: "6 週，用 AI 把你的專業變成一個會賣的知識產品",
+    date: "2026/8/6 起連續 6 週（週四）",
+    time: "週四 20:00–21:30（21:30–22:00 QA），連續 6 週",
+    location: "線上 Zoom（報名後寄送連結，全程錄影、提供回放）",
+    capacity: 12,
+    recurProductIdRegular: "df2j3u3vfh8u2wwh14048yym",
+    regularPrice: 9999,
+    recurProductIdDual: "bq16q93lbuddoarykucd311m",
+    dualPrice: 18000,
+    detailUrl: "/courses/concept-monetization-bootcamp",
+    hideInvoiceSection: true,
+    customQuestionLabel:
+      "你最想變現的專業主題是什麼？目前最大的卡關是什麼？（報名後會再寄一份完整的課前概念問卷）",
+    customQuestionPlaceholder:
+      "例：我有 8 年企業培訓經驗，想把它做成線上課，但不知道從哪個主題切入、定價多少、第一版該做成課程還是諮詢……",
+    preRegistrationNotice:
+      "本陪跑營為 6 週線上直播課（每週四晚上 90 分鐘 + QA + 每週實作作業 + 社群互評）。適合已有專業經驗、想把它做成可銷售知識產品的講師／顧問／教練／資深自由工作者；不適合完全沒有專業基礎、只想學工具或提示詞的人。創辦梯次價僅此一梯，下一梯起調回原價。",
+  },
 };
 
 export function getCourseConfig(slug: string): CourseConfig | null {

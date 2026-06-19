@@ -115,6 +115,39 @@ export type WorkshopCategory = keyof typeof categories;
 // 工作坊列表
 export const workshops: Workshop[] = [
   {
+    id: "concept-monetization-bootcamp",
+    title: "概念變現陪跑營",
+    subtitle: "6 週，用 AI 把你的專業變成一個會賣的知識產品",
+    description:
+      "給已有專業、卻卡在「想很久卻沒做成產品」的講師、顧問、教練。6 週線上直播陪跑，帶你用 AI 盤點專業、校準市場痛點、設計最小可賣產品，並真的發出第一波市場測試。結業帶走一頁式概念變現地圖。創辦梯次價 NT$9,999（原價 16,800），限 12 名。",
+    instructor: vista,
+    emoji: "🎯",
+    date: "2026 年 8/6 起連續 6 週（週四晚上）",
+    sortDate: "2026-08-06",
+    time: "20:00–21:30",
+    duration: "6 週 × 90 分鐘",
+    location: "線上 Zoom",
+    capacity: 12,
+    featured: true,
+    cohort: "創辦梯次",
+    price: {
+      original: 16800,
+      regular: 9999,
+      dual: 18000,
+    },
+    tags: ["AI", "知識變現", "產品化", "線上陪跑"],
+    status: "open",
+    url: "/courses/concept-monetization-bootcamp",
+    isExternal: false,
+    highlights: [
+      "6 週直播陪跑＋社群互評，不是上完就結束",
+      "賣的是結果：帶走可測試的產品雛形並真的發出去",
+      "適合已有專業、想把它做成會賣產品的講師／顧問／教練",
+      "創辦梯次價 NT$9,999（原價 16,800）・限 12 名",
+    ],
+    category: "ai",
+  },
+  {
     id: "ai-monetization-institute",
     title: "AI 變現研究院",
     subtitle: "學 AI，不如學會用 AI 賺錢｜三位專家 × 三大主軸 × 一個目標",
