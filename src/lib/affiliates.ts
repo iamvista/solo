@@ -154,3 +154,78 @@ export async function voidCommissionByOrderId(orderId: string): Promise<void> {
     .neq("status", "void");
   if (error) console.error("[affiliates] void by order failed", error);
 }
+
+// ─── 後台讀取 helpers ───────────────────────────────────────────────────────
+
+export interface AffiliateWithTotals extends Affiliate {
+  referral_count: number;
+  pending_amount: number;
+  approved_amount: number;
+  paid_amount: number;
+}
+
+export interface ReferralRow extends AffiliateReferral {
+  enrollment_email: string | null;
+  enrollment_name: string | null;
+}
+
+export async function listAffiliatesWithTotals(): Promise<AffiliateWithTotals[]> {
+  const sb = svc();
+  const { data: affs } = await sb
+    .from("affiliates")
+    .select("*")
+    .order("created_at", { ascending: false });
+  const { data: refs } = await sb
+    .from("affiliate_referrals")
+    .select("affiliate_id, status, commission_amount");
+  const totals: Record<
+    string,
+    { count: number; pending: number; approved: number; paid: number }
+  > = {};
+  (refs ?? []).forEach((r) => {
+    if (r.status === "void") return;
+    const t = (totals[r.affiliate_id] ??= {
+      count: 0,
+      pending: 0,
+      approved: 0,
+      paid: 0,
+    });
+    t.count++;
+    if (r.status === "pending") t.pending += r.commission_amount;
+    else if (r.status === "approved") t.approved += r.commission_amount;
+    else if (r.status === "paid") t.paid += r.commission_amount;
+  });
+  return (affs ?? []).map((a) => ({
+    ...(a as Affiliate),
+    referral_count: totals[a.id]?.count ?? 0,
+    pending_amount: totals[a.id]?.pending ?? 0,
+    approved_amount: totals[a.id]?.approved ?? 0,
+    paid_amount: totals[a.id]?.paid ?? 0,
+  }));
+}
+
+export async function getAffiliate(id: string): Promise<Affiliate | null> {
+  const sb = svc();
+  const { data } = await sb.from("affiliates").select("*").eq("id", id).maybeSingle();
+  return (data as Affiliate) ?? null;
+}
+
+export async function getReferralsForAffiliate(
+  affiliateId: string,
+): Promise<ReferralRow[]> {
+  const sb = svc();
+  const { data } = await sb
+    .from("affiliate_referrals")
+    .select("*, course_enrollments(email, name)")
+    .eq("affiliate_id", affiliateId)
+    .order("created_at", { ascending: false });
+  return (data ?? []).map((r) => {
+    const enr = (r as { course_enrollments?: { email?: string; name?: string } })
+      .course_enrollments;
+    return {
+      ...(r as AffiliateReferral),
+      enrollment_email: enr?.email ?? null,
+      enrollment_name: enr?.name ?? null,
+    };
+  });
+}
