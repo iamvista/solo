@@ -13,6 +13,24 @@ const AUTH_ROUTES = [
   "/auth",
 ];
 
+const REF_COOKIE = "solo_ref";
+const REF_MAX_AGE = 60 * 60 * 24 * 30; // 30 天
+
+// 首觸歸因：只在 cookie 尚未存在且 URL 帶 ?ref= 時寫入；不覆蓋既有來源。
+function captureReferral(request: NextRequest, response: NextResponse) {
+  const ref = request.nextUrl.searchParams.get("ref");
+  if (!ref) return;
+  if (request.cookies.get(REF_COOKIE)) return;
+  const code = ref.trim().toUpperCase();
+  if (!code || code.length > 64) return;
+  response.cookies.set(REF_COOKIE, code, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: REF_MAX_AGE,
+  });
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get("host") ?? "";
@@ -37,7 +55,9 @@ export async function middleware(request: NextRequest) {
   // Skip Supabase auth refresh for public routes (saves ~50ms per request)
   const needsAuth = AUTH_ROUTES.some((route) => pathname.startsWith(route));
   if (!needsAuth) {
-    return NextResponse.next();
+    const res = NextResponse.next();
+    captureReferral(request, res);
+    return res;
   }
 
   let supabaseResponse = NextResponse.next({
@@ -70,6 +90,7 @@ export async function middleware(request: NextRequest) {
   // Refresh session if expired — only for auth-required routes
   await supabase.auth.getUser();
 
+  captureReferral(request, supabaseResponse);
   return supabaseResponse;
 }
 
