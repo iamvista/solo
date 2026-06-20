@@ -1,10 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
 import {
   getCourseConfig,
   resolvePricing,
   type PricingPlan,
 } from "@/lib/courses-config";
 import { normalizePhone } from "@/lib/phone";
+import { findActiveAffiliateByCode } from "@/lib/affiliates";
 
 export const runtime = "nodejs";
 
@@ -29,6 +31,7 @@ interface RegisterRequest {
   companionName?: string;
   companionEmail?: string;
   companionPhone?: string;
+  referralCode?: string;
 }
 
 function bad(msg: string, status = 400) {
@@ -107,6 +110,16 @@ export async function POST(request: Request) {
     companionPhoneNorm = cPhoneParsed;
   }
 
+  // 解析來源代碼：手動填的優先，否則讀 ?ref 寫入的 cookie
+  const cookieStore = await cookies();
+  const rawReferral =
+    body.referralCode?.trim() || cookieStore.get("solo_ref")?.value || "";
+  let referralCode: string | null = null;
+  if (rawReferral) {
+    const affiliate = await findActiveAffiliateByCode(rawReferral, course.slug);
+    referralCode = affiliate ? affiliate.code : null;
+  }
+
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -133,6 +146,7 @@ export async function POST(request: Request) {
       invoice_company: body.invoiceCompany?.trim() || null,
       invoice_tax_id: taxId || null,
       marketing_consent: !!body.marketingConsent,
+      referral_code: referralCode,
       status: "pending",
       recur_product_id: pricing.productId,
       amount: pricing.amount,
@@ -162,6 +176,7 @@ export async function POST(request: Request) {
     // 截短到 200 字以內，避免超過 Recur metadata 限制
     metadata.alumni_certificate = alumniCertificate.slice(0, 200);
   }
+  if (referralCode) metadata.referral_code = referralCode;
 
   return Response.json({
     ok: true,
