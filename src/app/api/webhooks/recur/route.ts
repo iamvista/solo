@@ -136,11 +136,15 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   if (enrollmentId) {
     await markEnrollmentPaid({ enrollmentId, orderId, productId, amount });
-    await recordCommissionForEnrollment({
-      enrollmentId,
-      orderId,
-      orderAmount: amount,
-    });
+    try {
+      await recordCommissionForEnrollment({
+        enrollmentId,
+        orderId,
+        orderAmount: amount,
+      });
+    } catch (e) {
+      console.error("[recur webhook] recordCommissionForEnrollment threw", e);
+    }
   } else {
     console.warn(
       "[recur webhook] no enrollment found for paid order",

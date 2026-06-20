@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { isAdmin } from "@/lib/supabase/admin";
 import { getAffiliate, getReferralsForAffiliate } from "@/lib/affiliates";
 import { ReferralActions } from "./ReferralActions";
+import { StatusToggle } from "./StatusToggle";
 
 export const metadata: Metadata = {
   title: "聯盟夥伴明細 | 後台",
@@ -56,6 +57,9 @@ export default async function AffiliateDetailPage({ params, searchParams }: Page
         {affiliate.status === "active" ? "啟用中" : "已停用"}・
         {affiliate.email ?? "（無聯絡 email）"}
       </p>
+      <div className="mb-6">
+        <StatusToggle affiliateId={affiliate.id} status={affiliate.status} />
+      </div>
 
       <form className="mb-4 flex items-center gap-2" action={`/admin/affiliates/${affiliate.id}`}>
         <input

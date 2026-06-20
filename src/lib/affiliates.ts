@@ -141,6 +141,13 @@ export async function recordCommissionForEnrollment(params: {
     { onConflict: "enrollment_id", ignoreDuplicates: true },
   );
   if (insErr) console.error("[affiliates] insert referral failed", insErr);
+  else
+    console.log(
+      "[affiliates] referral recorded for enrollment",
+      enr.id,
+      "commission",
+      commission,
+    );
 }
 
 /** 退款／取消：把該訂單對應的分潤標 void（排除已 void）。 */

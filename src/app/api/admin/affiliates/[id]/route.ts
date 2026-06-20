@@ -22,7 +22,15 @@ export async function PATCH(
   if (body.courseIds !== undefined)
     patch.course_ids =
       Array.isArray(body.courseIds) && body.courseIds.length ? body.courseIds : null;
-  if (body.status !== undefined) patch.status = body.status;
+  if (body.status !== undefined) {
+    if (body.status !== "active" && body.status !== "disabled") {
+      return NextResponse.json(
+        { error: "status 僅能為 active 或 disabled" },
+        { status: 400 },
+      );
+    }
+    patch.status = body.status;
+  }
   if (body.note !== undefined) patch.note = body.note?.trim() || null;
   const result = await updateAffiliate(id, patch);
   if (!result.ok) return NextResponse.json({ error: result.error }, { status: 400 });
