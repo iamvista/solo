@@ -320,3 +320,35 @@ export async function updateReferralStatus(
   if (error) return { ok: false, error: error.message };
   return { ok: true };
 }
+
+/** 取某夥伴某月（YYYY-MM，台北時區月界）的分潤明細，排除 void。 */
+export async function getMonthlyReferrals(
+  affiliateId: string,
+  month: string,
+): Promise<ReferralRow[]> {
+  const m = /^(\d{4})-(\d{2})$/.exec(month);
+  if (!m) return [];
+  const year = Number(m[1]);
+  const mon = Number(m[2]); // 1-12
+  // 台北 (UTC+8) 月界換算成 UTC：當月 1 日 00:00 +08:00 = 前一日 16:00 UTC
+  const startUtc = new Date(Date.UTC(year, mon - 1, 1, -8, 0, 0)).toISOString();
+  const endUtc = new Date(Date.UTC(year, mon, 1, -8, 0, 0)).toISOString();
+  const sb = svc();
+  const { data } = await sb
+    .from("affiliate_referrals")
+    .select("*, course_enrollments(email, name)")
+    .eq("affiliate_id", affiliateId)
+    .neq("status", "void")
+    .gte("created_at", startUtc)
+    .lt("created_at", endUtc)
+    .order("created_at", { ascending: true });
+  return (data ?? []).map((r) => {
+    const enr = (r as { course_enrollments?: { email?: string; name?: string } })
+      .course_enrollments;
+    return {
+      ...(r as AffiliateReferral),
+      enrollment_email: enr?.email ?? null,
+      enrollment_name: enr?.name ?? null,
+    };
+  });
+}

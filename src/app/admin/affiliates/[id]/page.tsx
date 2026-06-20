@@ -34,11 +34,13 @@ const STATUS_LABEL: Record<string, string> = {
 
 interface PageProps {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ month?: string }>;
 }
 
-export default async function AffiliateDetailPage({ params }: PageProps) {
+export default async function AffiliateDetailPage({ params, searchParams }: PageProps) {
   if (!(await isAdmin())) redirect("/");
   const { id } = await params;
+  const { month } = await searchParams;
   const affiliate = await getAffiliate(id);
   if (!affiliate) notFound();
   const referrals = await getReferralsForAffiliate(id);
@@ -53,6 +55,26 @@ export default async function AffiliateDetailPage({ params }: PageProps) {
         {affiliate.status === "active" ? "啟用中" : "已停用"}・
         {affiliate.email ?? "（無聯絡 email）"}
       </p>
+
+      <form className="mb-4 flex items-center gap-2" action={`/admin/affiliates/${affiliate.id}`}>
+        <input
+          type="month"
+          name="month"
+          defaultValue={month ?? ""}
+          className="rounded border px-2 py-1 text-sm"
+        />
+        <button type="submit" className="rounded border px-3 py-1 text-sm">
+          套用月份
+        </button>
+        {month && (
+          <a
+            href={`/api/admin/affiliates/${affiliate.id}/export?month=${month}`}
+            className="rounded bg-stone-900 px-3 py-1 text-sm text-white"
+          >
+            匯出 {month} 對帳單
+          </a>
+        )}
+      </form>
 
       <table className="w-full text-sm">
         <thead className="border-b text-left text-stone-500">
