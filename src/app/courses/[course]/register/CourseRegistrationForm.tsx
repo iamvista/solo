@@ -45,6 +45,7 @@ interface FormState {
   companionName: string;
   companionEmail: string;
   companionPhone: string;
+  referralCode: string;
 }
 
 const ATTRIBUTION_OPTIONS = [
@@ -85,6 +86,7 @@ export function CourseRegistrationForm({
     companionName: "",
     companionEmail: "",
     companionPhone: "",
+    referralCode: "",
   });
 
   const selectedPlan = useMemo(
@@ -149,6 +151,7 @@ export function CourseRegistrationForm({
           body: JSON.stringify({
             courseSlug: course.slug,
             ...form,
+            referralCode: form.referralCode.trim() || undefined,
           }),
         });
 
@@ -556,6 +559,18 @@ export function CourseRegistrationForm({
           我願意收到 Vista 電子報與相關課程的開班通知、學習資源等訊息。隨時可在電子報底部退訂。
         </Label>
       </section>
+
+      {/* 推薦代碼 */}
+      <div className="space-y-1.5">
+        <Label htmlFor="referralCode">推薦代碼（選填）</Label>
+        <Input
+          id="referralCode"
+          value={form.referralCode}
+          onChange={(e) => update("referralCode", e.target.value)}
+          placeholder="若有朋友／單位提供的推薦代碼，請填寫"
+          autoCapitalize="characters"
+        />
+      </div>
 
       {/* 送出 */}
       {error && (
