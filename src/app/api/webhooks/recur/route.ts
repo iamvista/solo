@@ -16,6 +16,10 @@ import {
   findRecentApprovedLead,
   attachLeadToEnrollment,
 } from "@/lib/consulting-db";
+import {
+  recordCommissionForEnrollment,
+  voidCommissionByOrderId,
+} from "@/lib/affiliates";
 
 let _recur: Recur | null = null;
 function getRecur(): Recur {
@@ -62,6 +66,20 @@ export async function POST(request: Request) {
       await handleOrderPaid(event.id, event.data as unknown as OrderPaidData);
     } else if (event.type === "order.payment_failed") {
       await handleOrderFailed(event.id, event.data as unknown as OrderPaidData);
+    } else if (event.type === "refund.succeeded") {
+      const data = event.data as unknown as {
+        id?: string;
+        order_id?: string;
+        order?: { id?: string };
+      };
+      const orderId = data.order_id ?? data.order?.id ?? data.id ?? "";
+      console.log(
+        "[recur webhook] refund.succeeded; voiding referral for order",
+        orderId,
+        "payload keys:",
+        Object.keys(data),
+      );
+      await voidCommissionByOrderId(orderId);
     } else if (event.type === "checkout.completed") {
       console.log(
         "[recur webhook] checkout.completed acknowledged; fulfillment runs on order.paid",
@@ -118,6 +136,15 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   if (enrollmentId) {
     await markEnrollmentPaid({ enrollmentId, orderId, productId, amount });
+    try {
+      await recordCommissionForEnrollment({
+        enrollmentId,
+        orderId,
+        orderAmount: amount,
+      });
+    } catch (e) {
+      console.error("[recur webhook] recordCommissionForEnrollment threw", e);
+    }
   } else {
     console.warn(
       "[recur webhook] no enrollment found for paid order",
