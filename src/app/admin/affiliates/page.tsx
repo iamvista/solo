@@ -19,7 +19,13 @@ export default async function AdminAffiliatesPage() {
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      <div className="mb-6 flex items-center justify-between">
+      <Link
+        href="/admin"
+        className="text-sm text-muted-foreground hover:text-foreground"
+      >
+        ← 返回後臺
+      </Link>
+      <div className="mb-6 mt-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">聯盟分潤代碼</h1>
         <Link
           href="/admin/affiliates/new"

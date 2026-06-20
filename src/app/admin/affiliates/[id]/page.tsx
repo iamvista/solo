@@ -50,7 +50,13 @@ export default async function AffiliateDetailPage({ params, searchParams }: Page
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      <h1 className="mb-1 text-2xl font-bold">
+      <Link
+        href="/admin/affiliates"
+        className="text-sm text-muted-foreground hover:text-foreground"
+      >
+        ← 返回代碼列表
+      </Link>
+      <h1 className="mb-1 mt-4 text-2xl font-bold">
         {affiliate.name}（<span className="font-mono">{affiliate.code}</span>）
       </h1>
       <p className="mb-6 text-sm text-stone-500">
