@@ -72,9 +72,20 @@ export async function POST(request: Request) {
     return bad("統一編號需為 8 碼數字");
   }
 
-  // 解析方案，預設用 resolvePricing 的預設邏輯
+  // 解析來源代碼：手動填的優先，否則讀 ?ref 寫入的 cookie。
+  // 需在定價之前解析，有有效推薦碼才能套用折扣價產品。
+  const cookieStore = await cookies();
+  const rawReferral =
+    body.referralCode?.trim() || cookieStore.get("solo_ref")?.value || "";
+  let referralCode: string | null = null;
+  if (rawReferral) {
+    const affiliate = await findActiveAffiliateByCode(rawReferral, course.slug);
+    referralCode = affiliate ? affiliate.code : null;
+  }
+
+  // 解析方案與價格（有有效推薦碼時套用折扣價產品 + 折抵金額）
   const plan: PricingPlan = body.plan ?? "early_bird";
-  const pricing = resolvePricing(course, new Date(), plan);
+  const pricing = resolvePricing(course, new Date(), plan, !!referralCode);
 
   // 舊生優惠：必須提供報名憑證
   const alumniCertificate = body.alumniCertificate?.trim();
@@ -108,16 +119,6 @@ export async function POST(request: Request) {
     }
     companionEmailNorm = cEmail;
     companionPhoneNorm = cPhoneParsed;
-  }
-
-  // 解析來源代碼：手動填的優先，否則讀 ?ref 寫入的 cookie
-  const cookieStore = await cookies();
-  const rawReferral =
-    body.referralCode?.trim() || cookieStore.get("solo_ref")?.value || "";
-  let referralCode: string | null = null;
-  if (rawReferral) {
-    const affiliate = await findActiveAffiliateByCode(rawReferral, course.slug);
-    referralCode = affiliate ? affiliate.code : null;
   }
 
   const supabase = createClient(
