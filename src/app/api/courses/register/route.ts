@@ -72,8 +72,8 @@ export async function POST(request: Request) {
     return bad("統一編號需為 8 碼數字");
   }
 
-  // 解析來源代碼：手動填的優先，否則讀 ?ref 寫入的 cookie。
-  // 需在定價之前解析，有有效推薦碼才能套用折扣價產品。
+  // 解析來源代碼（分潤歸因用）：手動填的優先，否則讀 ?ref 寫入的 cookie。
+  // 推薦碼只記歸因／算分潤，不影響價格（折扣已與分潤脫鉤，改用 Recur 結帳優惠碼）。
   const cookieStore = await cookies();
   const rawReferral =
     body.referralCode?.trim() || cookieStore.get("solo_ref")?.value || "";
@@ -83,9 +83,9 @@ export async function POST(request: Request) {
     referralCode = affiliate ? affiliate.code : null;
   }
 
-  // 解析方案與價格（有有效推薦碼時套用折扣價產品 + 折抵金額）
+  // 解析方案與價格
   const plan: PricingPlan = body.plan ?? "early_bird";
-  const pricing = resolvePricing(course, new Date(), plan, !!referralCode);
+  const pricing = resolvePricing(course, new Date(), plan);
 
   // 舊生優惠：必須提供報名憑證
   const alumniCertificate = body.alumniCertificate?.trim();

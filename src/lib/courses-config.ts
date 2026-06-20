@@ -38,10 +38,6 @@ export interface CourseConfig {
   vipPrice?: number;
   /** VIP 方案說明（顯示在方案卡片下） */
   vipNote?: string;
-  /** 推薦折扣金額（NT$）：帶有效推薦碼時，對所有有折扣價產品的方案折抵 */
-  referralDiscount?: number;
-  /** 各方案的推薦折扣價 Recur 產品 ID（key 為 PricingPlan） */
-  referralProductIds?: Partial<Record<PricingPlan, string>>;
   /** 舊生優惠 Recur 產品 ID（選填，需在 alumni 欄位提交過去報名憑證） */
   recurProductIdAlumni?: string;
   /** 舊生優惠金額 */
@@ -140,12 +136,6 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     vipPrice: 16800,
     vipNote:
       "限 5 名：含 6 週全部內容，另加課前概念診斷＋課後 30 分鐘一對一產品診斷與銷售角度修改建議",
-    referralDiscount: 300,
-    referralProductIds: {
-      regular: "qm3yo8rwnu8hwqcm5oo9ko7l",
-      vip: "npoa7ovgqv81m3ng8npxmer7",
-      dual: "smdqk9y4rdwgqfb53l0isyea",
-    },
     detailUrl: "/courses/concept-monetization-bootcamp",
     hideInvoiceSection: true,
     customQuestionLabel:
@@ -177,15 +167,11 @@ export interface ResolvedPricing {
   isEarlyBird: boolean;
 }
 
-/**
- * 取得目前該收的價格與對應 product ID（單人預設早鳥／原價自動切）。
- * hasReferral=true 且該方案有折扣價產品時，換成折扣價產品並折抵 referralDiscount。
- */
+/** 取得目前該收的價格與對應 product ID（單人預設早鳥／原價自動切） */
 export function resolvePricing(
   config: CourseConfig,
   now: Date = new Date(),
   plan: PricingPlan = "early_bird",
-  hasReferral: boolean = false,
 ): ResolvedPricing {
   let base: ResolvedPricing;
 
@@ -241,17 +227,6 @@ export function resolvePricing(
       amount: config.regularPrice,
       isEarlyBird: false,
     };
-  }
-
-  if (hasReferral && config.referralDiscount && config.referralProductIds) {
-    const referralProductId = config.referralProductIds[base.plan];
-    if (referralProductId) {
-      return {
-        ...base,
-        productId: referralProductId,
-        amount: Math.max(0, base.amount - config.referralDiscount),
-      };
-    }
   }
 
   return base;

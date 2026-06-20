@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { getCourseConfig, availablePlans } from "@/lib/courses-config";
-import { findActiveAffiliateByCode } from "@/lib/affiliates";
 import { CourseRegistrationForm } from "./CourseRegistrationForm";
 
 interface PageProps {
@@ -31,21 +29,6 @@ export default async function RegisterPage({ params }: PageProps) {
   const defaultPlan = plans[0]?.plan ?? "regular";
   const headlinePlan = plans[0];
   const publishableKey = process.env.NEXT_PUBLIC_RECUR_PUBLISHABLE_KEY ?? "";
-
-  // 推薦折扣：若帶 ?ref cookie 且為有效碼，預填代碼並讓表單預先顯示折扣
-  const referralDiscount = course.referralDiscount ?? 0;
-  let initialReferralCode = "";
-  let initialReferralValid = false;
-  if (referralDiscount > 0) {
-    const cookieRef = (await cookies()).get("solo_ref")?.value ?? "";
-    if (cookieRef) {
-      const affiliate = await findActiveAffiliateByCode(cookieRef, course.slug);
-      if (affiliate) {
-        initialReferralCode = affiliate.code;
-        initialReferralValid = true;
-      }
-    }
-  }
 
   return (
     <div className="bg-gradient-to-b from-amber-50/40 to-background">
@@ -127,9 +110,6 @@ export default async function RegisterPage({ params }: PageProps) {
               plans={plans}
               defaultPlan={defaultPlan}
               publishableKey={publishableKey}
-              referralDiscount={referralDiscount}
-              initialReferralCode={initialReferralCode}
-              initialReferralValid={initialReferralValid}
             />
           </div>
         )}
