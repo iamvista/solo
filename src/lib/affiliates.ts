@@ -98,3 +98,59 @@ export async function findActiveAffiliateByCode(
   if (!isCourseInScope(data.course_ids, courseSlug)) return null;
   return data as Affiliate;
 }
+
+/** 付款成功後建立 pending 分潤；靠 enrollment_id unique index 冪等（重送不重複）。 */
+export async function recordCommissionForEnrollment(params: {
+  enrollmentId: string;
+  orderId: string;
+  orderAmount?: number;
+}): Promise<void> {
+  const sb = svc();
+  const { data: enr, error } = await sb
+    .from("course_enrollments")
+    .select("id, course_id, referral_code, amount")
+    .eq("id", params.enrollmentId)
+    .maybeSingle();
+  if (error || !enr) {
+    console.error("[affiliates] load enrollment failed", error);
+    return;
+  }
+  if (!enr.referral_code) return;
+  const affiliate = await findActiveAffiliateByCode(
+    enr.referral_code,
+    enr.course_id,
+  );
+  if (!affiliate) {
+    console.log("[affiliates] no active affiliate for", enr.referral_code);
+    return;
+  }
+  const orderAmount =
+    typeof params.orderAmount === "number" ? params.orderAmount : enr.amount ?? 0;
+  const commission = computeCommission(orderAmount, affiliate.commission_rate);
+  const { error: insErr } = await sb.from("affiliate_referrals").upsert(
+    {
+      affiliate_id: affiliate.id,
+      enrollment_id: enr.id,
+      course_id: enr.course_id,
+      order_amount: orderAmount,
+      commission_rate: affiliate.commission_rate,
+      commission_amount: commission,
+      status: "pending",
+      recur_order_id: params.orderId,
+    },
+    { onConflict: "enrollment_id", ignoreDuplicates: true },
+  );
+  if (insErr) console.error("[affiliates] insert referral failed", insErr);
+}
+
+/** 退款／取消：把該訂單對應的分潤標 void（排除已 void）。 */
+export async function voidCommissionByOrderId(orderId: string): Promise<void> {
+  if (!orderId) return;
+  const sb = svc();
+  const { error } = await sb
+    .from("affiliate_referrals")
+    .update({ status: "void", voided_at: new Date().toISOString() })
+    .eq("recur_order_id", orderId)
+    .neq("status", "void");
+  if (error) console.error("[affiliates] void by order failed", error);
+}
