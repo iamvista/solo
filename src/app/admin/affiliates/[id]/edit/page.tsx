@@ -1,4 +1,5 @@
 import { redirect, notFound } from "next/navigation";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { isAdmin } from "@/lib/supabase/admin";
 import { getAffiliate } from "@/lib/affiliates";
@@ -21,7 +22,13 @@ export default async function EditAffiliatePage({ params }: PageProps) {
 
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <h1 className="mb-6 text-2xl font-bold">
+      <Link
+        href="/admin/affiliates"
+        className="text-sm text-muted-foreground hover:text-foreground"
+      >
+        ← 返回代碼列表
+      </Link>
+      <h1 className="mb-6 mt-4 text-2xl font-bold">
         編輯代碼 <span className="font-mono">{affiliate.code}</span>
       </h1>
       <AffiliateForm affiliate={affiliate} />

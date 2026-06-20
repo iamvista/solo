@@ -1,4 +1,5 @@
 import { redirect, notFound } from "next/navigation";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { isAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -21,7 +22,13 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-      <Badge variant="outline" className="mb-2">編輯活動</Badge>
+      <Link
+        href="/admin/events"
+        className="text-sm text-muted-foreground hover:text-foreground"
+      >
+        ← 返回活動列表
+      </Link>
+      <Badge variant="outline" className="mb-2 mt-4">編輯活動</Badge>
       <h1 className="mb-8 text-2xl font-bold">編輯：{event.title}</h1>
       <EventForm mode="edit" event={{ ...event, ticket_types: ticketTypes || [] }} />
     </div>
