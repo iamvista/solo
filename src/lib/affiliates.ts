@@ -278,6 +278,12 @@ export async function updateAffiliate(
     note: string | null;
   }>,
 ): Promise<{ ok: boolean; error?: string }> {
+  if (
+    patch.commission_rate !== undefined &&
+    !(patch.commission_rate > 0 && patch.commission_rate <= 1)
+  ) {
+    return { ok: false, error: "比例需介於 0 與 100% 之間" };
+  }
   const sb = svc();
   const { error } = await sb
     .from("affiliates")
