@@ -23,9 +23,6 @@ interface Props {
   plans: PlanOption[];
   defaultPlan: PricingPlan;
   publishableKey: string;
-  referralDiscount: number;
-  initialReferralCode?: string;
-  initialReferralValid?: boolean;
 }
 
 interface FormState {
@@ -66,13 +63,9 @@ export function CourseRegistrationForm({
   plans,
   defaultPlan,
   publishableKey,
-  referralDiscount,
-  initialReferralCode = "",
-  initialReferralValid = false,
 }: Props) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const [referralValid, setReferralValid] = useState(initialReferralValid);
   const [form, setForm] = useState<FormState>({
     plan: defaultPlan,
     email: "",
@@ -93,31 +86,8 @@ export function CourseRegistrationForm({
     companionName: "",
     companionEmail: "",
     companionPhone: "",
-    referralCode: initialReferralCode,
+    referralCode: "",
   });
-
-  // 推薦折扣：有效碼且該課有折扣金額時，方案卡與總額顯示折後價（實際金額仍由 register 端再驗證決定）
-  const discountActive = referralValid && referralDiscount > 0;
-  const priceFor = (amount: number) =>
-    discountActive ? Math.max(0, amount - referralDiscount) : amount;
-
-  // 推薦碼即時驗證（onBlur 觸發）：呼叫公開驗碼 API，更新折扣顯示
-  const validateReferral = async (rawCode: string) => {
-    const code = rawCode.trim();
-    if (!code) {
-      setReferralValid(false);
-      return;
-    }
-    try {
-      const res = await fetch(
-        `/api/affiliates/validate?code=${encodeURIComponent(code)}&course=${encodeURIComponent(course.slug)}`,
-      );
-      const json = await res.json();
-      setReferralValid(!!json.valid);
-    } catch {
-      setReferralValid(false);
-    }
-  };
 
   const selectedPlan = useMemo(
     () => plans.find((p) => p.plan === form.plan) ?? plans[0],
@@ -256,15 +226,8 @@ export function CourseRegistrationForm({
                 />
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="text-base font-semibold">{p.label}</span>
-                  <span className="flex items-baseline gap-1">
-                    {discountActive && (
-                      <span className="text-sm font-normal text-muted-foreground line-through">
-                        NT${p.amount.toLocaleString()}
-                      </span>
-                    )}
-                    <span className="text-2xl font-bold text-primary">
-                      NT${priceFor(p.amount).toLocaleString()}
-                    </span>
+                  <span className="text-2xl font-bold text-primary">
+                    NT${p.amount.toLocaleString()}
                   </span>
                 </div>
                 {p.description && (
@@ -604,23 +567,9 @@ export function CourseRegistrationForm({
           id="referralCode"
           value={form.referralCode}
           onChange={(e) => update("referralCode", e.target.value)}
-          onBlur={(e) => validateReferral(e.target.value)}
           placeholder="若有朋友／單位提供的推薦代碼，請填寫"
           autoCapitalize="characters"
         />
-        {referralDiscount > 0 &&
-          (discountActive ? (
-            <p className="text-xs font-medium text-emerald-700">
-              ✅ 已套用推薦折扣，現折 NT${referralDiscount.toLocaleString()}
-            </p>
-          ) : (
-            form.referralCode.trim() !== "" && (
-              <p className="text-xs text-muted-foreground">
-                推薦碼會在送出時再次驗證，符合資格即現折 NT$
-                {referralDiscount.toLocaleString()}。
-              </p>
-            )
-          ))}
       </div>
 
       {/* 送出 */}
@@ -635,22 +584,10 @@ export function CourseRegistrationForm({
           <span className="text-sm text-muted-foreground">
             本次應付（{selectedPlan.label}）
           </span>
-          <span className="flex items-baseline gap-2">
-            {discountActive && (
-              <span className="text-base font-normal text-muted-foreground line-through">
-                NT${selectedPlan.amount.toLocaleString()}
-              </span>
-            )}
-            <span className="text-3xl font-bold text-primary">
-              NT${priceFor(selectedPlan.amount).toLocaleString()}
-            </span>
+          <span className="text-3xl font-bold text-primary">
+            NT${selectedPlan.amount.toLocaleString()}
           </span>
         </div>
-        {discountActive && (
-          <p className="mt-1 text-right text-xs font-medium text-emerald-700">
-            ✅ 已折抵推薦折扣 NT${referralDiscount.toLocaleString()}
-          </p>
-        )}
         {selectedPlan.plan === "early_bird" && course.earlyBirdDeadline && (
           <p className="mt-1 text-right text-xs text-emerald-700">
             ⚡ 早鳥優惠（{course.earlyBirdDeadline} 截止）
@@ -675,6 +612,9 @@ export function CourseRegistrationForm({
           {pending ? "處理中…請稍候" : "確認資料・前往付款"}
         </Button>
         <p className="mt-3 text-xs text-muted-foreground">
+          🎟️ 有優惠碼？下一頁結帳時可輸入折抵。
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
           按下後會跳轉到 PAYUNi 信用卡刷卡頁。開課前可全額退費（需扣除金流手續費）。
         </p>
       </div>
