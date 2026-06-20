@@ -2,6 +2,7 @@ import { redirect, notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isAdmin } from "@/lib/supabase/admin";
 import { getAffiliate, getReferralsForAffiliate } from "@/lib/affiliates";
+import { ReferralActions } from "./ReferralActions";
 
 export const metadata: Metadata = {
   title: "聯盟夥伴明細 | 後台",
@@ -63,6 +64,7 @@ export default async function AffiliateDetailPage({ params }: PageProps) {
             <th className="text-right">分潤</th>
             <th>狀態</th>
             <th>Recur 訂單</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -75,11 +77,14 @@ export default async function AffiliateDetailPage({ params }: PageProps) {
               <td className="text-right">{ntd(r.commission_amount)}</td>
               <td>{STATUS_LABEL[r.status] ?? r.status}</td>
               <td className="font-mono text-xs">{r.recur_order_id ?? "—"}</td>
+              <td>
+                <ReferralActions referralId={r.id} status={r.status} />
+              </td>
             </tr>
           ))}
           {referrals.length === 0 && (
             <tr>
-              <td colSpan={7} className="py-6 text-center text-stone-400">
+              <td colSpan={8} className="py-6 text-center text-stone-400">
                 尚無帶單紀錄。
               </td>
             </tr>
