@@ -330,7 +330,7 @@ export async function getMonthlyReferrals(
   if (!m) return [];
   const year = Number(m[1]);
   const mon = Number(m[2]); // 1-12
-  // 台北 (UTC+8) 月界換算成 UTC：當月 1 日 00:00 +08:00 = 前一日 16:00 UTC
+  // 臺北 (UTC+8) 月界換算成 UTC：當月 1 日 00:00 +08:00 = 前一日 16:00 UTC
   const startUtc = new Date(Date.UTC(year, mon - 1, 1, -8, 0, 0)).toISOString();
   const endUtc = new Date(Date.UTC(year, mon, 1, -8, 0, 0)).toISOString();
   const sb = svc();

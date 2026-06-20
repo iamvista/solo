@@ -40,7 +40,8 @@ interface PageProps {
 export default async function AffiliateDetailPage({ params, searchParams }: PageProps) {
   if (!(await isAdmin())) redirect("/");
   const { id } = await params;
-  const { month } = await searchParams;
+  const rawMonth = (await searchParams).month ?? "";
+  const month = /^\d{4}-\d{2}$/.test(rawMonth) ? rawMonth : undefined;
   const affiliate = await getAffiliate(id);
   if (!affiliate) notFound();
   const referrals = await getReferralsForAffiliate(id);
