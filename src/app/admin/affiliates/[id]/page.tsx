@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 function ntd(n: number): string {
-  return `NT$${n.toLocaleString()}`;
+  return `NT$${n.toLocaleString("zh-TW")}`;
 }
 
 function fmtDate(iso: string | null): string {

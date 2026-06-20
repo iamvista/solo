@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 function ntd(n: number): string {
-  return `NT$${n.toLocaleString()}`;
+  return `NT$${n.toLocaleString("zh-TW")}`;
 }
 
 export default async function AdminAffiliatesPage() {
