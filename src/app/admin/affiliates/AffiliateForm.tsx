@@ -3,17 +3,30 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-export function AffiliateForm() {
+interface ExistingAffiliate {
+  id: string;
+  code: string;
+  name: string;
+  email: string | null;
+  commission_rate: number;
+  course_ids: string[] | null;
+  note: string | null;
+}
+
+export function AffiliateForm({ affiliate }: { affiliate?: ExistingAffiliate }) {
   const router = useRouter();
+  const isEdit = !!affiliate;
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
-    code: "",
-    name: "",
-    email: "",
-    percent: "20",
-    courseIds: "",
-    note: "",
+    code: affiliate?.code ?? "",
+    name: affiliate?.name ?? "",
+    email: affiliate?.email ?? "",
+    percent: affiliate
+      ? String(Math.round(affiliate.commission_rate * 100))
+      : "20",
+    courseIds: affiliate?.course_ids?.join(", ") ?? "",
+    note: affiliate?.note ?? "",
   });
 
   const submit = (e: React.FormEvent) => {
@@ -25,27 +38,30 @@ export function AffiliateForm() {
       return;
     }
     startTransition(async () => {
-      const res = await fetch("/api/admin/affiliates", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          code: form.code,
-          name: form.name,
-          email: form.email || undefined,
-          commissionRate: percentNum / 100,
-          courseIds: form.courseIds
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean),
-          note: form.note || undefined,
-        }),
-      });
+      const payload = {
+        name: form.name,
+        email: form.email,
+        commissionRate: percentNum / 100,
+        courseIds: form.courseIds
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        note: form.note,
+      };
+      const res = await fetch(
+        isEdit ? `/api/admin/affiliates/${affiliate.id}` : "/api/admin/affiliates",
+        {
+          method: isEdit ? "PATCH" : "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(isEdit ? payload : { ...payload, code: form.code }),
+        },
+      );
       const json = await res.json();
       if (!res.ok) {
-        setError(json.error ?? "建立失敗");
+        setError(json.error ?? (isEdit ? "儲存失敗" : "建立失敗"));
         return;
       }
-      router.push("/admin/affiliates");
+      router.push(isEdit ? `/admin/affiliates/${affiliate.id}` : "/admin/affiliates");
       router.refresh();
     });
   };
@@ -57,12 +73,15 @@ export function AffiliateForm() {
     <form onSubmit={submit} className="max-w-md space-y-4">
       {error && <p className="text-sm text-rose-600">{error}</p>}
       <label className="block">
-        <span className="text-sm">代碼（自動轉大寫）</span>
+        <span className="text-sm">
+          代碼{isEdit ? "（不可修改）" : "（自動轉大寫）"}
+        </span>
         <input
-          className="mt-1 w-full rounded border px-3 py-2"
+          className="mt-1 w-full rounded border px-3 py-2 disabled:bg-stone-100 disabled:text-stone-500"
           value={form.code}
           onChange={(e) => set("code", e.target.value)}
           required
+          disabled={isEdit}
         />
       </label>
       <label className="block">
@@ -111,13 +130,23 @@ export function AffiliateForm() {
           onChange={(e) => set("note", e.target.value)}
         />
       </label>
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded bg-stone-900 px-4 py-2 text-sm text-white disabled:opacity-50"
-      >
-        {pending ? "建立中…" : "建立代碼"}
-      </button>
+      <div className="flex items-center gap-3">
+        <button
+          type="submit"
+          disabled={pending}
+          className="rounded bg-stone-900 px-4 py-2 text-sm text-white disabled:opacity-50"
+        >
+          {pending ? "處理中…" : isEdit ? "儲存修改" : "建立代碼"}
+        </button>
+        {isEdit && (
+          <a
+            href={`/admin/affiliates/${affiliate.id}`}
+            className="text-sm text-stone-500 underline"
+          >
+            取消
+          </a>
+        )}
+      </div>
     </form>
   );
 }
