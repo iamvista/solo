@@ -68,11 +68,12 @@ export function canTransitionReferral(
   return REFERRAL_TRANSITIONS[from]?.includes(to) ?? false;
 }
 
+let _svc: SupabaseClient | undefined;
 function svc(): SupabaseClient {
-  return createClient(
+  return (_svc ??= createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
+  ));
 }
 
 /** 依代碼找 active 且適用該課程的夥伴；查無或不適用回 null。 */
