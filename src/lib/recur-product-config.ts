@@ -150,6 +150,28 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
   },
+  // 推薦折扣價（透過推薦碼／推薦連結，現折 NT$300）——發信與課程通知同標準/VIP/雙人
+  qm3yo8rwnu8hwqcm5oo9ko7l: {
+    kind: "course",
+    productId: "qm3yo8rwnu8hwqcm5oo9ko7l",
+    productName: "概念變現陪跑營（6 週線上・推薦價）",
+    whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
+  },
+  npoa7ovgqv81m3ng8npxmer7: {
+    kind: "course",
+    productId: "npoa7ovgqv81m3ng8npxmer7",
+    productName: "概念變現陪跑營・VIP 診斷席（推薦價）",
+    whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
+  },
+  smdqk9y4rdwgqfb53l0isyea: {
+    kind: "course",
+    productId: "smdqk9y4rdwgqfb53l0isyea",
+    productName: "概念變現陪跑營・雙人同行（推薦價）",
+    whatsNext: COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/concept-monetization-bootcamp",
+  },
 
   // 1-on-1 諮詢套票（顧問服務）
   zimy2xm5pv24dfxx194axeev: {

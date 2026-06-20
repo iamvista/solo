@@ -32,6 +32,16 @@ export interface CourseConfig {
   recurProductIdDual?: string;
   /** 雙人同行金額 */
   dualPrice?: number;
+  /** VIP 方案 Recur 產品 ID（選填） */
+  recurProductIdVip?: string;
+  /** VIP 方案金額 */
+  vipPrice?: number;
+  /** VIP 方案說明（顯示在方案卡片下） */
+  vipNote?: string;
+  /** 推薦折扣金額（NT$）：帶有效推薦碼時，對所有有折扣價產品的方案折抵 */
+  referralDiscount?: number;
+  /** 各方案的推薦折扣價 Recur 產品 ID（key 為 PricingPlan） */
+  referralProductIds?: Partial<Record<PricingPlan, string>>;
   /** 舊生優惠 Recur 產品 ID（選填，需在 alumni 欄位提交過去報名憑證） */
   recurProductIdAlumni?: string;
   /** 舊生優惠金額 */
@@ -126,6 +136,16 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     regularPrice: 9999,
     recurProductIdDual: "bq16q93lbuddoarykucd311m",
     dualPrice: 18000,
+    recurProductIdVip: "jz9tbaygcitkkdpr3y5ah97z",
+    vipPrice: 16800,
+    vipNote:
+      "限 5 名：含 6 週全部內容，另加課前概念診斷＋課後 30 分鐘一對一產品診斷與銷售角度修改建議",
+    referralDiscount: 300,
+    referralProductIds: {
+      regular: "qm3yo8rwnu8hwqcm5oo9ko7l",
+      vip: "npoa7ovgqv81m3ng8npxmer7",
+      dual: "smdqk9y4rdwgqfb53l0isyea",
+    },
     detailUrl: "/courses/concept-monetization-bootcamp",
     hideInvoiceSection: true,
     customQuestionLabel:
@@ -148,7 +168,7 @@ export function isEarlyBirdActive(config: CourseConfig, now: Date = new Date()):
   return now <= deadline;
 }
 
-export type PricingPlan = "early_bird" | "regular" | "dual" | "alumni";
+export type PricingPlan = "early_bird" | "regular" | "vip" | "dual" | "alumni";
 
 export interface ResolvedPricing {
   plan: PricingPlan;
@@ -157,57 +177,84 @@ export interface ResolvedPricing {
   isEarlyBird: boolean;
 }
 
-/** 取得目前該收的價格與對應 product ID（單人預設早鳥／原價自動切） */
+/**
+ * 取得目前該收的價格與對應 product ID（單人預設早鳥／原價自動切）。
+ * hasReferral=true 且該方案有折扣價產品時，換成折扣價產品並折抵 referralDiscount。
+ */
 export function resolvePricing(
   config: CourseConfig,
   now: Date = new Date(),
   plan: PricingPlan = "early_bird",
+  hasReferral: boolean = false,
 ): ResolvedPricing {
+  let base: ResolvedPricing;
+
   if (
     plan === "alumni" &&
     config.recurProductIdAlumni &&
     config.alumniPrice !== undefined
   ) {
-    return {
+    base = {
       plan: "alumni",
       productId: config.recurProductIdAlumni,
       amount: config.alumniPrice,
       isEarlyBird: false,
     };
-  }
-
-  if (
+  } else if (
+    plan === "vip" &&
+    config.recurProductIdVip &&
+    config.vipPrice !== undefined
+  ) {
+    base = {
+      plan: "vip",
+      productId: config.recurProductIdVip,
+      amount: config.vipPrice,
+      isEarlyBird: false,
+    };
+  } else if (
     plan === "dual" &&
     config.recurProductIdDual &&
     config.dualPrice !== undefined
   ) {
-    return {
+    base = {
       plan: "dual",
       productId: config.recurProductIdDual,
       amount: config.dualPrice,
       isEarlyBird: false,
     };
-  }
-
-  if (
+  } else if (
     plan === "early_bird" &&
     config.recurProductIdEarlyBird &&
     config.earlyBirdPrice !== undefined &&
     isEarlyBirdActive(config, now)
   ) {
-    return {
+    base = {
       plan: "early_bird",
       productId: config.recurProductIdEarlyBird,
       amount: config.earlyBirdPrice,
       isEarlyBird: true,
     };
+  } else {
+    base = {
+      plan: "regular",
+      productId: config.recurProductIdRegular,
+      amount: config.regularPrice,
+      isEarlyBird: false,
+    };
   }
-  return {
-    plan: "regular",
-    productId: config.recurProductIdRegular,
-    amount: config.regularPrice,
-    isEarlyBird: false,
-  };
+
+  if (hasReferral && config.referralDiscount && config.referralProductIds) {
+    const referralProductId = config.referralProductIds[base.plan];
+    if (referralProductId) {
+      return {
+        ...base,
+        productId: referralProductId,
+        amount: Math.max(0, base.amount - config.referralDiscount),
+      };
+    }
+  }
+
+  return base;
 }
 
 /** 列出該課所有可選方案（給表單 radio 用） */
@@ -249,6 +296,16 @@ export function availablePlans(
       label: "單人原價",
       amount: config.regularPrice,
       productId: config.recurProductIdRegular,
+    });
+  }
+
+  if (config.recurProductIdVip && config.vipPrice !== undefined) {
+    plans.push({
+      plan: "vip",
+      label: "VIP 診斷席",
+      amount: config.vipPrice,
+      description: config.vipNote ?? "含全部內容，另加一對一產品診斷",
+      productId: config.recurProductIdVip,
     });
   }
 
