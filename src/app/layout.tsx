@@ -15,7 +15,7 @@ const organizationSchema = {
   alternateName: "用 AI 放大你的一人事業",
   url: "https://www.solo.tw",
   description:
-    "Vista Cheng 的個人品牌網站。提供 AI 工作坊、1-on-1 諮詢、線上課程，幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。",
+    "Vista Cheng 的個人品牌網站。提供 AI 工作坊、諮詢、線上課程，幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。",
   founder: {
     "@type": "Person",
     name: "Vista Cheng",
@@ -44,7 +44,7 @@ const websiteSchema = {
   name: "solo.tw | 用 AI 放大你的一人事業",
   url: "https://www.solo.tw",
   description:
-    "Vista Cheng 的個人品牌網站。AI 工作坊、1-on-1 諮詢、線上課程，幫助自由工作者用 AI 放大一人事業的產出。",
+    "Vista Cheng 的個人品牌網站。AI 工作坊、諮詢、線上課程，幫助自由工作者用 AI 放大一人事業的產出。",
   publisher: { "@type": "Organization", name: "solo.tw" },
 };
 
@@ -58,7 +58,7 @@ const personSchema = {
   url: "https://www.solo.tw/about",
   image: "https://www.solo.tw/images/vista-profile.webp",
   description:
-    "幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。18,500+ 電子報讀者、50+ 場工作坊。提供 1-on-1 諮詢、線上課程與企業內訓。",
+    "幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。18,500+ 電子報讀者、50+ 場工作坊。提供 諮詢、線上課程與企業內訓。",
   worksFor: {
     "@type": "Organization",
     name: "solo.tw（自由人學院）",
@@ -102,7 +102,7 @@ export const metadata: Metadata = {
   },
   title: "solo.tw | 用 AI 放大你的一人事業",
   description:
-    "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。AI 工作坊、1-on-1 諮詢、線上課程、SOLO 方法論。",
+    "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。AI 工作坊、諮詢、線上課程、SOLO 方法論。",
   keywords: [
     "一人公司",
     "一人創業",

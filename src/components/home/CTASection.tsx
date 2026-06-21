@@ -29,7 +29,7 @@ export function CTASection() {
               className="h-14 w-full px-8 text-base font-semibold shadow-lg shadow-primary/15 sm:w-auto sm:text-lg"
             >
               <Link href="/consulting">
-                預約 1-on-1 諮詢
+                預約諮詢
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

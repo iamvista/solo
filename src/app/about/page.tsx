@@ -198,7 +198,7 @@ export default function AboutPage() {
               <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
                 <Button size="lg" asChild>
                   <Link href="/consulting">
-                    預約 1-on-1 諮詢
+                    預約諮詢
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -307,7 +307,7 @@ export default function AboutPage() {
               },
               {
                 icon: Users,
-                title: "1-on-1 諮詢 & 陪跑",
+                title: "諮詢 & 陪跑",
                 desc: "30 分鐘免費初談，幫你釐清方向。覺得適合再深入合作。",
                 href: "/consulting",
               },
@@ -385,7 +385,7 @@ export default function AboutPage() {
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button size="lg" asChild>
                 <Link href="/consulting">
-                  預約 1-on-1 諮詢
+                  預約諮詢
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

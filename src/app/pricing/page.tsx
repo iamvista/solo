@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   keywords: [
     "AI 諮詢價格",
     "AI 工作坊價格",
-    "1-on-1 諮詢費用",
+    "諮詢費用",
     "Vista Cheng",
     "solo.tw",
     "自由人學院",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "服務方案與定價｜solo.tw",
     description:
-      "1-on-1 諮詢 NT$3,000 起、AI 工作坊、線上課程、模板工具包。",
+      "諮詢 NT$3,000 起、AI 工作坊、線上課程、模板工具包。",
     url: "https://www.solo.tw/pricing",
   },
   alternates: {
@@ -86,7 +86,7 @@ const services = [
   {
     icon: Video,
     category: "諮詢",
-    title: "1-on-1 諮詢 & 陪跑",
+    title: "諮詢 & 陪跑",
     subtitle: "針對你的狀況深度對話",
     price: "NT$2,490",
     unit: "起（開站優惠）",

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description:
     "Vista Cheng 親自帶的 Google Meet 一對一線上諮詢。1 小時 NT$3,000 起，5 種方案（1/3/5/10/20 小時）。涵蓋 Vibe Coding、個人網站、Solo OS、內容流水線、第二大腦、AI 學術寫作、一人事業七大主題。",
   keywords: [
-    "1-on-1 諮詢",
+    "諮詢",
     "AI 諮詢",
     "AI 教練",
     "AI 陪跑",
@@ -74,12 +74,12 @@ const FAQ_FOR_SCHEMA = [
       "1-on-1 量身陪跑是由 Vista Cheng 親自提供的 Google Meet 一對一線上諮詢服務，從 1 小時單點問題到 20 小時長期陪跑，整堂課時間都用來處理您的具體問題。涵蓋 Vibe Coding、個人網站、Solo OS、內容流水線、第二大腦、AI 學術寫作、一人事業起步七大主題，也接受其他客製需求。",
   },
   {
-    question: "1-on-1 諮詢多少錢？",
+    question: "諮詢多少錢？",
     answer:
       "提供 5 種方案：1 小時 NT$3,000（單價 NT$3,000/hr）、3 小時套票 NT$8,400（NT$2,800/hr）、5 小時套票 NT$13,500（NT$2,700/hr）、10 小時套票 NT$26,000（NT$2,600/hr）、20 小時套票 NT$48,000（NT$2,400/hr）。買越多單價越優惠，套票 6 個月內使用完畢。",
   },
   {
-    question: "誰適合 1-on-1 諮詢？",
+    question: "誰適合諮詢？",
     answer:
       "適合三類人：(1) 上過 AI 工作坊但卡在自己場景無法落地的學員；(2) 講師、顧問、自由工作者想用 AI 升級工作流；(3) 研究者、創作者想把 AI 整合進專案 pipeline。如果您只想學 ChatGPT 基本操作，請優先看 solo.tw 的免費資源與工作坊。",
   },
@@ -144,7 +144,7 @@ export default function ConsultingPage() {
         data={serviceSchema({
           name: "1-on-1 量身陪跑 — Vista Cheng AI 諮詢與陪跑",
           description:
-            "由 Vista Cheng 親自提供的 Google Meet 1-on-1 諮詢，涵蓋 Vibe Coding、個人網站、Solo OS、內容流水線、第二大腦、AI 學術寫作、一人事業起步等主題；從 1 小時單點問題到 20 小時長期陪跑，您決定節奏。",
+            "由 Vista Cheng 親自提供的 Google Meet 諮詢，涵蓋 Vibe Coding、個人網站、Solo OS、內容流水線、第二大腦、AI 學術寫作、一人事業起步等主題；從 1 小時單點問題到 20 小時長期陪跑，您決定節奏。",
           url: "https://www.solo.tw/consulting",
           serviceType: "Coaching & Consulting",
           areaServed: ["臺灣", "全球（線上）"],

@@ -19,7 +19,7 @@ import { SOCIAL_PROOF } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "工具與資源 | solo.tw",
   description:
-    "一人事業者的實用工具箱：免費事業健檢、AI 工作坊、線上課程、1-on-1 諮詢，以及下載即用的模板與工具包。",
+    "一人事業者的實用工具箱：免費事業健檢、AI 工作坊、線上課程、諮詢，以及下載即用的模板與工具包。",
   alternates: {
     canonical: "https://www.solo.tw/tools",
   },
@@ -65,7 +65,7 @@ const liveServices = [
   },
   {
     icon: Video,
-    title: "1-on-1 諮詢",
+    title: "諮詢",
     desc: "不知道下一步該怎麼走？一小時深度對話，幫你理清方向、制定行動計畫。",
     stats: `${SOCIAL_PROOF.consultingHours} 小時累計`,
     href: "/consulting",

@@ -82,7 +82,7 @@ export default function RefundPage() {
 
         <section>
           <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
-            5. 1-on-1 諮詢與陪跑服務
+            5. 諮詢與陪跑服務
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             諮詢服務採預約制：
