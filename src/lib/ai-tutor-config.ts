@@ -11,9 +11,9 @@ export interface AiTutorTier {
 }
 
 export const AI_TUTOR_TIERS: AiTutorTier[] = [
-  { slug: "starter", name: "啟航", hours: 6, price: 19800, pricePerHour: 3300, suitedFor: "想先試、有單一明確目標" },
-  { slug: "advanced", name: "進階", hours: 12, price: 34800, pricePerHour: 2900, highlight: true, suitedFor: "完整帶上手、做出可用成果" },
-  { slug: "deep", name: "深掘陪跑", hours: 24, price: 64800, pricePerHour: 2700, suitedFor: "長期陪跑、團隊或多專案" },
+  { slug: "starter", name: "啟航", hours: 6, price: 21600, pricePerHour: 3600, suitedFor: "想先試、有單一明確目標" },
+  { slug: "advanced", name: "進階", hours: 12, price: 40800, pricePerHour: 3400, highlight: true, suitedFor: "完整帶上手、做出可用成果" },
+  { slug: "deep", name: "深掘陪跑", hours: 24, price: 76800, pricePerHour: 3200, suitedFor: "長期陪跑、團隊或多專案" },
 ];
 
 export interface AiTutorDirection {
@@ -85,10 +85,10 @@ export const AI_TUTOR_PERSONAS = [
 
 export const AI_TUTOR_FAQS = [
   { q: "為什麼要先預約諮詢，不能直接報名？", a: "因為這是完全客製的一對一服務，課綱與時數會依你的目標調整。先聊 30 分鐘，我才能為你設計對的內容，你也能確認我是不是對的人。" },
-  { q: "上課是線上還是實體？", a: "都可以。多數學員選線上（更彈性），大臺北地區可談實體。時間一對一彈性安排。" },
-  { q: "我完全不會寫程式 / 不太會用 AI，可以嗎？", a: "可以。學員從完全新手到工程師都有，課綱會從你現在的程度開始。" },
+  { q: "上課是線上還是實體？", a: "都可以。多數學員選實體，大臺北以外地區需支付高鐵等交通費用。時間一對一彈性安排。" },
+  { q: "我完全不會寫程式 / 不太會用 AI，可以嗎？", a: "可以。學員不乏完全新手，課綱會從你現在的程度開始。" },
   { q: "時數有效期多久？", a: "套餐自購買日起 6 個月內使用，必要時可延長 3 個月。實際以諮詢後的方案為準。" },
-  { q: "可以開公司發票 / 報公司帳嗎？", a: "可以，諮詢時告知抬頭與統編即可。" },
+  { q: "上課內容和我提供的資料會保密嗎？", a: "會。一對一本來就封閉，你帶來的業務資料與商業機密只用於課堂；需要的話也可簽保密協議。" },
   { q: "費用怎麼算？", a: "頁面上三個方案是參考價，實際課綱與時數於免費諮詢後客製確認，無隱藏費用。" },
 ];
 

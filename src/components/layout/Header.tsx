@@ -6,12 +6,24 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-const navigation = [
+type NavItem = {
+  name: string;
+  href: string;
+  children?: { name: string; href: string }[];
+};
+
+const navigation: NavItem[] = [
   { name: "事業健檢", href: "/diagnose" },
   { name: "AI 家教班", href: "/ai-tutor" },
   { name: "諮詢", href: "/consulting" },
-  { name: "課程", href: "/courses" },
-  { name: "講師", href: "/teachers" },
+  {
+    name: "課程",
+    href: "/courses",
+    children: [
+      { name: "所有課程", href: "/courses" },
+      { name: "講師", href: "/teachers" },
+    ],
+  },
   { name: "成長路徑", href: "/growth" },
   { name: "工具", href: "/tools" },
   { name: "部落格", href: "/blog" },
@@ -105,15 +117,49 @@ export function Header() {
 
         {/* Desktop navigation */}
         <div className="hidden lg:flex lg:gap-x-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) =>
+            item.children ? (
+              <div key={item.name} className="group relative">
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-1 text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.name}
+                  <svg
+                    className="h-4 w-4 transition-transform group-hover:rotate-180"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </Link>
+                {/* pt-2 keeps a hover bridge between trigger and menu */}
+                <div className="invisible absolute left-0 top-full z-50 min-w-[10rem] pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                  <div className="overflow-hidden rounded-xl border bg-background py-1 shadow-lg">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.name}
+                        href={child.href}
+                        className="block px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      >
+                        {child.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {item.name}
+              </Link>
+            ),
+          )}
         </div>
 
         {/* Desktop CTA */}
@@ -166,14 +212,29 @@ export function Header() {
         <div className="lg:hidden">
           <div className="space-y-1 px-4 pb-5">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="block rounded-lg px-4 py-3 text-lg font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
+              <div key={item.name}>
+                <Link
+                  href={item.href}
+                  className="block rounded-lg px-4 py-3 text-lg font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+                {item.children && (
+                  <div className="ml-4 space-y-1 border-l border-stone-200 pl-2">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.name}
+                        href={child.href}
+                        className="block rounded-lg px-4 py-2 text-base font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {child.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
             <div className="mt-4 flex flex-col gap-3 pt-2">
               {user ? (
