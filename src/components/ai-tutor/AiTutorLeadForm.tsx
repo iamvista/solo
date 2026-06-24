@@ -243,7 +243,7 @@ export function AiTutorLeadForm() {
       <fieldset className="space-y-5">
         <legend className="text-xl font-semibold">五、其他</legend>
         <div className="space-y-1.5">
-          <Label htmlFor="attribution">怎麼知道 solo.tw（選填）</Label>
+          <Label htmlFor="attribution">怎麼知道 Vista 的 AI 家教班（選填）</Label>
           <select id="attribution" value={state.attribution} onChange={(e) => update("attribution", e.target.value)} className="border-input focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs outline-none transition-[color,box-shadow] focus-visible:ring-[3px] md:text-sm">
             <option value="">請選擇…</option>
             {AI_TUTOR_ATTRIBUTION.map((opt) => (<option key={opt} value={opt}>{opt}</option>))}
