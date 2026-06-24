@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 import { PainPointSection } from "@/components/home/PainPointSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
+import { AiTutorEntrySection } from "@/components/home/AiTutorEntrySection";
 import { DiagnoseEntrySection } from "@/components/home/DiagnoseEntrySection";
 import { SocialProofSection } from "@/components/home/SocialProofSection";
 import { SOLOMethodSection } from "@/components/home/SOLOMethodSection";
@@ -22,6 +23,7 @@ export default function Home() {
       <HeroSection />
       <PainPointSection />
       <ServicesSection />
+      <AiTutorEntrySection />
       <DiagnoseEntrySection />
       <SocialProofSection />
       <SOLOMethodSection />
