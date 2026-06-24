@@ -30,6 +30,16 @@ export function LeadList({ leads }: { leads: Lead[] }) {
   const [approveModal, setApproveModal] = useState<Lead | null>(null);
   const [approveMessage, setApproveMessage] = useState("");
   const [detailModal, setDetailModal] = useState<Lead | null>(null);
+  const [filter, setFilter] = useState<"all" | "ai-tutor" | "consulting">("all");
+
+  const aiTutorCount = leads.filter(isAiTutorLead).length;
+  const filtered = leads.filter((l) =>
+    filter === "all"
+      ? true
+      : filter === "ai-tutor"
+        ? isAiTutorLead(l)
+        : !isAiTutorLead(l),
+  );
 
   async function submitApprove() {
     if (!approveModal) return;
@@ -125,7 +135,7 @@ export function LeadList({ leads }: { leads: Lead[] }) {
       "狀態",
       "Vista 筆記",
     ];
-    const rows = leads.map((l) => [
+    const rows = filtered.map((l) => [
       new Date(l.created_at).toLocaleString("zh-TW"),
       l.name,
       l.email,
@@ -172,9 +182,27 @@ export function LeadList({ leads }: { leads: Lead[] }) {
   return (
     <>
       {/* Toolbar */}
-      <div className="flex items-center justify-end gap-2 border-b bg-muted/30 p-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b bg-muted/30 p-3">
+        <div className="flex flex-wrap gap-1">
+          {(
+            [
+              { key: "all", label: `全部（${leads.length}）` },
+              { key: "ai-tutor", label: `🎓 AI 家教班（${aiTutorCount}）` },
+              { key: "consulting", label: `一般諮詢（${leads.length - aiTutorCount}）` },
+            ] as const
+          ).map((tab) => (
+            <Button
+              key={tab.key}
+              size="sm"
+              variant={filter === tab.key ? "default" : "outline"}
+              onClick={() => setFilter(tab.key)}
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </div>
         <Button size="sm" variant="outline" onClick={exportCsv}>
-          📥 匯出 CSV（{leads.length} 筆）
+          📥 匯出 CSV（{filtered.length} 筆）
         </Button>
       </div>
 
@@ -192,7 +220,14 @@ export function LeadList({ leads }: { leads: Lead[] }) {
           </tr>
         </thead>
         <tbody>
-          {leads.map((l) => (
+          {filtered.length === 0 && (
+            <tr>
+              <td colSpan={7} className="p-8 text-center text-sm text-muted-foreground">
+                沒有符合此篩選的需求單。
+              </td>
+            </tr>
+          )}
+          {filtered.map((l) => (
             <tr key={l.id} className="border-b">
               <td className="p-3">
                 {new Date(l.created_at).toLocaleDateString("zh-TW")}
@@ -430,6 +465,10 @@ export function LeadList({ leads }: { leads: Lead[] }) {
       )}
     </>
   );
+}
+
+function isAiTutorLead(l: Lead) {
+  return l.topics?.some((t) => t.startsWith("ai-tutor:")) ?? false;
 }
 
 const STATUS_LABEL: Record<string, string> = {
