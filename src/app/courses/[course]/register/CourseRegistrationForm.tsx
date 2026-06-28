@@ -460,7 +460,7 @@ export function CourseRegistrationForm({
       <section>
         <Label className="text-sm font-medium">怎麼知道這堂課的？（選填）</Label>
         <div className="mt-3 space-y-2">
-          {ATTRIBUTION_OPTIONS.map((opt) => (
+          {(course.attributionOptions ?? ATTRIBUTION_OPTIONS).map((opt) => (
             <label
               key={opt}
               className="flex cursor-pointer items-center gap-3 rounded-lg border bg-card px-4 py-2.5 text-sm transition-colors hover:border-primary/30"
@@ -559,21 +559,6 @@ export function CourseRegistrationForm({
           我願意收到 Vista 電子報與相關課程的開班通知、學習資源等訊息。隨時可在電子報底部退訂。
         </Label>
       </section>
-
-      {/* 推薦代碼 */}
-      <div className="space-y-1.5">
-        <Label htmlFor="referralCode">推薦代碼（選填，非折扣碼）</Label>
-        <Input
-          id="referralCode"
-          value={form.referralCode}
-          onChange={(e) => update("referralCode", e.target.value)}
-          placeholder="朋友／單位提供的推薦代碼，用於來源歸因"
-          autoCapitalize="characters"
-        />
-        <p className="text-xs text-muted-foreground">
-          這欄不折價。<span className="font-medium text-foreground">折扣碼／優惠碼請不要填在這裡</span>，下一步結帳頁才輸入（見下方）。
-        </p>
-      </div>
 
       {/* 送出 */}
       {error && (

@@ -56,6 +56,8 @@ export interface CourseConfig {
   customQuestionPlaceholder?: string;
   /** 報名前提示（顯示在表單頁頂部與課程資訊區，例如「需自備 Claude Pro 訂閱」） */
   preRegistrationNotice?: string;
+  /** 客製「怎麼知道這堂課」選項（不填則用共用預設）；通常用來把該課講師的社群放第一 */
+  attributionOptions?: string[];
 }
 
 export const COURSE_CONFIGS: Record<string, CourseConfig> = {
@@ -77,6 +79,14 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
       "例：我同時做命理、寫作、教練，不知道對外該主打哪一個；抬頭一長串卻講不清楚自己是誰……",
     preRegistrationNotice:
       "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；現場我們會帶你一起攤開、盤點、再收斂。【過往寫作課學員】本報名表單不需填優惠碼；請在最後一步 PAYUNi 結帳頁的「優惠碼」欄位，輸入你收到的舊生專屬碼，即折 NT$300（4,000→3,700），只需輸入這一次。",
+    attributionOptions: [
+      "Susie 的 FB／IG／Threads",
+      "朋友／同事推薦",
+      "Vista 的電子報",
+      "Vista 的 FB／IG／Threads",
+      "搜尋引擎找到的",
+      "其他（請在備註說明）",
+    ],
   },
   "vibe-coding-claude-code": {
     slug: "vibe-coding-claude-code",
