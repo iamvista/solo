@@ -8,14 +8,14 @@ import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema"
 
 export const metadata: Metadata = {
   title:
-    "Vibe Coding for Claude Code 實戰工作坊｜首發班・3 小時用 CLI 打造你的數位資產 | solo.tw",
+    "Vibe Coding for Claude Code 實戰工作坊｜第 2 班・3 小時用 CLI 打造你的數位資產 | solo.tw",
   description:
-    "在終端機裡跟 AI 對話，3 小時打造可上線的網站、銷售頁、自動化腳本。Claude Code 首發班，2026/6/27 臺北・限 12 名。Antigravity 版舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
+    "在終端機裡跟 AI 對話，3 小時打造可上線的網站、銷售頁、自動化腳本。Claude Code 第 2 班，2026/8/1 臺北・限 12 名。Antigravity 版舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
   openGraph: {
     title:
       "Vibe Coding for Claude Code 實戰工作坊｜在終端機裡 3 小時打造數位資產",
     description:
-      "Claude Code 首發班・2026/6/27 臺北・限 12 名・Antigravity 舊生 −NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
+      "Claude Code 第 2 班・2026/8/1 臺北・限 12 名・Antigravity 舊生 −NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
     images: [
       {
         url: "/courses/vibe-coding-claude-code/og",
@@ -199,7 +199,28 @@ const comparison = [
   },
 ];
 
-const testimonials = [
+const testimonials: {
+  name: string;
+  role: string;
+  batch: string;
+  quote: string;
+  link?: string;
+}[] = [
+  {
+    name: "陳家蓁",
+    role: "學員",
+    batch: "Vibe Coding for Claude Code 首發班",
+    quote:
+      "因為職業，有很多免費的 AI 研習，但我喜歡來上老師的課。雖然我的職業不是老師開課的主要客群，但透過異業互相激盪，常常可以在聆聽老師與同學互動的過程中，學習到跨領域思惟。我是一個詳閱使用說明書才會開始動手的人，但老師要我們先開始再優化。今天最後做了讓我平日最討厭、最浪費時間的貼照片整理器，真的可以用 😂，也增加了信心。",
+  },
+  {
+    name: "首發班學員",
+    role: "律師",
+    batch: "Vibe Coding for Claude Code 首發班",
+    quote:
+      "我是律師出身，過去對寫程式一直敬而遠之。沒想到這堂課完全顛覆想像：把想法講清楚、跟 AI 來回討論，就能把東西做出來。課程最後 30 分鐘實作，我把履歷和形象照丟給 Claude，前後不到 20 分鐘，一個有模有樣的個人網站就成形了；回家再花約兩小時微調、買網域，最後請 Claude Code 幫我部署，現在網站已經正式上線。我帶著『先來看看』的心態走進教室，離開時卻多了一個上線的網站、一個明確方向，還有一種『原來我也做得到』的信心。",
+    link: "https://huangcclaw.com/",
+  },
   {
     name: "陳建銘",
     role: "創新培訓師",
@@ -340,12 +361,12 @@ export default function VibeCodingClaudeCodePage() {
           ...courseSchema({
             name: "Vibe Coding for Claude Code 實戰工作坊",
             description:
-              "在終端機裡用 Claude Code 跟 AI 對話，3 小時打造可上線的個人網站、銷售頁、自動化腳本。首發班 2026/6/27 臺北・限 12 名。",
+              "在終端機裡用 Claude Code 跟 AI 對話，3 小時打造可上線的個人網站、銷售頁、自動化腳本。第 2 班 2026/8/1 臺北・限 12 名。",
             url: "https://www.solo.tw/courses/vibe-coding-claude-code",
             instructor: "Vista",
             price: 4500,
             duration: "PT3H",
-            startDate: "2026-06-27",
+            startDate: "2026-08-01",
             location: "臺北市",
             image:
               "https://www.solo.tw/courses/vibe-coding-claude-code/og",
@@ -401,7 +422,7 @@ export default function VibeCodingClaudeCodePage() {
               variant="secondary"
               className="mb-4 px-4 py-2 text-sm sm:text-base"
             >
-              {"\u{1F525}"} Claude Code 首發班｜2026 年 6 月 27 日（六）
+              {"\u{1F525}"} Claude Code 第 2 班｜2026 年 8 月 1 日（六）
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               Vibe Coding for Claude Code 實戰工作坊
@@ -733,7 +754,7 @@ export default function VibeCodingClaudeCodePage() {
               學員怎麼說
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              來自 Vibe Coding 工作坊前 6 班的真實回饋（Antigravity 版）
+              來自 Claude Code 首發班，以及 Vibe Coding 工作坊歷屆學員的真實回饋
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -751,6 +772,16 @@ export default function VibeCodingClaudeCodePage() {
                         {t.role}・{t.batch}
                       </span>
                     </div>
+                    {t.link && (
+                      <a
+                        href={t.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-xs text-primary underline underline-offset-2"
+                      >
+                        看他在課堂上做出、現已上線的網站 →
+                      </a>
+                    )}
                   </CardContent>
                 </Card>
               ))}
@@ -800,7 +831,7 @@ export default function VibeCodingClaudeCodePage() {
                     <div className="flex items-center gap-2">
                       <span>{"\u{1F4C5}"}</span>
                       <span className="font-medium">
-                        首發班｜2026 年 6 月 27 日（六）
+                        第 2 班｜2026 年 8 月 1 日（六）
                       </span>
                     </div>
                     <div className="flex items-center gap-2">

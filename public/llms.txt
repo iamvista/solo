@@ -58,6 +58,14 @@
 - 價格: 定價 NT$19,800；原價 NT$30,000
 - 報名/詳情: https://www.solo.tw/courses/ai-monetization-institute
 
+### 定位收斂工作坊
+- 定位: 什麼都會的人，如何選出那一個能變現的自己
+- 日期: 2026 年 7 月 19 日（日） 上午 9:00–12:00
+- 地點: 臺北市區（報名後通知地點）
+- 名額: 20 人
+- 價格: 定價 NT$4,000
+- 報名/詳情: https://www.solo.tw/courses/positioning-convergence
+
 ### Vibe Coding 實戰工作坊
 - 定位: 用 AI 建立你的數位資產，不需要寫程式
 - 日期: 2026 年 7 月 26 日（日） 9:00–12:00
@@ -67,8 +75,8 @@
 - 報名/詳情: https://www.solo.tw/courses/vibe-coding
 
 ### Vibe Coding for Claude Code 實戰工作坊
-- 定位: 在終端機裡 3 小時建立你的數位資產（Claude Code 首發班）
-- 日期: 2026 年 6 月 27 日（六） 9:00–12:00
+- 定位: 在終端機裡 3 小時建立你的數位資產（Claude Code 第 2 班）
+- 日期: 2026 年 8 月 1 日（六） 9:00–12:00
 - 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
 - 名額: 12 人
 - 價格: 定價 NT$4,500
@@ -143,6 +151,7 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
 
 ## 最新文章
 
+- [不是管理更多人，而是設計一個能自己長大的系統：AI 時代創業者的領導新思維](https://www.solo.tw/blog/ai-era-self-growing-system) (2026-06-21)
 - [我讀《AI First 自我升級革命》：當前 LINE 總經理說「All in AI」，他到底在說什麼？](https://www.solo.tw/blog/ai-first-book-review) (2026-04-06)
 - [當 AI 讓一切內容免費，什麼才值錢？](https://www.solo.tw/blog/trust-effect-book-review) (2026-04-05)
 - [電子報怎麼寫才有人看？我從 0 到 18,000 訂閱者學到的事](https://www.solo.tw/blog/newsletter-growth-to-18000) (2026-04-02)
@@ -152,7 +161,6 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
 - [自由工作者該怎麼定價？一個讓你不再心虛的計算方法](https://www.solo.tw/blog/freelancer-pricing-strategy) (2026-03-31)
 - [一人公司怎麼開始？五個步驟，從上班族走到自由工作者](https://www.solo.tw/blog/how-to-start-solo-business) (2026-03-31)
 - [職場人士如何善用 AI Agent？從問 AI 到讓 AI 幫你做的關鍵轉變](https://www.solo.tw/blog/how-professionals-leverage-ai-agents) (2026-03-15)
-- [從 Twitter 到 X：二十年後重新回歸，長文寫作才是信任的存摺](https://www.solo.tw/blog/twitter-to-x-long-form-writing) (2026-02-05)
 
 完整文章列表：https://www.solo.tw/blog 或 https://www.solo.tw/llms-full.txt
 ## 平臺數據
