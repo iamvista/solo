@@ -59,6 +59,25 @@ export interface CourseConfig {
 }
 
 export const COURSE_CONFIGS: Record<string, CourseConfig> = {
+  "positioning-convergence": {
+    slug: "positioning-convergence",
+    title: "定位收斂工作坊",
+    subtitle: "什麼都會的人，如何選出那一個能變現的自己",
+    date: "2026/7/19（日）",
+    time: "09:00–12:00（3 小時）",
+    location: "臺北市區（報名後通知地點）",
+    capacity: 20,
+    recurProductIdRegular: "pf2eoon7kaofq8m8ufybmauu",
+    regularPrice: 4000,
+    detailUrl: "/courses/positioning-convergence",
+    hideInvoiceSection: true,
+    customQuestionLabel:
+      "最想被「收斂」解決的卡點是什麼？（選填，但寫了講師會優先在課堂上回應你的情境）",
+    customQuestionPlaceholder:
+      "例：我同時做命理、寫作、教練，不知道對外該主打哪一個；抬頭一長串卻講不清楚自己是誰……",
+    preRegistrationNotice:
+      "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；現場我們會帶你一起攤開、盤點、再收斂。過往寫作課學員可於結帳頁輸入專屬優惠碼折抵 NT$300。",
+  },
   "vibe-coding-claude-code": {
     slug: "vibe-coding-claude-code",
     title: "Vibe Coding for Claude Code 實戰工作坊",

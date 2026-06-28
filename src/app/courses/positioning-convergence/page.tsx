@@ -21,13 +21,8 @@ export const metadata: Metadata = {
   },
 };
 
-// 先不串金流，報名先導 email；之後改用 Recur checkout 連結即可換掉這一行
-const REGISTER_SUBJECT = "定位收斂工作坊報名";
-const REGISTER_BODY =
-  "我想報名 2026/7/19 的定位收斂工作坊。\n\n姓名：\n聯絡方式（手機 / LINE）：\n目前的身份／經歷（簡述）：\n最想被收斂解決的卡點：";
-const REGISTER_URL = `mailto:iamvista@gmail.com?subject=${encodeURIComponent(
-  REGISTER_SUBJECT,
-)}&body=${encodeURIComponent(REGISTER_BODY)}`;
+// Recur 金流：報名導向 /register 流程（表單 + Recur Hosted Checkout）
+const REGISTER_URL = "/courses/positioning-convergence/register";
 
 // 六步收斂法（路徑＝地圖）
 const sixSteps = [
@@ -598,7 +593,7 @@ export default function PositioningConvergencePage() {
                     <a href={REGISTER_URL}>立即報名</a>
                   </Button>
                   <p className="mt-3 text-xs text-muted-foreground">
-                    點擊後將開啟 email，填妥資料寄出即完成報名登記；我們會再與你確認後續付款與教室資訊。
+                    點擊後填寫報名表並線上完成付款即報名成功；過往寫作課學員可在結帳頁輸入專屬優惠碼折抵 NT$300。教室地址將於課前以 email 通知。
                   </p>
                 </div>
               </CardContent>
