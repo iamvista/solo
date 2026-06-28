@@ -562,14 +562,17 @@ export function CourseRegistrationForm({
 
       {/* 推薦代碼 */}
       <div className="space-y-1.5">
-        <Label htmlFor="referralCode">推薦代碼（選填）</Label>
+        <Label htmlFor="referralCode">推薦代碼（選填，非折扣碼）</Label>
         <Input
           id="referralCode"
           value={form.referralCode}
           onChange={(e) => update("referralCode", e.target.value)}
-          placeholder="若有朋友／單位提供的推薦代碼，請填寫"
+          placeholder="朋友／單位提供的推薦代碼，用於來源歸因"
           autoCapitalize="characters"
         />
+        <p className="text-xs text-muted-foreground">
+          這欄不折價。<span className="font-medium text-foreground">折扣碼／優惠碼請不要填在這裡</span>，下一步結帳頁才輸入（見下方）。
+        </p>
       </div>
 
       {/* 送出 */}
@@ -611,10 +614,13 @@ export function CourseRegistrationForm({
         >
           {pending ? "處理中…請稍候" : "確認資料・前往付款"}
         </Button>
-        <p className="mt-3 text-xs text-muted-foreground">
-          🎟️ 有優惠碼？下一頁結帳時可輸入折抵。
-        </p>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <div className="mt-3 rounded-lg border border-primary/30 bg-primary/5 p-3 text-xs leading-relaxed text-foreground">
+          🎟️ <span className="font-medium">持有折扣碼／優惠碼？</span>
+          請在按下「確認資料・前往付款」後，於 PAYUNi 結帳頁的
+          <span className="font-medium">「優惠碼」欄位</span>輸入，金額會即時折抵——
+          <span className="font-medium">只需輸入這一次</span>，本表單無需填寫。
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">
           按下後會跳轉到 PAYUNi 信用卡刷卡頁。開課前可全額退費（需扣除金流手續費）。
         </p>
       </div>

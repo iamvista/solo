@@ -76,7 +76,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     customQuestionPlaceholder:
       "例：我同時做命理、寫作、教練，不知道對外該主打哪一個；抬頭一長串卻講不清楚自己是誰……",
     preRegistrationNotice:
-      "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；現場我們會帶你一起攤開、盤點、再收斂。過往寫作課學員可於結帳頁輸入專屬優惠碼折抵 NT$300。",
+      "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；現場我們會帶你一起攤開、盤點、再收斂。【過往寫作課學員】本報名表單不需填優惠碼；請在最後一步 PAYUNi 結帳頁的「優惠碼」欄位，輸入你收到的舊生專屬碼，即折 NT$300（4,000→3,700），只需輸入這一次。",
   },
   "vibe-coding-claude-code": {
     slug: "vibe-coding-claude-code",
