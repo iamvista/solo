@@ -559,7 +559,7 @@ export default function PositioningConvergencePage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>👥</span>
-                      <span>小班制・首期精選學員</span>
+                      <span>小班制・限額 20 人・額滿即止</span>
                     </div>
                   </div>
 
@@ -567,10 +567,29 @@ export default function PositioningConvergencePage() {
                   <div className="flex flex-col justify-center">
                     <div className="rounded-lg border border-[#C8953D]/30 bg-background p-5 text-center">
                       <p className="text-sm text-muted-foreground">課程費用</p>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        海外同類定位陪跑 約{" "}
+                        <span className="line-through">NT$40,000</span>
+                      </p>
                       <p className="mt-1 text-3xl font-bold text-foreground">NT$4,000</p>
+                      <p className="mt-1 text-xs font-medium text-[#C8953D]">
+                        首期精選價・約十分之一
+                      </p>
                       <p className="mt-1 text-xs text-muted-foreground">含全程實作引導</p>
                     </div>
                   </div>
+                </div>
+
+                {/* 價格錨定說明 */}
+                <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">
+                  海外一對一定位陪跑動輒四萬起跳；我把同一套方法收進 3 小時工作坊，
+                  讓你用約十分之一的價格，先拿到結果。
+                </p>
+
+                {/* 報名急迫感 */}
+                <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-[#C8953D]/30 bg-[#C8953D]/10 px-4 py-3 text-center text-sm font-medium text-foreground">
+                  <span>⏳</span>
+                  <span>首期精選價・小班限額 20 人，額滿或開課前即截止——把握這一梯。</span>
                 </div>
 
                 <div className="mt-6 text-center">
