@@ -157,6 +157,8 @@ const cases = [
 // 工具欄：你帶得走的，不只是「想通了」
 const takeaways = [
   { name: "客戶輪廓分析", desc: "把「我的客戶是誰」從模糊的感覺，描成具體的一個人。" },
+  { name: "顧客旅程地圖", desc: "把客戶從陌生到信任的每一步畫出來，你就知道每篇內容該放哪。" },
+  { name: "差異化定位", desc: "用 SEO 關鍵字反推市場真正在搜尋什麼，找出別人沒站、而你站得住的位置。" },
   { name: "五層內容結構", desc: "每一篇貼文都打得中人，從「看見」寫到「接住」。" },
   { name: "市場驗證問卷", desc: "把定位拿去問真實的人，用回饋修正，而不是自己猜。" },
   { name: "六步收斂法", desc: "從一團亂走到一個清楚定位，一步一步有路可循。" },
@@ -506,19 +508,24 @@ export default function PositioningConvergencePage() {
             {/* 工具欄：帶得走的工具 */}
             <Card className="mt-8 border-[#C8953D]/20 bg-[#C8953D]/5">
               <CardContent className="p-6 sm:p-8">
-                <h3 className="text-center text-lg font-bold sm:text-xl">
+                <span className="mx-auto flex w-fit items-center gap-2 rounded-full bg-[#C8953D] px-4 py-1.5 text-sm font-bold text-white">
+                  ✦ {takeaways.length} 套帶得走的工具
+                </span>
+                <h3 className="mt-4 text-center text-lg font-bold sm:text-xl">
                   你帶得走的，不只是「想通了」
                 </h3>
                 <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
-                  這堂課用的，是我在歐洲行銷實戰、以及向荷蘭知名成長行銷學院學來的一整套行銷方法。上完課，你帶走的不是感覺，是能直接用的工具。
+                  這堂課用的，是我多年行銷實戰提煉出的一整套方法。上完課，你帶走的不是感覺，是能直接用的工具。
                 </p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {takeaways.map((t) => (
+                  {takeaways.map((t, i) => (
                     <div
                       key={t.name}
                       className="flex items-start gap-3 rounded-lg border border-[#C8953D]/20 bg-background p-4"
                     >
-                      <span className="mt-0.5 text-[#C8953D]">▸</span>
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#C8953D]/10 text-sm font-bold text-[#C8953D]">
+                        {i + 1}
+                      </span>
                       <div>
                         <p className="text-base font-bold text-foreground">{t.name}</p>
                         <p className="mt-1 text-sm text-muted-foreground">{t.desc}</p>
