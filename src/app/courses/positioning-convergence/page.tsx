@@ -192,7 +192,7 @@ export default function PositioningConvergencePage() {
           price: 4000,
           duration: "PT3H",
           startDate: "2026-07-19",
-          location: "臺北市",
+          location: "線上",
           image: "https://www.solo.tw/images/workshops/cover-positioning-convergence.webp",
         })}
       />
@@ -551,11 +551,11 @@ export default function PositioningConvergencePage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>📍</span>
-                      <span>臺北市區（報名後通知地點）</span>
+                      <span>線上舉辦（報名後通知會議網址連結）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>👥</span>
-                      <span>小班制・限額 20 人・額滿即止</span>
+                      <span>限額 40 人・額滿即止</span>
                     </div>
                   </div>
 
@@ -585,7 +585,7 @@ export default function PositioningConvergencePage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-[#C8953D]/30 bg-[#C8953D]/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>首期精選價・小班限額 20 人，額滿或開課前即截止——把握這一梯。</span>
+                  <span>首期精選價・限額 40 人，額滿或開課前即截止——把握這一梯。</span>
                 </div>
 
                 <div className="mt-6 text-center">
@@ -593,7 +593,7 @@ export default function PositioningConvergencePage() {
                     <a href={REGISTER_URL}>立即報名</a>
                   </Button>
                   <p className="mt-3 text-xs text-muted-foreground">
-                    點擊後填寫報名表並線上完成付款即報名成功；過往寫作課學員可在結帳頁輸入專屬優惠碼折抵 NT$300。教室地址將於課前以 email 通知。
+                    點擊後填寫報名表並線上完成付款即報名成功；過往寫作課學員可在結帳頁輸入專屬優惠碼折抵 NT$300。會議網址連結將於課前以 email 通知。
                   </p>
                 </div>
               </CardContent>

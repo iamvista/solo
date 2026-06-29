@@ -189,8 +189,8 @@ export const workshops: Workshop[] = [
     sortDate: "2026-07-19",
     time: "上午 9:00–12:00",
     duration: "3 小時",
-    location: "臺北市區（報名後通知地點）",
-    capacity: 20,
+    location: "線上舉辦（報名後通知會議網址連結）",
+    capacity: 40,
     price: {
       original: 4000,
       regular: 4000,
