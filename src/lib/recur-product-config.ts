@@ -66,6 +66,12 @@ const COURSE_VIBE_CODING_NEXT_STEPS = [
   "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
 ];
 
+const COURSE_POSITIONING_NEXT_STEPS = [
+  "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；課堂會帶你一起攤開、盤點、再收斂",
+  "本場為線上舉辦，開課前 2-3 天會寄出會議網址連結與課前提醒信",
+  "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
+];
+
 const COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS = [
   "8/6（週四）晚上 8 點開營，開營前 3 天會寄出 Google Meet 連結與 LINE 群組邀請",
   "課前會寄出「課前概念問卷」與「專業資產盤點表」，請先填寫，幫助講師對應你的主題",
@@ -126,6 +132,15 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     productId: "gb1rmyp2vpgwvy9qnjfaca0c",
     productName: "副腦計畫 Brain+1 Lab・早鳥（35 天 AI 副腦陪跑營）",
     whatsNext: COURSE_BRAIN_LAB_NEXT_STEPS,
+  },
+
+  // 定位收斂工作坊（2026/7/19 線上）
+  pf2eoon7kaofq8m8ufybmauu: {
+    kind: "course",
+    productId: "pf2eoon7kaofq8m8ufybmauu",
+    productName: "定位收斂工作坊（2026/7/19 線上）",
+    whatsNext: COURSE_POSITIONING_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/positioning-convergence",
   },
 
   // 概念變現陪跑營（6 週線上・2026/8/6 起）
