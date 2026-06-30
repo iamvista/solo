@@ -96,6 +96,30 @@ const ethics = [
   },
 ];
 
+// 為什麼用 AI Agent，而不是一般聊天框
+const agentVsChat = [
+  {
+    dim: "讀你的資料",
+    chat: "只看得到你貼進去的片段",
+    agent: "直接讀你本機整個資料夾的論文、文獻、草稿",
+  },
+  {
+    dim: "做事方式",
+    chat: "你問一句、它答一句",
+    agent: "自己連續搜尋、開檔、整理、改寫，跑完整條工作流",
+  },
+  {
+    dim: "記憶長度",
+    chat: "聊久會忘前面，要一直重貼",
+    agent: "上下文大，整章草稿、幾十篇文獻都接得住",
+  },
+  {
+    dim: "能不能重用",
+    chat: "每次都從零重來",
+    agent: "流程可存成可重複的步驟，下篇論文直接套",
+  },
+];
+
 const targetAudience = [
   "碩博士生：文獻讀不完、論文卡住、英文潤稿沒方向",
   "大學教師與研究員：想把 AI 變成穩定的研究生產力，而不是零散試用",
@@ -278,6 +302,38 @@ export default function AiAcademicWritingPage() {
             </div>
             <p className="mt-6 text-center text-base font-medium text-foreground">
               課程會明確劃出界線，並教你正確的 AI 使用揭露——用得對，比用得多更重要。
+            </p>
+          </section>
+
+          {/* 為什麼用 AI Agent */}
+          <section className="border-t py-14 sm:py-16">
+            <h2 className="text-center text-xl font-bold sm:text-2xl">
+              為什麼用 AI Agent，而不是一般聊天框？
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-base text-muted-foreground">
+              同樣是 AI，把研究丟給聊天框、和交給 Claude Code／Codex 這類 Agent，差的不只是一點點。
+            </p>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {agentVsChat.map((row) => (
+                <Card key={row.dim} className="border-primary/20">
+                  <CardContent className="p-5">
+                    <p className="text-sm font-bold text-foreground">{row.dim}</p>
+                    <div className="mt-3 space-y-2 text-sm leading-relaxed">
+                      <p className="text-muted-foreground">
+                        <span className="font-medium">💬 聊天框：</span>
+                        {row.chat}
+                      </p>
+                      <p className="text-foreground">
+                        <span className="font-medium text-primary">🤖 Agent：</span>
+                        {row.agent}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-base font-medium text-foreground">
+              這就是為什麼建議你先訂閱 Claude Pro 或 Codex——這堂課練的是 Agent 工作流，不是貼來貼去的聊天。
             </p>
           </section>
 
