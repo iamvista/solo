@@ -126,41 +126,85 @@ export async function POST(request: Request) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
-  const { data: row, error } = await supabase
+  // 已付款守門：同一 (course, email) 已完成報名就擋下，避免重複建單／重複付款。
+  const { data: paidRow } = await supabase
     .from("course_enrollments")
-    .insert({
-      course_id: course.slug,
-      plan: pricing.plan,
-      email,
-      name,
-      phone: phoneParsed.e164,
-      phone_country: phoneParsed.country,
-      organization: body.organization?.trim() || null,
-      job_title: body.jobTitle?.trim() || null,
-      attribution: body.attribution?.trim() || null,
-      question: body.question?.trim() || null,
-      current_proposal_pain: body.currentProposalPain?.trim() || null,
-      alumni_certificate: alumniCertificate || null,
-      line_id: body.lineId?.trim() || null,
-      facebook: body.facebook?.trim() || null,
-      dietary: body.dietary?.trim() || null,
-      invoice_company: body.invoiceCompany?.trim() || null,
-      invoice_tax_id: taxId || null,
-      marketing_consent: !!body.marketingConsent,
-      referral_code: referralCode,
-      status: "pending",
-      recur_product_id: pricing.productId,
-      amount: pricing.amount,
-      companion_name: body.companionName?.trim() || null,
-      companion_email: companionEmailNorm,
-      companion_phone: companionPhoneNorm?.e164 ?? null,
-      companion_phone_country: companionPhoneNorm?.country ?? null,
-    })
     .select("id")
-    .single();
+    .eq("course_id", course.slug)
+    .eq("email", email)
+    .eq("status", "paid")
+    .limit(1)
+    .maybeSingle();
+  if (paidRow) {
+    return Response.json(
+      {
+        ok: false,
+        alreadyPaid: true,
+        error:
+          "你已經完成這堂課的報名了，不需要再次付款。若要修改資料或有任何疑問，請直接寫信給我們。",
+      },
+      { status: 409 },
+    );
+  }
+
+  const enrollmentValues = {
+    course_id: course.slug,
+    plan: pricing.plan,
+    email,
+    name,
+    phone: phoneParsed.e164,
+    phone_country: phoneParsed.country,
+    organization: body.organization?.trim() || null,
+    job_title: body.jobTitle?.trim() || null,
+    attribution: body.attribution?.trim() || null,
+    question: body.question?.trim() || null,
+    current_proposal_pain: body.currentProposalPain?.trim() || null,
+    alumni_certificate: alumniCertificate || null,
+    line_id: body.lineId?.trim() || null,
+    facebook: body.facebook?.trim() || null,
+    dietary: body.dietary?.trim() || null,
+    invoice_company: body.invoiceCompany?.trim() || null,
+    invoice_tax_id: taxId || null,
+    marketing_consent: !!body.marketingConsent,
+    referral_code: referralCode,
+    status: "pending",
+    recur_product_id: pricing.productId,
+    amount: pricing.amount,
+    companion_name: body.companionName?.trim() || null,
+    companion_email: companionEmailNorm,
+    companion_phone: companionPhoneNorm?.e164 ?? null,
+    companion_phone_country: companionPhoneNorm?.country ?? null,
+  };
+
+  // 去重：同一 (course, email) 已有 pending 就更新該筆並重用其 id，不再每次送出都新增一列
+  //（避免「待付款」被同一人的重試／放棄灌爆）。
+  const { data: existingPending } = await supabase
+    .from("course_enrollments")
+    .select("id")
+    .eq("course_id", course.slug)
+    .eq("email", email)
+    .eq("status", "pending")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const writeResult = existingPending
+    ? await supabase
+        .from("course_enrollments")
+        .update(enrollmentValues)
+        .eq("id", existingPending.id)
+        .select("id")
+        .single()
+    : await supabase
+        .from("course_enrollments")
+        .insert(enrollmentValues)
+        .select("id")
+        .single();
+  const row = writeResult.data;
+  const error = writeResult.error;
 
   if (error || !row) {
-    console.error("[/api/courses/register] insert failed", error);
+    console.error("[/api/courses/register] enrollment write failed", error);
     return bad("名單寫入失敗，請稍後再試。", 500);
   }
 

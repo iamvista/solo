@@ -369,7 +369,7 @@ export default function VibeCodingPage() {
   return (
     <>
       <JsonLd data={{
-        ...courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已舉辦 5 班，超過 60 位學員完成上線作品。", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", startDate: "2026-07-26", location: "臺北市", image: "https://www.solo.tw/images/workshops/cover-vibe-coding.webp" }),
+        ...courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已舉辦 5 班，超過 60 位學員完成上線作品。", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", startDate: "2026-08-15", location: "臺北市", image: "https://www.solo.tw/images/workshops/cover-vibe-coding.webp" }),
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "12", bestRating: "5" },
         review: testimonials.slice(-4).map(t => ({
           "@type": "Review",
@@ -391,7 +391,7 @@ export default function VibeCodingPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            {"\u{1F4BB}"} 3 小時實戰工作坊 — 第 8 班｜2026 年 7 月 26 日（日）
+            {"\u{1F4BB}"} 3 小時實戰工作坊 — 第 8 班｜2026 年 8 月 15 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Vibe Coding 實戰工作坊
@@ -853,7 +853,7 @@ export default function VibeCodingPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F4C5}"}</span>
-                    <span className="font-medium">第 8 班｜2026 年 7 月 26 日（日）</span>
+                    <span className="font-medium">第 8 班｜2026 年 8 月 15 日（六）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F558}"}</span>

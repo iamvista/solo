@@ -96,13 +96,6 @@ const susie: Instructor = {
   ],
 };
 
-// AI 變現研究院為三師聯合授課，列表卡片以研究院為單位呈現
-const monetizationInstitute: Instructor = {
-  name: "Joyce・Claire・Vista",
-  title: "三位專家聯手授課",
-  avatar: "/images/courses/ai-monetization-institute/instructor-vista.webp",
-};
-
 // 課程分類
 export const categories = {
   ai: { label: "AI 應用系列", emoji: "🤖" },
@@ -148,36 +141,6 @@ export const workshops: Workshop[] = [
     category: "ai",
   },
   {
-    id: "ai-monetization-institute",
-    title: "AI 變現研究院",
-    subtitle: "學 AI，不如學會用 AI 賺錢｜三位專家 × 三大主軸 × 一個目標",
-    description:
-      "從「會用 AI」走到「用 AI 賺錢」，中間隔著定位、效率、變現三道關卡。三位老師、四堂課各鎮守一關，陪你打造一條屬於自己的收入管道。單堂 NT$7,500，四堂套票 NT$19,800（原價 30,000，現省 10,200）。",
-    instructor: monetizationInstitute,
-    emoji: "💰",
-    date: "2026 年 7/4、7/11、7/18、7/25（週六）",
-    sortDate: "2026-07-04",
-    time: "上午 9:00–12:00",
-    duration: "4 堂 × 3 小時",
-    location: "臺北市中山區松江路 64 巷 6 號（捷運松江南京站步行可達）",
-    capacity: 20,
-    price: {
-      original: 30000,
-      regular: 19800,
-    },
-    tags: ["AI", "個人品牌", "內容變現", "聯合授課"],
-    status: "open",
-    url: "/courses/ai-monetization-institute",
-    isExternal: false,
-    highlights: [
-      "個人品牌、AI 生產力、內容變現三大關卡一次補齊",
-      "Joyce 李文娟、Claire 張可佳、Vista 鄭緯筌三師聯手・共四堂",
-      "五大學習階段：定位 → 工具 → 內容 → 流量 → 變現",
-      "四堂套票 NT$19,800，現省 NT$10,200",
-    ],
-    category: "ai",
-  },
-  {
     id: "positioning-convergence",
     title: "定位收斂工作坊",
     subtitle: "什麼都會的人，如何選出那一個能變現的自己",
@@ -187,7 +150,7 @@ export const workshops: Workshop[] = [
     emoji: "🧭",
     date: "2026 年 7 月 19 日（日）",
     sortDate: "2026-07-19",
-    time: "上午 9:00–12:00",
+    time: "臺灣時間 15:00–18:00",
     duration: "3 小時",
     location: "線上舉辦（報名後通知會議網址連結）",
     capacity: 40,
@@ -215,8 +178,8 @@ export const workshops: Workshop[] = [
       "3 小時實作課程，學會用 AI 建立個人品牌網站、銷售頁、名單收集漏斗與互動工具。",
     instructor: vista,
     emoji: "💻",
-    date: "2026 年 7 月 26 日（日）",
-    sortDate: "2026-07-26",
+    date: "2026 年 8 月 15 日（六）",
+    sortDate: "2026-08-15",
     time: "9:00–12:00",
     duration: "3 小時",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",

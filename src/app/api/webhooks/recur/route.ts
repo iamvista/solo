@@ -236,6 +236,26 @@ async function markEnrollmentPaid({
       .eq("id", enrollmentId);
     if (error) {
       console.error("[recur webhook] mark enrollment paid failed", error);
+    } else {
+      // 付款成功後，把同人同課其他 pending（放棄／刷卡失敗留下的殘留）標記為 superseded，
+      // 名單與「待付款」數字才不會被同一人的重複嘗試灌爆。
+      const { data: paidRow } = await sb
+        .from("course_enrollments")
+        .select("email, course_id")
+        .eq("id", enrollmentId)
+        .maybeSingle();
+      if (paidRow?.email && paidRow?.course_id) {
+        const { error: supErr } = await sb
+          .from("course_enrollments")
+          .update({ status: "superseded" })
+          .eq("course_id", paidRow.course_id)
+          .eq("email", paidRow.email)
+          .eq("status", "pending")
+          .neq("id", enrollmentId);
+        if (supErr) {
+          console.error("[recur webhook] supersede siblings failed", supErr);
+        }
+      }
     }
   } catch (e) {
     console.error("[recur webhook] markEnrollmentPaid threw", e);

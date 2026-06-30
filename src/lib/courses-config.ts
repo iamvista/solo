@@ -66,7 +66,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     title: "定位收斂工作坊",
     subtitle: "什麼都會的人，如何選出那一個能變現的自己",
     date: "2026/7/19（日）",
-    time: "09:00–12:00（3 小時）",
+    time: "臺灣時間 15:00 – 18:00（3 小時）",
     location: "線上舉辦（報名後通知會議網址連結）",
     capacity: 40,
     recurProductIdRegular: "pf2eoon7kaofq8m8ufybmauu",

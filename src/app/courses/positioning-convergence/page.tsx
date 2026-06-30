@@ -547,7 +547,7 @@ export default function PositioningConvergencePage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
-                      <span>上午 9:00 – 12:00（3 小時）</span>
+                      <span>臺灣時間 15:00 – 18:00（3 小時）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>📍</span>

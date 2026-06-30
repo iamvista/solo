@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 已下架課程救流量（2026-06-29）：AI 變現研究院下架，舊網址 301 導到 Vista 作者頁把死流量變名單
+      {
+        source: "/courses/ai-monetization-institute",
+        destination: "/teachers/vista",
+        permanent: true,
+      },
       // 已下架課程救流量（2026-06-17）：/courses/ai-social-content 已 404，
       // GA4 顯示每月仍有 ~230 次造訪，轉到 Susie 作者頁（含候補）把死流量變名單
       {
