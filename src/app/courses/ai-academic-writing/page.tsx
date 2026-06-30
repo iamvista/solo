@@ -145,7 +145,7 @@ const faqs = [
   },
   {
     q: "為什麼要先訂閱 Claude Pro 或 Codex？",
-    a: "因為這堂課用 AI Agent（Claude Code 或 Codex）實作研究工作流，這些工具需要付費訂閱才能完整使用。建議課前至少訂一個月：Claude Pro（US$20／月）或 Codex 擇一即可，課後再自行決定要不要續訂。課程不代付。",
+    a: "因為這堂課用 AI Agent（Claude Code 或 Codex）實作研究工作流，這些工具需要付費訂閱才能完整使用。建議課前至少訂一個月：Claude Pro 或 Codex（US$20／月）擇一即可，課後再自行決定要不要續訂。課程不代付。",
   },
   {
     q: "我完全不懂 AI、沒寫過 prompt，跟得上嗎？",
@@ -195,31 +195,46 @@ export default function AiAcademicWritingPage() {
       />
       <div>
         {/* Hero */}
-        <section className="bg-gradient-to-b from-primary/8 via-primary/4 to-background">
-          <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
-            <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
-              🎓 AI 學術副駕駛 · Vista 親授
-            </Badge>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              AI 賦能學術研究與寫作實戰工作坊
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-              用 AI Agent 當你的研究副駕駛，
-              <span className="font-semibold text-foreground">加速研究與寫作</span>
-            </p>
-            <p className="mt-3 text-base text-muted-foreground">
-              不是讓 AI 代寫。是讓你讀更快、想更清楚、改更好——核心思考，仍然是你的。
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              實作用 AI Agent，課前需自備筆電並訂閱 Claude Pro 或 Codex（擇一）。
-            </p>
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button size="lg" className="h-12 px-8 text-base" asChild>
-                <a href={REGISTER_URL}>立即報名</a>
-              </Button>
-              <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
-                <a href="#course-content">查看課程內容</a>
-              </Button>
+        <section className="relative overflow-hidden border-b">
+          {/* 背景主視覺：紙藝風學術元素，右側為主體、左側留白放文案 */}
+          <div className="absolute inset-0">
+            <Image
+              src="/images/workshops/hero-ai-academic-writing.webp"
+              alt="AI 賦能學術研究與寫作：用 AI Agent 當研究副駕駛"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-right"
+            />
+            {/* 左側淺色漸層遮罩，確保文案在淺色與深色模式都清楚 */}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/92 to-background/30 sm:to-transparent" />
+          </div>
+          <div className="relative mx-auto max-w-4xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+            <div className="max-w-xl">
+              <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
+                🎓 AI 學術副駕駛 · Vista 親授
+              </Badge>
+              <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                AI 賦能學術研究與寫作實戰工作坊
+              </h1>
+              <p className="mt-4 text-lg text-muted-foreground sm:mt-6 sm:text-xl">
+                用 AI Agent 當你的研究副駕駛，
+                <span className="font-semibold text-foreground">加速研究與寫作</span>
+              </p>
+              <p className="mt-3 text-base text-muted-foreground">
+                不是讓 AI 代寫。是讓你讀更快、想更清楚、改更好——核心思考，仍然是你的。
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                實作用 AI Agent，課前需自備筆電並訂閱 Claude Pro 或 Codex（擇一）。
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button size="lg" className="h-12 px-8 text-base" asChild>
+                  <a href={REGISTER_URL}>立即報名</a>
+                </Button>
+                <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
+                  <a href="#course-content">查看課程內容</a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -543,8 +558,8 @@ export default function AiAcademicWritingPage() {
                 <div className="mx-auto mt-4 max-w-2xl rounded-lg border bg-background px-4 py-3 text-sm leading-relaxed text-muted-foreground">
                   <span className="font-semibold text-foreground">🧰 課前準備：</span>
                   本課程以 AI Agent 實作為主，請自備筆電，並在課前至少訂閱一個月{" "}
-                  <span className="font-medium text-foreground">Claude Pro（US$20／月）</span> 或{" "}
-                  <span className="font-medium text-foreground">Codex</span>（擇一即可），
+                  <span className="font-medium text-foreground">Claude Pro</span> 或{" "}
+                  <span className="font-medium text-foreground">Codex</span>（US$20／月）擇一即可，
                   先安裝並登入 Claude Code／Codex。課程不代付訂閱費用。
                 </div>
 

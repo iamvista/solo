@@ -80,7 +80,7 @@ const COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS = [
 ];
 
 const COURSE_AI_ACADEMIC_NEXT_STEPS = [
-  "請自備筆電；課前至少訂閱一個月 Claude Pro（US$20／月）或 Codex，並安裝、登入 Claude Code／Codex（課程不代付）",
+  "請自備筆電；課前至少訂閱一個月 Claude Pro 或 Codex（US$20／月）擇一即可，並安裝、登入 Claude Code／Codex（課程不代付）",
   "可先想好一個你正在進行的研究主題或一篇要改的草稿，課堂實作會直接拿你的題目練",
   "開課前 2 天會寄出含教室地址、Wi-Fi、課前準備清單的提醒信",
   "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
