@@ -175,7 +175,7 @@ export const workshops: Workshop[] = [
     title: "AI 賦能學術研究與寫作實戰工作坊",
     subtitle: "用 AI Agent 當研究副駕駛，加速研究與寫作（不是代寫）",
     description:
-      "給研究生、博士生、大學教師與研究員：用 AI Agent（Claude Code／Codex）當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。強調 AI 輔助而非代寫，核心思考仍來自你自己，含學術倫理與 AI 揭露。課程以 AI Agent 實作，請自備筆電並先訂閱 Claude Pro 或 Codex。3 小時帶走一套可複用的個人 AI 學術工作流。",
+      "給研究生、博士生、大學教師與研究員：用 AI Agent（Claude Code／Codex）當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。強調 AI 輔助而非代寫，核心思考仍來自你自己，含學術倫理與 AI 揭露。課程以 AI Agent 實作，請自備筆電並建議訂閱 Claude Pro（Codex 含於 ChatGPT 付費帳號）。3 小時帶走一套可複用的個人 AI 學術工作流。",
     instructor: vista,
     emoji: "🎓",
     date: "2026 年 8 月 16 日（日）",
@@ -196,7 +196,7 @@ export const workshops: Workshop[] = [
     highlights: [
       "AI 當研究副駕駛：心態、方法、文獻搜集到改稿一次跑通",
       "輔助不代寫：核心思考與洞察仍來自你自己",
-      "實作用 AI Agent，需自備筆電並先訂閱 Claude Pro 或 Codex",
+      "實作用 AI Agent，需自備筆電並建議訂閱 Claude Pro（Codex 含於 ChatGPT 帳號）",
       "含學術倫理與 AI 使用揭露原則，投稿不踩雷",
     ],
     category: "ai",

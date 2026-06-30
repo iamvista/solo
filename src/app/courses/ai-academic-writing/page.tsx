@@ -123,7 +123,7 @@ const agentVsChat = [
 const targetAudience = [
   "碩博士生：文獻讀不完、論文卡住、英文潤稿沒方向",
   "大學教師與研究員：想把 AI 變成穩定的研究生產力，而不是零散試用",
-  "要投英文期刊或研討會的人：想讓英文更到位、又不失原意",
+  "要投稿學術期刊或研討會的人：想讓論文更到位、又不失原意",
   "帶學生的老師：想知道怎麼引導學生「用得對」，而不是「用來作弊」",
   "任何想建立一套可重複的 AI 研究工作流、不想每次都從零重來的人",
 ];
@@ -144,8 +144,8 @@ const faqs = [
     a: "不會，也不鼓勵。整堂課的底線就是「輔助不代寫」：核心思考、論點與研究洞察必須來自你自己。我們會明確劃出哪些用法合理、哪些踩線。",
   },
   {
-    q: "為什麼要先訂閱 Claude Pro 或 Codex？",
-    a: "因為這堂課用 AI Agent（Claude Code 或 Codex）實作研究工作流，這些工具需要付費訂閱才能完整使用。建議課前至少訂一個月：Claude Pro 或 Codex（US$20／月）擇一即可，課後再自行決定要不要續訂。課程不代付。",
+    q: "為什麼要先訂閱 Claude Pro？",
+    a: "因為這堂課用 AI Agent（Claude Code）實作研究工作流，需要付費訂閱才能完整使用。建議課前至少訂一個月 Claude Pro（US$20／月），課後再自行決定要不要續訂。若你習慣用 Codex，它沒有獨立方案、包含在 ChatGPT 付費帳號中（ChatGPT Plus，US$20／月），已有者可直接使用。課程不代付。",
   },
   {
     q: "我完全不懂 AI、沒寫過 prompt，跟得上嗎？",
@@ -157,7 +157,7 @@ const faqs = [
   },
   {
     q: "需要先準備什麼？",
-    a: "自備筆電、課前完成 Claude Code 或 Codex 的訂閱與登入，最好帶一個你正在進行的研究題目或一篇要改的草稿，課堂實作會直接拿你的題目練。",
+    a: "自備筆電、課前完成 Claude Code 的安裝與登入（用 Codex 者請備妥 ChatGPT 付費帳號），最好帶一個你正在進行的研究題目或一篇要改的草稿，課堂實作會直接拿你的題目練。",
   },
   {
     q: "這跟你其他 AI 課有什麼不同？",
@@ -225,7 +225,7 @@ export default function AiAcademicWritingPage() {
                 不是讓 AI 代寫。是讓你讀更快、想更清楚、改更好——核心思考，仍然是你的。
               </p>
               <p className="mt-2 text-sm text-muted-foreground">
-                實作用 AI Agent，課前需自備筆電並訂閱 Claude Pro 或 Codex（擇一）。
+                實作用 AI Agent，課前需自備筆電並建議訂閱 Claude Pro（US$20／月）。
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button size="lg" className="h-12 px-8 text-base" asChild>
@@ -348,7 +348,7 @@ export default function AiAcademicWritingPage() {
               ))}
             </div>
             <p className="mx-auto mt-6 max-w-2xl text-center text-base font-medium text-foreground">
-              這就是為什麼建議你先訂閱 Claude Pro 或 Codex——這堂課練的是 Agent 工作流，不是貼來貼去的聊天。
+              這就是為什麼建議你先訂閱 Claude Pro——這堂課練的是 Agent 工作流，不是貼來貼去的聊天。
             </p>
           </section>
 
@@ -557,10 +557,10 @@ export default function AiAcademicWritingPage() {
                 {/* 課前準備 */}
                 <div className="mx-auto mt-4 max-w-2xl rounded-lg border bg-background px-4 py-3 text-sm leading-relaxed text-muted-foreground">
                   <span className="font-semibold text-foreground">🧰 課前準備：</span>
-                  本課程以 AI Agent 實作為主，請自備筆電，並在課前至少訂閱一個月{" "}
-                  <span className="font-medium text-foreground">Claude Pro</span> 或{" "}
-                  <span className="font-medium text-foreground">Codex</span>（US$20／月）擇一即可，
-                  先安裝並登入 Claude Code／Codex。課程不代付訂閱費用。
+                  本課程以 AI Agent 實作為主，請自備筆電，並建議在課前訂閱一個月{" "}
+                  <span className="font-medium text-foreground">Claude Pro（US$20／月）</span>，
+                  先安裝並登入 Claude Code。若你習慣用 Codex，它沒有獨立方案、包含在 ChatGPT
+                  付費帳號中（ChatGPT Plus，US$20／月）。課程不代付訂閱費用。
                 </div>
 
                 <div className="mt-6 text-center">
