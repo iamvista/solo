@@ -96,7 +96,7 @@ const ethics = [
   },
 ];
 
-// 為什麼用 AI Agent，而不是一般聊天框
+// 為什麼用 AI Agent，而不是一般聊天工具
 const agentVsChat = [
   {
     dim: "讀你的資料",
@@ -308,10 +308,10 @@ export default function AiAcademicWritingPage() {
           {/* 為什麼用 AI Agent */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              為什麼用 AI Agent，而不是一般聊天框？
+              為什麼用 AI Agent，而不是一般的 AI 聊天工具？
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-base text-muted-foreground">
-              同樣是 AI，把研究丟給聊天框、和交給 Claude Code／Codex 這類 Agent，差的不只是一點點。
+              同樣是 AI，把研究丟給聊天工具、和交給 Claude Code／Codex 這類 Agent，差的不只是一點點。
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {agentVsChat.map((row) => (
@@ -320,7 +320,7 @@ export default function AiAcademicWritingPage() {
                     <p className="text-sm font-bold text-foreground">{row.dim}</p>
                     <div className="mt-3 space-y-2 text-sm leading-relaxed">
                       <p className="text-muted-foreground">
-                        <span className="font-medium">💬 聊天框：</span>
+                        <span className="font-medium">💬 聊天工具：</span>
                         {row.chat}
                       </p>
                       <p className="text-foreground">
