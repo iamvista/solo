@@ -106,9 +106,9 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     customQuestionLabel:
       "你目前的研究階段與最想用 AI 解決的卡點？（選填，寫了講師會優先在課堂回應你的情境）",
     customQuestionPlaceholder:
-      "例：碩二在寫文獻回顧，想用 AI 有效率地讀完幾十篇論文；或：要投英文期刊，想讓潤稿更到位又不失原意……",
+      "例：碩二在寫文獻回顧，想用 AI 有效率地讀完幾十篇論文；或：初稿卡住，想用 AI 把草稿改得更清楚、更有邏輯……",
     preRegistrationNotice:
-      "本課程以實作為主，請務必自備筆電。課堂會用到 AI 工具，建議先註冊一個 AI 帳號（ChatGPT／Claude／Gemini 擇一，免費版即可上手、付費版體驗更完整）。【重要原則】這堂課教 AI 輔助研究與寫作，不教也不鼓勵 AI 代寫；核心思考與研究洞察仍須來自你自己，課程會一併帶到學術倫理與 AI 使用揭露。",
+      "本課程以 AI Agent 實作為主，請務必自備筆電，並於課前至少訂閱一個月 Claude Pro（US$20／月）或 Codex（擇一），並先安裝、登入 Claude Code／Codex（課程不代付）。【重要原則】這堂課教的是 AI 輔助研究與寫作的方法論與心態，不教也不鼓勵 AI 代寫；核心思考與研究洞察仍須來自你自己，課程會一併帶到學術倫理與 AI 使用揭露。",
     attributionOptions: [
       "Vista 的電子報",
       "Vista 的 FB／IG／Threads",

@@ -9,7 +9,7 @@ import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "AI 賦能學術研究與寫作實戰工作坊｜用 AI Agent 當研究副駕駛 | solo.tw",
   description:
-    "Vista 親授・3 小時實體實作。給研究生、教師與研究員：用 AI Agent 跑通文獻回顧、論文架構、學術英文潤稿與寫作工作流。輔助不代寫，含學術倫理與 AI 揭露原則。",
+    "Vista 親授・3 小時實體實作。給研究生、教師與研究員：用 AI Agent（Claude Code／Codex）跑通研究與寫作工作流——方法、心態、文獻搜集到改稿。輔助不代寫，含學術倫理與 AI 揭露。",
   openGraph: {
     title: "AI 賦能學術研究與寫作實戰工作坊｜Vista 親授 | solo.tw",
     description:
@@ -30,28 +30,28 @@ export const metadata: Metadata = {
 // Recur 金流：報名導向 /register 流程（表單 + Recur Hosted Checkout）
 const REGISTER_URL = "/courses/ai-academic-writing/register";
 
-// 四大支柱（對應 vista.tw/ai-academic-writing 的核心方法）
+// 四大支柱：方法論、心態、搜集文獻、改稿
 const pillars = [
   {
     number: "01",
-    title: "文獻回顧加速",
-    desc: "用 AI 快速搜尋、篩選、摘要幾十篇論文，抓出研究缺口，而不是逐字硬啃。",
+    title: "心態與界線",
+    desc: "先想清楚 AI 能幫你到哪、哪裡不能越界。把 AI 當副駕駛而不是代筆，是整套方法的地基。",
   },
   {
     number: "02",
-    title: "論文架構與大綱",
-    desc: "跟 AI 一起把一團模糊的想法，收斂成清楚的章節結構與論證骨架。",
-  },
-  {
-    number: "03",
-    title: "學術英文潤稿",
-    desc: "讓英文更精準、更貼近期刊語氣，但保留你的原意與論點，不是換一篇。",
+    title: "AI 協作方法論",
+    desc: "學會怎麼跟 AI Agent 協作：怎麼問、怎麼給脈絡、怎麼一輪輪迭代，讓它真的幫上忙。",
     core: true,
   },
   {
+    number: "03",
+    title: "文獻搜集與消化",
+    desc: "用 AI Agent 搜尋、篩選、摘要、串起幾十篇論文，抓出研究缺口，而不是逐字硬啃。",
+  },
+  {
     number: "04",
-    title: "寫作效率工作流",
-    desc: "把上面三件事串成一套可重複使用的 AI 副駕駛流程，下次不必從零重來。",
+    title: "改稿與精修",
+    desc: "用 AI 一起把草稿改得更清楚、更有邏輯、更站得住——你來改，AI 給建議。",
   },
 ];
 
@@ -59,25 +59,25 @@ const pillars = [
 const modules = [
   {
     label: "Module 1",
-    title: "讀得快：文獻回顧與研究缺口",
-    todo: "用 AI Agent 搜尋、篩選、摘要文獻，整理成一份可用的回顧矩陣，定位你的研究缺口。",
+    title: "心態與方法：把 AI 變成研究副駕駛",
+    todo: "建立 AI 協作的心態與界線，上手 Claude Code／Codex 這類 Agent 工具的提問與迭代方法。",
+    pain: "「我知道 AI 很強，但不知道怎麼用才對、用到哪算過頭。」",
+    output: "一套你自己的 AI 協作原則，以及 Agent 操作基本功。",
+    core: true,
+  },
+  {
+    label: "Module 2",
+    title: "讀得快：文獻搜集與消化",
+    todo: "用 AI Agent 搜尋、篩選、摘要文獻，整理成一份回顧矩陣，定位你的研究缺口。",
     pain: "「文獻讀不完，讀完也記不住、串不起來。」",
     output: "一份文獻回顧矩陣，以及你的研究缺口定位。",
   },
   {
-    label: "Module 2",
-    title: "寫得動：架構、草稿與英文潤稿",
-    todo: "跟 AI 一起搭論文骨架、生成可改的草稿，再把學術英文潤到位。你主導，AI 輔助。",
-    pain: "「想法有，卻卡在第一段；英文寫出來總是不像 paper。」",
-    output: "一份章節大綱，以及一段你自己改過、潤過的示範段落。",
-    core: true,
-  },
-  {
     label: "Module 3",
-    title: "走得穩：工作流與學術倫理",
-    todo: "把流程固定成個人 AI 工作流，並學會正確的 AI 使用揭露與倫理界線。",
-    pain: "「用 AI 會不會違反學術倫理？投稿要不要揭露？」",
-    output: "一套可複用的工作流 SOP，以及一份 AI 使用揭露與倫理自檢清單。",
+    title: "改得動：從草稿到改稿",
+    todo: "用 AI 一起搭架構、把初稿改清楚、改有邏輯，並守住學術倫理與 AI 使用揭露。",
+    pain: "「初稿卡住，改稿不知道從何下手。」",
+    output: "一段你自己改過的示範，以及一份 AI 使用揭露與倫理自檢清單。",
   },
 ];
 
@@ -106,12 +106,12 @@ const targetAudience = [
 
 // 帶得走的工具
 const takeaways = [
+  { name: "AI 協作原則卡", desc: "心態與界線一張卡，下筆前確認自己站在輔助這一邊。" },
+  { name: "研究提問與迭代提示包", desc: "怎麼問、怎麼給脈絡、怎麼迭代，讓 AI 真的幫上忙。" },
   { name: "文獻回顧矩陣模板", desc: "把幾十篇論文整理成一張表，一眼看出共識、分歧與缺口。" },
-  { name: "論文架構生成提示包", desc: "從混亂想法生出清楚的章節結構與論證骨架。" },
-  { name: "學術英文潤稿提示包", desc: "潤得更像 paper，又保留你的原意與論點（保留原意版）。" },
-  { name: "AI 研究副駕駛工作流 SOP", desc: "把文獻、架構、潤稿串成一條可重複的流程。" },
-  { name: "AI 使用揭露範本", desc: "投稿、論文都適用，符合多數期刊與學校規範。" },
-  { name: "學術倫理自檢清單", desc: "下筆前對一遍，確認自己站在輔助這一邊。" },
+  { name: "改稿提示包", desc: "把初稿改得更清楚、更有邏輯，而不是換一篇。" },
+  { name: "Claude Code／Codex 研究工作流 SOP", desc: "把搜文獻、搭架構、改稿串成一條可重複的流程。" },
+  { name: "AI 使用揭露範本＋倫理自檢清單", desc: "投稿、論文都適用，符合多數期刊與學校規範。" },
 ];
 
 const faqs = [
@@ -120,8 +120,12 @@ const faqs = [
     a: "不會，也不鼓勵。整堂課的底線就是「輔助不代寫」：核心思考、論點與研究洞察必須來自你自己。我們會明確劃出哪些用法合理、哪些踩線。",
   },
   {
+    q: "為什麼要先訂閱 Claude Pro 或 Codex？",
+    a: "因為這堂課用 AI Agent（Claude Code 或 Codex）實作研究工作流，這些工具需要付費訂閱才能完整使用。建議課前至少訂一個月：Claude Pro（US$20／月）或 Codex 擇一即可，課後再自行決定要不要續訂。課程不代付。",
+  },
+  {
     q: "我完全不懂 AI、沒寫過 prompt，跟得上嗎？",
-    a: "跟得上。課程從零帶起，用免費版 AI 就能完成所有實作。重點不是技術，是把 AI 接進你的研究與寫作流程。",
+    a: "跟得上。課程從零帶起，課堂會手把手帶你操作 Claude Code／Codex。重點不是技術，是把 AI 接進你研究與寫作流程的方法與心態。",
   },
   {
     q: "用 AI 會不會違反學術倫理、被期刊退稿？",
@@ -129,7 +133,7 @@ const faqs = [
   },
   {
     q: "需要先準備什麼？",
-    a: "自備筆電、先註冊一個 AI 帳號（ChatGPT／Claude／Gemini 擇一，免費版即可），最好帶一個你正在進行的研究題目或一篇要寫的論文，課堂實作會直接拿你的題目練。",
+    a: "自備筆電、課前完成 Claude Code 或 Codex 的訂閱與登入，最好帶一個你正在進行的研究題目或一篇要改的草稿，課堂實作會直接拿你的題目練。",
   },
   {
     q: "這跟你其他 AI 課有什麼不同？",
@@ -144,7 +148,7 @@ export default function AiAcademicWritingPage() {
         data={courseSchema({
           name: "AI 賦能學術研究與寫作實戰工作坊",
           description:
-            "用 AI Agent 當研究副駕駛，跑通文獻回顧、論文架構、學術英文潤稿與寫作效率工作流。輔助不代寫，含學術倫理與 AI 揭露原則。",
+            "用 AI Agent 當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。輔助不代寫，含學術倫理與 AI 揭露原則。",
           url: "https://www.solo.tw/courses/ai-academic-writing",
           instructor: "Vista",
           price: 4500,
@@ -180,7 +184,10 @@ export default function AiAcademicWritingPage() {
               <span className="font-semibold text-foreground">加速研究與寫作</span>
             </p>
             <p className="mt-3 text-base text-muted-foreground">
-              不是讓 AI 代寫。是讓你讀更快、想更清楚、寫更順——核心思考，仍然是你的。
+              不是讓 AI 代寫。是讓你讀更快、想更清楚、改更好——核心思考，仍然是你的。
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              實作用 AI Agent，課前需自備筆電並訂閱 Claude Pro 或 Codex（擇一）。
             </p>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
@@ -207,7 +214,7 @@ export default function AiAcademicWritingPage() {
                 </p>
                 <p>
                   想法明明有，卻<span className="font-medium text-foreground">卡在第一段</span>；
-                  英文寫出來，總覺得「不像 paper」。
+                  初稿寫完，不知道怎麼改才會更清楚、更有邏輯。
                 </p>
                 <p>
                   聽說 AI 很強，但<span className="font-medium text-foreground">不敢亂用</span>：
@@ -278,7 +285,7 @@ export default function AiAcademicWritingPage() {
           <section id="course-content" className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">四個會用一輩子的支柱</h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              從讀文獻到投出去，每一步都讓 AI 當你的副駕駛。
+              從心態到改稿，每一步都讓 AI 當你的副駕駛。
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {pillars.map((p) => (
@@ -474,6 +481,15 @@ export default function AiAcademicWritingPage() {
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
                   <span>早鳥價只到 8/2，限額 20 人，額滿即止——把握名額。</span>
+                </div>
+
+                {/* 課前準備 */}
+                <div className="mx-auto mt-4 max-w-2xl rounded-lg border bg-background px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-semibold text-foreground">🧰 課前準備：</span>
+                  本課程以 AI Agent 實作為主，請自備筆電，並在課前至少訂閱一個月{" "}
+                  <span className="font-medium text-foreground">Claude Pro（US$20／月）</span> 或{" "}
+                  <span className="font-medium text-foreground">Codex</span>（擇一即可），
+                  先安裝並登入 Claude Code／Codex。課程不代付訂閱費用。
                 </div>
 
                 <div className="mt-6 text-center">
