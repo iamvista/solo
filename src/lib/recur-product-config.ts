@@ -79,6 +79,13 @@ const COURSE_CONCEPT_BOOTCAMP_NEXT_STEPS = [
   "VIP 診斷席學員會另外約課前診斷與課後一對一的時間；如有疑問請來信 iamvista@gmail.com",
 ];
 
+const COURSE_AI_ACADEMIC_NEXT_STEPS = [
+  "請自備筆電；課前先註冊一個 AI 帳號（ChatGPT／Claude／Gemini 擇一，免費版即可上手）",
+  "可先想好一個你正在進行的研究主題或一篇要寫的論文，課堂實作會直接拿你的題目練",
+  "開課前 2 天會寄出含教室地址、Wi-Fi、課前準備清單的提醒信",
+  "課後會邀請加入專屬學員 LINE 群組，可持續交流與提問",
+];
+
 const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   // AI 教練工坊（既有下載流程）
   [AI_COACH_KIT_PRODUCT_ID]: {
@@ -141,6 +148,22 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     productName: "定位收斂工作坊（2026/7/19 線上）",
     whatsNext: COURSE_POSITIONING_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/positioning-convergence",
+  },
+
+  // AI 賦能學術研究與寫作實戰工作坊（2026/8/16 臺北）
+  b3dc06svryzlii74r2bpn6qo: {
+    kind: "course",
+    productId: "b3dc06svryzlii74r2bpn6qo",
+    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/8/16 臺北）",
+    whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
+  },
+  u0rnbc9kgub6azuw44ub72ml: {
+    kind: "course",
+    productId: "u0rnbc9kgub6azuw44ub72ml",
+    productName: "AI 賦能學術研究與寫作實戰工作坊（2026/8/16 臺北）",
+    whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
   },
 
   // 概念變現陪跑營（6 週線上・2026/8/6 起）

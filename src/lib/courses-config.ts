@@ -88,6 +88,37 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
       "其他（請在備註說明）",
     ],
   },
+  "ai-academic-writing": {
+    slug: "ai-academic-writing",
+    title: "AI 賦能學術研究與寫作實戰工作坊",
+    subtitle: "用 AI Agent 當研究副駕駛——加速研究與寫作，但不代寫",
+    date: "2026/8/16（日）",
+    time: "09:00–12:00（3 小時）",
+    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 20,
+    recurProductIdEarlyBird: "b3dc06svryzlii74r2bpn6qo",
+    earlyBirdPrice: 4500,
+    earlyBirdDeadline: "2026-08-02",
+    recurProductIdRegular: "u0rnbc9kgub6azuw44ub72ml",
+    regularPrice: 5500,
+    detailUrl: "/courses/ai-academic-writing",
+    hideInvoiceSection: true,
+    customQuestionLabel:
+      "你目前的研究階段與最想用 AI 解決的卡點？（選填，寫了講師會優先在課堂回應你的情境）",
+    customQuestionPlaceholder:
+      "例：碩二在寫文獻回顧，想用 AI 有效率地讀完幾十篇論文；或：要投英文期刊，想讓潤稿更到位又不失原意……",
+    preRegistrationNotice:
+      "本課程以實作為主，請務必自備筆電。課堂會用到 AI 工具，建議先註冊一個 AI 帳號（ChatGPT／Claude／Gemini 擇一，免費版即可上手、付費版體驗更完整）。【重要原則】這堂課教 AI 輔助研究與寫作，不教也不鼓勵 AI 代寫；核心思考與研究洞察仍須來自你自己，課程會一併帶到學術倫理與 AI 使用揭露。",
+    attributionOptions: [
+      "Vista 的電子報",
+      "Vista 的 FB／IG／Threads",
+      "聽過 Vista 的演講／上過課",
+      "朋友／同事推薦",
+      "學校／實驗室推薦",
+      "搜尋引擎找到的",
+      "其他（請在備註說明）",
+    ],
+  },
   "vibe-coding-claude-code": {
     slug: "vibe-coding-claude-code",
     title: "Vibe Coding for Claude Code 實戰工作坊",
