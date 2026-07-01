@@ -46,6 +46,8 @@ export interface Workshop {
   highlights: string[];
   category: "ai" | "finance" | "innovation";
   featured?: boolean;
+  /** 完全隱藏：從 /courses 列表與講師頁都不露出（暫時下架用，資料保留） */
+  hidden?: boolean;
   /** 梯次標示，例 "第 8 班" */
   cohort?: string;
   /** 結束課補充，例 "已開 7 梯、結訓 90+ 人" */
@@ -159,8 +161,10 @@ export const workshops: Workshop[] = [
       regular: 4000,
     },
     tags: ["定位", "個人品牌", "內容策略", "收斂取捨"],
-    // 暫時下架（2026-07-01）：改 "ended" 讓它從 /courses 列表與「報名中」計數消失；
-    // 資料完整保留，復架時改回 "open" 即可。詳情頁與 /register 由 next.config redirect 擋掉。
+    // 暫時下架（2026-07-01）：hidden 讓它從 /courses 列表與 Susie 講師頁完全消失，
+    // status 維持 ended 避免計入「報名中」。資料完整保留，復架時刪掉 hidden 並把
+    // status 改回 open 即可。詳情頁與 /register 由 next.config redirect 擋掉。
+    hidden: true,
     status: "ended",
     url: "/courses/positioning-convergence",
     isExternal: false,
@@ -349,7 +353,7 @@ export function getInstructorWorkshops(slug: string): {
   comingSoon: Workshop[];
   ended: Workshop[];
 } {
-  const mine = workshops.filter((w) => w.instructor.slug === slug);
+  const mine = workshops.filter((w) => w.instructor.slug === slug && !w.hidden);
   const byDateAsc = (a: Workshop, b: Workshop) =>
     a.sortDate.localeCompare(b.sortDate);
   const byDateDesc = (a: Workshop, b: Workshop) =>
