@@ -159,7 +159,9 @@ export const workshops: Workshop[] = [
       regular: 4000,
     },
     tags: ["定位", "個人品牌", "內容策略", "收斂取捨"],
-    status: "open",
+    // 暫時下架（2026-07-01）：改 "ended" 讓它從 /courses 列表與「報名中」計數消失；
+    // 資料完整保留，復架時改回 "open" 即可。詳情頁與 /register 由 next.config redirect 擋掉。
+    status: "ended",
     url: "/courses/positioning-convergence",
     isExternal: false,
     highlights: [
