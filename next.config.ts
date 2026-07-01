@@ -16,19 +16,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // 課程暫時下架（2026-07-01）：定位收斂工作坊下架但保留所有資料（workshops.ts／
-      // courses-config.ts／page.tsx 皆未刪），可日後復架。用暫時導轉（permanent:false，307）
-      // 避免瀏覽器／搜尋引擎長期快取 301，復架時才不會被舊快取卡住。詳情頁與 /register 一併導到 Susie 作者頁。
-      {
-        source: "/courses/positioning-convergence",
-        destination: "/teachers/susie",
-        permanent: false,
-      },
-      {
-        source: "/courses/positioning-convergence/:path*",
-        destination: "/teachers/susie",
-        permanent: false,
-      },
       // 已下架課程救流量（2026-06-29）：AI 變現研究院下架，舊網址 301 導到 Vista 作者頁把死流量變名單
       {
         source: "/courses/ai-monetization-institute",

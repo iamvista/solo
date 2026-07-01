@@ -161,11 +161,7 @@ export const workshops: Workshop[] = [
       regular: 4000,
     },
     tags: ["定位", "個人品牌", "內容策略", "收斂取捨"],
-    // 暫時下架（2026-07-01）：hidden 讓它從 /courses 列表與 Susie 講師頁完全消失，
-    // status 維持 ended 避免計入「報名中」。資料完整保留，復架時刪掉 hidden 並把
-    // status 改回 open 即可。詳情頁與 /register 由 next.config redirect 擋掉。
-    hidden: true,
-    status: "ended",
+    status: "open",
     url: "/courses/positioning-convergence",
     isExternal: false,
     highlights: [
