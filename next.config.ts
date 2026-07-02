@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 著作中樞（2026-07-02）：/book 單數保留為短網址，統一導到 /books hub
+      {
+        source: "/book",
+        destination: "/books",
+        permanent: true,
+      },
       // 已下架課程救流量（2026-06-29）：AI 變現研究院下架，舊網址 301 導到 Vista 作者頁把死流量變名單
       {
         source: "/courses/ai-monetization-institute",
