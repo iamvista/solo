@@ -24,7 +24,7 @@ const navigation: NavItem[] = [
       { name: "講師", href: "/teachers" },
     ],
   },
-  { name: "著作", href: "/books" },
+  { name: "著作", href: "https://www.vista.tw/books" },
   { name: "成長路徑", href: "/growth" },
   { name: "工具", href: "/tools" },
   { name: "部落格", href: "/blog" },

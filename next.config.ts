@@ -16,10 +16,21 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // 著作中樞（2026-07-02）：/book 單數保留為短網址，統一導到 /books hub
+      // 著作中樞遷移（2026-07-03）：canonical 移至 vista.tw/books（作者媒體站收讀者與名單，
+      // solo.tw 專注課程轉化）。決策記錄：openspec/changes/add-books-hub/proposal.md
       {
         source: "/book",
-        destination: "/books",
+        destination: "https://www.vista.tw/books",
+        permanent: true,
+      },
+      {
+        source: "/books",
+        destination: "https://www.vista.tw/books",
+        permanent: true,
+      },
+      {
+        source: "/books/:slug*",
+        destination: "https://www.vista.tw/books/:slug*",
         permanent: true,
       },
       // 已下架課程救流量（2026-06-29）：AI 變現研究院下架，舊網址 301 導到 Vista 作者頁把死流量變名單

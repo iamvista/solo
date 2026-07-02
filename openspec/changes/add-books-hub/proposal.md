@@ -25,3 +25,16 @@ solo.tw 是課程報名主入口，但站上沒有「書」的位置。Vista 七
 - 用詞規範：臺不用台、禁「打造」「賦能」等套路詞（引述書籍實際目錄除外）、中文全形標點
 - 《無人公司》頁不得出現未公開資訊（加速計畫定價、名單數細節）
 - 視覺沿用現有 stone/amber 系統與 shadcn 元件；SEO 沿用 Metadata＋JsonLd 慣例
+
+## Decision Record（2026-07-03 修訂）
+
+上線次日重新評估 canonical 位置，決議遷移至 vista.tw/books：
+
+1. 名單引擎在 vista.tw（啟動包 spec 定案走 D1 leads/sequences，第一方同站）
+2. 搜書的搜尋意圖歸屬作者媒體站，內容互鏈與長尾 SEO 長在內容站
+3. 「一臺流量機器」鐵律：書是流量資產，裝在流量機器（vista.tw）上
+4. solo.tw 專注課程轉化：/book、/books、/books/:slug 全部 301 → vista.tw/books，
+   Header「著作」改外連，本站書頁與 src/lib/books.ts 移除
+
+vista.tw 端實作：src/pages/books/{index,vibe-coding,company-of-none}.astro，
+lead form 複用 /api/lead＋vibe-coding-starter-guide magnet。
