@@ -555,7 +555,7 @@ export default function PositioningConvergencePage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>👥</span>
-                      <span>限額 40 人・額滿即止</span>
+                      <span>限額 20 人・額滿即止</span>
                     </div>
                   </div>
 
@@ -585,7 +585,7 @@ export default function PositioningConvergencePage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-[#C8953D]/30 bg-[#C8953D]/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>首期精選價・限額 40 人，額滿或開課前即截止——把握這一梯。</span>
+                  <span>首期精選價・限額 20 人，額滿或開課前即截止——把握這一梯。</span>
                 </div>
 
                 <div className="mt-6 text-center">

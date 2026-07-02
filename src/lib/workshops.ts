@@ -155,7 +155,7 @@ export const workshops: Workshop[] = [
     time: "臺灣時間 15:00–18:00",
     duration: "3 小時",
     location: "線上舉辦（報名後通知會議網址連結）",
-    capacity: 40,
+    capacity: 20,
     price: {
       original: 4000,
       regular: 4000,

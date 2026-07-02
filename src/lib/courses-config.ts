@@ -68,7 +68,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     date: "2026/7/19（日）",
     time: "臺灣時間 15:00 – 18:00（3 小時）",
     location: "線上舉辦（報名後通知會議網址連結）",
-    capacity: 40,
+    capacity: 20,
     recurProductIdRegular: "pf2eoon7kaofq8m8ufybmauu",
     regularPrice: 4000,
     detailUrl: "/courses/positioning-convergence",
