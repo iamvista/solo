@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "AI 賦能學術研究與寫作實戰工作坊｜用 AI Agent 當研究副駕駛 | solo.tw",
@@ -192,6 +192,11 @@ export default function AiAcademicWritingPage() {
             href: "/courses/ai-academic-writing",
           },
         ])}
+      />
+      <JsonLd
+        data={faqSchema(
+          faqs.map((faq) => ({ question: faq.q, answer: faq.a }))
+        )}
       />
       <div>
         {/* Hero */}

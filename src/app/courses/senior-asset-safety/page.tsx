@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "樂齡資產安全與傳承實戰課 | solo.tw",
@@ -115,6 +115,7 @@ export default function SeniorAssetSafetyPage() {
     <>
       <JsonLd data={courseSchema({ name: "樂齡資產安全與傳承實戰課", description: "3 小時打造你的資產安全藍圖", url: "https://www.solo.tw/courses/senior-asset-safety", instructor: "駱潤生", price: 2000, duration: "PT3H", startDate: "2026-04-19", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "樂齡資產安全", href: "/courses/senior-asset-safety" }])} />
+      <JsonLd data={faqSchema(faqs.map((faq) => ({ question: faq.q, answer: faq.a })))} />
     <div>
       {/* Hero */}
       <section className="bg-gradient-to-b from-[#1E3A5F]/5 via-[#1E3A5F]/3 to-background">

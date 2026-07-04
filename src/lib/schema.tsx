@@ -208,6 +208,25 @@ export function faqSchema(items: FAQItem[]) {
   };
 }
 
+/* ─── ItemList Schema ─── */
+export interface ItemListEntry {
+  name: string;
+  url: string;
+}
+
+export function itemListSchema(items: ItemListEntry[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: item.url,
+    })),
+  };
+}
+
 /* ─── HowTo Schema ─── */
 export interface HowToStep {
   name: string;

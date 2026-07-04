@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "定位收斂工作坊｜什麼都會的人，如何選出那一個能變現的自己 | solo.tw",
@@ -202,6 +202,11 @@ export default function PositioningConvergencePage() {
           { name: "課程", href: "/courses" },
           { name: "定位收斂工作坊", href: "/courses/positioning-convergence" },
         ])}
+      />
+      <JsonLd
+        data={faqSchema(
+          faqs.map((faq) => ({ question: faq.q, answer: faq.a }))
+        )}
       />
       <div>
         {/* Hero */}

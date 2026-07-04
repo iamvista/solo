@@ -7,6 +7,7 @@ import {
 } from "@/lib/workshops";
 import { InstructorHero } from "@/components/instructor/InstructorHero";
 import { CourseCard } from "@/components/instructor/CourseCard";
+import { JsonLd, personSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return getAllInstructorSlugs().map((slug) => ({ slug }));
@@ -47,6 +48,18 @@ export default async function InstructorPage({
 
   return (
     <main className="min-h-screen bg-white pb-20">
+      <JsonLd
+        data={personSchema({
+          name: instructor.name,
+          url: `https://www.solo.tw/teachers/${slug}`,
+          jobTitle: instructor.title,
+          description: instructor.bio,
+          image: instructor.avatar,
+          worksForName: "solo.tw（自由人學院）",
+          worksForUrl: "https://www.solo.tw",
+          sameAs: instructor.links?.map((link) => link.url),
+        })}
+      />
       <InstructorHero instructor={instructor} />
 
       <div className="mx-auto mt-12 max-w-3xl space-y-12 px-4">

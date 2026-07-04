@@ -224,6 +224,23 @@ function formatConsultingSection() {
   ].join('\n');
 }
 
+function formatToolsSection() {
+  return [
+    '## 免費事業健檢 (/diagnose)',
+    '',
+    `URL: ${SITE}/diagnose`,
+    '',
+    '7 道快速診斷，3 分鐘找出你一人事業的強項與盲點，獲得個人化行動建議（五大維度分析）。',
+    '',
+    '## 工具與資源 (/tools)',
+    '',
+    `URL: ${SITE}/tools`,
+    '',
+    '一人事業者的實用工具箱：免費事業健檢、AI 工作坊、線上課程、諮詢，以及下載即用的模板與工具包。',
+    '',
+  ].join('\n');
+}
+
 function formatFull(posts, workshops) {
   const lines = [
     '# solo.tw | 自由人學院 — Full Content Index',
@@ -236,6 +253,7 @@ function formatFull(posts, workshops) {
   ];
 
   lines.push(formatConsultingSection());
+  lines.push(formatToolsSection());
 
   if (workshops.length) {
     lines.push('## 所有課程與工作坊', '');
@@ -347,6 +365,7 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
     '\n' +
     formatWorkshopsSection(workshops) +
     consultingSummary +
+    formatToolsSection() +
     formatLatestBlog(posts, 10) +
     '## 平臺數據\n\n- 電子報訂閱者：18,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
     FOOTER_LINKS;

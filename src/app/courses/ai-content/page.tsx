@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "AI 內容產製系統工作坊｜3 小時實戰工作坊 | solo.tw",
@@ -321,6 +321,7 @@ export default function AIContentPage() {
     <>
       <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-07-12", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 內容產製系統", href: "/courses/ai-content" }])} />
+      <JsonLd data={faqSchema(faqs.map((faq) => ({ question: faq.q, answer: faq.a })))} />
     <div>
       {/* ====== Hero ====== */}
       <section className="bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/20">

@@ -5,7 +5,7 @@ import { workshops } from "@/lib/workshops";
 import CourseFilters from "./CourseFilters";
 import { ArrowRight, Users, Sparkles, Target, Mail } from "lucide-react";
 import { SOCIAL_PROOF } from "@/lib/constants";
-import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, itemListSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "AI 課程與工作坊｜Vista Cheng × solo.tw",
@@ -63,6 +63,14 @@ export default function CoursesPage() {
           { name: "Home", href: "/" },
           { name: "Courses", href: "/courses" },
         ])}
+      />
+      <JsonLd
+        data={itemListSchema(
+          visibleWorkshops.map((w) => ({
+            name: w.title,
+            url: w.isExternal ? w.url : `https://www.solo.tw${w.url}`,
+          }))
+        )}
       />
       {/* ─── Hero Section ─── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-50 via-white to-white py-12 sm:py-14 lg:py-16">
