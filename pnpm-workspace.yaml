@@ -1,4 +1,32 @@
+allowBuilds:
+  protobufjs: false
+  sharp: false
+  unrs-resolver: false
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
   - protobufjs
+minimumReleaseAgeExclude:
+  - minimatch@3.1.3
+  - minimatch@9.0.6
+  - minimatch@9.0.7
+  - minimatch@3.1.4
+  - ajv@6.14.0
+  - flatted@3.4.0
+  - flatted@3.4.2
+  - brace-expansion@1.1.13
+  - brace-expansion@2.0.3
+  - picomatch@2.3.2
+  - picomatch@4.0.4
+  - postcss@8.5.10
+  - ws@8.20.1
+  - uuid@11.1.1
+  - qs@6.15.2
+  - ws@8.21.0
+  - form-data@4.0.6
+  - vite@8.0.16
+  - '@babel/core@7.29.1'
+  - undici@7.28.0
+  - undici@6.27.0
+  - js-yaml@3.15.0
+  - js-yaml@4.1.2

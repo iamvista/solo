@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllPosts, getAllTags } from "@/lib/blog";
 import { getPublishedEvents } from "@/lib/supabase/events";
 import { createServiceClient } from "@/lib/supabase/service";
+import { workshops } from "@/lib/workshops";
 
 const baseUrl = "https://www.solo.tw";
 
@@ -41,17 +42,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // ── 課程詳情頁 ───────────────────────────────────────
+  // 獨立於 workshops.ts 之外的舊版課程頁，非工作坊資料源管理
+  const LEGACY_COURSE_SLUGS = ["innovation-workshop", "senior-asset-safety"] as const;
   const coursePages: MetadataRoute.Sitemap = [
-    "innovation-workshop",
-    "senior-asset-safety",
-    "vibe-coding",
-    "ai-content",
-  ].map((slug) => ({
-    url: `${baseUrl}/courses/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+    ...LEGACY_COURSE_SLUGS.map((slug) => ({
+      url: `${baseUrl}/courses/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...workshops
+      .filter((w) => !w.hidden && !w.isExternal)
+      .map((w) => ({
+        url: `${baseUrl}${w.url}`,
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
+  ];
 
   // ── 部落格文章 ───────────────────────────────────────
   let blogPages: MetadataRoute.Sitemap = [];
