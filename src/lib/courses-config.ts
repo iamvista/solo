@@ -146,7 +146,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     slug: "ai-content",
     title: "AI 內容產製系統工作坊",
     subtitle: "一份素材，自動產出六種格式：3 小時建立你的內容產製系統",
-    date: "2026/7/12（日）",
+    date: "2026/8/29（六）",
     time: "9:00–12:00（3 小時，含休息）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 16,
