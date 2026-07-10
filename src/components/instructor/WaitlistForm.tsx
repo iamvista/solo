@@ -4,23 +4,44 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { normalizePhone } from "@/lib/phone";
+import { HONEYPOT_FIELD, type WaitlistIntent } from "@/lib/waitlist";
+
+export interface WaitlistUtm {
+  source?: string;
+  medium?: string;
+  campaign?: string;
+  content?: string;
+}
 
 export function WaitlistForm({
   courseSlug,
-  instructorSlug,
   courseTitle,
+  intent,
+  sourcePage,
+  instructorSlug,
+  utm,
+  withHoneypot = false,
+  onCancel,
 }: {
   courseSlug: string;
-  instructorSlug: string;
   courseTitle: string;
+  intent: WaitlistIntent;
+  sourcePage: string;
+  instructorSlug?: string;
+  utm?: WaitlistUtm;
+  /** 廣告落地頁是公開流量入口，必然被機器人掃，故加誘餌欄位。 */
+  withHoneypot?: boolean;
+  onCancel?: () => void;
 }) {
-  const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [honeypot, setHoneypot] = useState("");
   const [phoneTouched, setPhoneTouched] = useState(false);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">(
     "idle",
   );
   const [msg, setMsg] = useState("");
+
+  const isFullWaitlist = intent === "full_waitlist";
 
   const phoneError = useMemo(() => {
     if (!phoneTouched) return null;
@@ -59,13 +80,20 @@ export function WaitlistForm({
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim() || undefined,
-          source_page: `/teachers/${instructorSlug}`,
+          source_page: sourcePage,
+          intent,
+          utm,
+          ...(withHoneypot ? { [HONEYPOT_FIELD]: honeypot } : {}),
         }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "送出失敗");
       setState("done");
-      setMsg("已記下你！這門課下一梯開課，我們第一個通知你。");
+      setMsg(
+        isFullWaitlist
+          ? "已排入候補！有名額釋出，我們第一個通知你。確認信已寄出。"
+          : "已記下你！這門課下次開課，我們第一個通知你。確認信已寄出。",
+      );
     } catch (err) {
       setState("error");
       setMsg(err instanceof Error ? err.message : "送出失敗");
@@ -76,19 +104,28 @@ export function WaitlistForm({
     return <p className="mt-2 text-sm text-emerald-700">{msg}</p>;
   }
 
-  if (!open) {
-    return (
-      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-        通知我下一梯
-      </Button>
-    );
-  }
-
   return (
-    <form onSubmit={submit} className="mt-3 flex flex-col gap-2 rounded-lg border border-stone-200 bg-stone-50 p-3">
+    <form
+      onSubmit={submit}
+      className="mt-3 flex flex-col gap-2 rounded-lg border border-stone-200 bg-stone-50 p-3"
+    >
       <p className="text-sm font-medium text-stone-700">
-        《{courseTitle}》下一梯通知我
+        {isFullWaitlist
+          ? `《${courseTitle}》有名額就通知我`
+          : `《${courseTitle}》下次開課通知我`}
       </p>
+      {withHoneypot && (
+        <input
+          type="text"
+          name={HONEYPOT_FIELD}
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
+      )}
       <Input placeholder="姓名" value={form.name} onChange={(e) => set("name", e.target.value)} aria-label="姓名" />
       <Input type="email" inputMode="email" placeholder="E-mail" value={form.email} onChange={(e) => set("email", e.target.value)} aria-label="E-mail" />
       <Input
@@ -104,11 +141,17 @@ export function WaitlistForm({
       {phoneError && <p className="text-xs text-rose-600">{phoneError}</p>}
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={state === "loading"}>
-          {state === "loading" ? "送出中…" : "送出"}
+          {state === "loading"
+            ? "送出中…"
+            : isFullWaitlist
+              ? "加入候補"
+              : "通知我下次開課"}
         </Button>
-        <Button type="button" variant="ghost" size="sm" onClick={() => setOpen(false)}>
-          取消
-        </Button>
+        {onCancel && (
+          <Button type="button" variant="ghost" size="sm" onClick={onCancel}>
+            取消
+          </Button>
+        )}
       </div>
       {state === "error" && <p className="text-sm text-rose-600">{msg}</p>}
     </form>

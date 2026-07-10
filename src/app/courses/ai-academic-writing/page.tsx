@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title: "AI 賦能學術研究與寫作實戰工作坊｜用 AI Agent 當研究副駕駛 | solo.tw",
@@ -578,6 +579,7 @@ export default function AiAcademicWritingPage() {
                 </div>
               </CardContent>
             </Card>
+            <CourseNotifyEntry slug="ai-academic-writing" />
           </section>
 
           {/* FAQ */}

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title: "定位收斂工作坊｜什麼都會的人，如何選出那一個能變現的自己 | solo.tw",
@@ -603,6 +604,7 @@ export default function PositioningConvergencePage() {
                 </div>
               </CardContent>
             </Card>
+            <CourseNotifyEntry slug="positioning-convergence" />
           </section>
 
           {/* FAQ */}
