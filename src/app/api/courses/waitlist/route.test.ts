@@ -32,12 +32,12 @@ vi.mock("@/lib/supabase/service", () => ({
   }),
 }));
 
-const sendEmail = vi.fn(async (args: { to: string }) => ({
+const sendEmail = vi.fn(async (args: { to: string; text?: string }) => ({
   success: true,
   data: { id: `msg-${args.to}` },
 }));
 vi.mock("@/lib/email", () => ({
-  sendEmail: (args: { to: string }) => sendEmail(args),
+  sendEmail: (args: { to: string; text?: string }) => sendEmail(args),
 }));
 
 let ipCounter = 0;
@@ -123,6 +123,15 @@ describe("POST /api/courses/waitlist", () => {
     await POST(mockReq(base));
     expect(sendEmail).toHaveBeenCalledTimes(1);
     expect(sendEmail.mock.calls[0][0].to).toBe("t@test.tw");
+  });
+
+  it("supplies an explicit plain-text alternative so links stay clickable", async () => {
+    await POST(mockReq(base));
+    const { text } = sendEmail.mock.calls[0][0];
+    expect(text).toBeTruthy();
+    expect(text).toContain("&slot=saturday");
+    // Resend 自動轉換會產生 `...&slot=weekday_evening週六`
+    expect(text).not.toMatch(/&slot=[a-z_]+週/);
   });
 
   it("still succeeds when the confirmation email throws", async () => {

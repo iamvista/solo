@@ -8,7 +8,10 @@ import {
 import { generateWaitlistToken } from "@/lib/waitlist-token";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { sendEmail } from "@/lib/email";
-import { WaitlistConfirmEmail } from "@/components/emails/waitlist-confirm";
+import {
+  WaitlistConfirmEmail,
+  waitlistConfirmText,
+} from "@/components/emails/waitlist-confirm";
 import { workshops } from "@/lib/workshops";
 
 export const runtime = "nodejs";
@@ -26,16 +29,20 @@ async function sendConfirmation(id: string, data: CleanWaitlist) {
       workshops.find((w) => w.id === data.course_slug)?.title ??
       data.course_slug;
 
+    const props = {
+      name: data.name,
+      courseTitle,
+      intent: data.intent,
+      preferenceUrlBase: `${base}/waitlist/preference?token=${token}`,
+      unsubscribeUrl: `${base}/waitlist/unsubscribe?token=${token}`,
+    };
+
     await sendEmail({
       to: data.email,
       subject: `《${courseTitle}》開課通知已為你登記`,
-      react: WaitlistConfirmEmail({
-        name: data.name,
-        courseTitle,
-        intent: data.intent,
-        preferenceUrlBase: `${base}/waitlist/preference?token=${token}`,
-        unsubscribeUrl: `${base}/waitlist/unsubscribe?token=${token}`,
-      }),
+      react: WaitlistConfirmEmail(props),
+      // 顯式帶純文字版，否則 Resend 自動轉換會把四顆並排按鈕串成一行
+      text: waitlistConfirmText(props),
     });
   } catch (e) {
     console.error("waitlist confirmation email failed:", e);
