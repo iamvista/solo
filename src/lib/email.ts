@@ -15,17 +15,26 @@ const FROM_EMAIL = process.env.FROM_EMAIL || "events@solo.tw";
 const FROM_NAME = process.env.FROM_NAME || "自由人學院";
 const REPLY_TO = process.env.REPLY_TO_EMAIL || "iamvista@gmail.com";
 
-/** Send a single email */
+/**
+ * Send a single email.
+ *
+ * `text` is optional. Without it Resend derives the plain-text alternative from
+ * the rendered HTML, which runs adjacent inline-block links together (a row of
+ * buttons becomes "...&slot=weekday_evening週六 https://..."). Pass `text` when
+ * the HTML contains side-by-side links.
+ */
 export async function sendEmail({
   to,
   subject,
   react,
+  text,
   from,
   replyTo,
 }: {
   to: string | string[];
   subject: string;
   react: React.ReactElement;
+  text?: string;
   from?: string;
   replyTo?: string;
 }) {
@@ -35,6 +44,7 @@ export async function sendEmail({
       to: Array.isArray(to) ? to : [to],
       subject,
       react,
+      ...(text ? { text } : {}),
       replyTo: replyTo || REPLY_TO,
     });
 

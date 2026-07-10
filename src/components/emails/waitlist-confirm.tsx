@@ -22,6 +22,53 @@ interface Props {
   unsubscribeUrl: string;
 }
 
+function heading(name: string, intent: WaitlistIntent): string {
+  return intent === "full_waitlist"
+    ? `${name}，已將你排入候補名單`
+    : `${name}，下次開課第一個通知你`;
+}
+
+function lead(intent: WaitlistIntent): string {
+  return intent === "full_waitlist"
+    ? "這一梯的名額已滿。若有人取消釋出名額，我們會立刻寄信給你。"
+    : "我們記下你了。這門課下次開課時，你會在公開報名前收到通知。";
+}
+
+/**
+ * 純文字版。必須手寫並顯式傳給 Resend：交給它從 HTML 自動轉換時，四顆並排的
+ * inline-block 按鈕會被串成一行（`...&slot=weekday_evening週六 https://...`），
+ * 純文字閱讀器裡的連結因此無法點擊。
+ */
+export function waitlistConfirmText({
+  name,
+  courseTitle,
+  intent,
+  preferenceUrlBase,
+  unsubscribeUrl,
+}: Props): string {
+  const choices = TIMESLOT_CHOICES.map(
+    ({ slot, label }) => `${label}：${preferenceUrlBase}&slot=${slot}`,
+  ).join("\n");
+
+  return [
+    heading(name, intent),
+    "",
+    `你登記的是《${courseTitle}》。${lead(intent)}`,
+    "",
+    "順手幫我們一個忙：你哪個時段比較方便上課？點一下就好，這會直接影響我們把下一梯排在什麼時候。",
+    "",
+    choices,
+    "",
+    "點錯了不要緊，再點另一個就會覆蓋掉先前的選擇。",
+    "",
+    "----------------------------------------",
+    "",
+    `不想再收到這門課的開課通知？點此退出名單：${unsubscribeUrl}`,
+    "",
+    "© solo.tw — AI × 一人事業",
+  ].join("\n");
+}
+
 export function WaitlistConfirmEmail({
   name,
   courseTitle,
@@ -30,12 +77,6 @@ export function WaitlistConfirmEmail({
   unsubscribeUrl,
 }: Props) {
   const isFullWaitlist = intent === "full_waitlist";
-  const heading = isFullWaitlist
-    ? `${name}，已將你排入候補名單`
-    : `${name}，下次開課第一個通知你`;
-  const lead = isFullWaitlist
-    ? "這一梯的名額已滿。若有人取消釋出名額，我們會立刻寄信給你。"
-    : "我們記下你了。這門課下次開課時，你會在公開報名前收到通知。";
 
   return (
     <Html>
@@ -46,9 +87,9 @@ export function WaitlistConfirmEmail({
       <Body style={main}>
         <Container style={container}>
           <Text style={tag}>{isFullWaitlist ? "⏳ 候補確認" : "🔔 開課通知"}</Text>
-          <Heading style={h1}>{heading}</Heading>
+          <Heading style={h1}>{heading(name, intent)}</Heading>
           <Text style={text}>
-            你登記的是《<strong>{courseTitle}</strong>》。{lead}
+            你登記的是《<strong>{courseTitle}</strong>》。{lead(intent)}
           </Text>
 
           <Section style={infoBox}>
