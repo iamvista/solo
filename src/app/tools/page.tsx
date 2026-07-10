@@ -8,6 +8,7 @@ import {
   Bot,
   Calendar,
   FileText,
+  GraduationCap,
   Mail,
   PenLine,
   Sparkles,
@@ -93,6 +94,15 @@ const digitalProducts = [
     originalPrice: null,
     href: "/products/ai-coach-kit",
     badge: null,
+  },
+  {
+    icon: GraduationCap,
+    title: "AI 學術研究工作臺",
+    desc: "19 個模組覆蓋文獻、寫作、分析、投稿與研究誠信，內建防幻覺與方法學把關。研究生 / 教授 / 醫師三種人物包。",
+    price: "NT$1,980 起",
+    originalPrice: null,
+    href: "/tools/academic-research-suite",
+    badge: "新品",
   },
 ];
 

@@ -3,12 +3,20 @@
  * 新增產品時在這裡登記，webhook handler 會自動依這份設定發信。
  */
 
+import type { ArsBundle } from "@/lib/ars-bundles";
+
 export type ConsultingPlan = "1hr" | "3hr" | "5hr" | "10hr" | "20hr";
 
 export type ProductEmailConfig =
   | {
       kind: "ai-coach-kit";
       productId: "xqvb9nqxtehhfesuhequm9jp";
+    }
+  | {
+      kind: "ars-bundle";
+      productId: string;
+      productName: string;
+      bundle: ArsBundle;
     }
   | {
       kind: "course";
@@ -259,12 +267,50 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   },
 };
 
+// AI 學術研究工作臺（ARS）5 個 bundle：webhook 側（伺服器端，不受 NEXT_PUBLIC_ 前綴限制）
+// 改為寫死常數表，不再依賴 env 讀值。原因：env typo 或漏設會讓付費訂單靜默落到
+// generic 分支（客戶付錢卻拿不到下載連結，且 Recur 對 order.paid 不會重試），是最壞情境。
+// 這組 productId 已實測確認在 sandbox／production 共用同一組值，寫死是刻意設計。
+// CheckoutButton（client 側，需要 NEXT_PUBLIC_ 前綴才能在瀏覽器讀到）維持 env-only，不受此表影響。
+const ARS_PRODUCT_ID_TO_BUNDLE: Record<string, ArsBundle> = {
+  uywm5vudlfzhlkc96omzcdio: "grad",
+  h8kqd7tlxvq571iqof11gqc2: "faculty",
+  tyutghxnw5hyg5zqlzci92r8: "clinician",
+  vz1lsesabm0gfi26kxgrgc7l: "allaccess",
+  uwsuy945sqcynnhbdul0bu72: "addon-vertical",
+};
+
+const ARS_BUNDLE_PRODUCT_NAMES: Record<ArsBundle, string> = {
+  grad: "AI 學術研究工作臺・研究生包",
+  faculty: "AI 學術研究工作臺・教授包",
+  clinician: "AI 學術研究工作臺・醫師包",
+  allaccess: "AI 學術研究工作臺・All-Access 全學科包",
+  "addon-vertical": "AI 學術研究工作臺・單科垂直包",
+};
+
+function resolveArsBundleConfig(
+  productId: string,
+): Extract<ProductEmailConfig, { kind: "ars-bundle" }> | undefined {
+  const bundle = ARS_PRODUCT_ID_TO_BUNDLE[productId];
+  if (!bundle) return undefined;
+  return {
+    kind: "ars-bundle",
+    productId,
+    productName: ARS_BUNDLE_PRODUCT_NAMES[bundle],
+    bundle,
+  };
+}
+
 export function resolveProductConfig(
   productId: string | undefined,
   productNameFallback?: string,
 ): ProductEmailConfig {
   if (productId && PRODUCT_CONFIG_MAP[productId]) {
     return PRODUCT_CONFIG_MAP[productId];
+  }
+  if (productId) {
+    const arsConfig = resolveArsBundleConfig(productId);
+    if (arsConfig) return arsConfig;
   }
   // 未登記產品也要寄一封通用確認信，避免客戶孤兒
   return {

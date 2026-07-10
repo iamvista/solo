@@ -3,6 +3,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
 import { sendEmail } from "@/lib/email";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
+import { ArsBundlePurchaseEmail } from "@/components/emails/ars-bundle-purchase";
 import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
 import { ConsultingEnrollmentWelcomeEmail } from "@/components/emails/consulting-enrollment-welcome";
 import {
@@ -10,6 +11,11 @@ import {
   resolveProductConfig,
   type ProductEmailConfig,
 } from "@/lib/recur-product-config";
+import {
+  ARS_BUNDLE_LABELS,
+  ARS_BUNDLE_MAX_DOWNLOADS,
+  DOWNLOAD_TTL_HOURS as ARS_DOWNLOAD_TTL_HOURS,
+} from "@/lib/ars-bundles";
 import {
   createEnrollment,
   updateLeadStatus,
@@ -20,6 +26,9 @@ import {
   recordCommissionForEnrollment,
   voidCommissionByOrderId,
 } from "@/lib/affiliates";
+
+/** ars-bundle fulfilment 失敗時拋出，讓 POST 對該事件回 500（其餘 kind 維持既有 200 慣例）。 */
+class ArsFulfilmentError extends Error {}
 
 let _recur: Recur | null = null;
 function getRecur(): Recur {
@@ -91,6 +100,17 @@ export async function POST(request: Request) {
       console.log("[recur webhook] unhandled", event.type, event.id);
     }
   } catch (e) {
+    if (e instanceof ArsFulfilmentError) {
+      // ars-bundle fulfilment 失敗要讓 Recur 重送（冪等已由 order_id 保證重送安全），
+      // 只改這條路徑的回應碼，其餘 kind 仍走下面「一律回 200」的既有慣例。
+      console.error(
+        "[recur webhook] ars fulfilment failed, returning 500 for retry",
+        event.type,
+        event.id,
+        e,
+      );
+      return Response.json({ error: "ars fulfilment failed" }, { status: 500 });
+    }
     // Always return 200 so recur doesn't retry forever; error is logged above.
     console.error("[recur webhook] handler error", event.type, event.id, e);
   }
@@ -112,12 +132,23 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
   const productId = pickProductId(data);
   const amount = data.amount;
 
+  const config = resolveProductConfig(productId, pickProductName(data));
+
   if (!email) {
     console.warn("[recur webhook] order.paid missing email", eventId, orderId);
+    if (config.kind === "ars-bundle") {
+      // 純數位下載沒有 email 就無法交付，且 ars 沒有 enrollment 兜底，必須主動告警補救。
+      await notifyAdminEmailFailure({
+        reason: "ars-bundle 訂單缺少 customer.email，無法交付下載連結",
+        orderId,
+        customerEmail: "(未提供)",
+        productName: ARS_BUNDLE_LABELS[config.bundle],
+        amount,
+        recoveryNote: "請至 Recur 後臺查該筆訂單找出買家聯絡方式，人工補寄下載連結。",
+      });
+    }
     return;
   }
-
-  const config = resolveProductConfig(productId, pickProductName(data));
 
   // 嘗試找對應的 enrollment：先看 metadata（recur SDK 目前不支援，但留著未來相容），
   // 再用 email + product_id 反查最新一筆 pending enrollment（fallback 路徑）
@@ -158,6 +189,17 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
 
   if (config.kind === "ai-coach-kit") {
     await fulfilAiCoachKit({ orderId, email, amount });
+    return;
+  }
+
+  if (config.kind === "ars-bundle") {
+    try {
+      await fulfilArsBundle({ config, orderId, email, amount });
+    } catch (err) {
+      throw new ArsFulfilmentError(
+        err instanceof Error ? err.message : String(err),
+      );
+    }
     return;
   }
 
@@ -437,6 +479,122 @@ async function fulfilAiCoachKit({
   void AI_COACH_KIT_PRODUCT_ID;
 }
 
+async function fulfilArsBundle({
+  config,
+  orderId,
+  email,
+  amount,
+}: {
+  config: Extract<ProductEmailConfig, { kind: "ars-bundle" }>;
+  orderId: string;
+  email: string;
+  amount?: number;
+}) {
+  const supabase = getSupabase();
+
+  const { data: existing } = await supabase
+    .from("download_tokens")
+    .select("token")
+    .eq("order_id", orderId)
+    .maybeSingle();
+
+  let token: string;
+  if (existing?.token) {
+    token = existing.token as string;
+    console.log("[recur webhook] reusing existing ars token for order", orderId);
+  } else {
+    token = randomUUID();
+    const expiresAt = new Date(
+      Date.now() + ARS_DOWNLOAD_TTL_HOURS * 3600_000,
+    ).toISOString();
+    // clinician 的垂直是固定的（醫學），落地時就直接鎖定，下載 route 不必再為它特判。
+    const chosenVertical = config.bundle === "clinician" ? "medical" : null;
+    const { error } = await supabase.from("download_tokens").insert({
+      order_id: orderId,
+      product_id: config.bundle,
+      token,
+      email,
+      expires_at: expiresAt,
+      max_downloads: ARS_BUNDLE_MAX_DOWNLOADS[config.bundle],
+      chosen_vertical: chosenVertical,
+    });
+    if (error) {
+      // 併發雙寫撞到 order_id 的 unique index（Postgres 23505）：代表另一個並發請求
+      // 已經贏了 insert 並會負責寄信。這裡改為重查既有 token 當冪等成功，不寄第二封信、
+      // 不當一般錯誤丟 500（否則 Recur 會一直重送，且我們每次都會再撞一次 23505）。
+      if (error.code === "23505") {
+        console.log(
+          "[recur webhook] ars token insert hit unique violation on order_id (concurrent winner already fulfilled); treating as idempotent success",
+          orderId,
+        );
+        const { data: winner, error: reselectError } = await supabase
+          .from("download_tokens")
+          .select("token")
+          .eq("order_id", orderId)
+          .maybeSingle();
+        if (reselectError || !winner?.token) {
+          console.error(
+            "[recur webhook] ars token unique violation but reselect found no token",
+            orderId,
+            reselectError,
+          );
+        }
+        return;
+      }
+      console.error("[recur webhook] failed to insert ars token", error);
+      throw error;
+    }
+  }
+
+  const bundleLabel = ARS_BUNDLE_LABELS[config.bundle];
+  const maxDownloads = ARS_BUNDLE_MAX_DOWNLOADS[config.bundle];
+  const downloadUrl = `${SITE_URL}/payment/success?type=ars&token=${token}`;
+  const amountFormatted =
+    typeof amount === "number" ? `NT$${amount.toLocaleString()}` : undefined;
+
+  const result = await sendEmail({
+    to: email,
+    subject: `感謝購買 AI 學術研究工作臺——${bundleLabel}下載連結`,
+    react: ArsBundlePurchaseEmail({
+      bundleLabel,
+      downloadUrl,
+      orderNumber: orderId,
+      amountFormatted,
+      expiresInHours: ARS_DOWNLOAD_TTL_HOURS,
+      maxDownloads,
+    }),
+  });
+
+  if (!result.success) {
+    // Token 已建立成功，只是寄信失敗：改為 admin 告警 + 正常返回（webhook 回 200），
+    // 不再 throw ArsFulfilmentError。永久性 email 失敗（如網域被封鎖）會讓 Recur
+    // 無限重試 webhook，只會 spam 而換不回一封信；補救走人工重寄（告警信已附下載連結）。
+    console.error("[recur webhook] sendEmail failed (ars)", result.error);
+    await notifyAdminEmailFailure({
+      reason: `${bundleLabel} 下載信寄送失敗`,
+      orderId,
+      customerEmail: email,
+      productName: bundleLabel,
+      amount,
+      recoveryNote: [
+        `下載連結：${downloadUrl}`,
+        `Token 已寫入 download_tokens 表，${ARS_DOWNLOAD_TTL_HOURS} 小時內有效，最多下載 ${maxDownloads} 次。`,
+        "請手動轉寄上方連結給客戶。",
+      ].join("\n"),
+      error: result.error,
+    });
+    return;
+  }
+  console.log(
+    "[recur webhook] sent ars-bundle email to",
+    email,
+    "order",
+    orderId,
+    "bundle",
+    config.bundle,
+  );
+}
+
 async function fulfilConsulting({
   config,
   orderId,
@@ -677,7 +835,10 @@ async function sendGenericConfirmation({
   email,
   amount,
 }: {
-  config: Exclude<ProductEmailConfig, { kind: "ai-coach-kit" | "consulting" }>;
+  config: Exclude<
+    ProductEmailConfig,
+    { kind: "ai-coach-kit" | "ars-bundle" | "consulting" }
+  >;
   orderId: string;
   email: string;
   amount?: number;
