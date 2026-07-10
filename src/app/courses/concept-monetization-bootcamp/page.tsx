@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title:
@@ -422,6 +423,7 @@ export default function ConceptMonetizationBootcampPage() {
             <p className="mt-6 text-center text-sm text-muted-foreground">
               標準票與雙人同行於下一頁填寫報名資料後，前往 PAYUNi 信用卡刷卡頁完成付款。
             </p>
+            <CourseNotifyEntry slug="concept-monetization-bootcamp" />
           </section>
 
           {/* ====== Instructor ====== */}

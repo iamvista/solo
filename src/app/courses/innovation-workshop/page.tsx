@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StepGallery from "./StepGallery";
 import { JsonLd, courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title: "創新實戰工作坊 | solo.tw",
@@ -601,6 +602,7 @@ export default function InnovationWorkshopPage() {
               </div>
             </CardContent>
           </Card>
+          <CourseNotifyEntry slug="innovation-workshop" />
         </section>
 
         {/* 返回課程列表 */}

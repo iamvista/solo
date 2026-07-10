@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title:
@@ -918,6 +919,7 @@ export default function VibeCodingClaudeCodePage() {
                 </p>
               </CardContent>
             </Card>
+            <CourseNotifyEntry slug="vibe-coding-claude-code" />
           </section>
 
           {/* ====== Two Choices ====== */}

@@ -8,8 +8,11 @@ solo.tw 的課程頁目前把「留下聯絡方式」這件事，綁在「課程
 - `/api/courses/waitlist` 已有限流（`src/lib/rate-limit.ts`，記憶體版，依 IP，10 次／60 秒）、payload 驗證（`src/lib/waitlist.ts`）、upsert，並會 best-effort 同步一筆到 `newsletter_subscribers`（`source='waitlist'`、`tags=['waitlist:<slug>']`）。
 - 郵件基建齊備：Resend 加 React Email，`src/lib/email.ts` 提供 `sendEmail` 與 `sendBatchEmails`，`FROM=events@solo.tw`。已有 14 個 template。
 - 後臺已有 `/admin/waitlist` 與 CSV 匯出。
+- `/courses/[course]/register` 已是動態路由，因此 `/courses/[course]/notify` 可作為其兄弟路由加入。
 
 缺口有四個：有名額的課程沒有入口；留資後不寄任何信；沒有廣告來源歸因；沒有觸發再行銷的方式。
+
+入口的缺口比表面更深。`WaitlistForm` 目前只被 `src/components/instructor/CourseCard.tsx` 使用，而該元件只出現在 `/teachers/[slug]` 老師頁。真正的**課程銷售頁是 9 個各自手寫的頁面**（`src/app/courses/<slug>/page.tsx`，494 至 1008 行不等），彼此之間沒有任何共用的 CTA 元件，僅共用 shadcn 的 `card`、`button`、`badge` 三個原始元件。因此「在課程卡片上加入口」並不能觸及銷售頁的訪客，必須另抽一個共用元件並裝進每一個銷售頁。
 
 限制條件：`src/lib/workshops.ts` 的課程是硬編碼陣列，`date` 是自由文字字串，`cohort` 是選填標籤，**資料模型裡不存在結構化的梯次概念**。專案目前完全沒有序列信或排程寄送機制，唯一的排程是 `api/cron/daily-check`。
 
@@ -49,13 +52,23 @@ solo.tw 的課程頁目前把「留下聯絡方式」這件事，綁在「課程
 
 因此 `ON CONFLICT` 的行為是：`intent` 維持原值不覆寫；`utm_*` 僅在原欄位為 `NULL` 時補寫（保留首次歸因）；`name`、`phone` 以新值覆寫（使用者可能修正打字錯誤）；`updated_at` 更新為 `now()`。
 
+supabase-js 的 `.upsert()` 只能整列覆寫，無法表達「這欄不覆寫、那欄僅在為 NULL 時補寫」。因此這段邏輯下放到資料庫：migration 中建立 `upsert_course_waitlist(...)` 函式，內含 `ON CONFLICT ... DO UPDATE SET intent = course_waitlist.intent, utm_source = coalesce(course_waitlist.utm_source, excluded.utm_source), ...`，API 改以 `supabase.rpc()` 呼叫。好處是衝突解析在單一語句內原子完成，不需要先讀後寫，也就沒有並發時的競態。函式維持預設的 `security invoker`，並明確 `revoke execute` 於 `anon` 與 `authenticated`。若改用 `security definer`，函式將以擁有者權限繞過 RLS，等於為這張「RLS 開啟且無 policy」的表開一道匿名寫入後門。API 以 service role 呼叫，本就繞過 RLS，不需要 definer。函式回傳寫入列的 `id` 供後續寄信使用。
+
 ### 候補入口採次要連結而非主按鈕
 
-在 `open`／`filling` 狀態的課程卡片上直接展開表單，會與「立即報名」搶主要行動點，稀釋當期轉換。改為在報名按鈕下方放一行低調的次要連結（文案近似「這個時間無法參加？留下 Email，下次開課通知你」），點擊後才展開既有的 `WaitlistForm`。
+在 `open`／`filling` 狀態的課程頁上直接展開表單，會與「立即報名」搶主要行動點，稀釋當期轉換。改為在報名按鈕下方放一行低調的次要連結（文案近似「這個時間無法參加？留下 Email，下次開課通知你」），點擊後才展開既有的 `WaitlistForm`。
 
 假設：會點這行字的人本來就不會報名當期，因此不損失當期成交。此假設可在上線後以「當期報名數是否下降」驗證。
 
 `intent` 由課程狀態推導，不由使用者選擇：`full` 送 `full_waitlist`，其餘狀態（`open`／`filling`／`coming_soon`／`ended`）送 `date_conflict`。表單標題與送出按鈕文案隨之切換（額滿時說「加入候補」，其餘說「通知我下次開課」）。
+
+### 入口抽為共用的 NextCohortNotify 元件，裝進每個銷售頁
+
+9 個課程銷售頁各自手寫、無共用 CTA，若逐頁複製一份表單邏輯，等於埋下 9 份會各自腐化的重複程式碼。
+
+改為新增一個 client 元件 `NextCohortNotify`，其職責是「依課程狀態決定入口樣式與 `intent`，並在展開後渲染 `WaitlistForm`」。`CourseCard` 改為呼叫它，9 個銷售頁在報名按鈕下方各插入一次。每個銷售頁的 diff 因此僅有一行 import 與一行元件呼叫，**不重構頁面其餘部分**。
+
+`WaitlistForm` 目前把 `source_page` 硬編碼為 `/teachers/${instructorSlug}`。此值改由呼叫端傳入，銷售頁傳自身路徑，老師頁維持原值，如此後臺才能分辨名單來自哪一種頁面。`instructorSlug` 在銷售頁上不一定存在，因此改為選填。
 
 ### 偏好時段以確認信中的 token 連結回填，不放進表單
 
@@ -132,7 +145,7 @@ Token 為 `id.HMAC_SHA256(secret, id)`，以 base64url 編碼。驗證時比對 
 
 API 契約：
 
-- `POST /api/courses/waitlist`：request body 在既有的 `{ courseSlug, instructorSlug?, name, email, phone?, sourcePage? }` 之上，新增 `intent`、`utm`（物件，四個選填鍵）、以及 honeypot 欄位。honeypot 非空時回傳 `200 { ok: true }` 但不寫入。回應形狀不變。
+- `POST /api/courses/waitlist`：request body 在既有的 snake_case 形狀 `{ course_slug, instructor_slug?, name, email, phone?, source_page? }` 之上，新增 `intent`、`utm`（物件，四個選填鍵）、以及 honeypot 欄位。honeypot 非空時回傳 `200 { ok: true }` 但不寫入。回應形狀不變。
 - `GET /waitlist/preference?token=&slot=`：token 無效或 slot 不在允許集合時回傳 400 並渲染錯誤頁；成功時寫入並渲染致謝頁。
 - `GET /waitlist/unsubscribe?token=`：渲染確認頁，不寫入。
 - `POST /waitlist/unsubscribe`：body 帶 token，寫入 `unsubscribed_at`，渲染完成頁。
@@ -146,7 +159,7 @@ Token 格式：`base64url(id) + "." + base64url(HMAC_SHA256(WAITLIST_TOKEN_SECRE
 - honeypot 命中：**靜默**。回傳成功，不寫入，不揭露偵測邏輯。
 - 限流命中：沿用既有行為（429）。
 - token 驗證失敗：**顯性**，回傳 400 並渲染人類可讀的錯誤頁。
-- 廣播中途部分失敗：**顯性**。`sendBatchEmails` 的失敗筆數回報給操作者，`notified_at` 僅寫入寄送成功者，允許操作者重試剩餘名單。
+- 廣播中途部分失敗：**顯性**。`sendBatchEmails` 只回報整批的成功與失敗筆數，沒有逐一收件人的結果，因此收件人以每批至多 100 人分批寄出（Resend batch API 的上限），`notified_at` 僅寫入「整批寄送無誤」的那些批次，失敗批次的成員維持原值，供操作者重試。失敗筆數回報給操作者。
 
 **驗收條件（Acceptance Criteria）**
 
@@ -161,9 +174,9 @@ Token 格式：`base64url(id) + "." + base64url(HMAC_SHA256(WAITLIST_TOKEN_SECRE
 
 **範圍邊界（Scope Boundaries）**
 
-在範圍內：上述 migration、API、兩個 email template、落地頁、偏好與退訂路由、後臺篩選與廣播。
+在範圍內：上述 migration 與資料庫函式、API、`NextCohortNotify` 共用元件、把該元件裝進 9 個課程銷售頁與 `CourseCard`、兩個 email template、落地頁、偏好與退訂路由、後臺篩選與廣播。
 
-不在範圍內：`workshops.ts`、`course_enrollments`、Recur 金流、SMS、cron、序列信、主題層級名單、把限流換成 Redis 或持久化實作、為既有表單補 honeypot（僅新增的落地頁表單納入）。
+不在範圍內：`workshops.ts`、`course_enrollments`、Recur 金流、SMS、cron、序列信、主題層級名單、把限流換成 Redis 或持久化實作、為既有表單補 honeypot（僅新增的落地頁表單納入）、**重構 9 個銷售頁的既有版面**（每頁只准新增 import 與元件呼叫兩行）。
 
 ## Risks / Trade-offs
 

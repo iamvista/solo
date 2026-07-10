@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title: "Vibe Coding 實戰工作坊｜3 小時打造你的第一個銷售頁 | solo.tw",
@@ -918,6 +919,7 @@ export default function VibeCodingPage() {
               </p>
             </CardContent>
           </Card>
+          <CourseNotifyEntry slug="vibe-coding" />
         </section>
 
         {/* ====== Two Choices ====== */}

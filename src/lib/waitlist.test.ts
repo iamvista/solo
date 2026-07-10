@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { validateWaitlistPayload } from "./waitlist";
+import {
+  validateWaitlistPayload,
+  isHoneypotTriggered,
+  HONEYPOT_FIELD,
+} from "./waitlist";
 
 const base = {
   course_slug: "vibe-coding",
@@ -66,5 +70,77 @@ describe("validateWaitlistPayload", () => {
       expect(r.value.instructor_slug).toBeNull();
       expect(r.value.source_page).toBeNull();
     }
+  });
+
+  it("defaults intent to full_waitlist when absent", () => {
+    const r = validateWaitlistPayload(base);
+    expect(r.ok && r.value.intent).toBe("full_waitlist");
+  });
+
+  it.each(["full_waitlist", "date_conflict", "ad_lead"])(
+    "accepts intent %s",
+    (intent) => {
+      const r = validateWaitlistPayload({ ...base, intent });
+      expect(r.ok && r.value.intent).toBe(intent);
+    },
+  );
+
+  it("rejects an unknown intent", () => {
+    const r = validateWaitlistPayload({ ...base, intent: "vip" });
+    expect(r.ok).toBe(false);
+  });
+
+  it("captures utm fields when present", () => {
+    const r = validateWaitlistPayload({
+      ...base,
+      utm: {
+        source: "facebook",
+        medium: "paid",
+        campaign: "aiaw-phase1",
+        content: "variant-b",
+      },
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.value.utm_source).toBe("facebook");
+      expect(r.value.utm_campaign).toBe("aiaw-phase1");
+      expect(r.value.utm_content).toBe("variant-b");
+    }
+  });
+
+  it("nulls utm fields when the utm object is absent", () => {
+    const r = validateWaitlistPayload(base);
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.value.utm_source).toBeNull();
+      expect(r.value.utm_medium).toBeNull();
+      expect(r.value.utm_campaign).toBeNull();
+      expect(r.value.utm_content).toBeNull();
+    }
+  });
+
+  it("truncates over-long utm values rather than rejecting them", () => {
+    const r = validateWaitlistPayload({
+      ...base,
+      utm: { campaign: "x".repeat(500) },
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.value.utm_campaign).toHaveLength(200);
+  });
+});
+
+describe("isHoneypotTriggered", () => {
+  it("is false when the field is absent", () => {
+    expect(isHoneypotTriggered({ name: "n" })).toBe(false);
+  });
+
+  it("is false when the field is present but blank", () => {
+    expect(isHoneypotTriggered({ [HONEYPOT_FIELD]: "   " })).toBe(false);
+  });
+
+  it("is true when a bot fills the field", () => {
+    expect(isHoneypotTriggered({ [HONEYPOT_FIELD]: "https://spam.example" })).toBe(
+      true,
+    );
   });
 });

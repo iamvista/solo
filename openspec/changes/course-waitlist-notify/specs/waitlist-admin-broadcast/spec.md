@@ -54,15 +54,22 @@ Before dispatching, the system SHALL display the exact number of recipients and 
 
 ### Requirement: Broadcast outcomes are recorded and partial failures are surfaced
 
-The system SHALL write `notified_at` only for recipients whose email was dispatched successfully, and SHALL report the number of successful and failed deliveries to the operator so that the remaining recipients can be retried.
+The email provider's batch API reports success and failure per batch, not per recipient. The system SHALL therefore dispatch recipients in batches and SHALL write `notified_at` only for the recipients of batches that were dispatched without error. It SHALL report the number of successful and failed deliveries to the operator so that the remaining recipients can be retried.
 
-#### Scenario: Some deliveries fail
+A batch SHALL contain at most 100 recipients, which is the provider's documented ceiling.
 
-- **GIVEN** a broadcast to 50 recipients where 3 deliveries fail
+#### Scenario: One batch fails while others succeed
+
+- **GIVEN** a broadcast to 250 recipients, dispatched as batches of 100, 100, and 50, where the second batch fails
 - **WHEN** the broadcast completes
-- **THEN** 47 entries have a refreshed `notified_at`, the 3 failed entries retain their previous `notified_at`, and the operator is shown 47 succeeded and 3 failed
+- **THEN** the 150 recipients of the first and third batches have a refreshed `notified_at`, the 100 recipients of the failed batch retain their previous `notified_at`, and the operator is shown 150 succeeded and 100 failed
 
 #### Scenario: Operator retries the failed remainder
 
 - **WHEN** the operator broadcasts again to the same filter after a partial failure
 - **THEN** the previously failed recipients receive the email and their `notified_at` is written
+
+#### Scenario: A recipient never receives two copies from one broadcast
+
+- **WHEN** a broadcast dispatches
+- **THEN** each recipient in the set appears in exactly one batch

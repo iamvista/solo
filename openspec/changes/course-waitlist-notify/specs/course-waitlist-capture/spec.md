@@ -75,15 +75,17 @@ The system SHALL provide nullable `preferred_timeslot`, `notified_at`, and `unsu
 - **WHEN** a waitlist row is created
 - **THEN** `preferred_timeslot`, `notified_at`, and `unsubscribed_at` are NULL and `updated_at` is set
 
-### Requirement: Every course card exposes an entry to the notification list
+### Requirement: Every course surface exposes an entry to the notification list
 
-A course card SHALL offer a way to join the notification list in every course status, not only when the course is full. When the course is full the entry SHALL be the card's primary action. When the course still has seats the entry SHALL be a secondary text link placed below the enrolment action, and the form SHALL appear only after that link is activated, so that the enrolment action remains the card's sole primary action.
+Every surface that presents a course to a visitor SHALL offer a way to join the notification list, in every course status, not only when the course is full. Those surfaces are the course sales pages and the course cards on instructor pages.
 
-The form's heading and submit label SHALL reflect the derived intent.
+The entry SHALL be provided by a single shared component so that its behaviour cannot diverge between surfaces. When the course is full the entry SHALL be the surface's primary action. When the course still has seats the entry SHALL be a secondary text link placed below the enrolment action, and the form SHALL appear only after that link is activated, so that the enrolment action remains the sole primary action.
 
-#### Scenario: A course with seats offers a secondary entry
+The form's heading and submit label SHALL reflect the derived intent. The submitted `source_page` SHALL identify the surface the visitor came from.
 
-- **WHEN** a course card renders with status `open` or `filling`
+#### Scenario: A sales page with seats offers a secondary entry
+
+- **WHEN** a course sales page renders for a course with status `open` or `filling`
 - **THEN** the enrolment action remains the only primary action, and a secondary text link offers to notify the visitor about the next cohort
 
 #### Scenario: The form is revealed on demand
@@ -93,8 +95,13 @@ The form's heading and submit label SHALL reflect the derived intent.
 
 #### Scenario: A full course promotes the entry
 
-- **WHEN** a course card renders with status `full`
-- **THEN** the waitlist form is the card's primary action, headed and labelled as joining the waitlist
+- **WHEN** a course surface renders with status `full`
+- **THEN** the waitlist form is the surface's primary action, headed and labelled as joining the waitlist
+
+#### Scenario: The originating surface is recorded
+
+- **WHEN** a visitor submits the form from a course sales page
+- **THEN** the stored `source_page` identifies that sales page rather than an instructor page
 
 ### Requirement: The capture endpoint rejects bot submissions silently
 

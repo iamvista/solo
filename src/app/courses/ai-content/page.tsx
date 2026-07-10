@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title: "AI 內容產製系統工作坊｜3 小時實戰工作坊 | solo.tw",
@@ -849,6 +850,7 @@ export default function AIContentPage() {
               </p>
             </CardContent>
           </Card>
+          <CourseNotifyEntry slug="ai-content" />
         </section>
 
         {/* ====== Two Choices ====== */}
