@@ -43,6 +43,6 @@
 
 ## 7. 部署與驗證
 
-- [ ] 7.1 於 Vercel 專案 `solo` 與本地環境設定 `WAITLIST_TOKEN_SECRET`，確保 token 路由在正式環境可運作。驗證：部署後對正式站的偏好連結發出一次請求並得到致謝頁而非 500。
-- [ ] 7.2 依 design.md 的 Migration Plan 先套用 migration 再部署程式碼，確認向後相容。驗證：migration 套用後、程式碼部署前，既有課程頁與現行 waitlist 提交流程仍正常運作。
-- [ ] 7.3 逐項執行 design.md「驗收條件」清單並記錄結果，未通過項目回到對應任務修正。驗證：八項驗收條件全數通過，其中線上頁面驗證一律使用 `curl -H "Cache-Control: no-cache"`。
+- [x] 7.1 於 Vercel 專案 `solo` 與本地環境設定 `WAITLIST_TOKEN_SECRET`，確保 token 路由在正式環境可運作。驗證：部署後對正式站的偏好連結發出一次請求並得到致謝頁而非 500。
+- [x] 7.2 依 design.md 的 Migration Plan 先套用 migration 再部署程式碼，確認向後相容。驗證：migration 套用後、程式碼部署前，既有課程頁與現行 waitlist 提交流程仍正常運作。
+- [x] 7.3 逐項執行 design.md「驗收條件」清單並記錄結果，未通過項目回到對應任務修正。驗證：八項驗收條件全數通過，其中線上頁面驗證一律使用 `curl -H "Cache-Control: no-cache"`。
