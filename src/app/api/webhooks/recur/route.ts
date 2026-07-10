@@ -89,6 +89,7 @@ export async function POST(request: Request) {
         Object.keys(data),
       );
       await voidCommissionByOrderId(orderId);
+      await revokeDownloadTokensByOrderId(orderId);
     } else if (event.type === "checkout.completed") {
       console.log(
         "[recur webhook] checkout.completed acknowledged; fulfillment runs on order.paid",
@@ -554,7 +555,7 @@ async function fulfilArsBundle({
 
   const result = await sendEmail({
     to: email,
-    subject: `感謝購買 AI 學術研究工作臺——${bundleLabel}下載連結`,
+    subject: `感謝購買 AI 學術研究工作臺：${bundleLabel}下載連結`,
     react: ArsBundlePurchaseEmail({
       bundleLabel,
       downloadUrl,
@@ -593,6 +594,43 @@ async function fulfilArsBundle({
     "bundle",
     config.bundle,
   );
+}
+
+// 退款作廢下載 token：refund.succeeded 時把該 order 的未過期 token 設為立即過期，
+// 退款後不可再下載。失敗只記 log 不拋錯（避免退款事件進入 500 重試迴圈，補救走人工）。
+async function revokeDownloadTokensByOrderId(orderId: string) {
+  if (!orderId) return;
+  try {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from("download_tokens")
+      .update({ expires_at: new Date().toISOString() })
+      .eq("order_id", orderId)
+      .gt("expires_at", new Date().toISOString())
+      .select("token");
+    if (error) {
+      console.error(
+        "[recur webhook] revoke download tokens failed for order",
+        orderId,
+        error.message,
+      );
+      return;
+    }
+    if (data && data.length > 0) {
+      console.log(
+        "[recur webhook] revoked",
+        data.length,
+        "download token(s) for refunded order",
+        orderId,
+      );
+    }
+  } catch (err) {
+    console.error(
+      "[recur webhook] revoke download tokens threw for order",
+      orderId,
+      err,
+    );
+  }
 }
 
 async function fulfilConsulting({
