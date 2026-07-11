@@ -89,10 +89,10 @@ const digitalProducts = [
     icon: Mic,
     title: "講師 AI 幕僚",
     desc: "把十階段備課流程、獨立監察 AI、客戶視角提案報價寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流。",
-    price: "NT$1,490",
+    price: "籌備中",
     originalPrice: null,
     href: "/products/lecturer-ai-staff",
-    badge: "新品",
+    badge: "搶先登記",
   },
 ];
 

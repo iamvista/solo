@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CheckoutButton } from "./CheckoutButton";
-import { LECTURER_PRODUCT_ID, LECTURER_KIT_PRICE } from "@/lib/lecturer-kit";
+import { InterestForm } from "./InterestForm";
+import { LECTURER_PRODUCT_ID } from "@/lib/lecturer-kit";
 import {
   Mic,
   ShieldCheck,
@@ -20,16 +20,15 @@ import {
 // 又與常數檔的 productId 不一致造成雙來源漂移（沿 Codex finding 11）。
 const PRODUCT_ID =
   process.env.NEXT_PUBLIC_RECUR_LECTURER_KIT_PRODUCT_ID ?? LECTURER_PRODUCT_ID;
-const RETURN_PATH = "/products/lecturer-ai-staff#pricing";
 
 export const metadata: Metadata = {
   title: "講師 AI 幕僚｜職業講師的備課與報價制度檔 | solo.tw",
   description:
-    "把十階段備課流程、獨立監察 AI、客戶視角提案報價全部寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流，一次買斷 NT$1,490。",
+    "把十階段備課流程、獨立監察 AI、客戶視角提案報價全部寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流，目前籌備中，搶先登記開放通知。",
   openGraph: {
     title: "講師 AI 幕僚｜職業講師的備課與報價制度檔",
     description:
-      "十階段備課＋獨立監察 AI＋客戶視角提案報價，全部鋪進 Claude Code 就能用。一次買斷 NT$1,490。",
+      "十階段備課＋獨立監察 AI＋客戶視角提案報價，全部鋪進 Claude Code 就能用。目前籌備中，搶先登記通知。",
     images: [
       {
         url: "/products/lecturer-ai-staff/og",
@@ -130,8 +129,8 @@ const faqs = [
     a: "設計給有固定備課與報價需求的職業講師：企業內訓講師、工作坊帶領人、公開班講師。如果你一年只講一兩場、不常備課或報價，這套制度檔可能對你來說投資報酬率不高。",
   },
   {
-    q: "買了之後會不會之後又要另外收費？",
-    a: "一次買斷，NT$1,490，永久使用。之後制度有大幅更新時，會再公告是否推出新版本，但這次購買的內容你可以永久保留與修改。",
+    q: "現在可以買嗎？價格會是多少？",
+    a: "目前正在籌備新版本，先開放搶先登記，開賣時會第一時間通知你。定價會採一次買斷，沒有訂閱。",
   },
   {
     q: "可以拿去對外販售或公開重製嗎？",
@@ -154,7 +153,7 @@ export default function LecturerAiStaffPage() {
           <p className="mx-auto mt-6 max-w-2xl text-lg text-stone-600 sm:text-xl leading-relaxed">
             十階段備課流程、獨立監察 AI、客戶視角提案報價，全部寫成文件。
             <br className="hidden sm:block" />
-            鋪進 Claude Code，一次買斷，永久使用。
+            鋪進 Claude Code 就能用，目前籌備中，搶先登記通知。
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-500">
@@ -172,12 +171,12 @@ export default function LecturerAiStaffPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-primary" />
-              一次買斷
+              搶先登記通知
             </span>
           </div>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#pricing">NT${LECTURER_KIT_PRICE.toLocaleString()} 立即購買</a>
+              <a href="#waitlist">搶先登記通知</a>
             </Button>
             <Button
               size="lg"
@@ -297,25 +296,20 @@ export default function LecturerAiStaffPage() {
           </p>
         </section>
 
-        {/* Pricing */}
-        <section id="pricing" className="py-14 sm:py-16 border-t border-stone-100">
+        {/* Waitlist */}
+        <section id="waitlist" className="py-14 sm:py-16 border-t border-stone-100">
           <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
-            訂價
+            籌備中，搶先登記通知
           </h2>
           <p className="mt-3 text-center text-base text-stone-500">
-            一次買斷，沒有訂閱，永久使用。
+            留下 Email，開課或方案就緒時，第一時間通知你。
           </p>
 
           <div className="mt-8 mx-auto max-w-md">
             <Card className="border-primary border-2 shadow-lg">
               <CardContent className="p-8">
-                <p className="text-base font-medium text-stone-500">完整版</p>
-                <div className="mt-2 flex items-baseline gap-3">
-                  <p className="text-4xl font-bold text-primary">
-                    NT${LECTURER_KIT_PRICE.toLocaleString()}
-                  </p>
-                </div>
-                <ul className="mt-6 space-y-3 text-base text-stone-600">
+                <p className="text-base font-medium text-stone-500">完整版內容</p>
+                <ul className="mt-4 space-y-3 text-base text-stone-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                     <span>十階段備課流程檔（含六種課型卡）</span>
@@ -338,18 +332,14 @@ export default function LecturerAiStaffPage() {
                   </li>
                 </ul>
                 <div className="mt-6">
-                  <CheckoutButton
-                    productId={PRODUCT_ID}
-                    returnPath={RETURN_PATH}
-                    label={`NT$${LECTURER_KIT_PRICE.toLocaleString()} 立即購買`}
-                  />
+                  <InterestForm productId={PRODUCT_ID} />
                 </div>
               </CardContent>
             </Card>
           </div>
 
           <p className="mt-8 text-center text-xs text-stone-400 max-w-lg mx-auto leading-relaxed">
-            支援信用卡付款 · 由 Recur.tw 安全處理 · 一次買斷無訂閱
+            免費登記，不會收費 · 開課或方案就緒時通知你
           </p>
         </section>
 
@@ -380,12 +370,12 @@ export default function LecturerAiStaffPage() {
               下一場備課，你會多一套制度
             </h2>
             <p className="mt-3 text-base text-stone-600 max-w-xl mx-auto">
-              十階段備課、獨立監察 AI、客戶視角報價，全部鋪進 Claude Code 就能用。
+              十階段備課、獨立監察 AI、客戶視角報價，全部鋪進 Claude Code 就能用。目前籌備中，搶先登記通知。
             </p>
             <div className="mt-6 flex justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
-                <a href="#pricing">
-                  NT${LECTURER_KIT_PRICE.toLocaleString()} 立即購買{" "}
+                <a href="#waitlist">
+                  搶先登記通知{" "}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>

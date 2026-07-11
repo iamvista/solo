@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Users, Code2, Video, Mic, ArrowRight } from "lucide-react";
 import { ARMY_KIT_PRICE } from "@/lib/army-kit";
-import { LECTURER_KIT_PRICE } from "@/lib/lecturer-kit";
 import { CONSULTING_PLANS } from "@/lib/consulting-config";
 import { getCourseConfig } from "@/lib/courses-config";
 
@@ -27,9 +26,9 @@ const flagships = [
     tag: "數位工具包・即買即用",
     title: "講師 AI 幕僚",
     desc: "把十階段備課流程、獨立監察 AI、客戶視角提案報價寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流。",
-    price: `NT$${LECTURER_KIT_PRICE.toLocaleString()}`,
-    priceNote: "一次買斷",
-    cta: "立即入手",
+    price: "籌備中",
+    priceNote: "開賣時搶先通知",
+    cta: "預約通知",
     href: "/products/lecturer-ai-staff",
     highlight: false,
   },
