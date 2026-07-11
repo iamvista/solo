@@ -11,6 +11,7 @@ import {
   Mail,
   PenLine,
   Sparkles,
+  Users,
   Video,
   Wrench,
 } from "lucide-react";
@@ -76,6 +77,15 @@ const liveServices = [
 
 /* ─── 數位產品（模板 & 工具包） ─── */
 const digitalProducts = [
+  {
+    icon: Users,
+    title: "無人公司 AI 軍團啟動包",
+    desc: "把派工原則、角色人設、對抗式驗收流程寫成制度檔，鋪進 Claude Code 就能用。不用寫程式，也能建一支 AI 團隊。",
+    price: "NT$990",
+    originalPrice: null,
+    href: "/products/solo-army-kit",
+    badge: "新品",
+  },
   {
     icon: PenLine,
     title: "Vista 中文寫作 AI 工作流",
