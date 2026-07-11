@@ -571,6 +571,41 @@ describe("lecturer-kit fulfilment (order.paid webhook)", () => {
     expect(sendEmail).toHaveBeenCalledTimes(2);
     expect(sendEmail.mock.calls[1][0].to).toBe("admin@test.tw");
   });
+
+  it("23505 unique violation on insert (concurrent winner already fulfilled): reselects the existing token, sends no second email, and returns 200", async () => {
+    insertError = { code: "23505", message: "duplicate key value violates unique constraint" };
+    selectQueue = [null, { token: "lecturer-winner-token" }];
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-lecturer-4",
+        data: {
+          id: "order-lecturer-4",
+          product_id: PROD_LECTURER_KIT,
+          customer: { email: "buyer4@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("returns 500 (so Recur retries via the shared DigitalFulfilmentError path) when the lecturer-kit token insert fails", async () => {
+    insertError = { message: "db down" };
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-lecturer-5",
+        data: {
+          id: "order-lecturer-5",
+          product_id: PROD_LECTURER_KIT,
+          customer: { email: "buyer5@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(500);
+  });
 });
 
 describe("refund.succeeded revokes download tokens (order-scoped, product-agnostic)", () => {

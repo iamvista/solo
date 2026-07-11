@@ -92,6 +92,29 @@ describe("GET /api/download/lecturer", () => {
     expect(res.status).toBe(429);
   });
 
+  it("429s when the atomic increment affects zero rows (concurrent race already exhausted the limit)", async () => {
+    tokenRow = baseToken({ download_count: 4, max_downloads: 5 });
+    rpc.mockResolvedValueOnce({ data: [], error: null });
+    const res = await GET(mockReq(`token=tok-1`));
+    expect(res.status).toBe(429);
+  });
+
+  it("410s (not 429) when the token was still valid at precheck but expires before the atomic increment runs", async () => {
+    tokenRow = baseToken({
+      // Precheck 那一刻還沒過期，但 fetch blob 期間（模擬延遲）會真的過期。
+      expires_at: new Date(Date.now() + 20).toISOString(),
+      download_count: 4,
+      max_downloads: 5,
+    });
+    rpc.mockResolvedValueOnce({ data: [], error: null });
+    global.fetch = vi.fn(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      return { ok: true, body: new ReadableStream() };
+    }) as unknown as typeof fetch;
+    const res = await GET(mockReq(`token=tok-1`));
+    expect(res.status).toBe(410);
+  });
+
   it("serves the lecturer-kit zip for a valid token", async () => {
     tokenRow = baseToken();
     const res = await GET(mockReq(`token=tok-1`));
