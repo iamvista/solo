@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { sendEmail } from "@/lib/email";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
 import { ArsBundlePurchaseEmail } from "@/components/emails/ars-bundle-purchase";
+import { ArmyKitPurchaseEmail } from "@/components/emails/army-kit-purchase";
 import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
 import { ConsultingEnrollmentWelcomeEmail } from "@/components/emails/consulting-enrollment-welcome";
 import {
@@ -12,10 +13,19 @@ import {
   type ProductEmailConfig,
 } from "@/lib/recur-product-config";
 import {
+  DOWNLOAD_TTL_HOURS,
+  MAX_DOWNLOADS,
+} from "@/lib/ai-coach-kit";
+import {
   ARS_BUNDLE_LABELS,
   ARS_BUNDLE_MAX_DOWNLOADS,
   DOWNLOAD_TTL_HOURS as ARS_DOWNLOAD_TTL_HOURS,
 } from "@/lib/ars-bundles";
+import {
+  ARMY_KIT_PRODUCT_NAME,
+  DOWNLOAD_TTL_HOURS as ARMY_DOWNLOAD_TTL_HOURS,
+  MAX_DOWNLOADS as ARMY_MAX_DOWNLOADS,
+} from "@/lib/army-kit";
 import {
   createEnrollment,
   updateLeadStatus,
@@ -27,8 +37,8 @@ import {
   voidCommissionByOrderId,
 } from "@/lib/affiliates";
 
-/** ars-bundle fulfilment 失敗時拋出，讓 POST 對該事件回 500（其餘 kind 維持既有 200 慣例）。 */
-class ArsFulfilmentError extends Error {}
+/** 數位下載型商品（ars-bundle／army-kit）fulfilment 失敗時拋出，讓 POST 對該事件回 500（其餘 kind 維持既有 200 慣例）。 */
+class DigitalFulfilmentError extends Error {}
 
 let _recur: Recur | null = null;
 function getRecur(): Recur {
@@ -40,8 +50,6 @@ function getRecur(): Recur {
   return _recur;
 }
 
-const DOWNLOAD_TTL_HOURS = 72;
-const MAX_DOWNLOADS = 3;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.solo.tw";
 
 type OrderPaidData = {
@@ -101,16 +109,16 @@ export async function POST(request: Request) {
       console.log("[recur webhook] unhandled", event.type, event.id);
     }
   } catch (e) {
-    if (e instanceof ArsFulfilmentError) {
-      // ars-bundle fulfilment 失敗要讓 Recur 重送（冪等已由 order_id 保證重送安全），
-      // 只改這條路徑的回應碼，其餘 kind 仍走下面「一律回 200」的既有慣例。
+    if (e instanceof DigitalFulfilmentError) {
+      // 數位下載型商品（ars-bundle／army-kit）fulfilment 失敗要讓 Recur 重送（冪等已由
+      // order_id 保證重送安全），只改這條路徑的回應碼，其餘 kind 仍走下面「一律回 200」的既有慣例。
       console.error(
-        "[recur webhook] ars fulfilment failed, returning 500 for retry",
+        "[recur webhook] digital fulfilment failed, returning 500 for retry",
         event.type,
         event.id,
         e,
       );
-      return Response.json({ error: "ars fulfilment failed" }, { status: 500 });
+      return Response.json({ error: "digital fulfilment failed" }, { status: 500 });
     }
     // Always return 200 so recur doesn't retry forever; error is logged above.
     console.error("[recur webhook] handler error", event.type, event.id, e);
@@ -144,6 +152,16 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
         orderId,
         customerEmail: "(未提供)",
         productName: ARS_BUNDLE_LABELS[config.bundle],
+        amount,
+        recoveryNote: "請至 Recur 後臺查該筆訂單找出買家聯絡方式，人工補寄下載連結。",
+      });
+    } else if (config.kind === "army-kit") {
+      // 純數位下載沒有 email 就無法交付，且 army-kit 沒有 enrollment 兜底，必須主動告警補救。
+      await notifyAdminEmailFailure({
+        reason: "army-kit 訂單缺少 customer.email，無法交付下載連結",
+        orderId,
+        customerEmail: "(未提供)",
+        productName: ARMY_KIT_PRODUCT_NAME,
         amount,
         recoveryNote: "請至 Recur 後臺查該筆訂單找出買家聯絡方式，人工補寄下載連結。",
       });
@@ -197,7 +215,18 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
     try {
       await fulfilArsBundle({ config, orderId, email, amount });
     } catch (err) {
-      throw new ArsFulfilmentError(
+      throw new DigitalFulfilmentError(
+        err instanceof Error ? err.message : String(err),
+      );
+    }
+    return;
+  }
+
+  if (config.kind === "army-kit") {
+    try {
+      await fulfilArmyKit({ orderId, email, amount });
+    } catch (err) {
+      throw new DigitalFulfilmentError(
         err instanceof Error ? err.message : String(err),
       );
     }
@@ -596,6 +625,116 @@ async function fulfilArsBundle({
   );
 }
 
+async function fulfilArmyKit({
+  orderId,
+  email,
+  amount,
+}: {
+  orderId: string;
+  email: string;
+  amount?: number;
+}) {
+  const supabase = getSupabase();
+
+  const { data: existing } = await supabase
+    .from("download_tokens")
+    .select("token")
+    .eq("order_id", orderId)
+    .maybeSingle();
+
+  if (existing?.token) {
+    // 這筆 order_id 已經 fulfil 過（同一 webhook 事件重送）：token 已存在，直接跳出，
+    // 不再寄第二封信（比對 23505 併發分支同樣的「已處理過，return 不寄信」慣例）。
+    console.log(
+      "[recur webhook] army-kit order already fulfilled, skipping duplicate email for order",
+      orderId,
+    );
+    return;
+  }
+
+  const token = randomUUID();
+  const expiresAt = new Date(
+    Date.now() + ARMY_DOWNLOAD_TTL_HOURS * 3600_000,
+  ).toISOString();
+  const { error } = await supabase.from("download_tokens").insert({
+    order_id: orderId,
+    product_id: "army-kit",
+    token,
+    email,
+    expires_at: expiresAt,
+    max_downloads: ARMY_MAX_DOWNLOADS,
+  });
+  if (error) {
+    // 併發雙寫撞到 order_id 的 unique index（Postgres 23505）：代表另一個並發請求
+    // 已經贏了 insert 並會負責寄信。這裡改為重查既有 token 當冪等成功，不寄第二封信、
+    // 不當一般錯誤丟 500（否則 Recur 會一直重送，且我們每次都會再撞一次 23505）。
+    if (error.code === "23505") {
+      console.log(
+        "[recur webhook] army-kit token insert hit unique violation on order_id (concurrent winner already fulfilled); treating as idempotent success",
+        orderId,
+      );
+      const { data: winner, error: reselectError } = await supabase
+        .from("download_tokens")
+        .select("token")
+        .eq("order_id", orderId)
+        .maybeSingle();
+      if (reselectError || !winner?.token) {
+        console.error(
+          "[recur webhook] army-kit token unique violation but reselect found no token",
+          orderId,
+          reselectError,
+        );
+      }
+      return;
+    }
+    console.error("[recur webhook] failed to insert army-kit token", error);
+    throw error;
+  }
+
+  const downloadUrl = `${SITE_URL}/payment/success?type=download&token=${token}`;
+  const amountFormatted =
+    typeof amount === "number" ? `NT$${amount.toLocaleString()}` : undefined;
+
+  const result = await sendEmail({
+    to: email,
+    subject: `感謝購買${ARMY_KIT_PRODUCT_NAME}：你的下載連結`,
+    react: ArmyKitPurchaseEmail({
+      productName: ARMY_KIT_PRODUCT_NAME,
+      downloadUrl,
+      orderNumber: orderId,
+      amountFormatted,
+      expiresInHours: ARMY_DOWNLOAD_TTL_HOURS,
+      maxDownloads: ARMY_MAX_DOWNLOADS,
+    }),
+  });
+
+  if (!result.success) {
+    // Token 已建立成功，只是寄信失敗：改為 admin 告警 + 正常返回（webhook 回 200），
+    // 不再 throw DigitalFulfilmentError（比對 fulfilArsBundle 的既有降級慣例）。
+    console.error("[recur webhook] sendEmail failed (army-kit)", result.error);
+    await notifyAdminEmailFailure({
+      reason: `${ARMY_KIT_PRODUCT_NAME}下載信寄送失敗`,
+      orderId,
+      customerEmail: email,
+      productName: ARMY_KIT_PRODUCT_NAME,
+      amount,
+      recoveryNote: [
+        `下載連結：${downloadUrl}`,
+        `Token 已寫入 download_tokens 表，${ARMY_DOWNLOAD_TTL_HOURS} 小時內有效，最多下載 ${ARMY_MAX_DOWNLOADS} 次。`,
+        "請手動轉寄上方連結給客戶。",
+      ].join("\n"),
+      error: result.error,
+    });
+    return;
+  }
+  console.log(
+    "[recur webhook] sent army-kit email to",
+    email,
+    "order",
+    orderId,
+  );
+}
+
 // 退款作廢下載 token：refund.succeeded 時把該 order 的未過期 token 設為立即過期，
 // 退款後不可再下載。失敗只記 log 不拋錯（避免退款事件進入 500 重試迴圈，補救走人工）。
 async function revokeDownloadTokensByOrderId(orderId: string) {
@@ -875,7 +1014,7 @@ async function sendGenericConfirmation({
 }: {
   config: Exclude<
     ProductEmailConfig,
-    { kind: "ai-coach-kit" | "ars-bundle" | "consulting" }
+    { kind: "ai-coach-kit" | "ars-bundle" | "army-kit" | "consulting" }
   >;
   orderId: string;
   email: string;

@@ -11,6 +11,7 @@ import {
   isArsBundle,
   isArsVertical,
 } from "@/lib/ars-bundles";
+import { getDownloadInfo } from "@/lib/download-info";
 import { ArsDownloadPanel } from "./ArsDownloadPanel";
 
 export const metadata: Metadata = {
@@ -51,7 +52,9 @@ export default async function PaymentSuccessPage({
   searchParams: Promise<{ token?: string; type?: string }>;
 }) {
   const params = await searchParams;
-  const isDigitalProduct = params.type === "download" && params.token;
+  const isDigitalProduct = params.type === "download";
+  const downloadInfo =
+    isDigitalProduct && params.token ? await getDownloadInfo(params.token) : null;
   const isConsulting = params.type === "consulting";
   const isArs = params.type === "ars";
   const arsInfo =
@@ -67,7 +70,9 @@ export default async function PaymentSuccessPage({
       </h1>
       <p className="mt-3 text-base text-stone-500">
         {isDigitalProduct
-          ? "感謝購買！請點擊下方按鈕下載你的教練工坊套件。"
+          ? downloadInfo
+            ? `感謝購買！請點擊下方按鈕下載你的${downloadInfo.productName}。`
+            : "感謝購買！訂單完成，下載連結已寄到你的信箱，請收信點擊連結進入下載頁。"
           : arsInfo
             ? `感謝購買 AI 學術研究工作臺・${arsInfo.bundleLabel}！請在下方下載你的模組。`
             : isArs
@@ -84,22 +89,22 @@ export default async function PaymentSuccessPage({
         )}
       </p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-        {isDigitalProduct ? (
+        {downloadInfo ? (
           <>
             <Button asChild>
               <a
-                href={`/api/download/ai-coach-kit?token=${params.token}`}
+                href={downloadInfo.downloadHref}
                 className="inline-flex items-center justify-center gap-2"
               >
                 <Download className="h-4 w-4" />
-                下載 AI 教練工坊
+                下載{downloadInfo.productName}
               </a>
             </Button>
             <Button variant="outline" asChild>
               <Link href="/">回到首頁</Link>
             </Button>
           </>
-        ) : isArs ? (
+        ) : isArs || isDigitalProduct ? (
           <Button variant="outline" asChild>
             <Link href="/">回到首頁</Link>
           </Button>
@@ -117,9 +122,9 @@ export default async function PaymentSuccessPage({
           </>
         )}
       </div>
-      {isDigitalProduct && (
+      {downloadInfo && (
         <p className="mt-4 text-xs text-stone-400">
-          下載連結有效 72 小時，最多可下載 3 次
+          下載連結有效 {downloadInfo.ttlHours} 小時，最多可下載 {downloadInfo.maxDownloads} 次
         </p>
       )}
       {arsInfo && params.token && (

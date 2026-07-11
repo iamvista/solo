@@ -10,6 +10,8 @@ process.env.ADMIN_NOTIFY_EMAIL = "admin@test.tw";
 const PROD_GRAD = "uywm5vudlfzhlkc96omzcdio";
 const PROD_FACULTY = "h8kqd7tlxvq571iqof11gqc2";
 const PROD_CLINICIAN = "tyutghxnw5hyg5zqlzci92r8";
+// army-kit productId：見 src/lib/army-kit.ts ARMY_PRODUCT_ID（已建產品，跨環境共用）。
+const PROD_ARMY_KIT = "g7i9iptfxfqxjip5jdr6hj90";
 
 // Webhook route 只驗簽再解析 event；signature 驗證本身不是本測試範圍，直接把 payload
 // JSON.parse 回傳當作已驗證的 event。
@@ -255,6 +257,128 @@ describe("ars-bundle fulfilment (order.paid webhook)", () => {
     // Token 仍建立成功（DB 寫入不受影響）。
     expect(insertCalls).toHaveLength(1);
     // 對照 23505 情境（完全不寄信）：這裡先嘗試寄客戶信（失敗），再寄一封 admin 告警信。
+    expect(sendEmail).toHaveBeenCalledTimes(2);
+    expect(sendEmail.mock.calls[1][0].to).toBe("admin@test.tw");
+  });
+});
+
+describe("army-kit fulfilment (order.paid webhook)", () => {
+  it("inserts a token with the army-kit product_id and max_downloads=5", async () => {
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-army-1",
+        data: {
+          id: "order-army-1",
+          amount: 990,
+          product_id: PROD_ARMY_KIT,
+          customer: { email: "buyer@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(insertCalls[0]).toMatchObject({
+      order_id: "order-army-1",
+      product_id: "army-kit",
+      max_downloads: 5,
+      email: "buyer@test.tw",
+    });
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+  });
+
+  it("reuses the existing token for a repeated order_id (idempotent, no duplicate insert, no duplicate email)", async () => {
+    existingToken = "existing-army-token";
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-army-2",
+        data: {
+          id: "order-army-2",
+          product_id: PROD_ARMY_KIT,
+          customer: { email: "buyer2@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(0);
+    // 重送/重複的 order_id 代表已經 fulfil 過，必須 return 早退、不寄第二封信。
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("missing customer.email escalates to an admin alert instead of throwing (P1-4 早退點涵蓋 army-kit)", async () => {
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-army-3",
+        data: {
+          id: "order-army-3",
+          product_id: PROD_ARMY_KIT,
+          customer: {},
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(0);
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+    expect(sendEmail.mock.calls[0][0].to).toBe("admin@test.tw");
+  });
+
+  it("23505 unique violation on insert (concurrent winner already fulfilled): reselects the existing token, sends no second email, and returns 200", async () => {
+    insertError = { code: "23505", message: "duplicate key value violates unique constraint" };
+    selectQueue = [null, { token: "army-winner-token" }];
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-army-4",
+        data: {
+          id: "order-army-4",
+          product_id: PROD_ARMY_KIT,
+          customer: { email: "buyer3@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("returns 500 (so Recur retries via the shared DigitalFulfilmentError path) when the army-kit token insert fails", async () => {
+    insertError = { message: "db down" };
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-army-5",
+        data: {
+          id: "order-army-5",
+          product_id: PROD_ARMY_KIT,
+          customer: { email: "buyer4@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(500);
+  });
+
+  it("email send failure (token already created): sends an admin alert instead of throwing, and the webhook still returns 200", async () => {
+    sendEmail.mockImplementation(async (args: { to: string | string[] }) => {
+      if (args.to === "buyer5@test.tw") {
+        return { success: false, error: new Error("resend down") };
+      }
+      return { success: true, data: { id: "msg" } };
+    });
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-army-6",
+        data: {
+          id: "order-army-6",
+          product_id: PROD_ARMY_KIT,
+          customer: { email: "buyer5@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
     expect(sendEmail).toHaveBeenCalledTimes(2);
     expect(sendEmail.mock.calls[1][0].to).toBe("admin@test.tw");
   });

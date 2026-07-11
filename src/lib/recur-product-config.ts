@@ -4,6 +4,7 @@
  */
 
 import type { ArsBundle } from "@/lib/ars-bundles";
+import { ARMY_PRODUCT_ID } from "@/lib/army-kit";
 
 export type ConsultingPlan = "1hr" | "3hr" | "5hr" | "10hr" | "20hr";
 
@@ -11,6 +12,10 @@ export type ProductEmailConfig =
   | {
       kind: "ai-coach-kit";
       productId: "xqvb9nqxtehhfesuhequm9jp";
+    }
+  | {
+      kind: "army-kit";
+      productId: typeof ARMY_PRODUCT_ID;
     }
   | {
       kind: "ars-bundle";
@@ -99,6 +104,12 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
   [AI_COACH_KIT_PRODUCT_ID]: {
     kind: "ai-coach-kit",
     productId: AI_COACH_KIT_PRODUCT_ID,
+  },
+
+  // 無人公司 AI 軍團啟動包
+  [ARMY_PRODUCT_ID]: {
+    kind: "army-kit",
+    productId: ARMY_PRODUCT_ID,
   },
 
   // Vibe Coding for Claude Code 實戰工作坊（2026/6/27 臺北）
