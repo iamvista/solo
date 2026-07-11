@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CheckoutButton } from "./CheckoutButton";
+import { InterestForm } from "../lecturer-ai-staff/InterestForm";
 import { ARMY_KIT_PRICE } from "@/lib/army-kit";
 import {
   Bot,
@@ -15,19 +16,23 @@ import {
   Compass,
   ArrowRight,
   Sparkles,
+  Gift,
+  Crown,
 } from "lucide-react";
 
 const PRODUCT_ID = process.env.NEXT_PUBLIC_RECUR_ARMY_KIT_PRODUCT_ID ?? "";
 const RETURN_PATH = "/products/solo-army-kit#pricing";
+const STARTER_URL = "https://www.vista.tw/solo-army";
+const PRO_INTEREST_ID = "solo-army-kit-pro";
 
 export const metadata: Metadata = {
   title: "無人公司 AI 軍團啟動包｜非工程師也能建 AI 團隊 | solo.tw",
   description:
-    "一套可直接鋪進 Claude Code 的制度檔軍團：派工原則、角色人設、對抗式驗收流程，全部寫成文件，不用寫程式。一次買斷 NT$990。",
+    "一套可直接鋪進 Claude Code 的制度檔軍團：派工原則、角色人設、對抗式驗收流程，全部寫成文件，不用寫程式。一次買斷 NT$1,480。",
   openGraph: {
     title: "無人公司 AI 軍團啟動包｜非工程師也能建 AI 團隊",
     description:
-      "派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。一次買斷 NT$990。",
+      "派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。一次買斷 NT$1,480。",
   },
   alternates: {
     canonical: "https://www.solo.tw/products/solo-army-kit",
@@ -123,7 +128,7 @@ const faqs = [
   },
   {
     q: "買了之後會不會之後又要另外收費？",
-    a: "一次買斷，NT$990，永久使用。之後制度有大幅更新時，會再公告是否推出新版本，但這次購買的內容你可以永久保留與修改。",
+    a: "一次買斷，NT$1,480，永久使用。之後制度有大幅更新時，會再公告是否推出新版本，但這次購買的內容你可以永久保留與修改。",
   },
   {
     q: "可以拿去對外販售或公開重製嗎？",
@@ -169,7 +174,7 @@ export default function SoloArmyKitPage() {
           </div>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#pricing">NT$990 立即購買</a>
+              <a href="#pricing">NT${ARMY_KIT_PRICE.toLocaleString()} 立即購買</a>
             </Button>
             <Button
               size="lg"
@@ -289,44 +294,93 @@ export default function SoloArmyKitPage() {
         {/* Pricing */}
         <section id="pricing" className="py-14 sm:py-16 border-t border-stone-100">
           <h2 className="text-center text-2xl font-bold sm:text-3xl text-stone-900">
-            訂價
+            選一個適合你的開始
           </h2>
           <p className="mt-3 text-center text-base text-stone-500">
-            一次買斷，沒有訂閱，永久使用。
+            先免費跑起來，需要完整制度再升級。一次買斷，沒有訂閱。
           </p>
 
-          <div className="mt-8 mx-auto max-w-md">
-            <Card className="border-primary border-2 shadow-lg">
-              <CardContent className="p-8">
-                <p className="text-base font-medium text-stone-500">完整版</p>
-                <div className="mt-2 flex items-baseline gap-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3 md:items-stretch">
+            {/* Free */}
+            <Card className="flex flex-col border-stone-200">
+              <CardContent className="flex flex-1 flex-col p-6 sm:p-8">
+                <div className="flex items-center gap-2">
+                  <Gift className="h-5 w-5 text-stone-500" />
+                  <p className="text-base font-medium text-stone-500">免費入門包</p>
+                </div>
+                <p className="mt-3 text-3xl font-bold text-stone-900">免費</p>
+                <p className="mt-2 text-sm text-stone-500 leading-relaxed">
+                  先用精選的核心制度檔跑起來，感受 AI 分工是什麼樣子。
+                </p>
+                <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-stone-400 shrink-0 mt-0.5" />
+                    <span>核心派工原則精選</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-stone-400 shrink-0 mt-0.5" />
+                    <span>一個祕書角色（含晨間簡報）</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-stone-400 shrink-0 mt-0.5" />
+                    <span>工程協作角色骨架</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="h-12 w-full text-base"
+                  >
+                    <a href={STARTER_URL}>免費下載</a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Core */}
+            <Card className="relative flex flex-col border-primary border-2 shadow-lg">
+              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1">
+                最完整
+              </Badge>
+              <CardContent className="flex flex-1 flex-col p-6 sm:p-8">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <p className="text-base font-medium text-primary">完整版</p>
+                </div>
+                <div className="mt-3 flex items-baseline gap-2">
                   <p className="text-4xl font-bold text-primary">
                     NT${ARMY_KIT_PRICE.toLocaleString()}
                   </p>
+                  <span className="text-sm text-stone-400">一次買斷</span>
                 </div>
-                <ul className="mt-6 space-y-3 text-base text-stone-600">
+                <p className="mt-2 text-sm text-stone-500 leading-relaxed">
+                  Vista 實際在跑的整套制度檔，去識別化後完整交付。
+                </p>
+                <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-600">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>制度檔總綱＋核心規則</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>秘書團隊全套角色檔</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>工程協作角色範本</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>獨立驗收角色範本</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>業務規劃與部門範本</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                     <span>完整安裝指南</span>
                   </li>
                 </ul>
@@ -339,10 +393,45 @@ export default function SoloArmyKitPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Pro（籌備中） */}
+            <Card className="flex flex-col border-stone-200">
+              <CardContent className="flex flex-1 flex-col p-6 sm:p-8">
+                <div className="flex items-center gap-2">
+                  <Crown className="h-5 w-5 text-amber-500" />
+                  <p className="text-base font-medium text-stone-500">Pro 陪跑版</p>
+                </div>
+                <p className="mt-3 text-3xl font-bold text-stone-900">即將推出</p>
+                <p className="mt-2 text-sm text-stone-500 leading-relaxed">
+                  完整版全部內容，再加上讓你「一定裝得起來、跟得上更新」的陪跑。
+                </p>
+                <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <span>完整版全部內容</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <span>安裝走查影片（跟著做不卡關）</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <span>制度檔更新權（新版免費拿）</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <span>一次線上 Q&A</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <InterestForm productId={PRO_INTEREST_ID} />
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <p className="mt-8 text-center text-xs text-stone-400 max-w-lg mx-auto leading-relaxed">
-            支援信用卡付款 · 由 Recur.tw 安全處理 · 一次買斷無訂閱
+            完整版支援信用卡付款 · 由 Recur.tw 安全處理 · 一次買斷無訂閱 · Pro 登記免費、不會收費
           </p>
         </section>
 

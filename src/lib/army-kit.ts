@@ -23,4 +23,4 @@ export const DOWNLOAD_TTL_HOURS = 72;
 export const MAX_DOWNLOADS = 5;
 
 /** 銷售頁與 Recur 產品建立的定價單一事實來源（NT$，一次性）。改價只改這裡。 */
-export const ARMY_KIT_PRICE = 990;
+export const ARMY_KIT_PRICE = 1480;

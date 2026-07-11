@@ -80,7 +80,7 @@ const digitalProducts = [
     icon: Users,
     title: "無人公司 AI 軍團啟動包",
     desc: "把派工原則、角色人設、對抗式驗收流程寫成制度檔，鋪進 Claude Code 就能用。不用寫程式，也能建一支 AI 團隊。",
-    price: "NT$990",
+    price: "NT$1,480",
     originalPrice: null,
     href: "/products/solo-army-kit",
     badge: "新品",
