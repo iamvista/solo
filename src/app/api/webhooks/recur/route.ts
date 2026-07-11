@@ -1022,7 +1022,7 @@ async function sendGenericConfirmation({
 }: {
   config: Exclude<
     ProductEmailConfig,
-    { kind: "ai-coach-kit" | "ars-bundle" | "army-kit" | "consulting" }
+    { kind: "ai-coach-kit" | "ars-bundle" | "army-kit" | "lecturer-kit" | "consulting" }
   >;
   orderId: string;
   email: string;
