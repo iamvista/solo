@@ -33,7 +33,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/events`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/products/writing-os`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/products/ai-coach-kit`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/tools/academic-research-suite`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/community`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
     { url: `${baseUrl}/learn`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
