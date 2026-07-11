@@ -444,26 +444,30 @@ async function fulfilAiCoachKit({
     .eq("order_id", orderId)
     .maybeSingle();
 
-  let token: string;
   if (existing?.token) {
-    token = existing.token as string;
-    console.log("[recur webhook] reusing existing token for order", orderId);
-  } else {
-    token = randomUUID();
-    const expiresAt = new Date(
-      Date.now() + DOWNLOAD_TTL_HOURS * 3600_000,
-    ).toISOString();
-    const { error } = await supabase.from("download_tokens").insert({
-      order_id: orderId,
-      product_id: "ai-coach-kit",
-      token,
-      email,
-      expires_at: expiresAt,
-    });
-    if (error) {
-      console.error("[recur webhook] failed to insert token", error);
-      throw error;
-    }
+    // 這筆 order_id 已經 fulfil 過（同一 webhook 事件重送）：token 已存在，直接跳出，
+    // 不再寄第二封信（比對 fulfilArmyKit 既有的「已處理過，return 不寄信」慣例）。
+    console.log(
+      "[recur webhook] ai-coach-kit order already fulfilled, skipping duplicate email for order",
+      orderId,
+    );
+    return;
+  }
+
+  const token = randomUUID();
+  const expiresAt = new Date(
+    Date.now() + DOWNLOAD_TTL_HOURS * 3600_000,
+  ).toISOString();
+  const { error } = await supabase.from("download_tokens").insert({
+    order_id: orderId,
+    product_id: "ai-coach-kit",
+    token,
+    email,
+    expires_at: expiresAt,
+  });
+  if (error) {
+    console.error("[recur webhook] failed to insert token", error);
+    throw error;
   }
 
   const downloadUrl = `${SITE_URL}/payment/success?type=download&token=${token}`;
@@ -528,52 +532,56 @@ async function fulfilArsBundle({
     .eq("order_id", orderId)
     .maybeSingle();
 
-  let token: string;
   if (existing?.token) {
-    token = existing.token as string;
-    console.log("[recur webhook] reusing existing ars token for order", orderId);
-  } else {
-    token = randomUUID();
-    const expiresAt = new Date(
-      Date.now() + ARS_DOWNLOAD_TTL_HOURS * 3600_000,
-    ).toISOString();
-    // clinician 的垂直是固定的（醫學），落地時就直接鎖定，下載 route 不必再為它特判。
-    const chosenVertical = config.bundle === "clinician" ? "medical" : null;
-    const { error } = await supabase.from("download_tokens").insert({
-      order_id: orderId,
-      product_id: config.bundle,
-      token,
-      email,
-      expires_at: expiresAt,
-      max_downloads: ARS_BUNDLE_MAX_DOWNLOADS[config.bundle],
-      chosen_vertical: chosenVertical,
-    });
-    if (error) {
-      // 併發雙寫撞到 order_id 的 unique index（Postgres 23505）：代表另一個並發請求
-      // 已經贏了 insert 並會負責寄信。這裡改為重查既有 token 當冪等成功，不寄第二封信、
-      // 不當一般錯誤丟 500（否則 Recur 會一直重送，且我們每次都會再撞一次 23505）。
-      if (error.code === "23505") {
-        console.log(
-          "[recur webhook] ars token insert hit unique violation on order_id (concurrent winner already fulfilled); treating as idempotent success",
+    // 這筆 order_id 已經 fulfil 過（同一 webhook 事件重送）：token 已存在，直接跳出，
+    // 不再寄第二封信（比對 fulfilArmyKit 既有的「已處理過，return 不寄信」慣例）。
+    console.log(
+      "[recur webhook] ars bundle order already fulfilled, skipping duplicate email for order",
+      orderId,
+    );
+    return;
+  }
+
+  const token = randomUUID();
+  const expiresAt = new Date(
+    Date.now() + ARS_DOWNLOAD_TTL_HOURS * 3600_000,
+  ).toISOString();
+  // clinician 的垂直是固定的（醫學），落地時就直接鎖定，下載 route 不必再為它特判。
+  const chosenVertical = config.bundle === "clinician" ? "medical" : null;
+  const { error } = await supabase.from("download_tokens").insert({
+    order_id: orderId,
+    product_id: config.bundle,
+    token,
+    email,
+    expires_at: expiresAt,
+    max_downloads: ARS_BUNDLE_MAX_DOWNLOADS[config.bundle],
+    chosen_vertical: chosenVertical,
+  });
+  if (error) {
+    // 併發雙寫撞到 order_id 的 unique index（Postgres 23505）：代表另一個並發請求
+    // 已經贏了 insert 並會負責寄信。這裡改為重查既有 token 當冪等成功，不寄第二封信、
+    // 不當一般錯誤丟 500（否則 Recur 會一直重送，且我們每次都會再撞一次 23505）。
+    if (error.code === "23505") {
+      console.log(
+        "[recur webhook] ars token insert hit unique violation on order_id (concurrent winner already fulfilled); treating as idempotent success",
+        orderId,
+      );
+      const { data: winner, error: reselectError } = await supabase
+        .from("download_tokens")
+        .select("token")
+        .eq("order_id", orderId)
+        .maybeSingle();
+      if (reselectError || !winner?.token) {
+        console.error(
+          "[recur webhook] ars token unique violation but reselect found no token",
           orderId,
+          reselectError,
         );
-        const { data: winner, error: reselectError } = await supabase
-          .from("download_tokens")
-          .select("token")
-          .eq("order_id", orderId)
-          .maybeSingle();
-        if (reselectError || !winner?.token) {
-          console.error(
-            "[recur webhook] ars token unique violation but reselect found no token",
-            orderId,
-            reselectError,
-          );
-        }
-        return;
       }
-      console.error("[recur webhook] failed to insert ars token", error);
-      throw error;
+      return;
     }
+    console.error("[recur webhook] failed to insert ars token", error);
+    throw error;
   }
 
   const bundleLabel = ARS_BUNDLE_LABELS[config.bundle];

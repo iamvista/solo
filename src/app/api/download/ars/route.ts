@@ -135,6 +135,15 @@ export async function GET(request: NextRequest) {
     );
   }
   if (!incremented || (Array.isArray(incremented) && incremented.length === 0)) {
+    // RPC 回空有兩種可能：已達下載次數上限（429），或 token 在上面 precheck 之後、
+    // fetch blob 期間剛好過期（410）。用 precheck 就撈到的 tokenRecord.expires_at
+    // 重新判斷一次，不必為此多打一次 DB（比照 download/army）。
+    if (new Date(tokenRecord.expires_at) < new Date()) {
+      return NextResponse.json(
+        { error: "下載連結已過期，請聯繫 iamvista@gmail.com" },
+        { status: 410 },
+      );
+    }
     return NextResponse.json(
       { error: "已達下載次數上限，請聯繫 iamvista@gmail.com" },
       { status: 429 },

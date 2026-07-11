@@ -12,6 +12,8 @@ const PROD_FACULTY = "h8kqd7tlxvq571iqof11gqc2";
 const PROD_CLINICIAN = "tyutghxnw5hyg5zqlzci92r8";
 // army-kit productId：見 src/lib/army-kit.ts ARMY_PRODUCT_ID（已建產品，跨環境共用）。
 const PROD_ARMY_KIT = "g7i9iptfxfqxjip5jdr6hj90";
+// ai-coach-kit productId：見 src/lib/recur-product-config.ts AI_COACH_KIT_PRODUCT_ID。
+const PROD_AI_COACH_KIT = "xqvb9nqxtehhfesuhequm9jp";
 
 // Webhook route 只驗簽再解析 event；signature 驗證本身不是本測試範圍，直接把 payload
 // JSON.parse 回傳當作已驗證的 event。
@@ -160,7 +162,7 @@ describe("ars-bundle fulfilment (order.paid webhook)", () => {
     });
   });
 
-  it("reuses the existing token for a repeated order_id (idempotent, no duplicate insert)", async () => {
+  it("reuses the existing token for a repeated order_id (idempotent, no duplicate insert, no duplicate email)", async () => {
     existingToken = "existing-token-abc";
     const res = await POST(
       mockReq({
@@ -175,7 +177,9 @@ describe("ars-bundle fulfilment (order.paid webhook)", () => {
     );
     expect(res.status).toBe(200);
     expect(insertCalls).toHaveLength(0);
-    expect(sendEmail).toHaveBeenCalledTimes(1);
+    // 重送/重複的 order_id 代表已經 fulfil 過，必須 return 早退、不寄第二封信
+    // （A-007 Task 6 修正：對照 army-kit 既有的相同斷言）。
+    expect(sendEmail).not.toHaveBeenCalled();
   });
 
   it("missing customer.email escalates to an admin alert instead of throwing", async () => {
@@ -259,6 +263,43 @@ describe("ars-bundle fulfilment (order.paid webhook)", () => {
     // 對照 23505 情境（完全不寄信）：這裡先嘗試寄客戶信（失敗），再寄一封 admin 告警信。
     expect(sendEmail).toHaveBeenCalledTimes(2);
     expect(sendEmail.mock.calls[1][0].to).toBe("admin@test.tw");
+  });
+
+  it("A-007 Task 6: a real Recur webhook resend for the same orderId sends only one email in total (fulfilArsBundle idempotency early return)", async () => {
+    const orderId = "order-resend-1";
+    const res1 = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-resend-1a",
+        data: {
+          id: orderId,
+          product_id: PROD_GRAD,
+          customer: { email: "resend@test.tw" },
+        },
+      }),
+    );
+    expect(res1.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+
+    // 模擬 DB 在第一次 fulfil 後的實際狀態：該 order_id 已經有 token 了。
+    existingToken = insertCalls[0].token as string;
+
+    const res2 = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-resend-1b",
+        data: {
+          id: orderId,
+          product_id: PROD_GRAD,
+          customer: { email: "resend@test.tw" },
+        },
+      }),
+    );
+    expect(res2.status).toBe(200);
+    // Recur 重送同一筆 order.paid：不應該再 insert 第二筆 token，也不應該再寄第二封信。
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -381,5 +422,44 @@ describe("army-kit fulfilment (order.paid webhook)", () => {
     expect(insertCalls).toHaveLength(1);
     expect(sendEmail).toHaveBeenCalledTimes(2);
     expect(sendEmail.mock.calls[1][0].to).toBe("admin@test.tw");
+  });
+});
+
+describe("ai-coach-kit fulfilment (order.paid webhook)", () => {
+  it("A-007 Task 6 Step 6: a real Recur webhook resend for the same orderId sends only one email in total (fulfilAiCoachKit idempotency early return)", async () => {
+    const orderId = "order-coach-resend-1";
+    const res1 = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-coach-resend-1a",
+        data: {
+          id: orderId,
+          product_id: PROD_AI_COACH_KIT,
+          customer: { email: "coach-resend@test.tw" },
+        },
+      }),
+    );
+    expect(res1.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+
+    // 模擬 DB 在第一次 fulfil 後的實際狀態：該 order_id 已經有 token 了。
+    existingToken = insertCalls[0].token as string;
+
+    const res2 = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-coach-resend-1b",
+        data: {
+          id: orderId,
+          product_id: PROD_AI_COACH_KIT,
+          customer: { email: "coach-resend@test.tw" },
+        },
+      }),
+    );
+    expect(res2.status).toBe(200);
+    // Recur 重送同一筆 order.paid：不應該再 insert 第二筆 token，也不應該再寄第二封信。
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).toHaveBeenCalledTimes(1);
   });
 });

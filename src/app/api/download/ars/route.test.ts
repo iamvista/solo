@@ -118,4 +118,22 @@ describe("GET /api/download/ars", () => {
     const res = await GET(mockReq(`token=tok-1&part=core`));
     expect(res.status).toBe(429);
   });
+
+  it("410s (not 429) when the token was still valid at precheck but expires before the atomic increment runs (A-007 Task 6)", async () => {
+    tokenRow = baseToken({
+      product_id: "grad",
+      // Precheck 那一刻还没过期，但 fetch blob 期間（模擬延遲）會真的過期，
+      // 使 increment_download_count 的 RPC（WHERE expires_at > now()）回空。
+      expires_at: new Date(Date.now() + 20).toISOString(),
+      download_count: 4,
+      max_downloads: 8,
+    });
+    rpc.mockResolvedValueOnce({ data: [], error: null });
+    global.fetch = vi.fn(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      return { ok: true, body: new ReadableStream() };
+    }) as unknown as typeof fetch;
+    const res = await GET(mockReq(`token=tok-1&part=core`));
+    expect(res.status).toBe(410);
+  });
 });
