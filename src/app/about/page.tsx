@@ -107,7 +107,7 @@ const beliefs = [
   {
     icon: Users,
     title: "先給價值，再談生意",
-    desc: "免費健檢、免費初談、免費電子報——先讓人感受到你的價值，信任自然會來，生意也會來。",
+    desc: "免費健檢、免費電子報、公開分享——先讓人感受到你的價值，信任自然會來，生意也會來。",
   },
   {
     icon: Pen,
@@ -308,7 +308,7 @@ export default function AboutPage() {
               {
                 icon: Users,
                 title: "諮詢 & 陪跑",
-                desc: "30 分鐘免費初談，幫你釐清方向。覺得適合再深入合作。",
+                desc: "1 對 1 深度諮詢，幫你把方向與工作流一次理清。1 小時到 20 小時套票，按需求選。",
                 href: "/consulting",
               },
               {

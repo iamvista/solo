@@ -7,9 +7,8 @@ export const metadata: Metadata = {
     "Vista Cheng 幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。諮詢、AI 工作坊、線上課程、SOLO 方法論。",
   alternates: { canonical: "https://www.solo.tw" },
 };
-import { PainPointSection } from "@/components/home/PainPointSection";
+import { FlagshipSection } from "@/components/home/FlagshipSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
-import { ArmyKitEntrySection } from "@/components/home/ArmyKitEntrySection";
 import { AiTutorEntrySection } from "@/components/home/AiTutorEntrySection";
 import { DiagnoseEntrySection } from "@/components/home/DiagnoseEntrySection";
 import { SocialProofSection } from "@/components/home/SocialProofSection";
@@ -22,9 +21,8 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <PainPointSection />
+      <FlagshipSection />
       <ServicesSection />
-      <ArmyKitEntrySection />
       <AiTutorEntrySection />
       <DiagnoseEntrySection />
       <SocialProofSection />

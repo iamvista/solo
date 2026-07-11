@@ -496,7 +496,7 @@ export default function AIResearchSystemPage() {
                   >
                     NT$ 3,990 AI 工具導入
                   </Link>{" "}
-                  或免費 30 分鐘初談開始。
+                  開始。
                 </p>
               </div>
             </div>

@@ -52,7 +52,7 @@ const roadmap: RoadmapPhase[] = [
     items: [
       { title: "首頁改版（服務導向）", desc: "從平臺展示轉為個人品牌服務入口", status: "done" },
       { title: "PAYUNi 金流串接", desc: "信用卡、ATM、超商付款，訂單管理", status: "done" },
-      { title: "Cal.com 諮詢預約嵌入", desc: "免費初談 30 分鐘、Google Meet 整合", status: "done" },
+      { title: "Cal.com 諮詢預約嵌入", desc: "諮詢預約、Google Meet 整合", status: "done" },
       { title: "定價頁 & 諮詢頁", desc: "開站優惠定價、FAQ、服務方案完整呈現", status: "done" },
       { title: "SEO & AEO 基礎建設", desc: "Sitemap、robots.txt、JSON-LD、Person schema", status: "done" },
       { title: "全站安全強化", desc: "付款驗證、rate limiting、CSP headers", status: "done" },

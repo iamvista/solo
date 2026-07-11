@@ -13,7 +13,7 @@ export function HeroSection() {
         <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-rose-50/40 blur-[100px]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <div className="text-center">
           {/* Top badge */}
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
@@ -68,21 +68,11 @@ export function HeroSection() {
             </Button>
           </div>
 
-          {/* 個人介紹 mini */}
-          <div className="mx-auto mt-14 flex max-w-xl items-center justify-center gap-4 rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm backdrop-blur-sm sm:mt-16">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-rose-400 text-2xl font-bold text-white">
-              V
-            </div>
-            <div className="text-left">
-              <p className="text-sm font-semibold text-stone-900">
-                Vista Cheng
-              </p>
-              <p className="text-sm leading-relaxed text-stone-500">
-                AI 應用講師・一人事業教練・
-                <span className="text-amber-600">{SOCIAL_PROOF.newsletterSubscribers}</span> 電子報讀者
-              </p>
-            </div>
-          </div>
+          {/* 講師身分 mini（單行，取代原本佔空間的名片卡） */}
+          <p className="mt-8 text-sm text-stone-500 sm:mt-10">
+            Vista Cheng・AI 應用講師・一人事業教練・
+            <span className="text-amber-600">{SOCIAL_PROOF.newsletterSubscribers}</span> 電子報讀者
+          </p>
         </div>
       </div>
     </section>
