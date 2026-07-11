@@ -5,6 +5,7 @@ import { sendEmail } from "@/lib/email";
 import { AICoachKitPurchaseEmail } from "@/components/emails/ai-coach-kit-purchase";
 import { ArsBundlePurchaseEmail } from "@/components/emails/ars-bundle-purchase";
 import { ArmyKitPurchaseEmail } from "@/components/emails/army-kit-purchase";
+import { LecturerKitPurchaseEmail } from "@/components/emails/lecturer-kit-purchase";
 import { GenericPurchaseEmail } from "@/components/emails/generic-purchase";
 import { ConsultingEnrollmentWelcomeEmail } from "@/components/emails/consulting-enrollment-welcome";
 import {
@@ -26,6 +27,11 @@ import {
   DOWNLOAD_TTL_HOURS as ARMY_DOWNLOAD_TTL_HOURS,
   MAX_DOWNLOADS as ARMY_MAX_DOWNLOADS,
 } from "@/lib/army-kit";
+import {
+  LECTURER_KIT_PRODUCT_NAME,
+  LECTURER_DOWNLOAD_TTL_HOURS,
+  LECTURER_MAX_DOWNLOADS,
+} from "@/lib/lecturer-kit";
 import {
   createEnrollment,
   updateLeadStatus,
@@ -165,6 +171,16 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
         amount,
         recoveryNote: "請至 Recur 後臺查該筆訂單找出買家聯絡方式，人工補寄下載連結。",
       });
+    } else if (config.kind === "lecturer-kit") {
+      // 純數位下載沒有 email 就無法交付，且 lecturer-kit 沒有 enrollment 兜底，必須主動告警補救。
+      await notifyAdminEmailFailure({
+        reason: "lecturer-kit 訂單缺少 customer.email，無法交付下載連結",
+        orderId,
+        customerEmail: "(未提供)",
+        productName: LECTURER_KIT_PRODUCT_NAME,
+        amount,
+        recoveryNote: "請至 Recur 後臺查該筆訂單找出買家聯絡方式，人工補寄下載連結。",
+      });
     }
     return;
   }
@@ -225,6 +241,17 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
   if (config.kind === "army-kit") {
     try {
       await fulfilArmyKit({ orderId, email, amount });
+    } catch (err) {
+      throw new DigitalFulfilmentError(
+        err instanceof Error ? err.message : String(err),
+      );
+    }
+    return;
+  }
+
+  if (config.kind === "lecturer-kit") {
+    try {
+      await fulfilLecturerKit({ orderId, email, amount });
     } catch (err) {
       throw new DigitalFulfilmentError(
         err instanceof Error ? err.message : String(err),
@@ -737,6 +764,116 @@ async function fulfilArmyKit({
   }
   console.log(
     "[recur webhook] sent army-kit email to",
+    email,
+    "order",
+    orderId,
+  );
+}
+
+async function fulfilLecturerKit({
+  orderId,
+  email,
+  amount,
+}: {
+  orderId: string;
+  email: string;
+  amount?: number;
+}) {
+  const supabase = getSupabase();
+
+  const { data: existing } = await supabase
+    .from("download_tokens")
+    .select("token")
+    .eq("order_id", orderId)
+    .maybeSingle();
+
+  if (existing?.token) {
+    // 這筆 order_id 已經 fulfil 過（同一 webhook 事件重送）：token 已存在，直接跳出，
+    // 不再寄第二封信（比對 fulfilArmyKit 既有的「已處理過，return 不寄信」慣例）。
+    console.log(
+      "[recur webhook] lecturer-kit order already fulfilled, skipping duplicate email for order",
+      orderId,
+    );
+    return;
+  }
+
+  const token = randomUUID();
+  const expiresAt = new Date(
+    Date.now() + LECTURER_DOWNLOAD_TTL_HOURS * 3600_000,
+  ).toISOString();
+  const { error } = await supabase.from("download_tokens").insert({
+    order_id: orderId,
+    product_id: "lecturer-kit",
+    token,
+    email,
+    expires_at: expiresAt,
+    max_downloads: LECTURER_MAX_DOWNLOADS,
+  });
+  if (error) {
+    // 併發雙寫撞到 order_id 的 unique index（Postgres 23505）：代表另一個並發請求
+    // 已經贏了 insert 並會負責寄信。這裡改為重查既有 token 當冪等成功，不寄第二封信、
+    // 不當一般錯誤丟 500（否則 Recur 會一直重送，且我們每次都會再撞一次 23505）。
+    if (error.code === "23505") {
+      console.log(
+        "[recur webhook] lecturer-kit token insert hit unique violation on order_id (concurrent winner already fulfilled); treating as idempotent success",
+        orderId,
+      );
+      const { data: winner, error: reselectError } = await supabase
+        .from("download_tokens")
+        .select("token")
+        .eq("order_id", orderId)
+        .maybeSingle();
+      if (reselectError || !winner?.token) {
+        console.error(
+          "[recur webhook] lecturer-kit token unique violation but reselect found no token",
+          orderId,
+          reselectError,
+        );
+      }
+      return;
+    }
+    console.error("[recur webhook] failed to insert lecturer-kit token", error);
+    throw error;
+  }
+
+  const downloadUrl = `${SITE_URL}/payment/success?type=download&token=${token}`;
+  const amountFormatted =
+    typeof amount === "number" ? `NT$${amount.toLocaleString()}` : undefined;
+
+  const result = await sendEmail({
+    to: email,
+    subject: `感謝購買${LECTURER_KIT_PRODUCT_NAME}：你的下載連結`,
+    react: LecturerKitPurchaseEmail({
+      productName: LECTURER_KIT_PRODUCT_NAME,
+      downloadUrl,
+      orderNumber: orderId,
+      amountFormatted,
+      expiresInHours: LECTURER_DOWNLOAD_TTL_HOURS,
+      maxDownloads: LECTURER_MAX_DOWNLOADS,
+    }),
+  });
+
+  if (!result.success) {
+    // Token 已建立成功，只是寄信失敗：改為 admin 告警 + 正常返回（webhook 回 200），
+    // 不再 throw DigitalFulfilmentError（比對 fulfilArsBundle 的既有降級慣例）。
+    console.error("[recur webhook] sendEmail failed (lecturer-kit)", result.error);
+    await notifyAdminEmailFailure({
+      reason: `${LECTURER_KIT_PRODUCT_NAME}下載信寄送失敗`,
+      orderId,
+      customerEmail: email,
+      productName: LECTURER_KIT_PRODUCT_NAME,
+      amount,
+      recoveryNote: [
+        `下載連結：${downloadUrl}`,
+        `Token 已寫入 download_tokens 表，${LECTURER_DOWNLOAD_TTL_HOURS} 小時內有效，最多下載 ${LECTURER_MAX_DOWNLOADS} 次。`,
+        "請手動轉寄上方連結給客戶。",
+      ].join("\n"),
+      error: result.error,
+    });
+    return;
+  }
+  console.log(
+    "[recur webhook] sent lecturer-kit email to",
     email,
     "order",
     orderId,

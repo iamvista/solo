@@ -12,6 +12,8 @@ const PROD_FACULTY = "h8kqd7tlxvq571iqof11gqc2";
 const PROD_CLINICIAN = "tyutghxnw5hyg5zqlzci92r8";
 // army-kit productId：見 src/lib/army-kit.ts ARMY_PRODUCT_ID（已建產品，跨環境共用）。
 const PROD_ARMY_KIT = "g7i9iptfxfqxjip5jdr6hj90";
+// lecturer-kit productId：見 src/lib/lecturer-kit.ts LECTURER_PRODUCT_ID（已建產品，跨環境共用）。
+const PROD_LECTURER_KIT = "lgzuc8wf1ulcw5qu8e78uxjs";
 // ai-coach-kit productId：見 src/lib/recur-product-config.ts AI_COACH_KIT_PRODUCT_ID。
 const PROD_AI_COACH_KIT = "xqvb9nqxtehhfesuhequm9jp";
 
@@ -38,6 +40,16 @@ const insertCalls: Array<Record<string, unknown>> = [];
 // 「insert 前查一次沒有 → insert 撞 23505 → 重查一次拿到贏家 token」的兩段式情境）；
 // 佇列耗盡或維持 null 時，退回既有的 existingToken 單一回應行為。
 let selectQueue: Array<{ token: string } | null> | null = null;
+
+// refund.succeeded → revokeDownloadTokensByOrderId 的 update 鏈路（download_tokens
+// 表專用）：紀錄呼叫參數供斷言「只按 order_id 篩選、不分產品」，並可控制回傳結果
+// 模擬「已過期不重複更新（data: []）」與「DB 錯誤只 log 不 throw（error 非 null）」。
+let updateResult: { data: unknown; error: unknown } = { data: [], error: null };
+const updateCalls: Array<{
+  payload: Record<string, unknown>;
+  eqArgs?: [string, unknown];
+  gtArgs?: [string, unknown];
+}> = [];
 
 function chain(result: { data?: unknown; error?: unknown }) {
   const builder: Record<string, unknown> = {};
@@ -70,12 +82,38 @@ vi.mock("@supabase/supabase-js", () => ({
             insertCalls.push(payload);
             return Promise.resolve({ error: insertError });
           },
+          update: (payload: Record<string, unknown>) => {
+            const call: (typeof updateCalls)[number] = { payload };
+            updateCalls.push(call);
+            return {
+              eq: (col: string, val: unknown) => {
+                call.eqArgs = [col, val];
+                return {
+                  gt: (col2: string, val2: unknown) => {
+                    call.gtArgs = [col2, val2];
+                    return {
+                      select: () => Promise.resolve(updateResult),
+                    };
+                  },
+                };
+              },
+            };
+          },
         };
       }
-      // course_enrollments 等其他表：ars-bundle 不使用 enrollment，一律回「無匹配」。
+      // course_enrollments／affiliate_referrals 等其他表：ars-bundle 不使用 enrollment，
+      // 一律回「無匹配」。update().eq() 的回傳值同時是 thenable（滿足單層 eq 直接
+      // await 的呼叫端，如 markEnrollmentPaid）也帶 .neq()（滿足 voidCommissionByOrderId
+      // 的 update().eq().neq() 兩層鏈路，refund.succeeded 會無條件呼叫到）。
       return {
         select: () => chain({ data: null, error: null }),
-        update: () => ({ eq: () => Promise.resolve({ error: null }) }),
+        update: () => ({
+          eq: () => ({
+            neq: () => Promise.resolve({ error: null }),
+            then: (resolve: (v: { error: null }) => void) =>
+              resolve({ error: null }),
+          }),
+        }),
       };
     },
   }),
@@ -96,6 +134,8 @@ beforeEach(() => {
   insertError = null;
   insertCalls.length = 0;
   selectQueue = null;
+  updateResult = { data: [], error: null };
+  updateCalls.length = 0;
   sendEmail.mockClear();
   sendEmail.mockResolvedValue({ success: true, data: { id: "msg" } });
 });
@@ -461,5 +501,131 @@ describe("ai-coach-kit fulfilment (order.paid webhook)", () => {
     // Recur 重送同一筆 order.paid：不應該再 insert 第二筆 token，也不應該再寄第二封信。
     expect(insertCalls).toHaveLength(1);
     expect(sendEmail).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("lecturer-kit fulfilment (order.paid webhook)", () => {
+  it("inserts a token with the lecturer-kit product_id and max_downloads=5, and sends one email", async () => {
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-lecturer-1",
+        data: {
+          id: "order-lecturer-1",
+          amount: 1490,
+          product_id: PROD_LECTURER_KIT,
+          customer: { email: "buyer@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(insertCalls[0]).toMatchObject({
+      order_id: "order-lecturer-1",
+      product_id: "lecturer-kit",
+      max_downloads: 5,
+      email: "buyer@test.tw",
+    });
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+  });
+
+  it("reuses the existing token for a repeated order_id (idempotent, no duplicate insert, no duplicate email)", async () => {
+    existingToken = "existing-lecturer-token";
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-lecturer-2",
+        data: {
+          id: "order-lecturer-2",
+          product_id: PROD_LECTURER_KIT,
+          customer: { email: "buyer2@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(0);
+    // 重送/重複的 order_id 代表已經 fulfil 過，必須 return 早退、不寄第二封信。
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("email send failure (token already created): sends an admin alert instead of throwing, and the webhook still returns 200", async () => {
+    sendEmail.mockImplementation(async (args: { to: string | string[] }) => {
+      if (args.to === "buyer3@test.tw") {
+        return { success: false, error: new Error("resend down") };
+      }
+      return { success: true, data: { id: "msg" } };
+    });
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-lecturer-3",
+        data: {
+          id: "order-lecturer-3",
+          product_id: PROD_LECTURER_KIT,
+          customer: { email: "buyer3@test.tw" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(insertCalls).toHaveLength(1);
+    expect(sendEmail).toHaveBeenCalledTimes(2);
+    expect(sendEmail.mock.calls[1][0].to).toBe("admin@test.tw");
+  });
+});
+
+describe("refund.succeeded revokes download tokens (order-scoped, product-agnostic)", () => {
+  it("only revokes the not-yet-expired token(s) belonging to the refunded order_id", async () => {
+    updateResult = { data: [{ token: "revoked-tok-1" }], error: null };
+    const res = await POST(
+      mockReq({
+        type: "refund.succeeded",
+        id: "evt-refund-1",
+        data: { order_id: "order-lecturer-refund-1" },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(updateCalls).toHaveLength(1);
+    expect(updateCalls[0].eqArgs).toEqual(["order_id", "order-lecturer-refund-1"]);
+    expect(updateCalls[0].gtArgs?.[0]).toBe("expires_at");
+  });
+
+  it("an already-expired token yields zero affected rows and does not error (no duplicate/no-op update)", async () => {
+    updateResult = { data: [], error: null };
+    const res = await POST(
+      mockReq({
+        type: "refund.succeeded",
+        id: "evt-refund-2",
+        data: { order_id: "order-lecturer-refund-2" },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(updateCalls).toHaveLength(1);
+  });
+
+  it("is generic and product-agnostic: filters only by order_id, with no product/kind branch", async () => {
+    updateResult = { data: [{ token: "revoked-tok-3" }], error: null };
+    const res = await POST(
+      mockReq({
+        type: "refund.succeeded",
+        id: "evt-refund-3",
+        data: { order_id: "order-army-refund-3" },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(updateCalls).toHaveLength(1);
+    // 除了 order_id 的 eq 與 expires_at 的 gt，不應該再帶 product_id 之類的篩選條件。
+    expect(updateCalls[0].eqArgs?.[0]).toBe("order_id");
+  });
+
+  it("a DB error while revoking only logs and does not throw (webhook still returns 200, not 500)", async () => {
+    updateResult = { data: null, error: { message: "db down" } };
+    const res = await POST(
+      mockReq({
+        type: "refund.succeeded",
+        id: "evt-refund-4",
+        data: { order_id: "order-lecturer-refund-4" },
+      }),
+    );
+    expect(res.status).toBe(200);
   });
 });
