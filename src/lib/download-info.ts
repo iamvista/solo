@@ -9,6 +9,11 @@ import {
   DOWNLOAD_TTL_HOURS as ARMY_DOWNLOAD_TTL_HOURS,
   MAX_DOWNLOADS as ARMY_MAX_DOWNLOADS,
 } from "@/lib/army-kit";
+import {
+  LECTURER_KIT_PRODUCT_NAME,
+  LECTURER_DOWNLOAD_TTL_HOURS,
+  LECTURER_MAX_DOWNLOADS,
+} from "@/lib/lecturer-kit";
 
 type DownloadInfo = {
   productName: string;
@@ -18,8 +23,8 @@ type DownloadInfo = {
 };
 
 // type=download 分支的產品識別：一律出自 DB（token 查回的 product_id），query string
-// 只帶 token。目前涵蓋 ai-coach-kit 與 army-kit 兩種單檔下載商品；ars 走獨立的 type=ars
-// 分支（ArsDownloadPanel 不動）。
+// 只帶 token。目前涵蓋 ai-coach-kit、army-kit、lecturer-kit 三種單檔下載商品；ars 走獨立的
+// type=ars 分支（ArsDownloadPanel 不動）。
 export async function getDownloadInfo(token: string): Promise<DownloadInfo | null> {
   const supabase = createServiceClient();
   const { data, error } = await supabase
@@ -45,6 +50,14 @@ export async function getDownloadInfo(token: string): Promise<DownloadInfo | nul
       downloadHref: `/api/download/army?token=${token}`,
       ttlHours: ARMY_DOWNLOAD_TTL_HOURS,
       maxDownloads: ARMY_MAX_DOWNLOADS,
+    };
+  }
+  if (productId === "lecturer-kit") {
+    return {
+      productName: LECTURER_KIT_PRODUCT_NAME,
+      downloadHref: `/api/download/lecturer?token=${token}`,
+      ttlHours: LECTURER_DOWNLOAD_TTL_HOURS,
+      maxDownloads: LECTURER_MAX_DOWNLOADS,
     };
   }
   return null;

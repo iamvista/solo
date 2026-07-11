@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Users, Code2, Video, ArrowRight } from "lucide-react";
+import { Users, Code2, Video, Mic, ArrowRight } from "lucide-react";
 import { ARMY_KIT_PRICE } from "@/lib/army-kit";
+import { LECTURER_KIT_PRICE } from "@/lib/lecturer-kit";
 import { CONSULTING_PLANS } from "@/lib/consulting-config";
 import { getCourseConfig } from "@/lib/courses-config";
 
@@ -20,6 +21,17 @@ const flagships = [
     cta: "立即入手",
     href: "/products/solo-army-kit",
     highlight: true,
+  },
+  {
+    icon: Mic,
+    tag: "數位工具包・即買即用",
+    title: "講師 AI 幕僚",
+    desc: "把十階段備課流程、獨立監察 AI、甲方思維提案報價寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流。",
+    price: `NT$${LECTURER_KIT_PRICE.toLocaleString()}`,
+    priceNote: "一次買斷",
+    cta: "立即入手",
+    href: "/products/lecturer-ai-staff",
+    highlight: false,
   },
   {
     icon: Code2,
@@ -54,7 +66,7 @@ export function FlagshipSection() {
             熱門主力
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
-            想馬上開始？從這三個入手
+            想馬上開始？從這些入手
           </h2>
           <p className="mt-4 text-lg text-stone-500">
             買了就能用的工具包、即學即用的實戰工作坊，或一對一帶你走的深度陪跑。
