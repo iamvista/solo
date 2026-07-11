@@ -46,6 +46,18 @@ const nextConfig: NextConfig = {
         destination: "/teachers/susie",
         permanent: true,
       },
+      // 已下架產品（2026-07-11）：writing-os／ai-coach-kit 暫停販售，舊銷售頁 301 導到工具區。
+      // 註：/products/ai-coach-kit/guide/* 為已購買者交付頁，source 無萬用字元故不受影響。
+      {
+        source: "/products/writing-os",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/products/ai-coach-kit",
+        destination: "/tools",
+        permanent: true,
+      },
       // 講師頁網址統一（2026-06-17）：/t → /teachers、個別頁 /t/:slug → /teachers/:slug
       {
         source: "/t",
