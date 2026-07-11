@@ -25,11 +25,11 @@ const RETURN_PATH = "/products/lecturer-ai-staff#pricing";
 export const metadata: Metadata = {
   title: "講師 AI 幕僚｜職業講師的備課與報價制度檔 | solo.tw",
   description:
-    "把十階段備課流程、獨立監察 AI、甲方思維提案報價全部寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流，一次買斷 NT$1,490。",
+    "把十階段備課流程、獨立監察 AI、客戶視角提案報價全部寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流，一次買斷 NT$1,490。",
   openGraph: {
     title: "講師 AI 幕僚｜職業講師的備課與報價制度檔",
     description:
-      "十階段備課＋獨立監察 AI＋甲方思維提案報價，全部鋪進 Claude Code 就能用。一次買斷 NT$1,490。",
+      "十階段備課＋獨立監察 AI＋客戶視角提案報價，全部鋪進 Claude Code 就能用。一次買斷 NT$1,490。",
     images: [
       {
         url: "/products/lecturer-ai-staff/og",
@@ -79,8 +79,8 @@ const teachingComponents = [
   },
   {
     icon: FileText,
-    title: "甲方思維提案報價",
-    desc: "四方地圖、報價錨點方法論、談判要點全部寫成制度檔，報價不再憑感覺，議價時知道自己的底線在哪。",
+    title: "客戶視角提案報價",
+    desc: "決策關係人分析、報價錨點方法論、談判要點全部寫成制度檔，報價不再憑感覺，議價時知道自己的底線在哪。",
   },
 ];
 
@@ -98,7 +98,7 @@ const deliverables = [
   {
     icon: FileText,
     title: "提案與報價制度檔",
-    desc: "四方利害關係人地圖、報價錨點方法論、談判要點、提案範本，全套照抄就能用在下一次邀課。",
+    desc: "決策關係人分析、報價錨點方法論、談判要點、提案範本，全套照抄就能用在下一次邀課。",
   },
   {
     icon: Mic,
@@ -152,7 +152,7 @@ export default function LecturerAiStaffPage() {
             給職業講師的備課與報價制度檔
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-stone-600 sm:text-xl leading-relaxed">
-            十階段備課流程、獨立監察 AI、甲方思維提案報價，全部寫成文件。
+            十階段備課流程、獨立監察 AI、客戶視角提案報價，全部寫成文件。
             <br className="hidden sm:block" />
             鋪進 Claude Code，一次買斷，永久使用。
           </p>
@@ -168,7 +168,7 @@ export default function LecturerAiStaffPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-primary" />
-              甲方思維報價方法論
+              客戶視角報價方法論
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -380,7 +380,7 @@ export default function LecturerAiStaffPage() {
               下一場備課，你會多一套制度
             </h2>
             <p className="mt-3 text-base text-stone-600 max-w-xl mx-auto">
-              十階段備課、獨立監察 AI、甲方思維報價，全部鋪進 Claude Code 就能用。
+              十階段備課、獨立監察 AI、客戶視角報價，全部鋪進 Claude Code 就能用。
             </p>
             <div className="mt-6 flex justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>

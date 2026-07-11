@@ -26,7 +26,7 @@ const flagships = [
     icon: Mic,
     tag: "數位工具包・即買即用",
     title: "講師 AI 幕僚",
-    desc: "把十階段備課流程、獨立監察 AI、甲方思維提案報價寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流。",
+    desc: "把十階段備課流程、獨立監察 AI、客戶視角提案報價寫成制度檔，鋪進 Claude Code 就能用。給職業講師的 AI 工作流。",
     price: `NT$${LECTURER_KIT_PRICE.toLocaleString()}`,
     priceNote: "一次買斷",
     cta: "立即入手",
