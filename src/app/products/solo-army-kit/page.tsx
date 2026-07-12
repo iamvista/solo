@@ -349,7 +349,7 @@ export default function SoloArmyKitPage() {
                   <Sparkles className="h-5 w-5 text-primary" />
                   <p className="text-base font-medium text-primary">完整版</p>
                 </div>
-                <div className="mt-3 flex items-baseline gap-2">
+                <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   <p className="text-4xl font-bold text-primary">
                     NT${ARMY_KIT_PRICE.toLocaleString()}
                   </p>
