@@ -353,7 +353,7 @@ export default function SoloArmyKitPage() {
                   <p className="text-4xl font-bold text-primary">
                     NT${ARMY_KIT_PRICE.toLocaleString()}
                   </p>
-                  <span className="text-sm text-stone-400">一次買斷</span>
+                  <span className="text-sm text-stone-400 whitespace-nowrap">一次買斷</span>
                 </div>
                 <p className="mt-2 text-sm text-stone-500 leading-relaxed">
                   Vista 實際在跑的整套制度檔，去識別化後完整交付。
