@@ -99,23 +99,23 @@ const nextConfig: NextConfig = {
         destination: "/tools",
         permanent: true,
       },
-      // 三頁下架（2026-07-12，A-010）：副腦計畫與兩門課下架，先用暫時性 redirect（驗收通過後升 301）。
+      // 三頁下架（2026-07-12，A-010）：副腦計畫與兩門課下架，2026-07-12 線上驗收 13/13 通過後升 301。
       // 精確路徑，不用萬用字元：/brain/:path* 會斷已購用戶交付與證書路由；
       // /courses/innovation-workshop/ebook 是獨立磁鐵交付頁，不可被 innovation-workshop 萬用吃掉。
       {
         source: "/brain",
         destination: "/courses",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/courses/senior-asset-safety",
         destination: "/courses",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/courses/innovation-workshop",
         destination: "/courses",
-        permanent: false,
+        permanent: true,
       },
     ];
   },
