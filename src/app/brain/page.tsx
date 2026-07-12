@@ -425,7 +425,7 @@ export default function BrainLandingPage() {
             </div>
             <div className="mt-6">
               <Button size="lg" asChild className="bg-amber-500 text-stone-900 hover:bg-amber-400">
-                <Link href="https://buy.recur.tw/Kfcg1iHhdRWU18rq" target="_blank" rel="noopener">
+                <Link href="/courses" target="_blank" rel="noopener">
                   立即報名
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -470,7 +470,7 @@ export default function BrainLandingPage() {
           </p>
           <div className="mt-10">
             <Button size="lg" asChild className="bg-amber-500 text-stone-900 hover:bg-amber-400">
-              <Link href="https://buy.recur.tw/Kfcg1iHhdRWU18rq" target="_blank" rel="noopener">
+              <Link href="/courses" target="_blank" rel="noopener">
                 立即報名｜為我的腦 +1
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

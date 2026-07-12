@@ -119,29 +119,9 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
       "其他（請在備註說明）",
     ],
   },
-  "vibe-coding-claude-code": {
-    slug: "vibe-coding-claude-code",
-    title: "Vibe Coding for Claude Code 實戰工作坊",
-    subtitle: "用 Claude Code 在終端機裡 3 小時打造你的數位資產",
-    date: "2026/6/27（六）",
-    time: "9:00–12:00（3 小時）",
-    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
-    capacity: 12,
-    recurProductIdRegular: "xi7s0fxgw8zxetstmv2xv7lc",
-    regularPrice: 4500,
-    recurProductIdAlumni: "qs4uz4gbiarnwflfok8u4szw",
-    alumniPrice: 3500,
-    alumniNote:
-      "限曾上過 Antigravity 版 Vibe Coding 工作坊的學員，請在備註欄填寫過去報名憑證；信任制報名 + 課前抽查",
-    detailUrl: "/courses/vibe-coding-claude-code",
-    hideInvoiceSection: true,
-    customQuestionLabel:
-      "目前最想用 Claude Code 解決的事（選填，但寫了講師會優先在課堂上示範）",
-    customQuestionPlaceholder:
-      "例：想做一個服務銷售頁、想把舊網站搬到自己能改的版本、想自動化我的內容工作流……",
-    preRegistrationNotice:
-      "本課程使用 Claude Code（CLI 版本），請於課前自行訂閱 Claude Pro（每月 US$20）或 Claude Max（每月 US$100 起），並在筆電安裝完成。詳細安裝指南課前一週寄送。",
-  },
+  // vibe-coding-claude-code（第 2 班）已取消 8/1 開課，改為開課通知模式（2026-07-12）。
+  // 報名表單設定停用，比照 ai-social-content 等已下架課程的慣例：不留 COURSE_CONFIGS 條目，
+  // /courses/vibe-coding-claude-code/register 直接 404；課程狀態見 src/lib/workshops.ts（status: coming_soon）。
   "ai-content": {
     slug: "ai-content",
     title: "AI 內容產製系統工作坊",
@@ -165,7 +145,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     slug: "vibe-coding",
     title: "Vibe Coding 實戰工作坊",
     subtitle: "用 AI 建立你的數位資產，不需要寫程式：3 小時做出第一個能上線的網站",
-    date: "2026/7/26（日）",
+    date: "2026/8/15（六）",
     time: "9:00–12:00（3 小時）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 12,

@@ -3,7 +3,7 @@
 > 完整內容索引：共 7 個課程與 52 篇文章，供 AI 客戶端檢索與引用。
 
 站點：https://www.solo.tw
-更新時間：2026-07-11T15:56:42.655Z
+更新時間：2026-07-12T15:28:53.446Z
 
 ## 1-on-1 量身陪跑 (/consulting)
 
@@ -47,6 +47,20 @@ URL: https://www.solo.tw/diagnose
 URL: https://www.solo.tw/tools
 
 一人事業者的實用工具箱：免費事業健檢、AI 工作坊、線上課程、諮詢，以及下載即用的模板與工具包。
+
+## 買斷產品 (/products)
+
+### 無人公司 AI 軍團啟動包
+- URL: https://www.solo.tw/products/solo-army-kit
+- 狀態: 有售
+- 價格: NT$1,480（一次買斷）
+- 說明: 制度檔泛化打包，派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。
+
+### 講師 AI 幕僚
+- URL: https://www.solo.tw/products/lecturer-ai-staff
+- 狀態: 等候名單（籌備中）
+- 價格: NT$1,490（一次買斷，未開賣）
+- 說明: 十階段備課流程、獨立監察 AI、客戶視角提案報價，全部鋪進 Claude Code 就能用。
 
 ## 所有課程與工作坊
 
@@ -102,11 +116,11 @@ URL: https://www.solo.tw/tools
 - URL: https://www.solo.tw/courses/vibe-coding-claude-code
 - 定位: 在終端機裡 3 小時建立你的數位資產（Claude Code 第 2 班）
 - 描述: Anthropic 官方 CLI、旗艦級 Claude 模型、整個資料夾的上下文。3 小時跑通 Plan Mode、Skills、Hooks、MCP，舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。
-- 日期: 2026 年 8 月 1 日（六） 9:00–12:00
+- 日期: 尚未公告，留信箱通知你 9:00–12:00
 - 時長: 3 小時
 - 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
 - 名額: 12 人
-- 狀態: open
+- 狀態: coming_soon
 - 分類: ai
 - 價格: 定價 NT$4,500
 

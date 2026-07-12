@@ -40,15 +40,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // ── 課程詳情頁 ───────────────────────────────────────
-  // 獨立於 workshops.ts 之外的舊版課程頁，非工作坊資料源管理
-  const LEGACY_COURSE_SLUGS = ["innovation-workshop", "senior-asset-safety"] as const;
+  // innovation-workshop、senior-asset-safety 已下架（2026-07-12，A-010），移出 sitemap
   const coursePages: MetadataRoute.Sitemap = [
-    ...LEGACY_COURSE_SLUGS.map((slug) => ({
-      url: `${baseUrl}/courses/${slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
     ...workshops
       .filter((w) => !w.hidden && !w.isExternal)
       .map((w) => ({

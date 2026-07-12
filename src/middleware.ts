@@ -35,10 +35,14 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get("host") ?? "";
 
-  // Handle brain.solo.tw subdomain → /brain rewrite
+  // Handle brain.solo.tw subdomain：副腦計畫已下架（2026-07-12），根路徑導去 /courses；
+  // 其餘路徑（/skills、/cert/[id] 等）為已購用戶交付與證書路由，維持既有 rewrite 不可斷。
   if (host.startsWith("brain.")) {
+    if (pathname === "/") {
+      return NextResponse.redirect("https://www.solo.tw/courses", 307);
+    }
     const url = request.nextUrl.clone();
-    url.pathname = pathname === "/" ? "/brain" : `/brain${pathname}`;
+    url.pathname = `/brain${pathname}`;
     return NextResponse.rewrite(url);
   }
 

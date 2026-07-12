@@ -9,14 +9,14 @@ import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title:
-    "Vibe Coding for Claude Code 實戰工作坊｜第 2 班・3 小時用 CLI 打造你的數位資產 | solo.tw",
+    "Vibe Coding for Claude Code 實戰工作坊｜開課通知・3 小時用 CLI 打造你的數位資產 | solo.tw",
   description:
-    "在終端機裡跟 AI 對話，3 小時打造可上線的網站、銷售頁、自動化腳本。Claude Code 第 2 班，2026/8/1 臺北・限 12 名。Antigravity 版舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
+    "在終端機裡跟 AI 對話，3 小時打造可上線的網站、銷售頁、自動化腳本。Claude Code 第 2 班開課日期尚未公告，留信箱優先通知。Antigravity 版舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
   openGraph: {
     title:
       "Vibe Coding for Claude Code 實戰工作坊｜在終端機裡 3 小時打造數位資產",
     description:
-      "Claude Code 第 2 班・2026/8/1 臺北・限 12 名・Antigravity 舊生 −NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
+      "Claude Code 第 2 班・開課日期尚未公告，留信箱優先通知・Antigravity 舊生 −NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
     images: [
       {
         url: "/courses/vibe-coding-claude-code/og",
@@ -29,8 +29,6 @@ export const metadata: Metadata = {
     canonical: "https://www.solo.tw/courses/vibe-coding-claude-code",
   },
 };
-
-const REGISTER_URL = "/courses/vibe-coding-claude-code/register";
 
 const whyClaudeCode = [
   {
@@ -362,12 +360,10 @@ export default function VibeCodingClaudeCodePage() {
           ...courseSchema({
             name: "Vibe Coding for Claude Code 實戰工作坊",
             description:
-              "在終端機裡用 Claude Code 跟 AI 對話，3 小時打造可上線的個人網站、銷售頁、自動化腳本。第 2 班 2026/8/1 臺北・限 12 名。",
+              "在終端機裡用 Claude Code 跟 AI 對話，3 小時打造可上線的個人網站、銷售頁、自動化腳本。第 2 班開課日期尚未公告，開放開課通知登記。",
             url: "https://www.solo.tw/courses/vibe-coding-claude-code",
             instructor: "Vista",
-            price: 4500,
             duration: "PT3H",
-            startDate: "2026-08-01",
             location: "臺北市",
             image:
               "https://www.solo.tw/courses/vibe-coding-claude-code/og",
@@ -423,7 +419,7 @@ export default function VibeCodingClaudeCodePage() {
               variant="secondary"
               className="mb-4 px-4 py-2 text-sm sm:text-base"
             >
-              {"\u{1F525}"} Claude Code 第 2 班｜2026 年 8 月 1 日（六）
+              {"\u{1F525}"} Claude Code 第 2 班｜開課日期尚未公告，留信箱通知你
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               Vibe Coding for Claude Code 實戰工作坊
@@ -445,7 +441,7 @@ export default function VibeCodingClaudeCodePage() {
             </p>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
-                <a href="#register">我要報名</a>
+                <a href="#register">留信箱・開課通知我</a>
               </Button>
               <Button
                 size="lg"
@@ -822,7 +818,7 @@ export default function VibeCodingClaudeCodePage() {
           {/* ====== Registration ====== */}
           <section id="register" className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              報名資訊
+              開課通知
             </h2>
 
             <Card className="mt-8 border-primary/20 bg-primary/5">
@@ -832,7 +828,7 @@ export default function VibeCodingClaudeCodePage() {
                     <div className="flex items-center gap-2">
                       <span>{"\u{1F4C5}"}</span>
                       <span className="font-medium">
-                        第 2 班｜2026 年 8 月 1 日（六）
+                        第 2 班｜開課日期尚未公告
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -856,6 +852,9 @@ export default function VibeCodingClaudeCodePage() {
                   </div>
 
                   <div className="space-y-4">
+                    <p className="text-xs text-muted-foreground">
+                      以下為上梯定價，僅供參考，開課日期公布後可能調整
+                    </p>
                     <div className="rounded-lg border border-primary/20 bg-background/80 p-4">
                       <p className="text-sm text-muted-foreground">
                         單人原價
@@ -904,18 +903,8 @@ export default function VibeCodingClaudeCodePage() {
                   </ul>
                 </div>
 
-                <div className="mt-6">
-                  <Button
-                    size="lg"
-                    className="h-12 w-full text-base"
-                    asChild
-                  >
-                    <a href={REGISTER_URL}>立即報名</a>
-                  </Button>
-                </div>
-
-                <p className="mt-4 text-center text-sm text-muted-foreground">
-                  按下後會進入報名表單，填完透過 Recur 信用卡刷卡完成付款
+                <p className="mt-6 text-center text-sm text-muted-foreground">
+                  下一梯開課日期尚未公告，留下 E-mail，開課時第一個通知你
                 </p>
               </CardContent>
             </Card>
@@ -948,7 +937,7 @@ export default function VibeCodingClaudeCodePage() {
                     在終端機裡跑通整套工作流：Plan Mode、Skills、Hooks、MCP、部署。回家立刻用，副業／產品從這天開始長出來。
                   </p>
                   <Button size="sm" className="mt-5 h-9 px-6" asChild>
-                    <a href="#register">我要報名 →</a>
+                    <a href="#register">留信箱通知我 →</a>
                   </Button>
                 </CardContent>
               </Card>
@@ -981,7 +970,7 @@ export default function VibeCodingClaudeCodePage() {
               </p>
               <div className="mt-5 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <Button size="lg" className="h-12 px-8 text-base" asChild>
-                  <a href="#register">我要報名</a>
+                  <a href="#register">留信箱通知我</a>
                 </Button>
                 <Button
                   size="lg"

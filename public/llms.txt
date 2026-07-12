@@ -74,14 +74,6 @@
 - 價格: 定價 NT$4,000
 - 報名/詳情: https://www.solo.tw/courses/vibe-coding
 
-### Vibe Coding for Claude Code 實戰工作坊
-- 定位: 在終端機裡 3 小時建立你的數位資產（Claude Code 第 2 班）
-- 日期: 2026 年 8 月 1 日（六） 9:00–12:00
-- 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
-- 名額: 12 人
-- 價格: 定價 NT$4,500
-- 報名/詳情: https://www.solo.tw/courses/vibe-coding-claude-code
-
 ### AI 內容產製系統工作坊
 - 定位: 一份素材，自動產出六種格式
 - 日期: 2026 年 8 月 29 日（六） 9:00–12:00
@@ -160,6 +152,19 @@ URL: https://www.solo.tw/diagnose
 URL: https://www.solo.tw/tools
 
 一人事業者的實用工具箱：免費事業健檢、AI 工作坊、線上課程、諮詢，以及下載即用的模板與工具包。
+## 買斷產品 (/products)
+
+### 無人公司 AI 軍團啟動包
+- URL: https://www.solo.tw/products/solo-army-kit
+- 狀態: 有售
+- 價格: NT$1,480（一次買斷）
+- 說明: 制度檔泛化打包，派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。
+
+### 講師 AI 幕僚
+- URL: https://www.solo.tw/products/lecturer-ai-staff
+- 狀態: 等候名單（籌備中）
+- 價格: NT$1,490（一次買斷，未開賣）
+- 說明: 十階段備課流程、獨立監察 AI、客戶視角提案報價，全部鋪進 Claude Code 就能用。
 ## 最新文章
 
 - [不是管理更多人，而是設計一個能自己長大的系統：AI 時代創業者的領導新思維](https://www.solo.tw/blog/ai-era-self-growing-system) (2026-06-21)

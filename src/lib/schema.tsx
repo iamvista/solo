@@ -22,7 +22,8 @@ export interface CourseSchemaProps {
   description: string;
   url: string;
   instructor: string;
-  price: number;
+  /** 未提供時（例如課程已下架、改為開課通知）不輸出 offers 區塊 */
+  price?: number;
   priceCurrency?: string;
   duration: string;
   startDate?: string;
@@ -46,13 +47,15 @@ export function courseSchema(props: CourseSchemaProps) {
       "@type": "Person",
       name: props.instructor,
     },
-    offers: {
-      "@type": "Offer",
-      price: props.price,
-      priceCurrency: props.priceCurrency || "TWD",
-      availability: "https://schema.org/InStock",
-      url: props.url,
-    },
+    ...(props.price !== undefined && {
+      offers: {
+        "@type": "Offer",
+        price: props.price,
+        priceCurrency: props.priceCurrency || "TWD",
+        availability: "https://schema.org/InStock",
+        url: props.url,
+      },
+    }),
     ...(props.duration && { timeRequired: props.duration }),
     ...(props.startDate && {
       hasCourseInstance: {

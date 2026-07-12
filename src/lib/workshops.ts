@@ -241,8 +241,9 @@ export const workshops: Workshop[] = [
       "Anthropic 官方 CLI、旗艦級 Claude 模型、整個資料夾的上下文。3 小時跑通 Plan Mode、Skills、Hooks、MCP，舊生現折 NT$1,000。請自備 Claude Pro 或 Claude Max 訂閱。",
     instructor: vista,
     emoji: "🛠️",
-    date: "2026 年 8 月 1 日（六）",
-    sortDate: "2026-08-01",
+    // 第 2 班取消 8/1 開課（2026-07-12），改為開課通知模式，日期尚未公告
+    date: "尚未公告，留信箱通知你",
+    sortDate: "9999-12-31",
     time: "9:00–12:00",
     duration: "3 小時",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
@@ -253,7 +254,7 @@ export const workshops: Workshop[] = [
       regular: 4500,
     },
     tags: ["AI", "Claude Code", "進階", "實作"],
-    status: "open",
+    status: "coming_soon",
     url: "/courses/vibe-coding-claude-code",
     isExternal: false,
     highlights: [

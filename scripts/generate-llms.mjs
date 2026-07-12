@@ -241,6 +241,25 @@ function formatToolsSection() {
   ].join('\n');
 }
 
+function formatBuyoutProductsSection() {
+  return [
+    '## 買斷產品 (/products)',
+    '',
+    '### 無人公司 AI 軍團啟動包',
+    `- URL: ${SITE}/products/solo-army-kit`,
+    '- 狀態: 有售',
+    '- 價格: NT$1,480（一次買斷）',
+    '- 說明: 制度檔泛化打包，派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。',
+    '',
+    '### 講師 AI 幕僚',
+    `- URL: ${SITE}/products/lecturer-ai-staff`,
+    '- 狀態: 等候名單（籌備中）',
+    '- 價格: NT$1,490（一次買斷，未開賣）',
+    '- 說明: 十階段備課流程、獨立監察 AI、客戶視角提案報價，全部鋪進 Claude Code 就能用。',
+    '',
+  ].join('\n');
+}
+
 function formatFull(posts, workshops) {
   const lines = [
     '# solo.tw | 自由人學院 — Full Content Index',
@@ -254,6 +273,7 @@ function formatFull(posts, workshops) {
 
   lines.push(formatConsultingSection());
   lines.push(formatToolsSection());
+  lines.push(formatBuyoutProductsSection());
 
   if (workshops.length) {
     lines.push('## 所有課程與工作坊', '');
@@ -366,6 +386,7 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
     formatWorkshopsSection(workshops) +
     consultingSummary +
     formatToolsSection() +
+    formatBuyoutProductsSection() +
     formatLatestBlog(posts, 10) +
     '## 平臺數據\n\n- 電子報訂閱者：18,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
     FOOTER_LINKS;

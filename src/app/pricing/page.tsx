@@ -9,6 +9,7 @@ import {
   BookOpen,
   FileDown,
   Mail,
+  Bot,
 } from "lucide-react";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
@@ -61,6 +62,24 @@ const offerCatalogSchema = {
       description: "實戰課程：Vibe Coding、AI 內容產製等",
       url: "https://www.solo.tw/courses",
       priceCurrency: "TWD",
+    },
+    {
+      "@type": "Offer",
+      name: "無人公司 AI 軍團啟動包",
+      description: "制度檔泛化打包，一次買斷，鋪進 Claude Code 就能用",
+      url: "https://www.solo.tw/products/solo-army-kit",
+      price: 1480,
+      priceCurrency: "TWD",
+      availability: "https://schema.org/InStock",
+    },
+    {
+      "@type": "Offer",
+      name: "講師 AI 幕僚",
+      description: "十階段備課＋獨立監察 AI＋客戶視角提案報價，目前籌備中",
+      url: "https://www.solo.tw/products/lecturer-ai-staff",
+      price: 1490,
+      priceCurrency: "TWD",
+      availability: "https://schema.org/PreOrder",
     },
   ],
 };
@@ -132,6 +151,38 @@ const services = [
     ],
     cta: "查看產品",
     href: "/tools#digital-products",
+    highlight: false,
+  },
+  {
+    icon: Bot,
+    category: "買斷產品",
+    title: "無人公司 AI 軍團啟動包",
+    subtitle: "制度檔泛化打包，鋪進 Claude Code 就能用",
+    price: "NT$1,480",
+    unit: "一次買斷",
+    features: [
+      "派工原則、角色人設、對抗式驗收流程",
+      "全部寫成文件，不用寫程式",
+      "一次買斷，永久使用",
+    ],
+    cta: "查看方案",
+    href: "/products/solo-army-kit",
+    highlight: false,
+  },
+  {
+    icon: Bot,
+    category: "買斷產品・等候名單",
+    title: "講師 AI 幕僚",
+    subtitle: "給職業講師的 AI 工作流",
+    price: "NT$1,490",
+    unit: "籌備中",
+    features: [
+      "十階段備課流程、獨立監察 AI",
+      "客戶視角提案報價",
+      "搶先登記，開賣時第一時間通知",
+    ],
+    cta: "搶先登記",
+    href: "/products/lecturer-ai-staff",
     highlight: false,
   },
 ];
