@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { getCourseConfig } from "@/lib/courses-config";
+import PurchasePixel from "./PurchasePixel";
 
 interface PageProps {
   params: Promise<{ course: string }>;
@@ -57,6 +58,11 @@ export default async function RegisterSuccessPage({ params, searchParams }: Page
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
+      {/* Best-effort client 補打，server 端 CAPI 已在 Recur webhook order.paid 送出並以
+          同一個 enrollment_id 為 eventID 去重（見 route.ts handleOrderPaid）。 */}
+      {isPaid && enrollment_id && (
+        <PurchasePixel eventId={enrollment_id} value={enrollment?.amount ?? undefined} />
+      )}
       <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-3xl">
         ✓
       </div>

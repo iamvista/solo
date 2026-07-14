@@ -42,6 +42,7 @@ import {
   recordCommissionForEnrollment,
   voidCommissionByOrderId,
 } from "@/lib/affiliates";
+import { sendCapiEvent } from "@/lib/meta-capi";
 
 /** 數位下載型商品（ars-bundle／army-kit）fulfilment 失敗時拋出，讓 POST 對該事件回 500（其餘 kind 維持既有 200 慣例）。 */
 class DigitalFulfilmentError extends Error {}
@@ -220,6 +221,20 @@ async function handleOrderPaid(eventId: string, data: OrderPaidData) {
       "product",
       productId,
     );
+  }
+
+  // 課程訂單付款成功 → 送 Purchase CAPI（server 側，authoritative）。用 enrollmentId
+  // 當 event_id 與 success 頁的 client pixel 去重。sendCapiEvent 內部已 try/catch，
+  // 不會拋錯，不影響本 webhook 既有的回應／冪等邏輯。
+  if (config.kind === "course" && enrollmentId) {
+    await sendCapiEvent({
+      eventName: "Purchase",
+      eventId: enrollmentId,
+      eventSourceUrl: "https://www.solo.tw/",
+      actionSource: "website",
+      user: { email },
+      customData: { value: amount, currency: "TWD" },
+    });
   }
 
   if (config.kind === "ai-coach-kit") {

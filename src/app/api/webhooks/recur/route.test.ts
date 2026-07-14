@@ -16,6 +16,9 @@ const PROD_ARMY_KIT = "g7i9iptfxfqxjip5jdr6hj90";
 const PROD_LECTURER_KIT = "lgzuc8wf1ulcw5qu8e78uxjs";
 // ai-coach-kit productId：見 src/lib/recur-product-config.ts AI_COACH_KIT_PRODUCT_ID。
 const PROD_AI_COACH_KIT = "xqvb9nqxtehhfesuhequm9jp";
+// course（kind: "course"）productId：Vibe Coding 實戰工作坊第 8 班，見
+// src/lib/recur-product-config.ts PRODUCT_CONFIG_MAP。
+const PROD_COURSE = "y7q482kwsc16h7iw3akwufzq";
 
 // Webhook route 只驗簽再解析 event；signature 驗證本身不是本測試範圍，直接把 payload
 // JSON.parse 回傳當作已驗證的 event。
@@ -31,6 +34,14 @@ vi.mock("recur-tw/server", () => {
 const sendEmail = vi.fn(async () => ({ success: true, data: { id: "msg" } }));
 vi.mock("@/lib/email", () => ({
   sendEmail: (args: { to: string | string[] }) => sendEmail(args),
+}));
+
+// Task 4：Purchase 事件的 server CAPI 呼叫，這裡只驗證 handleOrderPaid 有沒有正確
+// 帶 eventName/eventId/customData 呼叫它，不驗證 sendCapiEvent 內部的 fetch 行為
+// （那是 Task 1 meta-capi.test.ts 的範圍）。
+vi.mock("@/lib/meta-capi", () => ({
+  sendCapiEvent: vi.fn().mockResolvedValue(true),
+  parseFbCookies: () => ({}),
 }));
 
 let existingToken: string | null = null;
@@ -120,6 +131,7 @@ vi.mock("@supabase/supabase-js", () => ({
 }));
 
 import { POST } from "./route";
+import { sendCapiEvent } from "@/lib/meta-capi";
 
 function mockReq(body: unknown) {
   return new Request("http://localhost/api/webhooks/recur", {
@@ -138,6 +150,7 @@ beforeEach(() => {
   updateCalls.length = 0;
   sendEmail.mockClear();
   sendEmail.mockResolvedValue({ success: true, data: { id: "msg" } });
+  vi.mocked(sendCapiEvent).mockClear();
 });
 
 describe("ars-bundle fulfilment (order.paid webhook)", () => {
@@ -662,5 +675,48 @@ describe("refund.succeeded revokes download tokens (order-scoped, product-agnost
       }),
     );
     expect(res.status).toBe(200);
+  });
+});
+
+describe("course order.paid fulfilment sends a Purchase CAPI event (Task 4)", () => {
+  it("calls sendCapiEvent once with eventName Purchase, TWD currency, order amount as value, and the enrollmentId as eventId", async () => {
+    const res = await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-course-capi-1",
+        data: {
+          id: "order-course-capi-1",
+          amount: 12000,
+          product_id: PROD_COURSE,
+          customer: { email: "student@test.tw" },
+          metadata: { enrollment_id: "enroll-capi-1" },
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(sendCapiEvent).toHaveBeenCalledTimes(1);
+    expect(sendCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Purchase",
+        eventId: "enroll-capi-1",
+        customData: expect.objectContaining({ value: 12000, currency: "TWD" }),
+      }),
+    );
+  });
+
+  it("does not call sendCapiEvent for non-course order kinds (e.g. ars-bundle)", async () => {
+    await POST(
+      mockReq({
+        type: "order.paid",
+        id: "evt-course-capi-2",
+        data: {
+          id: "order-course-capi-2",
+          amount: 1980,
+          product_id: PROD_GRAD,
+          customer: { email: "buyer-ars@test.tw" },
+        },
+      }),
+    );
+    expect(sendCapiEvent).not.toHaveBeenCalled();
   });
 });
