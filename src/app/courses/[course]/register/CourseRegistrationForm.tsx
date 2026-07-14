@@ -167,12 +167,16 @@ export function CourseRegistrationForm({
         const customerName: string = json.customerName;
         const metadata: Record<string, string> = json.metadata ?? {};
 
-        const fbq =
-          typeof window !== "undefined"
-            ? (window as { fbq?: (...a: unknown[]) => void }).fbq
-            : undefined;
-        if (fbq) {
-          fbq("track", "Lead", { content_name: productId }, { eventID: enrollmentId });
+        try {
+          const fbq =
+            typeof window !== "undefined"
+              ? (window as { fbq?: (...a: unknown[]) => void }).fbq
+              : undefined;
+          if (fbq) {
+            fbq("track", "Lead", { content_name: productId }, { eventID: enrollmentId });
+          }
+        } catch {
+          // 追蹤失敗不可擋結帳
         }
 
         const recur = await loadRecurFromCdn(publishableKey);
