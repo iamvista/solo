@@ -167,6 +167,14 @@ export function CourseRegistrationForm({
         const customerName: string = json.customerName;
         const metadata: Record<string, string> = json.metadata ?? {};
 
+        const fbq =
+          typeof window !== "undefined"
+            ? (window as { fbq?: (...a: unknown[]) => void }).fbq
+            : undefined;
+        if (fbq) {
+          fbq("track", "Lead", { content_name: productId }, { eventID: enrollmentId });
+        }
+
         const recur = await loadRecurFromCdn(publishableKey);
         const successUrl = `${window.location.origin}${course.detailUrl}/register/success?enrollment_id=${enrollmentId}`;
         const cancelUrl = `${window.location.origin}${course.detailUrl}/register?cancelled=1`;

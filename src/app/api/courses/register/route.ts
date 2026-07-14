@@ -7,6 +7,7 @@ import {
 } from "@/lib/courses-config";
 import { normalizePhone } from "@/lib/phone";
 import { findActiveAffiliateByCode } from "@/lib/affiliates";
+import { sendCapiEvent, parseFbCookies } from "@/lib/meta-capi";
 
 export const runtime = "nodejs";
 
@@ -222,6 +223,23 @@ export async function POST(request: Request) {
     metadata.alumni_certificate = alumniCertificate.slice(0, 200);
   }
   if (referralCode) metadata.referral_code = referralCode;
+
+  const { fbp, fbc } = parseFbCookies(request.headers.get("cookie"));
+  await sendCapiEvent({
+    eventName: "Lead",
+    eventId: row.id,
+    eventSourceUrl: request.headers.get("referer") || "https://www.solo.tw/",
+    actionSource: "website",
+    user: {
+      email,
+      phone: phoneParsed.e164,
+      firstName: name,
+      fbp,
+      fbc,
+      clientIp: (request.headers.get("x-forwarded-for") || "").split(",")[0].trim() || undefined,
+      userAgent: request.headers.get("user-agent") || undefined,
+    },
+  });
 
   return Response.json({
     ok: true,
