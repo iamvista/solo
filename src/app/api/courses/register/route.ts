@@ -189,7 +189,7 @@ export async function POST(request: Request) {
     .limit(1)
     .maybeSingle();
 
-  const writeResult = existingPending
+  let writeResult = existingPending
     ? await supabase
         .from("course_enrollments")
         .update(enrollmentValues)
@@ -201,6 +201,30 @@ export async function POST(request: Request) {
         .insert(enrollmentValues)
         .select("id")
         .single();
+
+  // TOCTOU 防護：course_enrollments 有 partial unique index (course_id,email) WHERE status='pending'。
+  // 並發的第二個 INSERT 會撞 23505（唯一鍵衝突），退回抓對方剛插入的那筆 pending 改 UPDATE，
+  // 確保同人同課永遠只有一筆 pending，避免 markEnrollmentPaid 標錯列或 Purchase 重複計。
+  if (writeResult.error?.code === "23505" && !existingPending) {
+    const { data: raced } = await supabase
+      .from("course_enrollments")
+      .select("id")
+      .eq("course_id", course.slug)
+      .eq("email", email)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (raced) {
+      writeResult = await supabase
+        .from("course_enrollments")
+        .update(enrollmentValues)
+        .eq("id", raced.id)
+        .select("id")
+        .single();
+    }
+  }
+
   const row = writeResult.data;
   const error = writeResult.error;
 
