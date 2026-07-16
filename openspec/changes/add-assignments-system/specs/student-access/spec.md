@@ -50,6 +50,32 @@ The system SHALL send a magic link only to an eligible email. An ineligible emai
 - **AND** SHALL display a message identical to the eligible case
 - **AND** the response status and body MUST NOT differ from the eligible case
 
+### Requirement: Access requests are rate limited
+
+The system SHALL limit magic link requests both per client address and per submitted email address.
+
+Per-email limiting SHALL exist independently of per-client limiting, because a per-client limit alone does not stop an attacker from flooding one student's inbox from many clients.
+
+Both limits SHALL be evaluated on every request before eligibility is checked, and SHALL be applied whether or not the submitted address is enrolled. A limit evaluated only for enrolled addresses would make a throttled response a roster oracle, defeating the identical-response requirement.
+
+#### Scenario: Client exceeds the per-client limit
+
+- **WHEN** one client sends more magic link requests than the per-client limit allows within the window
+- **THEN** the system SHALL reject the excess requests
+- **AND** SHALL send no mail for them
+
+#### Scenario: One address is flooded from many clients
+
+- **WHEN** requests for a single email address exceed the per-email limit within the window, each from a different client
+- **THEN** the system SHALL reject the excess requests
+- **AND** SHALL send no mail for them
+
+#### Scenario: Throttling does not reveal enrollment
+
+- **GIVEN** an enrolled address and an unenrolled address
+- **WHEN** each is throttled
+- **THEN** both SHALL receive an identical response
+
 ### Requirement: Magic link tokens are single-use and short-lived
 
 The system SHALL issue each magic link as a random token bound to one email and one course, expiring 30 minutes after issue. A token SHALL be accepted at most once; the system SHALL record its use at verification.

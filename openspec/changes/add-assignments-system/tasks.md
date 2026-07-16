@@ -12,6 +12,8 @@
 - [x] 2.3 交付 `Magic link tokens are single-use and short-lived`：token 隨機、綁定單一 email 與 course、效期 30 分鐘，驗證時標記已用。`GET /api/assignments/access/verify` 對過期、已用、未知 token 一律拒絕並提供重新索取入口。驗證：測試涵蓋 spec 中 token verification outcomes 表格四列。
 - [x] 2.4 交付 `Student sessions are signed and revalidated on every request` 與 design.md「學員工作階段」：簽發 httpOnly、Secure、SameSite=Lax 的 HMAC 簽章 cookie（含 email 與 course_id，效期 30 天），每次請求重新驗章並重查報名資格為 `paid`。驗證：測試斷言竄改 cookie 內 email 後驗章失敗視同未登入；報名轉為 `refunded` 後既有 cookie 失效；A 課程 cookie 存取 B 課程遭拒且回應不含 B 課程資料。
 
+- [x] 2.5 交付 `Access requests are rate limited`：`POST /api/assignments/access/request` 沿用既有 `src/lib/rate-limit.ts`，同時做 per-IP 與 per-email 限流，兩者皆在資格查核之前對所有請求評估。驗證：測試斷言超量的 per-IP 與 per-email 請求皆遭拒且不寄信；已報名與未報名 email 被限流時回應完全相同。
+
 ## 3. 學員繳交流程
 
 - [ ] 3.1 交付 `Assignment visibility requires a verified session and publication`：無工作階段者見 email 索取表單且回應不含任何作業內容；持工作階段者僅見該課程已發布作業。驗證：測試涵蓋 spec 中 assignment list visibility 表格四列。
