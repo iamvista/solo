@@ -30,11 +30,11 @@
 
 ## 5. 老師後臺
 
-- [ ] 5.1 交付 `Teachers authenticate with the existing account system`，實現決策「老師沿用既有 Supabase Auth」：老師以既有登入進入 `/teach`，不另建密碼或憑證儲存；授權在 route handler 查 `course_teachers`，與學員端共用單一授權模型。驗證：測試斷言未登入者與已登入但無映射者皆被拒。
-- [ ] 5.2 交付 `Teachers reach only the courses they teach`：`/teach` 僅列出映射課程，請求未映射課程一律拒絕且不洩漏其作業、繳交、學員身分。驗證：測試涵蓋 spec 中 teaching surface access 表格五列，並斷言未映射課程的回應 body 不含任何該課程資料。
-- [ ] 5.3 交付 `Teachers define assignments per course`：老師可建立與編輯自己課程的作業與獎勵，含標題、說明、排序、截止日、發布狀態與三個繳交形式旗標；三者全關遭拒；截止日僅顯示不強制。驗證：測試斷言全關的作業建立請求遭拒；逾期提交仍被接受且未標記遲交。
-- [ ] 5.4 交付 `Teachers review submissions without gating rewards`：老師可讀繳交內容、下載附件、寫評語，寫入時記錄 `reviewed_by` 與 `reviewed_at`；批改不影響獎勵取用。驗證：測試斷言非授課老師寫評語遭拒且 submission 未變；持學員工作階段者無法為自己的 submission 寫評語。
-- [ ] 5.5 交付 `Teaching permission is separate from platform administration`：`/teach` 與既有 `/admin` 為獨立權限模型，不互相繼承、不共用 helper；既有 18 個 admin 頁面與 `isAdmin()` 零改動。驗證：測試斷言非管理者的老師可進 `/teach` 但被 `/admin` 拒絕；`git diff` 確認 `src/lib/supabase/admin.ts` 未被修改。
+- [x] 5.1 交付 `Teachers authenticate with the existing account system`，實現決策「老師沿用既有 Supabase Auth」：老師以既有登入進入 `/teach`，不另建密碼或憑證儲存；授權在 route handler 查 `course_teachers`，與學員端共用單一授權模型。驗證：測試斷言未登入者與已登入但無映射者皆被拒。
+- [x] 5.2 交付 `Teachers reach only the courses they teach`：`/teach` 僅列出映射課程，請求未映射課程一律拒絕且不洩漏其作業、繳交、學員身分。驗證：測試涵蓋 spec 中 teaching surface access 表格五列，並斷言未映射課程的回應 body 不含任何該課程資料。
+- [x] 5.3 交付 `Teachers define assignments per course`：老師可建立與編輯自己課程的作業與獎勵，含標題、說明、排序、截止日、發布狀態與三個繳交形式旗標；三者全關遭拒；截止日僅顯示不強制。驗證：測試斷言全關的作業建立請求遭拒；逾期提交仍被接受且未標記遲交。
+- [x] 5.4 交付 `Teachers review submissions without gating rewards`：老師可讀繳交內容、下載附件、寫評語，寫入時記錄 `reviewed_by` 與 `reviewed_at`；批改不影響獎勵取用。驗證：測試斷言非授課老師寫評語遭拒且 submission 未變；持學員工作階段者無法為自己的 submission 寫評語。
+- [x] 5.5 交付 `Teaching permission is separate from platform administration`：`/teach` 與既有 `/admin` 為獨立權限模型，不互相繼承、不共用 helper；既有 18 個 admin 頁面與 `isAdmin()` 零改動。驗證：測試斷言非管理者的老師可進 `/teach` 但被 `/admin` 拒絕；`git diff` 確認 `src/lib/supabase/admin.ts` 未被修改。
 
 ## 6. 整合與收尾
 

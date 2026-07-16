@@ -6,9 +6,11 @@ const AUTH_ROUTES = [
   "/dashboard",
   "/settings",
   "/admin",
+  "/teach",
   "/api/my-events",
   "/api/exp",
   "/api/admin",
+  "/api/teach",
   "/api/username",
   "/auth",
 ];

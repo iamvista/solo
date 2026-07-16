@@ -61,7 +61,7 @@ export async function getAssignment(
   return data as Assignment;
 }
 
-/** Published assignments for a course, in display order. */
+/** Published assignments for a course, in display order. Student surfaces. */
 export async function listPublishedAssignments(
   courseId: string,
 ): Promise<Assignment[]> {
@@ -71,6 +71,26 @@ export async function listPublishedAssignments(
     .select(ASSIGNMENT_COLUMNS)
     .eq("course_id", courseId)
     .eq("is_published", true)
+    .order("sort_order", { ascending: true });
+
+  if (error || !data) return [];
+  return data as Assignment[];
+}
+
+/**
+ * Every assignment for a course, published or not.
+ *
+ * Teacher surfaces only — a teacher needs to see drafts. Never call this from
+ * a student-facing path; use listPublishedAssignments there.
+ */
+export async function listAllAssignments(
+  courseId: string,
+): Promise<Assignment[]> {
+  const supabase = createServiceClient();
+  const { data, error } = await supabase
+    .from("assignments")
+    .select(ASSIGNMENT_COLUMNS)
+    .eq("course_id", courseId)
     .order("sort_order", { ascending: true });
 
   if (error || !data) return [];
