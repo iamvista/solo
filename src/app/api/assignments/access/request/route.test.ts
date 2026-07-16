@@ -7,6 +7,7 @@ const COURSE = "positioning-convergence"; // a real slug from courses-config.ts
 
 type Row = { email: string; name: string | null };
 let enrollmentRows: Row[] = [];
+let guestRow: Row | null = null;
 let insertError: unknown = null;
 const tokenInserts: Array<Record<string, unknown>> = [];
 
@@ -21,12 +22,18 @@ vi.mock("@/lib/supabase/service", () => ({
           },
         };
       }
-      // course_enrollments: read-only
+      // course_enrollments and course_guests: read-only here. Eligibility now
+      // means "paid OR admitted as a guest", so both tables get consulted.
+      const isGuests = table === "course_guests";
       return {
         select: () => {
           const chain = {
             eq: () => chain,
             ilike: () => Promise.resolve({ data: enrollmentRows, error: null }),
+            maybeSingle: async () => ({
+              data: isGuests ? guestRow : null,
+              error: null,
+            }),
           };
           return chain;
         },
@@ -69,6 +76,7 @@ async function snapshot(res: Response) {
 
 beforeEach(() => {
   enrollmentRows = [];
+  guestRow = null;
   insertError = null;
   tokenInserts.length = 0;
   sendEmail.mockClear();
@@ -153,6 +161,21 @@ describe("POST /api/assignments/access/request", () => {
 
     await POST(req({ courseId: COURSE, email: `  ${email.toUpperCase()} ` }));
 
+    expect(tokenInserts[0].email).toBe(email);
+  });
+});
+
+describe("guests", () => {
+  it("mails a guest who never paid", async () => {
+    // Guests are indistinguishable from paying students once admitted.
+    const email = freshEmail();
+    enrollmentRows = [];
+    guestRow = { email, name: "來賓小明" };
+
+    const res = await POST(req({ courseId: COURSE, email }));
+
+    expect(res.status).toBe(200);
+    expect(sendEmail).toHaveBeenCalledTimes(1);
     expect(tokenInserts[0].email).toBe(email);
   });
 });

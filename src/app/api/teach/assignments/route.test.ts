@@ -15,6 +15,13 @@ vi.mock("@/lib/teaching", async () => {
   };
 });
 
+const sendEmail = vi.fn();
+const sendBatchEmails = vi.fn();
+vi.mock("@/lib/email", () => ({
+  sendEmail: (...a: unknown[]) => sendEmail(...a),
+  sendBatchEmails: (...a: unknown[]) => sendBatchEmails(...a),
+}));
+
 vi.mock("@/lib/supabase/service", () => ({
   createServiceClient: () => ({
     from: () => ({
@@ -44,6 +51,8 @@ beforeEach(() => {
     .mockReset()
     .mockResolvedValue({ id: "t1", email: "teacher@example.com" });
   insert.mockReset();
+  sendEmail.mockReset();
+  sendBatchEmails.mockReset();
 });
 
 describe("POST /api/teach/assignments", () => {
@@ -95,6 +104,24 @@ describe("POST /api/teach/assignments", () => {
     // A half-written assignment must not appear to students the moment it is saved.
     await POST(req(base));
     expect(insert.mock.calls[0][0]).toMatchObject({ is_published: false });
+  });
+});
+
+describe("saving an assignment never mails anyone", () => {
+  // The load-bearing promise of this design: mail cannot be recalled, so a
+  // teacher fixing a typo must not mail the class again. Notifying is its own
+  // endpoint, triggered only by an explicit, confirmed action.
+
+  it("sends no mail when an assignment is created unpublished", async () => {
+    await POST(req(base));
+    expect(sendEmail).not.toHaveBeenCalled();
+    expect(sendBatchEmails).not.toHaveBeenCalled();
+  });
+
+  it("sends no mail when an assignment is created already published", async () => {
+    await POST(req({ ...base, is_published: true }));
+    expect(sendEmail).not.toHaveBeenCalled();
+    expect(sendBatchEmails).not.toHaveBeenCalled();
   });
 });
 
