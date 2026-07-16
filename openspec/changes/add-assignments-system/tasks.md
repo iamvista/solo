@@ -1,9 +1,9 @@
 ## 1. 資料層
 
-- [ ] 1.1 交付 design.md「資料模型」中的六張新表（`assignment_access_tokens`、`course_teachers`、`assignments`、`submissions`、`submission_files`、`rewards`），並實現 `New tables carry no access policies and all access passes through route handlers` 與決策「新表一律零 policy，授權全在 route handler」：每張表啟用 RLS 但不設任何 policy。`submissions` 以 `(assignment_id, student_email)` 唯一且無 status 欄位，體現決策「不建權益表，解鎖狀態由 submission 推導」。驗證：以 anon key 對每張新表 select / insert 皆回零列或遭拒；schema 中不存在 status 欄位與任何權益表。
-- [ ] 1.2 交付 `Rewards attach to exactly one assignment` 與 `Rewards carry one of three kinds` 的資料層約束，實現決策「獎勵一律掛在單一作業底下」：`assignment_id` NOT NULL 且 on delete cascade，`kind` 以 check 約束限定 `video` / `file` / `link`。驗證：插入 `assignment_id` 為 null 或 `kind` 非三者之一皆遭拒；刪除 assignment 後其 rewards 一併消失。
-- [ ] 1.3 交付 `A mapping table grants teaching permission per course`，實現決策「課程設定檔不搬進資料庫，改用 course_teachers 對應表」：`(course_id, teacher_id)` 唯一，`course_id` 以 text 弱連結既有課程設定檔。驗證：重複映射遭唯一約束拒絕；`git diff` 確認 `src/lib/courses-config.ts` 未被修改。
-- [ ] 1.4 交付 design.md「Storage」的私有 bucket，實現決策「Storage 零 policy，全走 server 簽發的 signed URL」：以 migration 建立 `public = false` 且零 policy 的 bucket 並納入 IaC。驗證：bucket 的 `public` 為 false；以 anon key 直接讀取 bucket 內物件遭拒。
+- [x] 1.1 交付 design.md「資料模型」中的六張新表（`assignment_access_tokens`、`course_teachers`、`assignments`、`submissions`、`submission_files`、`rewards`），並實現 `New tables carry no access policies and all access passes through route handlers` 與決策「新表一律零 policy，授權全在 route handler」：每張表啟用 RLS 但不設任何 policy。`submissions` 以 `(assignment_id, student_email)` 唯一且無 status 欄位，體現決策「不建權益表，解鎖狀態由 submission 推導」。驗證：以 anon key 對每張新表 select / insert 皆回零列或遭拒；schema 中不存在 status 欄位與任何權益表。
+- [x] 1.2 交付 `Rewards attach to exactly one assignment` 與 `Rewards carry one of three kinds` 的資料層約束，實現決策「獎勵一律掛在單一作業底下」：`assignment_id` NOT NULL 且 on delete cascade，`kind` 以 check 約束限定 `video` / `file` / `link`。驗證：插入 `assignment_id` 為 null 或 `kind` 非三者之一皆遭拒；刪除 assignment 後其 rewards 一併消失。
+- [x] 1.3 交付 `A mapping table grants teaching permission per course`，實現決策「課程設定檔不搬進資料庫，改用 course_teachers 對應表」：`(course_id, teacher_id)` 唯一，`course_id` 以 text 弱連結既有課程設定檔。驗證：重複映射遭唯一約束拒絕；`git diff` 確認 `src/lib/courses-config.ts` 未被修改。
+- [x] 1.4 交付 design.md「Storage」的私有 bucket，實現決策「Storage 零 policy，全走 server 簽發的 signed URL」：以 migration 建立 `public = false` 且零 policy 的 bucket 並納入 IaC。驗證：bucket 的 `public` 為 false；以 anon key 直接讀取 bucket 內物件遭拒。
 
 ## 2. 學員工作階段
 
