@@ -180,17 +180,35 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     detailUrl: "https://www.solo.tw/courses/positioning-convergence",
   },
 
-  // AI 賦能學術研究與寫作實戰工作坊（2026/9/12 臺北）
+  // AI 賦能學術研究與寫作實戰工作坊・第一期（2026/8/16 臺北）
+  // 每期一組獨立商品，不共用後改名：商品若跨期共用，第一期學員的收據會在
+  // 開第二期時變成第二期的日期，而 recur_product_id 也就分不出期別。
   b3dc06svryzlii74r2bpn6qo: {
     kind: "course",
     productId: "b3dc06svryzlii74r2bpn6qo",
-    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/9/12 臺北）",
+    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/8/16 臺北）",
     whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
   },
   u0rnbc9kgub6azuw44ub72ml: {
     kind: "course",
     productId: "u0rnbc9kgub6azuw44ub72ml",
+    productName: "AI 賦能學術研究與寫作實戰工作坊（2026/8/16 臺北）",
+    whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
+  },
+
+  // AI 賦能學術研究與寫作實戰工作坊・第二期（2026/9/12 臺北）
+  tpl4a90ujudu17w69oggetbk: {
+    kind: "course",
+    productId: "tpl4a90ujudu17w69oggetbk",
+    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/9/12 臺北）",
+    whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
+  },
+  dckcqar572yqgeij7ubqsljj: {
+    kind: "course",
+    productId: "dckcqar572yqgeij7ubqsljj",
     productName: "AI 賦能學術研究與寫作實戰工作坊（2026/9/12 臺北）",
     whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
