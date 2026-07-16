@@ -44,21 +44,21 @@ All three kinds SHALL be gated by the same unlock rule and SHALL differ only in 
 
 ### Requirement: Unlock is derived from submission existence
 
-The system SHALL determine reward access by whether a submission exists for that reward's assignment and the requesting account. The system SHALL NOT persist unlock state in a separate table, because unlock state is derivable and a stored copy would drift from the submissions it describes.
+The system SHALL determine reward access by whether a submission exists for that reward's assignment and the email held on the requesting student's verified session. The system SHALL NOT persist unlock state in a separate table, because unlock state is derivable and a stored copy would drift from the submissions it describes.
 
 Submitting SHALL unlock the assignment's rewards immediately, with no teacher action required. Teacher review SHALL NOT gate unlocking.
 
 #### Scenario: Student submits an assignment
 
 - **GIVEN** an assignment carrying a replay, a handout, and a booking link
-- **WHEN** an enrolled student submits that assignment
+- **WHEN** a student with a verified session submits that assignment
 - **THEN** all three rewards SHALL unlock immediately
 - **AND** they SHALL be presented on the same page as the submission form
 
 #### Scenario: Student has not submitted
 
 - **GIVEN** an assignment carrying rewards
-- **WHEN** an enrolled student who has not submitted requests one of its rewards
+- **WHEN** a student with a verified session who has not submitted requests one of its rewards
 - **THEN** the system SHALL deny access
 - **AND** the response MUST NOT contain the reward's URL or storage path
 
@@ -70,12 +70,13 @@ Submitting SHALL unlock the assignment's rewards immediately, with no teacher ac
 
 ##### Example: reward access outcomes
 
-| Enrollment status | Submission exists | Reviewed | Reward access |
-| ----------------- | ----------------- | -------- | ------------- |
-| `paid` | yes | yes | granted |
-| `paid` | yes | no | granted |
-| `paid` | no | n/a | denied |
-| none | no | n/a | denied |
+| Session state | Submission exists | Reviewed | Reward access |
+| ------------- | ----------------- | -------- | ------------- |
+| verified, this course | yes | yes | granted |
+| verified, this course | yes | no | granted |
+| verified, this course | no | n/a | denied |
+| verified, another course | yes | yes | denied |
+| none | n/a | n/a | denied |
 
 ### Requirement: Reward content is reachable only through server authorization
 
@@ -89,8 +90,8 @@ Clients MUST NOT cache signed URLs. When a signed URL expires, the client SHALL 
 - **WHEN** the student retries the download
 - **THEN** the client SHALL request a fresh signed URL rather than reuse the expired one
 
-#### Scenario: Account requests a reward for another student's submission
+#### Scenario: Student requests a reward unlocked by another student
 
 - **GIVEN** student A has submitted an assignment and student B has not
-- **WHEN** student B requests that assignment's rewards
-- **THEN** the system SHALL deny access, because no submission exists for student B
+- **WHEN** student B, holding a verified session, requests that assignment's rewards
+- **THEN** the system SHALL deny access, because no submission exists for student B's email

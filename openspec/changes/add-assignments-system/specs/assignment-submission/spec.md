@@ -23,53 +23,47 @@ The due date SHALL be displayed to students but SHALL NOT be enforced. Submissio
 #### Scenario: Student submits after the due date
 
 - **GIVEN** an assignment whose due date has passed
-- **WHEN** an enrolled student submits it
+- **WHEN** an eligible student submits it
 - **THEN** the submission SHALL be accepted
 - **AND** it SHALL NOT be flagged as late
 
-### Requirement: Assignment visibility requires paid enrollment and publication
+### Requirement: Assignment visibility requires a verified session and publication
 
-The system SHALL show an assignment to a student only when that student has an enrollment in the assignment's course with status `paid` and the assignment is published. A request that fails either condition MUST NOT disclose the assignment's title, description, or any submission by any student.
+The system SHALL show an assignment to a student only when that student holds a verified session for the assignment's course and the assignment is published. A request that fails either condition MUST NOT disclose the assignment's title, description, or any submission by any student.
 
-#### Scenario: Unauthenticated visitor requests an assignment
+#### Scenario: Visitor without a session requests an assignment
 
-- **WHEN** a visitor with no session requests an assignment page
-- **THEN** the system SHALL redirect to the sign-in page carrying a return URL
+- **WHEN** a visitor with no verified session requests an assignment page
+- **THEN** the system SHALL present the email request form
+- **AND** the response MUST NOT contain any assignment title, description, or content
 
-#### Scenario: Authenticated account without paid enrollment
+#### Scenario: Student requests an unpublished assignment
 
-- **GIVEN** an account with no `paid` enrollment for a course
-- **WHEN** that account requests an assignment page for that course
-- **THEN** the system SHALL present a not-enrolled notice linking to the course page
-- **AND** the response MUST NOT contain the assignment's title, description, or content
-
-#### Scenario: Enrolled student requests an unpublished assignment
-
-- **GIVEN** a student with a `paid` enrollment for a course
+- **GIVEN** a student holding a verified session for a course
 - **WHEN** that student requests an unpublished assignment in that course
 - **THEN** the system SHALL deny access
 - **AND** the assignment MUST NOT appear in that student's assignment list
 
 ##### Example: assignment list visibility
 
-| Enrollment status | Assignment published | Appears in student's list |
-| ----------------- | -------------------- | ------------------------- |
-| `paid` | yes | yes |
-| `paid` | no | no |
-| `pending` | yes | no |
+| Session state | Assignment published | Appears in student's list |
+| ------------- | -------------------- | ------------------------- |
+| verified for this course | yes | yes |
+| verified for this course | no | no |
+| verified for another course | yes | no |
 | none | yes | no |
 
 ### Requirement: Students submit assignments in the enabled forms
 
-The system SHALL allow an enrolled student to submit an assignment with any combination of the forms that assignment enables: uploaded files, text content, and an external link. The system SHALL reject content submitted in a form the assignment does not enable.
+The system SHALL allow a student holding a verified session to submit an assignment with any combination of the forms that assignment enables: uploaded files, text content, and an external link. The system SHALL reject content submitted in a form the assignment does not enable.
 
-Each student SHALL hold at most one submission per assignment, enforced by a unique constraint on the assignment and account pair.
+Submissions SHALL be keyed by the assignment and the student's email address, normalized to lower case. Each student SHALL hold at most one submission per assignment, enforced by a unique constraint on that pair.
 
 #### Scenario: Student submits text and a link
 
 - **GIVEN** an assignment that enables text and link but not file
-- **WHEN** an enrolled student submits text content and a link URL
-- **THEN** the submission SHALL be stored against that student and assignment
+- **WHEN** a student with a verified session submits text content and a link URL
+- **THEN** the submission SHALL be stored against that student's email and the assignment
 
 #### Scenario: Student submits in a disabled form
 
@@ -77,11 +71,22 @@ Each student SHALL hold at most one submission per assignment, enforced by a uni
 - **WHEN** a student requests an upload URL for that assignment
 - **THEN** the system SHALL reject the request
 
-#### Scenario: Non-enrolled account submits
+#### Scenario: Visitor without a session submits
 
-- **WHEN** an account without a `paid` enrollment submits an assignment
+- **WHEN** a request with no verified session submits an assignment
 - **THEN** the system SHALL reject the request
 - **AND** no submission record SHALL be created
+
+### Requirement: Students read only their own submissions
+
+The system SHALL scope every submission read by a student to the email held on their verified session. A student MUST NOT be able to read another student's submitted content, attachments, or teacher comment, whether by supplying another email, another submission identifier, or a modified cookie.
+
+#### Scenario: Student requests another student's submission by identifier
+
+- **GIVEN** student A holds a verified session and student B has submitted an assignment
+- **WHEN** student A requests student B's submission by its identifier
+- **THEN** the system SHALL deny the request
+- **AND** the response MUST NOT contain student B's content, attachments, or teacher comment
 
 ### Requirement: Resubmission overwrites the previous submission
 
@@ -97,22 +102,22 @@ The system SHALL let a student resubmit an assignment at any time. A resubmissio
 
 ### Requirement: File uploads bypass the application server
 
-The system SHALL store submitted files in a private storage bucket that carries no access policies. A client SHALL obtain a signed upload URL from the server, which SHALL verify paid enrollment before issuing it, and SHALL then transfer the file directly to storage.
+The system SHALL store submitted files in a private storage bucket that carries no access policies. A client SHALL obtain a signed upload URL from the server, which SHALL verify the student's session and eligibility before issuing it, and SHALL then transfer the file directly to storage.
 
 Files MUST NOT be routed through application route handlers, because the hosting platform imposes a 4.5MB request body limit that would cap attachment size.
 
-Uploaded files SHALL be keyed by course, assignment, and account so that ownership is derivable from the path.
+Storage paths MUST NOT embed the student's email address, so that personal data does not leak into storage keys. Ownership SHALL be recorded in the database rather than derived from the path.
 
-#### Scenario: Enrolled student uploads a file
+#### Scenario: Student with a session uploads a file
 
-- **WHEN** an enrolled student requests an upload URL for a file-enabled assignment
+- **WHEN** a student holding a verified session requests an upload URL for a file-enabled assignment
 - **THEN** the system SHALL return a signed upload URL and the storage path
 - **AND** the client SHALL transfer the file directly to storage without traversing a route handler
 
-#### Scenario: Non-enrolled account requests an upload URL
+#### Scenario: Request without a session asks for an upload URL
 
-- **WHEN** an account without a `paid` enrollment requests an upload URL
-- **THEN** the system SHALL reject the request and issue no signed URL
+- **WHEN** a request with no verified session asks for an upload URL
+- **THEN** the system SHALL reject it and issue no signed URL
 
 #### Scenario: Upload succeeds but submission fails
 
@@ -122,13 +127,13 @@ Uploaded files SHALL be keyed by course, assignment, and account so that ownersh
 - **AND** no submission record SHALL be created
 - **AND** the orphaned file SHALL remain in storage without a cleanup job
 
-### Requirement: Writes to submission data pass through authorized route handlers
+### Requirement: New tables carry no access policies and all access passes through route handlers
 
-Because the storage backend's anonymous key is public and reaches the database directly, the system SHALL define no write policies on assignment or submission tables. Every write SHALL pass through an application route handler that verifies authorization explicitly.
+Because students hold no database session, the database cannot identify a student and row-level policies cannot express student authorization. The system SHALL enable row-level security on every new table and SHALL define no policies on them, restricting direct access to the service role, matching the treatment of the existing enrollment table.
 
-This SHALL prevent a student from writing fields reserved for teachers, such as review comments, by calling the database directly.
+Every read and write SHALL pass through an application route handler that verifies authorization explicitly before using the service role. Authorization SHALL be concentrated in a single shared helper so that no student route can omit it.
 
-#### Scenario: Student writes directly to the database
+#### Scenario: Client reaches the database directly
 
-- **WHEN** a student uses the public anonymous key to write a submission record directly
-- **THEN** the write SHALL be rejected, because no write policy grants it
+- **WHEN** a client uses the public anonymous key to read or write any new table
+- **THEN** the request SHALL return no rows and perform no write, because no policy grants access
