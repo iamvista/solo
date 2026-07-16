@@ -2,7 +2,7 @@ import { createServiceClient } from "@/lib/supabase/service";
 import { getVerifiedStudent } from "@/lib/assignment-access";
 import { getAssignment, getOwnSubmission } from "@/lib/assignments";
 
-export type RewardKind = "video" | "file" | "link";
+export type RewardKind = "video" | "file" | "link" | "text";
 
 export interface Reward {
   id: string;
@@ -13,11 +13,13 @@ export interface Reward {
   video_url: string | null;
   storage_path: string | null;
   external_url: string | null;
+  /** kind="text" only: the passage itself, stored here rather than pointed at. */
+  body_text: string | null;
   sort_order: number;
 }
 
 const REWARD_COLUMNS =
-  "id, assignment_id, kind, title, description, video_url, storage_path, external_url, sort_order";
+  "id, assignment_id, kind, title, description, video_url, storage_path, external_url, body_text, sort_order";
 
 export async function listRewards(assignmentId: string): Promise<Reward[]> {
   if (!assignmentId) return [];

@@ -42,6 +42,14 @@ export async function GET(
     return NextResponse.json({ kind: "link", url: reward.external_url });
   }
 
+  // Handled for parity, so all four kinds share one authorization path. The
+  // student page does not call this for `text`: the passage is already in the
+  // database and the page has itself verified the submission, so a round trip
+  // would buy nothing.
+  if (reward.kind === "text" && reward.body_text) {
+    return NextResponse.json({ kind: "text", body: reward.body_text });
+  }
+
   if (reward.kind === "file" && reward.storage_path) {
     const supabase = createServiceClient();
     const { data, error } = await supabase.storage

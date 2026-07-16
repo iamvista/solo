@@ -5,9 +5,29 @@ import { Button } from "@/components/ui/button";
 
 export interface RewardCard {
   id: string;
-  kind: "video" | "file" | "link";
+  kind: "video" | "file" | "link" | "text";
   title: string;
   description: string | null;
+  /**
+   * kind="text" only. Passed straight from the server, which has already
+   * verified this student submitted — the other kinds fetch a URL on demand,
+   * but a passage that already sits in the database has nothing to fetch.
+   * Null for every other kind, so a locked passage never reaches the page.
+   */
+  body: string | null;
+}
+
+/**
+ * Rendered as plain text, never as markup. React escapes it, so a teacher
+ * pasting <b>bold</b> gets those characters shown literally rather than a
+ * bold word — which is exactly why this does not parse markdown.
+ */
+function TextReward({ reward }: { reward: RewardCard }) {
+  return (
+    <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700">
+      {reward.body}
+    </p>
+  );
 }
 
 /** Turn a watch URL into an embeddable one. Returns null when we cannot tell. */
@@ -141,7 +161,9 @@ export function RewardsSection({ rewards }: { rewards: RewardCard[] }) {
               </p>
             )}
             <div className="mt-2">
-              {reward.kind === "video" ? (
+              {reward.kind === "text" ? (
+                <TextReward reward={reward} />
+              ) : reward.kind === "video" ? (
                 <VideoReward reward={reward} />
               ) : (
                 <ActionReward reward={reward} />
