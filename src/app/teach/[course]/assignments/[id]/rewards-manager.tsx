@@ -17,6 +17,7 @@ export interface RewardRow {
   storage_path: string | null;
   external_url: string | null;
   body_text: string | null;
+  file_name: string | null;
 }
 
 const KIND_LABEL: Record<RewardKind, string> = {
@@ -46,9 +47,9 @@ function summarize(r: RewardRow): string {
     return body.length > 60 ? `${body.slice(0, 60)}……` : body;
   }
   if (r.kind === "file") {
-    // Show the filename, not the key: the path is plumbing the teacher never
-    // asked about and should not have to read.
-    return (r.storage_path ?? "").split("/").pop() ?? "";
+    // The original name, not the key. The key is ASCII-mangled plumbing the
+    // teacher never asked about and should not have to read.
+    return r.file_name ?? "已上傳的檔案";
   }
   return r.video_url ?? r.external_url ?? "";
 }
@@ -116,6 +117,7 @@ export function RewardsManager({
       if (kind === "file") {
         if (!file) throw new Error("請選擇要上傳的檔案");
         payload.storage_path = await uploadHandout(file);
+        payload.file_name = file.name;
       } else if (kind === "text") {
         payload.body_text = bodyText;
       } else {

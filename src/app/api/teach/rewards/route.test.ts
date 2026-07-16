@@ -118,6 +118,25 @@ describe("POST /api/teach/rewards", () => {
     }
   });
 
+  it("stores the handout's original filename alongside the key", async () => {
+    // The key is ASCII-mangled (Storage rejects non-ASCII), so 講義.pdf becomes
+    // something unreadable. Without the original name the teacher would be shown
+    // a broken-looking path — exactly what the design says they should never see.
+    await POST(
+      req({
+        ...base,
+        kind: "file",
+        storage_path: "rewards/course-x/a1b2-file.pdf",
+        file_name: "第一週講義.pdf",
+      }),
+    );
+
+    expect(insert.mock.calls[0][0]).toMatchObject({
+      storage_path: "rewards/course-x/a1b2-file.pdf",
+      file_name: "第一週講義.pdf",
+    });
+  });
+
   it("rejects an unknown kind", async () => {
     const res = await POST(req({ ...base, kind: "podcast", body_text: "x" }));
     expect(res.status).toBe(400);

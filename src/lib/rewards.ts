@@ -15,11 +15,19 @@ export interface Reward {
   external_url: string | null;
   /** kind="text" only: the passage itself, stored here rather than pointed at. */
   body_text: string | null;
+  /**
+   * kind="file" only: the handout's original filename.
+   *
+   * storage_path is ASCII-only because Storage rejects non-ASCII keys, so
+   * 講義.pdf becomes something like `a1b2-file.pdf`. That key is plumbing;
+   * this is what the teacher and student actually read.
+   */
+  file_name: string | null;
   sort_order: number;
 }
 
 const REWARD_COLUMNS =
-  "id, assignment_id, kind, title, description, video_url, storage_path, external_url, body_text, sort_order";
+  "id, assignment_id, kind, title, description, video_url, storage_path, external_url, body_text, file_name, sort_order";
 
 export async function listRewards(assignmentId: string): Promise<Reward[]> {
   if (!assignmentId) return [];

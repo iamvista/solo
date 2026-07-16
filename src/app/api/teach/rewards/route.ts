@@ -11,6 +11,7 @@ const EMPTY_PAYLOAD = {
   storage_path: null,
   external_url: null,
   body_text: null,
+  file_name: null,
 };
 
 /**
@@ -44,7 +45,10 @@ function parsePayload(
   }
   const path = String(body.storage_path ?? "").trim();
   if (!path) return { ok: false, error: "請先選擇講義檔案" };
-  return { ok: true, value: { ...EMPTY_PAYLOAD, storage_path: path } };
+  // The original name is carried alongside the key, never derived from it:
+  // the key has been ASCII-mangled and cannot be reversed.
+  const name = String(body.file_name ?? "").trim() || null;
+  return { ok: true, value: { ...EMPTY_PAYLOAD, storage_path: path, file_name: name } };
 }
 
 export async function POST(request: Request) {

@@ -32,6 +32,7 @@ function reward(overrides: Partial<Reward> = {}): Reward {
     storage_path: null,
     external_url: null,
     body_text: null,
+    file_name: null,
     sort_order: 0,
     ...overrides,
   };
