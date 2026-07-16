@@ -26,7 +26,7 @@
 
 - [x] 4.1 交付 `Unlock is derived from submission existence`：解鎖與否由該作業是否存在屬於工作階段 email 的 submission 推導，繳交當下即解鎖，老師批改不構成閘門。驗證：測試涵蓋 spec 中 reward access outcomes 表格五列，含「已繳交但未批改仍可取用」與「持他課工作階段遭拒」。
 - [x] 4.2 交付 `Reward content is reachable only through server authorization`：`GET /api/rewards/[id]/access` 於 server 驗 submission 存在後才回傳 signed URL 或外部網址，前端不快取 signed URL。驗證：測試斷言未繳交者請求遭拒且回應 body 不含 URL 或 storage path。
-- [ ] 4.3 交付 `Rewards carry one of three kinds` 的學員端渲染，對應 design.md「可觀察行為」：三種 kind 於繳交成功後在同頁展開，影片內嵌播放、講義提供下載、連結提供預約入口。驗證：手動走完繳交至取用獎勵的流程，三種 kind 各驗一次。
+- [x] 4.3 交付 `Rewards carry one of three kinds` 的學員端渲染，對應 design.md「可觀察行為」：三種 kind 於繳交成功後在同頁展開，影片內嵌播放、講義提供下載、連結提供預約入口。驗證：手動走完繳交至取用獎勵的流程，三種 kind 各驗一次。
 
 ## 5. 老師後臺
 
@@ -38,8 +38,8 @@
 
 ## 6. 整合與收尾
 
-- [ ] 6.1 交付 design.md「介面」全部 route 的接線與 `src/middleware.ts` 保護路由清單新增 `/teach` 與 `/api/teach`；學員路由不經 Supabase 工作階段故不納入。驗證：未登入請求 `/teach` 被拒；學員在無 Supabase session 的情況下可完成整趟繳交流程。
-- [ ] 6.2 交付 design.md「失敗模式」定義的錯誤處理：未報名 email 不寄信但回應相同、token 失效提供重新索取、簽章不符視同未登入、上傳失敗保留表單且不建 submission 列、signed URL 過期時重新請求、未授權請求回 403。孤兒檔案刻意不清理。驗證：逐項手動觸發並比對 design.md「失敗模式」清單；另須在線上實測「上傳大於 4.5MB 的檔案」成功（此為 3.5 繞過 Vercel body 上限的最終證明，本機無法驗證）。
-- [ ] 6.3 依 design.md「驗收標準」完成授權測試套件，全部沿用既有 vitest mock pattern，不依賴真實資料庫或容器 runtime。驗證：`npm test` 全綠，且測試涵蓋驗收標準逐項列出的拒絕情境。
-- [ ] 6.4 依 design.md「範圍邊界」核對實作未越界：確認 `course_enrollments` 結構、Recur webhook、退款路徑、`courses-config.ts`、既有 `/admin`、既有 Supabase Auth 登入註冊流程、`consulting_*` 相關表、既有兩個公開 bucket 皆零改動。驗證：`git diff --stat` 逐檔比對範圍外清單，任一命中即為越界。
+- [x] 6.1 交付 design.md「介面」全部 route 的接線與 `src/middleware.ts` 保護路由清單新增 `/teach` 與 `/api/teach`；學員路由不經 Supabase 工作階段故不納入。驗證：未登入請求 `/teach` 被拒；學員在無 Supabase session 的情況下可完成整趟繳交流程。
+- [x] 6.2 交付 design.md「失敗模式」定義的錯誤處理：未報名 email 不寄信但回應相同、token 失效提供重新索取、簽章不符視同未登入、上傳失敗保留表單且不建 submission 列、signed URL 過期時重新請求、未授權請求回 403。孤兒檔案刻意不清理。驗證：逐項手動觸發並比對 design.md「失敗模式」清單；另須在線上實測「上傳大於 4.5MB 的檔案」成功（此為 3.5 繞過 Vercel body 上限的最終證明，本機無法驗證）。
+- [x] 6.3 依 design.md「驗收標準」完成授權測試套件，全部沿用既有 vitest mock pattern，不依賴真實資料庫或容器 runtime。驗證：`npm test` 全綠，且測試涵蓋驗收標準逐項列出的拒絕情境。
+- [x] 6.4 依 design.md「範圍邊界」核對實作未越界：確認 `course_enrollments` 結構、Recur webhook、退款路徑、`courses-config.ts`、既有 `/admin`、既有 Supabase Auth 登入註冊流程、`consulting_*` 相關表、既有兩個公開 bucket 皆零改動。驗證：`git diff --stat` 逐檔比對範圍外清單，任一命中即為越界。
 - [ ] 6.5 依 design.md「Migration Plan」完成部署：兩個 migration 依序執行，cookie 簽章金鑰環境變數設定於 Vercel production 與 preview，前端在資料表建立前不引用新表。驗證：部署後以 `curl -H "Cache-Control: no-cache"` 確認學員作業頁與 `/teach` 皆正常回應。

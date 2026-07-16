@@ -159,17 +159,39 @@ export async function getSubmissionFiles(
 }
 
 /**
- * Strip everything that could steer a storage key somewhere unintended:
- * directory separators, traversal, leading dots, control characters.
+ * Reduce a browser-supplied filename to something Supabase Storage accepts as
+ * an object key.
+ *
+ * ASCII only, deliberately. Storage rejects non-ASCII keys outright
+ * (`InvalidKey`), so preserving Chinese here would make every 作業.pdf upload
+ * fail at the last step. The student's original filename is kept verbatim in
+ * submission_files.filename and is what both they and the teacher actually see
+ *: the key is plumbing, not a label.
+ *
+ * Also strips directory separators, traversal, leading dots, and control
+ * characters so a crafted name cannot steer the key out of its prefix.
  */
 export function safeFilename(raw: string): string {
-  const base = raw.split(/[/\\]/).pop() ?? "";
-  const cleaned = base
-    .replace(/[\x00-\x1f\x7f]/g, "")
-    .replace(/[^\w.\-一-鿿]/g, "_")
-    .replace(/^\.+/, "")
-    .slice(0, 120);
-  return cleaned || "file";
+  const base = (raw.split(/[/\\]/).pop() ?? "").replace(/[\x00-\x1f\x7f]/g, "");
+
+  // Stem and extension are sanitized separately. Sanitizing the whole string at
+  // once loses the extension when the stem is entirely non-ASCII: 作業.pdf
+  // collapses to "_.pdf", and stripping the leading punctuation then leaves a
+  // bare "pdf" with no extension at all.
+  const dot = base.lastIndexOf(".");
+  const rawStem = dot > 0 ? base.slice(0, dot) : base;
+  const rawExt = dot > 0 ? base.slice(dot + 1) : "";
+
+  const toAscii = (s: string) =>
+    s
+      .replace(/[^A-Za-z0-9_-]/g, "_")
+      .replace(/_{2,}/g, "_")
+      .replace(/^_+|_+$/g, "");
+
+  const stem = toAscii(rawStem).slice(0, 100) || "file";
+  const ext = toAscii(rawExt).slice(0, 16);
+
+  return ext ? `${stem}.${ext}` : stem;
 }
 
 /**
