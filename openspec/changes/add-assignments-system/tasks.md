@@ -24,8 +24,8 @@
 
 ## 4. 獎勵解鎖
 
-- [ ] 4.1 交付 `Unlock is derived from submission existence`：解鎖與否由該作業是否存在屬於工作階段 email 的 submission 推導，繳交當下即解鎖，老師批改不構成閘門。驗證：測試涵蓋 spec 中 reward access outcomes 表格五列，含「已繳交但未批改仍可取用」與「持他課工作階段遭拒」。
-- [ ] 4.2 交付 `Reward content is reachable only through server authorization`：`GET /api/rewards/[id]/access` 於 server 驗 submission 存在後才回傳 signed URL 或外部網址，前端不快取 signed URL。驗證：測試斷言未繳交者請求遭拒且回應 body 不含 URL 或 storage path。
+- [x] 4.1 交付 `Unlock is derived from submission existence`：解鎖與否由該作業是否存在屬於工作階段 email 的 submission 推導，繳交當下即解鎖，老師批改不構成閘門。驗證：測試涵蓋 spec 中 reward access outcomes 表格五列，含「已繳交但未批改仍可取用」與「持他課工作階段遭拒」。
+- [x] 4.2 交付 `Reward content is reachable only through server authorization`：`GET /api/rewards/[id]/access` 於 server 驗 submission 存在後才回傳 signed URL 或外部網址，前端不快取 signed URL。驗證：測試斷言未繳交者請求遭拒且回應 body 不含 URL 或 storage path。
 - [ ] 4.3 交付 `Rewards carry one of three kinds` 的學員端渲染，對應 design.md「可觀察行為」：三種 kind 於繳交成功後在同頁展開，影片內嵌播放、講義提供下載、連結提供預約入口。驗證：手動走完繳交至取用獎勵的流程，三種 kind 各驗一次。
 
 ## 5. 老師後臺

@@ -8,7 +8,9 @@ import {
   getOwnSubmission,
   getSubmissionFiles,
 } from "@/lib/assignments";
+import { listUnlockedRewards } from "@/lib/rewards";
 import { SubmitForm } from "./submit-form";
+import { RewardsSection } from "./rewards-section";
 
 interface PageProps {
   params: Promise<{ course: string; id: string }>;
@@ -39,7 +41,12 @@ export default async function AssignmentDetailPage({ params }: PageProps) {
   }
 
   const submission = await getOwnSubmission(assignment.id, student.email);
-  const files = submission ? await getSubmissionFiles(submission.id) : [];
+  const [files, rewards] = await Promise.all([
+    submission ? getSubmissionFiles(submission.id) : Promise.resolve([]),
+    // Returns [] until the student has submitted, so nothing about a locked
+    // reward — not even its title — reaches the page.
+    listUnlockedRewards(assignment.id, student.email),
+  ]);
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-16">
@@ -65,6 +72,15 @@ export default async function AssignmentDetailPage({ params }: PageProps) {
           {assignment.description}
         </div>
       )}
+
+      <RewardsSection
+        rewards={rewards.map((r) => ({
+          id: r.id,
+          kind: r.kind,
+          title: r.title,
+          description: r.description,
+        }))}
+      />
 
       {submission?.teacher_comment && (
         <section className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-5">
