@@ -180,18 +180,18 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     detailUrl: "https://www.solo.tw/courses/positioning-convergence",
   },
 
-  // AI 賦能學術研究與寫作實戰工作坊（2026/8/16 臺北）
+  // AI 賦能學術研究與寫作實戰工作坊（2026/9/12 臺北）
   b3dc06svryzlii74r2bpn6qo: {
     kind: "course",
     productId: "b3dc06svryzlii74r2bpn6qo",
-    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/8/16 臺北）",
+    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/9/12 臺北）",
     whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
   },
   u0rnbc9kgub6azuw44ub72ml: {
     kind: "course",
     productId: "u0rnbc9kgub6azuw44ub72ml",
-    productName: "AI 賦能學術研究與寫作實戰工作坊（2026/8/16 臺北）",
+    productName: "AI 賦能學術研究與寫作實戰工作坊（2026/9/12 臺北）",
     whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
   },

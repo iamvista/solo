@@ -178,7 +178,7 @@ export default function AiAcademicWritingPage() {
           instructor: "Vista",
           price: 4500,
           duration: "PT3H",
-          startDate: "2026-08-16",
+          startDate: "2026-09-12",
           location: "臺北市",
           image:
             "https://www.solo.tw/images/workshops/cover-ai-academic-writing.webp",
@@ -521,7 +521,7 @@ export default function AiAcademicWritingPage() {
                   <div className="space-y-3 text-base">
                     <div className="flex items-center gap-2">
                       <span>📅</span>
-                      <span className="font-medium">2026/8/16（日）</span>
+                      <span className="font-medium">2026/9/12（六）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
@@ -544,7 +544,7 @@ export default function AiAcademicWritingPage() {
                   {/* 右側：價格 */}
                   <div className="flex flex-col justify-center">
                     <div className="rounded-lg border border-primary/30 bg-background p-5 text-center">
-                      <p className="text-sm text-muted-foreground">早鳥價（8/2 前）</p>
+                      <p className="text-sm text-muted-foreground">早鳥價（8/12 前）</p>
                       <p className="mt-1 text-3xl font-bold text-foreground">NT$4,500</p>
                       <p className="mt-1 text-sm text-muted-foreground">
                         原價 <span className="line-through">NT$5,500</span>
@@ -557,7 +557,7 @@ export default function AiAcademicWritingPage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>早鳥價只到 8/2，限額 20 人，額滿即止——把握名額。</span>
+                  <span>早鳥價只到 8/12，限額 20 人，額滿即止——把握名額。</span>
                 </div>
 
                 {/* 課前準備 */}
