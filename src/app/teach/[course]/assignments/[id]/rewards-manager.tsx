@@ -2,25 +2,31 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { SUBMISSIONS_BUCKET } from "@/lib/assignments";
+
+export type RewardKind = "video" | "file" | "link" | "text";
 
 export interface RewardRow {
   id: string;
-  kind: "video" | "file" | "link";
+  kind: RewardKind;
   title: string;
   description: string | null;
   video_url: string | null;
   storage_path: string | null;
   external_url: string | null;
+  body_text: string | null;
 }
 
-const KIND_LABEL: Record<RewardRow["kind"], string> = {
+const KIND_LABEL: Record<RewardKind, string> = {
   video: "回放影片",
   file: "講義檔案",
   link: "預約連結",
+  text: "文字說明",
 };
 
-const PAYLOAD_FIELD: Record<RewardRow["kind"], { key: string; label: string; hint: string }> = {
+const URL_FIELD: Record<"video" | "link", { key: string; label: string; hint: string }> = {
   video: {
     key: "video_url",
     label: "影片網址",
@@ -31,12 +37,21 @@ const PAYLOAD_FIELD: Record<RewardRow["kind"], { key: string; label: string; hin
     label: "預約網址",
     hint: "例如你的 cal.com 連結。",
   },
-  file: {
-    key: "storage_path",
-    label: "講義的 storage 路徑",
-    hint: "私有 bucket 內的路徑，例如 rewards/course-x/handout.pdf。",
-  },
 };
+
+/** What the teacher sees in the list for an already-created reward. */
+function summarize(r: RewardRow): string {
+  if (r.kind === "text") {
+    const body = r.body_text ?? "";
+    return body.length > 60 ? `${body.slice(0, 60)}……` : body;
+  }
+  if (r.kind === "file") {
+    // Show the filename, not the key: the path is plumbing the teacher never
+    // asked about and should not have to read.
+    return (r.storage_path ?? "").split("/").pop() ?? "";
+  }
+  return r.video_url ?? r.external_url ?? "";
+}
 
 export function RewardsManager({
   assignmentId,
@@ -46,11 +61,45 @@ export function RewardsManager({
   rewards: RewardRow[];
 }) {
   const router = useRouter();
-  const [kind, setKind] = useState<RewardRow["kind"]>("video");
+  const [kind, setKind] = useState<RewardKind>("video");
   const [title, setTitle] = useState("");
-  const [payload, setPayload] = useState("");
+  const [url, setUrl] = useState("");
+  const [bodyText, setBodyText] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  function reset() {
+    setTitle("");
+    setUrl("");
+    setBodyText("");
+    setFile(null);
+  }
+
+  /**
+   * Upload the handout and return the key the server derived for it.
+   * The teacher never sees this value.
+   */
+  async function uploadHandout(f: File): Promise<string> {
+    const res = await fetch("/api/teach/rewards/upload-url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ assignment_id: assignmentId, filename: f.name }),
+    });
+    if (!res.ok) {
+      const b = await res.json().catch(() => ({}));
+      throw new Error(b.error ?? "無法建立上傳連結");
+    }
+
+    const { token, path } = await res.json();
+    const supabase = createClient();
+    const { error: upErr } = await supabase.storage
+      .from(SUBMISSIONS_BUCKET)
+      .uploadToSignedUrl(path, token, f);
+
+    if (upErr) throw new Error(`「${f.name}」上傳失敗`);
+    return path;
+  }
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -58,28 +107,40 @@ export function RewardsManager({
     setError(null);
 
     try {
+      const payload: Record<string, unknown> = {
+        assignment_id: assignmentId,
+        kind,
+        title,
+      };
+
+      if (kind === "file") {
+        if (!file) throw new Error("請選擇要上傳的檔案");
+        payload.storage_path = await uploadHandout(file);
+      } else if (kind === "text") {
+        payload.body_text = bodyText;
+      } else {
+        payload[URL_FIELD[kind].key] = url;
+      }
+
       const res = await fetch("/api/teach/rewards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          assignment_id: assignmentId,
-          kind,
-          title,
-          [PAYLOAD_FIELD[kind].key]: payload,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        setError(body.error ?? "建立失敗");
+        const b = await res.json().catch(() => ({}));
+        // Keep the form as it stands. If the handout already uploaded, its
+        // object is orphaned in the bucket by design; losing the teacher's
+        // typing on top of that would be the worse failure.
+        setError(b.error ?? "建立失敗");
         return;
       }
 
-      setTitle("");
-      setPayload("");
+      reset();
       router.refresh();
-    } catch {
-      setError("建立失敗，請再試一次。");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "建立失敗，請再試一次。");
     } finally {
       setBusy(false);
     }
@@ -114,9 +175,7 @@ export function RewardsManager({
                   {KIND_LABEL[r.kind]}
                 </span>
                 <span className="text-sm text-slate-900">{r.title}</span>
-                <p className="truncate text-xs text-slate-500">
-                  {r.video_url ?? r.external_url ?? r.storage_path}
-                </p>
+                <p className="truncate text-xs text-slate-500">{summarize(r)}</p>
               </div>
               <button
                 type="button"
@@ -136,12 +195,12 @@ export function RewardsManager({
           <select
             value={kind}
             onChange={(e) => {
-              setKind(e.target.value as RewardRow["kind"]);
-              setPayload("");
+              setKind(e.target.value as RewardKind);
+              reset();
             }}
             className="rounded-md border border-slate-300 px-3 py-2 text-sm"
           >
-            {(["video", "file", "link"] as const).map((k) => (
+            {(Object.keys(KIND_LABEL) as RewardKind[]).map((k) => (
               <option key={k} value={k}>
                 {KIND_LABEL[k]}
               </option>
@@ -156,18 +215,56 @@ export function RewardsManager({
           />
         </div>
 
-        <div>
-          <label className="block text-xs font-medium text-slate-700">
-            {PAYLOAD_FIELD[kind].label}
-          </label>
-          <input
-            value={payload}
-            onChange={(e) => setPayload(e.target.value)}
-            required
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-          />
-          <p className="mt-1 text-xs text-slate-500">{PAYLOAD_FIELD[kind].hint}</p>
-        </div>
+        {kind === "file" && (
+          <div>
+            <label className="block text-xs font-medium text-slate-700">
+              選擇講義檔案
+            </label>
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+              required
+              className="mt-1 block w-full text-sm text-slate-600 file:mr-3 file:rounded-md file:border-0 file:bg-slate-900 file:px-3 file:py-2 file:text-sm file:text-white"
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              檔案存在私有空間，只有交過這份作業的學員才拿得到。
+            </p>
+          </div>
+        )}
+
+        {kind === "text" && (
+          <div>
+            <label className="block text-xs font-medium text-slate-700">
+              要給學員看的文字
+            </label>
+            <textarea
+              value={bodyText}
+              onChange={(e) => setBodyText(e.target.value)}
+              required
+              rows={8}
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              placeholder="可以寫幾段話，或一整篇短文。換行會保留。"
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              純文字，換行會保留。不支援粗體、清單等 markdown 語法。
+            </p>
+          </div>
+        )}
+
+        {(kind === "video" || kind === "link") && (
+          <div>
+            <label className="block text-xs font-medium text-slate-700">
+              {URL_FIELD[kind].label}
+            </label>
+            <input
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              required
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            />
+            <p className="mt-1 text-xs text-slate-500">{URL_FIELD[kind].hint}</p>
+          </div>
+        )}
 
         <div className="flex items-center gap-3">
           <Button type="submit" disabled={busy} size="sm" variant="outline">

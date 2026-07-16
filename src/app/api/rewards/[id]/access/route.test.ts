@@ -31,6 +31,7 @@ function reward(overrides: Partial<Reward> = {}): Reward {
     video_url: "https://youtu.be/abc123",
     storage_path: null,
     external_url: null,
+    body_text: null,
     sort_order: 0,
     ...overrides,
   };
@@ -88,6 +89,33 @@ describe("GET /api/rewards/[id]/access", () => {
     const [path, ttl] = createSignedUrl.mock.calls[0];
     expect(path).toBe("rewards/course-x/handout.pdf");
     expect(ttl).toBeLessThanOrEqual(300);
+  });
+
+  it("returns the passage for a text reward", async () => {
+    mockAuthorize.mockResolvedValue({
+      ok: true,
+      reward: reward({
+        kind: "text",
+        video_url: null,
+        body_text: "交完了，這是給你的補充說明。\n第二段。",
+      }),
+    });
+
+    const body = await (await GET(req, ctx)).json();
+
+    expect(body).toEqual({
+      kind: "text",
+      body: "交完了，這是給你的補充說明。\n第二段。",
+    });
+    expect(createSignedUrl).not.toHaveBeenCalled();
+  });
+
+  it("refuses a text reward with no body", async () => {
+    mockAuthorize.mockResolvedValue({
+      ok: true,
+      reward: reward({ kind: "text", video_url: null, body_text: null }),
+    });
+    expect((await GET(req, ctx)).status).toBe(500);
   });
 
   it("denies a student who has not submitted, revealing nothing", async () => {

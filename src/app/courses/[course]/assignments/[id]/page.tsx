@@ -79,6 +79,9 @@ export default async function AssignmentDetailPage({ params }: PageProps) {
           kind: r.kind,
           title: r.title,
           description: r.description,
+          // listUnlockedRewards() returns [] until the student has submitted,
+          // so a locked passage never reaches the page in the first place.
+          body: r.body_text,
         }))}
       />
 

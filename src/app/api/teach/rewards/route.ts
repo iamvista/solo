@@ -3,13 +3,23 @@ import { createServiceClient } from "@/lib/supabase/service";
 import { getAssignment } from "@/lib/assignments";
 import { requireCourseTeacher } from "@/lib/teaching";
 
-const KINDS = ["video", "file", "link"] as const;
+const KINDS = ["video", "file", "link", "text"] as const;
 type Kind = (typeof KINDS)[number];
+
+const EMPTY_PAYLOAD = {
+  video_url: null,
+  storage_path: null,
+  external_url: null,
+  body_text: null,
+};
 
 /**
  * Each kind carries its payload in its own column, and the database enforces
  * the pairing with a check constraint. Validating here too means the teacher
  * gets told which field is missing instead of hitting a constraint violation.
+ *
+ * `text` differs from the other three in kind, not just in column: they point
+ * at content living elsewhere, it *is* the content.
  */
 function parsePayload(
   kind: Kind,
@@ -20,16 +30,21 @@ function parsePayload(
   if (kind === "video") {
     const url = String(body.video_url ?? "").trim();
     if (!url) return { ok: false, error: "請填寫影片網址" };
-    return { ok: true, value: { video_url: url, storage_path: null, external_url: null } };
+    return { ok: true, value: { ...EMPTY_PAYLOAD, video_url: url } };
   }
   if (kind === "link") {
     const url = String(body.external_url ?? "").trim();
     if (!url) return { ok: false, error: "請填寫連結網址" };
-    return { ok: true, value: { video_url: null, storage_path: null, external_url: url } };
+    return { ok: true, value: { ...EMPTY_PAYLOAD, external_url: url } };
+  }
+  if (kind === "text") {
+    const text = String(body.body_text ?? "").trim();
+    if (!text) return { ok: false, error: "請填寫要給學員的文字" };
+    return { ok: true, value: { ...EMPTY_PAYLOAD, body_text: text } };
   }
   const path = String(body.storage_path ?? "").trim();
-  if (!path) return { ok: false, error: "請先上傳講義檔案" };
-  return { ok: true, value: { video_url: null, storage_path: path, external_url: null } };
+  if (!path) return { ok: false, error: "請先選擇講義檔案" };
+  return { ok: true, value: { ...EMPTY_PAYLOAD, storage_path: path } };
 }
 
 export async function POST(request: Request) {
