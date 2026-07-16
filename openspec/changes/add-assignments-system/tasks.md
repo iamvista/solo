@@ -16,11 +16,11 @@
 
 ## 3. 學員繳交流程
 
-- [ ] 3.1 交付 `Assignment visibility requires a verified session and publication`：無工作階段者見 email 索取表單且回應不含任何作業內容；持工作階段者僅見該課程已發布作業。驗證：測試涵蓋 spec 中 assignment list visibility 表格四列。
-- [ ] 3.2 交付 `Students submit assignments in the enabled forms`：`POST /api/assignments/[id]/submit` 依作業啟用的形式收受文字、連結、檔案 metadata，未啟用的形式一律拒收，submission 以小寫 email 為鍵。驗證：測試斷言無工作階段的提交遭拒且無 submission 列建立；對 file 停用的作業請求 upload URL 遭拒。
-- [ ] 3.3 交付 `Students read only their own submissions`：所有學員端 submission 讀取一律以工作階段內的 email 收斂，無法以他人 email、他人 submission id 或竄改 cookie 取得他人資料。驗證：測試斷言學員 A 以 submission id 請求學員 B 的繳交遭拒，且回應不含 B 的內容、附件與評語。
-- [ ] 3.4 交付 `Resubmission overwrites the previous submission`：重繳就地更新同一列並推進 `updated_at`，不保留版本歷史。驗證：測試斷言同一 email 對同一作業連續兩次提交後僅存在一列且內容為後者。
-- [ ] 3.5 交付 `File uploads bypass the application server`：server 驗工作階段與資格後簽發 signed upload URL，client 直接 PUT 至 Supabase，繞過 Vercel 4.5MB body 上限；storage 路徑不含 email，擁有權記錄於資料庫。驗證：測試斷言無工作階段者拿不到 signed URL；檢查產生的路徑不含 email；手動以大於 4.5MB 的檔案完成上傳。
+- [x] 3.1 交付 `Assignment visibility requires a verified session and publication`：無工作階段者見 email 索取表單且回應不含任何作業內容；持工作階段者僅見該課程已發布作業。驗證：測試涵蓋 spec 中 assignment list visibility 表格四列。
+- [x] 3.2 交付 `Students submit assignments in the enabled forms`：`POST /api/assignments/[id]/submit` 依作業啟用的形式收受文字、連結、檔案 metadata，未啟用的形式一律拒收，submission 以小寫 email 為鍵。驗證：測試斷言無工作階段的提交遭拒且無 submission 列建立；對 file 停用的作業請求 upload URL 遭拒。
+- [x] 3.3 交付 `Students read only their own submissions`：所有學員端 submission 讀取一律以工作階段內的 email 收斂，無法以他人 email、他人 submission id 或竄改 cookie 取得他人資料。驗證：測試斷言學員 A 以 submission id 請求學員 B 的繳交遭拒，且回應不含 B 的內容、附件與評語。
+- [x] 3.4 交付 `Resubmission overwrites the previous submission`：重繳就地更新同一列並推進 `updated_at`，不保留版本歷史。驗證：測試斷言同一 email 對同一作業連續兩次提交後僅存在一列且內容為後者。
+- [x] 3.5 交付 `File uploads bypass the application server`：server 驗工作階段與資格後簽發 signed upload URL，client 直接 PUT 至 Supabase，繞過 Vercel 4.5MB body 上限；storage 路徑不含 email，擁有權記錄於資料庫。驗證：測試斷言無工作階段者拿不到 signed URL；檢查產生的路徑不含 email 且無法被檔名帶出前綴。（大於 4.5MB 的實檔上傳需線上環境，移至 6.2 手動驗證。）
 
 ## 4. 獎勵解鎖
 
@@ -39,7 +39,7 @@
 ## 6. 整合與收尾
 
 - [ ] 6.1 交付 design.md「介面」全部 route 的接線與 `src/middleware.ts` 保護路由清單新增 `/teach` 與 `/api/teach`；學員路由不經 Supabase 工作階段故不納入。驗證：未登入請求 `/teach` 被拒；學員在無 Supabase session 的情況下可完成整趟繳交流程。
-- [ ] 6.2 交付 design.md「失敗模式」定義的錯誤處理：未報名 email 不寄信但回應相同、token 失效提供重新索取、簽章不符視同未登入、上傳失敗保留表單且不建 submission 列、signed URL 過期時重新請求、未授權請求回 403。孤兒檔案刻意不清理。驗證：逐項手動觸發並比對 design.md「失敗模式」清單。
+- [ ] 6.2 交付 design.md「失敗模式」定義的錯誤處理：未報名 email 不寄信但回應相同、token 失效提供重新索取、簽章不符視同未登入、上傳失敗保留表單且不建 submission 列、signed URL 過期時重新請求、未授權請求回 403。孤兒檔案刻意不清理。驗證：逐項手動觸發並比對 design.md「失敗模式」清單；另須在線上實測「上傳大於 4.5MB 的檔案」成功（此為 3.5 繞過 Vercel body 上限的最終證明，本機無法驗證）。
 - [ ] 6.3 依 design.md「驗收標準」完成授權測試套件，全部沿用既有 vitest mock pattern，不依賴真實資料庫或容器 runtime。驗證：`npm test` 全綠，且測試涵蓋驗收標準逐項列出的拒絕情境。
 - [ ] 6.4 依 design.md「範圍邊界」核對實作未越界：確認 `course_enrollments` 結構、Recur webhook、退款路徑、`courses-config.ts`、既有 `/admin`、既有 Supabase Auth 登入註冊流程、`consulting_*` 相關表、既有兩個公開 bucket 皆零改動。驗證：`git diff --stat` 逐檔比對範圍外清單，任一命中即為越界。
 - [ ] 6.5 依 design.md「Migration Plan」完成部署：兩個 migration 依序執行，cookie 簽章金鑰環境變數設定於 Vercel production 與 preview，前端在資料表建立前不引用新表。驗證：部署後以 `curl -H "Cache-Control: no-cache"` 確認學員作業頁與 `/teach` 皆正常回應。
