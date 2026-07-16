@@ -38,12 +38,20 @@ export default async function TeachCoursePage({ params }: PageProps) {
           <h1 className="text-2xl font-bold text-slate-900">{course.title}</h1>
           <p className="mt-1 text-sm text-slate-500">作業與資源</p>
         </div>
-        <Link
-          href={`/teach/${slug}/assignments/new`}
-          className="shrink-0 rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
-        >
-          新增作業
-        </Link>
+        <div className="flex shrink-0 gap-2">
+          <Link
+            href={`/teach/${slug}/roster`}
+            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:border-slate-500"
+          >
+            手動加入學員
+          </Link>
+          <Link
+            href={`/teach/${slug}/assignments/new`}
+            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
+          >
+            新增作業
+          </Link>
+        </div>
       </div>
 
       {assignments.length === 0 ? (

@@ -4,10 +4,15 @@ import type { Metadata } from "next";
 import { getCourseConfig } from "@/lib/courses-config";
 import { getAssignment, getSubmissionFiles } from "@/lib/assignments";
 import { listRewards } from "@/lib/rewards";
-import { listSubmissions, requireCourseTeacher } from "@/lib/teaching";
+import {
+  getLastNotification,
+  listSubmissions,
+  requireCourseTeacher,
+} from "@/lib/teaching";
 import { AssignmentForm } from "../../assignment-form";
 import { ReviewForm } from "./review-form";
 import { RewardsManager } from "./rewards-manager";
+import { NotifyButton } from "./notify-button";
 
 interface PageProps {
   params: Promise<{ course: string; id: string }>;
@@ -32,9 +37,10 @@ export default async function TeachAssignmentPage({ params }: PageProps) {
   // course's URL.
   if (!assignment || assignment.course_id !== slug) notFound();
 
-  const [submissions, rewards] = await Promise.all([
+  const [submissions, rewards, lastNotification] = await Promise.all([
     listSubmissions(assignment.id),
     listRewards(assignment.id),
+    getLastNotification(assignment.id),
   ]);
   const filesBySubmission = new Map(
     await Promise.all(
@@ -64,6 +70,15 @@ export default async function TeachAssignmentPage({ params }: PageProps) {
       <p className="mt-1 text-sm text-slate-500">
         收到 {submissions.length} 份繳交
       </p>
+
+      <div className="mt-6">
+        <NotifyButton
+          assignmentId={assignment.id}
+          isPublished={assignment.is_published}
+          lastNotifiedAt={lastNotification?.sent_at ?? null}
+          lastRecipientCount={lastNotification?.recipient_count ?? null}
+        />
+      </div>
 
       <details className="mt-6 rounded-lg border border-slate-200 bg-white p-5">
         <summary className="cursor-pointer text-sm font-medium text-slate-900">

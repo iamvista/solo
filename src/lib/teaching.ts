@@ -158,3 +158,25 @@ export async function getSubmissionCourse(
 
   return { assignmentId: joined.assignment_id, courseId: assignments.course_id };
 }
+
+export interface LastNotification {
+  sent_at: string;
+  recipient_count: number;
+}
+
+/** The most recent notification for an assignment, or null if never sent. */
+export async function getLastNotification(
+  assignmentId: string,
+): Promise<LastNotification | null> {
+  const supabase = createServiceClient();
+  const { data, error } = await supabase
+    .from("assignment_notifications")
+    .select("sent_at, recipient_count")
+    .eq("assignment_id", assignmentId)
+    .order("sent_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return data as LastNotification;
+}

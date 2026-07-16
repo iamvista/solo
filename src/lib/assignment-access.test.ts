@@ -5,6 +5,7 @@ process.env.ASSIGNMENT_SESSION_SECRET = "s".repeat(32);
 type Row = { email: string; name: string | null };
 
 let rows: Row[] = [];
+let guestRow: Row | null = null;
 let queryError: unknown = null;
 const filters: Array<[string, unknown]> = [];
 const tablesTouched: string[] = [];
@@ -23,21 +24,36 @@ vi.mock("@/lib/supabase/service", () => ({
   createServiceClient: () => ({
     from: (table: string) => {
       tablesTouched.push(table);
+      const isGuests = table === "course_guests";
       return {
+        // Writes are forbidden on course_enrollments specifically; the guest
+        // table is writable in production but nothing in this module writes.
         insert: forbiddenWrite,
         update: forbiddenWrite,
         upsert: forbiddenWrite,
         delete: forbiddenWrite,
         select: () => {
+          // The chain is thenable: some callers end at .eq() and await the
+          // builder directly (listEligibleStudents), others end at .ilike()
+          // or .maybeSingle().
+          const result = () => ({
+            data: isGuests ? (guestRow ? [guestRow] : []) : rows,
+            error: queryError,
+          });
           const chain = {
             eq: (col: string, val: unknown) => {
-              filters.push([col, val]);
+              filters.push([`${table}.${col}`, val]);
               return chain;
             },
             ilike: (col: string, val: unknown) => {
-              filters.push([col, val]);
+              filters.push([`${table}.${col}`, val]);
               return Promise.resolve({ data: rows, error: queryError });
             },
+            maybeSingle: async () => ({
+              data: isGuests ? guestRow : null,
+              error: queryError,
+            }),
+            then: (resolve: (v: unknown) => unknown) => resolve(result()),
           };
           return chain;
         },
@@ -51,15 +67,19 @@ vi.mock("next/headers", () => ({
   cookies: async () => ({ get: cookieGet }),
 }));
 
-const { findEligibleStudent, getVerifiedStudent, normalizeEmail } = await import(
-  "./assignment-access"
-);
+const {
+  findEligibleStudent,
+  getVerifiedStudent,
+  listEligibleStudents,
+  normalizeEmail,
+} = await import("./assignment-access");
 const { generateSessionToken, sessionCookieName } = await import(
   "./assignment-session"
 );
 
 beforeEach(() => {
   rows = [];
+  guestRow = null;
   queryError = null;
   filters.length = 0;
   tablesTouched.length = 0;
@@ -71,9 +91,9 @@ describe("findEligibleStudent", () => {
     rows = [{ email: "student@example.com", name: "王小明" }];
     await findEligibleStudent("course-x", "student@example.com");
 
-    expect(tablesTouched).toEqual(["course_enrollments"]);
-    expect(filters).toContainEqual(["status", "paid"]);
-    expect(filters).toContainEqual(["course_id", "course-x"]);
+    expect(tablesTouched[0]).toBe("course_enrollments");
+    expect(filters).toContainEqual(["course_enrollments.status", "paid"]);
+    expect(filters).toContainEqual(["course_enrollments.course_id", "course-x"]);
   });
 
   it("resolves an enrolled student and returns the enrollment name", async () => {
@@ -123,6 +143,96 @@ describe("findEligibleStudent", () => {
     await expect(
       findEligibleStudent("course-x", "student@example.com"),
     ).resolves.toEqual({ email: "student@example.com", name: "" });
+  });
+});
+
+describe("findEligibleStudent: guest roster", () => {
+  it("admits a guest who never paid", async () => {
+    rows = [];
+    guestRow = { email: "guest@example.com", name: "來賓小明" };
+
+    await expect(
+      findEligibleStudent("course-x", "guest@example.com"),
+    ).resolves.toEqual({ email: "guest@example.com", name: "來賓小明" });
+  });
+
+  it("scopes the guest lookup to the course and the address", async () => {
+    rows = [];
+    guestRow = { email: "guest@example.com", name: "來賓" };
+    await findEligibleStudent("course-x", "guest@example.com");
+
+    expect(filters).toContainEqual(["course_guests.course_id", "course-x"]);
+    expect(filters).toContainEqual(["course_guests.email", "guest@example.com"]);
+  });
+
+  it("does not consult the guest roster when the student already paid", async () => {
+    // Paying students are the common case and must cost one query, not two.
+    rows = [{ email: "student@example.com", name: "付費學員" }];
+    guestRow = { email: "student@example.com", name: "來賓名" };
+
+    const result = await findEligibleStudent("course-x", "student@example.com");
+
+    expect(result).toEqual({ email: "student@example.com", name: "付費學員" });
+    expect(tablesTouched).not.toContain("course_guests");
+  });
+
+  it("keeps access for a refunded student who is on the guest roster", async () => {
+    // The two grants are independent: the teacher's admission stands on its own
+    // terms, whatever the payment later did.
+    rows = []; // refunded, so the paid query returns nothing
+    guestRow = { email: "both@example.com", name: "退款但受邀" };
+
+    await expect(
+      findEligibleStudent("course-x", "both@example.com"),
+    ).resolves.toEqual({ email: "both@example.com", name: "退款但受邀" });
+  });
+
+  it("refuses someone who neither paid nor was admitted", async () => {
+    rows = [];
+    guestRow = null;
+    await expect(
+      findEligibleStudent("course-x", "stranger@example.com"),
+    ).resolves.toBeNull();
+  });
+
+  it("never writes to course_enrollments while admitting a guest", async () => {
+    // The whole reason guests exist: admitting someone must not fabricate a
+    // payment record. The mock throws on any write.
+    rows = [];
+    guestRow = { email: "guest@example.com", name: "來賓" };
+    await expect(
+      findEligibleStudent("course-x", "guest@example.com"),
+    ).resolves.not.toBeNull();
+  });
+});
+
+describe("listEligibleStudents", () => {
+  it("returns paying students and guests together", async () => {
+    rows = [{ email: "payer@example.com", name: "付費學員" }];
+    guestRow = { email: "guest@example.com", name: "來賓" };
+
+    const result = await listEligibleStudents("course-x");
+
+    expect(result.map((s) => s.email).sort()).toEqual([
+      "guest@example.com",
+      "payer@example.com",
+    ]);
+  });
+
+  it("collapses someone who both paid and was admitted into one person", async () => {
+    // One human, one mail.
+    rows = [{ email: "both@example.com", name: "付費名" }];
+    guestRow = { email: "both@example.com", name: "來賓名" };
+
+    const result = await listEligibleStudents("course-x");
+
+    expect(result).toHaveLength(1);
+    // The paid record wins: it is read first and is the more authoritative name.
+    expect(result[0]).toEqual({ email: "both@example.com", name: "付費名" });
+  });
+
+  it("returns nothing for a blank course", async () => {
+    await expect(listEligibleStudents("")).resolves.toEqual([]);
   });
 });
 
