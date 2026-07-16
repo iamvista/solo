@@ -18,4 +18,4 @@
 - [x] 4.1 依 design.md「失敗模式」完成錯誤處理：上傳失敗保留表單且不建資源、空白 text 遭拒、非授課老師索取 upload URL 回 403。孤兒檔案刻意不清理。驗證：逐項比對 design.md「失敗模式」清單。
 - [x] 4.2 依 design.md「驗收標準」完成全套驗證：`npm test` 全綠、`next build` 成功、新檔零 tsc 錯誤。驗證：三者皆通過且既有 tsc 錯誤數不增加。
 - [x] 4.3 依 design.md「範圍邊界」核對未越界：`course_enrollments`、Recur 與結帳退款、`courses-config.ts`、`/admin` 與 `isAdmin()`、學員繳交流程與 magic link、`assignments`／`submissions`／`submission_files` 三表皆零改動。驗證：`git diff --stat` 逐檔比對範圍外清單。
-- [ ] 4.4 **老師從瀏覽器實際上傳一份講義，並由學員端下載成功**：此為本變更的核心目的，不接受以單元測試代替（既有的 `file` 缺陷正是因為只有腳本測過而未從瀏覽器走過才漏掉）。驗證：於線上或本機 production build 實際操作一次，並在事後清除測試資料。
+- [x] 4.4 **老師從瀏覽器實際上傳一份講義，並由學員端下載成功**：此為本變更的核心目的，不接受以單元測試代替（既有的 `file` 缺陷正是因為只有腳本測過而未從瀏覽器走過才漏掉）。驗證：於線上或本機 production build 實際操作一次，並在事後清除測試資料。
