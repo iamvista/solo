@@ -7,10 +7,10 @@
 
 ## 2. 學員工作階段
 
-- [ ] 2.1 交付 `Students reach the assignment area without an account` 與 `Enrollment records are read but never modified` 的資格查核 helper：以小寫正規化的 email 查 `course_enrollments` 是否存在該課程 `status='paid'` 紀錄，並取回報名時的姓名供稱呼之用，全程唯讀。驗證：測試涵蓋 spec 中 eligibility by enrollment state 表格五列；斷言整個流程對 `course_enrollments` 零寫入。
-- [ ] 2.2 交付 `Access requests do not disclose enrollment membership`，實現決策「學員不使用帳號系統，改以 magic link 驗證 email 所有權」：`POST /api/assignments/access/request` 對已報名者以既有 Resend 寄出 magic link，對未報名者不寄信，兩者回應完全一致。驗證：測試斷言兩種情境的 status 與 body 相同，且僅前者觸發寄信。
-- [ ] 2.3 交付 `Magic link tokens are single-use and short-lived`：token 隨機、綁定單一 email 與 course、效期 30 分鐘，驗證時標記已用。`GET /api/assignments/access/verify` 對過期、已用、未知 token 一律拒絕並提供重新索取入口。驗證：測試涵蓋 spec 中 token verification outcomes 表格四列。
-- [ ] 2.4 交付 `Student sessions are signed and revalidated on every request` 與 design.md「學員工作階段」：簽發 httpOnly、Secure、SameSite=Lax 的 HMAC 簽章 cookie（含 email 與 course_id，效期 30 天），每次請求重新驗章並重查報名資格為 `paid`。驗證：測試斷言竄改 cookie 內 email 後驗章失敗視同未登入；報名轉為 `refunded` 後既有 cookie 失效；A 課程 cookie 存取 B 課程遭拒且回應不含 B 課程資料。
+- [x] 2.1 交付 `Students reach the assignment area without an account` 與 `Enrollment records are read but never modified` 的資格查核 helper：以小寫正規化的 email 查 `course_enrollments` 是否存在該課程 `status='paid'` 紀錄，並取回報名時的姓名供稱呼之用，全程唯讀。驗證：測試涵蓋 spec 中 eligibility by enrollment state 表格五列；斷言整個流程對 `course_enrollments` 零寫入。
+- [x] 2.2 交付 `Access requests do not disclose enrollment membership`，實現決策「學員不使用帳號系統，改以 magic link 驗證 email 所有權」：`POST /api/assignments/access/request` 對已報名者以既有 Resend 寄出 magic link，對未報名者不寄信，兩者回應完全一致。驗證：測試斷言兩種情境的 status 與 body 相同，且僅前者觸發寄信。
+- [x] 2.3 交付 `Magic link tokens are single-use and short-lived`：token 隨機、綁定單一 email 與 course、效期 30 分鐘，驗證時標記已用。`GET /api/assignments/access/verify` 對過期、已用、未知 token 一律拒絕並提供重新索取入口。驗證：測試涵蓋 spec 中 token verification outcomes 表格四列。
+- [x] 2.4 交付 `Student sessions are signed and revalidated on every request` 與 design.md「學員工作階段」：簽發 httpOnly、Secure、SameSite=Lax 的 HMAC 簽章 cookie（含 email 與 course_id，效期 30 天），每次請求重新驗章並重查報名資格為 `paid`。驗證：測試斷言竄改 cookie 內 email 後驗章失敗視同未登入；報名轉為 `refunded` 後既有 cookie 失效；A 課程 cookie 存取 B 課程遭拒且回應不含 B 課程資料。
 
 ## 3. 學員繳交流程
 
