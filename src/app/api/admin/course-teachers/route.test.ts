@@ -3,18 +3,22 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 const COURSE = "positioning-convergence"; // a real slug from courses-config.ts
 
 const mockIsAdmin = vi.fn();
+const mockFindUser = vi.fn();
 const teacherInsert = vi.fn();
 const teacherDelete = vi.fn();
-let listUsersResult: { data: { users: Array<{ id: string; email: string }> }; error: unknown };
+let foundUser: { id: string; email: string } | null = null;
 let insertError: { code?: string } | null = null;
 
 vi.mock("@/lib/supabase/admin", () => ({
   isAdmin: () => mockIsAdmin(),
 }));
 
+vi.mock("@/lib/auth-users", () => ({
+  findAuthUserByEmail: (email: string) => mockFindUser(email),
+}));
+
 vi.mock("@/lib/supabase/service", () => ({
   createServiceClient: () => ({
-    auth: { admin: { listUsers: async () => listUsersResult } },
     from: () => ({
       insert: async (row: Record<string, unknown>) => {
         teacherInsert(row);
@@ -46,10 +50,8 @@ beforeEach(() => {
   teacherInsert.mockReset();
   teacherDelete.mockReset();
   insertError = null;
-  listUsersResult = {
-    data: { users: [{ id: "u1", email: "susie@example.com" }] },
-    error: null,
-  };
+  foundUser = { id: "u1", email: "susie@example.com" };
+  mockFindUser.mockReset().mockImplementation(async () => foundUser);
 });
 
 describe("POST /api/admin/course-teachers", () => {
@@ -90,14 +92,30 @@ describe("POST /api/admin/course-teachers", () => {
 
   it("matches the account case-insensitively", async () => {
     await POST(post({ ...base, email: "  SUSIE@Example.com " }));
+    expect(mockFindUser).toHaveBeenCalledWith("susie@example.com");
     expect(teacherInsert).toHaveBeenCalledWith({
       course_id: COURSE,
       teacher_id: "u1",
     });
   });
 
+  it("finds accounts beyond the first page of users", async () => {
+    // listUsers() 每頁 50 筆，早期註冊的帳號會落在第一頁之外。這支 route
+    // 曾經因此對已註冊的人回「找不到這個帳號」。分頁封在 findAuthUserByEmail，
+    // 這裡確認 route 不再自己呼叫 listUsers。
+    //
+    // 斷言對準「呼叫」而非整份文字：註解裡提到 listUsers 是合法的，
+    // 用 toContain 掃全文會被自己的註解弄紅。
+    const source = await import("node:fs").then((fs) =>
+      fs.readFileSync("src/app/api/admin/course-teachers/route.ts", "utf8"),
+    );
+
+    expect(source).not.toMatch(/admin\.listUsers\s*\(/);
+    expect(source).toMatch(/findAuthUserByEmail\s*\(/);
+  });
+
   it("refuses an email with no account", async () => {
-    listUsersResult = { data: { users: [] }, error: null };
+    foundUser = null;
 
     const res = await POST(post(base));
 
