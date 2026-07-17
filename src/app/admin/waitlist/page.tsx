@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
 import { fetchWaitlist, timeslotDistribution } from "@/lib/waitlist-query";
 import { timeslotLabel } from "@/lib/waitlist-timeslots";
+import { sourceLabel } from "@/lib/waitlist-source";
 import { WAITLIST_INTENTS } from "@/lib/waitlist";
 import { BroadcastPanel } from "./BroadcastPanel";
 
@@ -125,6 +126,7 @@ export default async function AdminWaitlistPage({
               <tr>
                 <th className="p-3">建立時間</th>
                 <th className="p-3">課程</th>
+                <th className="p-3">來源</th>
                 <th className="p-3">類型</th>
                 <th className="p-3">姓名</th>
                 <th className="p-3">E-mail</th>
@@ -140,6 +142,9 @@ export default async function AdminWaitlistPage({
                     {new Date(r.created_at).toLocaleString("zh-TW")}
                   </td>
                   <td className="p-3">{r.course_slug}</td>
+                  <td className="p-3 text-stone-500">
+                    {sourceLabel(r.source_page)}
+                  </td>
                   <td className="p-3">{INTENT_LABELS[r.intent] ?? r.intent}</td>
                   <td className="p-3">{r.name}</td>
                   <td className="p-3">{r.email}</td>
@@ -160,7 +165,7 @@ export default async function AdminWaitlistPage({
               ))}
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="p-6 text-center text-stone-400">
+                  <td colSpan={9} className="p-6 text-center text-stone-400">
                     目前沒有候補資料
                   </td>
                 </tr>
