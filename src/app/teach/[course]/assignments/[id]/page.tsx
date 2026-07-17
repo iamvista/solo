@@ -9,6 +9,7 @@ import {
   listSubmissions,
   requireCourseTeacher,
 } from "@/lib/teaching";
+import { SubmissionAttachments } from "@/components/course/SubmissionAttachments";
 import { AssignmentForm } from "../../assignment-form";
 import { ReviewForm } from "./review-form";
 import { RewardsManager } from "./rewards-manager";
@@ -150,15 +151,14 @@ export default async function TeachAssignmentPage({ params }: PageProps) {
                   </p>
                 )}
 
-                {files.length > 0 && (
-                  <ul className="mt-3 space-y-1">
-                    {files.map((f) => (
-                      <li key={f.id} className="text-sm text-slate-600">
-                        📎 {f.filename}（{Math.round(f.size_bytes / 1024)} KB）
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <SubmissionAttachments
+                  files={files.map((f) => ({
+                    id: f.id,
+                    filename: f.filename,
+                    size_bytes: f.size_bytes,
+                    mime_type: f.mime_type,
+                  }))}
+                />
 
                 <ReviewForm
                   submissionId={s.id}

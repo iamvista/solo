@@ -112,7 +112,12 @@ export default async function AssignmentDetailPage({ params }: PageProps) {
           allowLink={assignment.allow_link}
           initialText={submission?.text_content ?? ""}
           initialLink={submission?.link_url ?? ""}
-          existingFiles={files.map((f) => ({ id: f.id, filename: f.filename }))}
+          existingFiles={files.map((f) => ({
+            id: f.id,
+            filename: f.filename,
+            size_bytes: f.size_bytes,
+            mime_type: f.mime_type,
+          }))}
           hasSubmitted={Boolean(submission)}
         />
       </section>
