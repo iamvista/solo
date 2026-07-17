@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { COURSE_CONFIGS, getCourseConfig } from "@/lib/courses-config";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isAdmin } from "@/lib/supabase/admin";
+import { getAuthEmails } from "@/lib/auth-users";
 import { TeachersManager, type TeacherRow } from "./teachers-manager";
 
 export const metadata: Metadata = {
@@ -21,12 +22,12 @@ export default async function CourseTeachersPage() {
     .select("id, course_id, teacher_id")
     .order("created_at", { ascending: false });
 
-  const { data: users } = await supabase.auth.admin.listUsers();
-  const emailById = new Map(
-    (users?.users ?? []).map((u) => [u.id, u.email ?? ""]),
-  );
-
   const teacherIds = (rows ?? []).map((r) => r.teacher_id);
+
+  // 逐一以 id 查，不撈全部再比對：listUsers() 每頁 50 筆，早期註冊的帳號
+  // 會落在第一頁之外，於是畫面顯示「帳號已刪除」——但那個人好端端的。
+  const emailById = await getAuthEmails(teacherIds);
+
   const { data: profiles } = teacherIds.length
     ? await supabase.from("profiles").select("id, display_name").in("id", teacherIds)
     : { data: [] };

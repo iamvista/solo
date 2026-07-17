@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { getCourseConfig } from "@/lib/courses-config";
 import { isAdmin } from "@/lib/supabase/admin";
+import { findAuthUserByEmail } from "@/lib/auth-users";
 
 /**
  * Assign or remove course teachers.
@@ -38,19 +39,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "請填寫 email" }, { status: 400 });
   }
 
-  const supabase = createServiceClient();
-
   // The teacher must already hold an account: teaching uses the site's existing
   // sign-in, so there is nothing to map an unregistered address to.
-  const { data: users, error: userError } = await supabase.auth.admin.listUsers();
-  if (userError) {
-    console.error("listUsers error:", userError);
-    return NextResponse.json({ error: "查詢失敗" }, { status: 500 });
-  }
-
-  const user = users.users.find(
-    (u) => (u.email ?? "").toLowerCase() === email,
-  );
+  //
+  // findAuthUserByEmail paginates. listUsers() alone defaults to 50 per page,
+  // which silently excluded the earliest-registered accounts and made this
+  // endpoint tell the truth-shaped lie "no such account, please register".
+  const user = await findAuthUserByEmail(email);
   if (!user) {
     return NextResponse.json(
       { error: "找不到這個帳號，請對方先到 solo.tw 註冊" },
@@ -58,6 +53,7 @@ export async function POST(request: Request) {
     );
   }
 
+  const supabase = createServiceClient();
   const { error } = await supabase
     .from("course_teachers")
     .insert({ course_id: courseId, teacher_id: user.id });
