@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { RegistrationForm } from "./RegistrationForm";
-import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title:
@@ -512,7 +511,6 @@ export default function AiMonetizationInstitutePage() {
             <div className="mt-10">
               <RegistrationForm />
             </div>
-            <CourseNotifyEntry slug="ai-monetization-institute" />
           </section>
 
           {/* ====== Takeaways ====== */}

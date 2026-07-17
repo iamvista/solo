@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
-import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 
 export const metadata: Metadata = {
   title: "樂齡資產安全與傳承實戰課 | solo.tw",
@@ -517,7 +516,6 @@ export default function SeniorAssetSafetyPage() {
               </div>
             </CardContent>
           </Card>
-          <CourseNotifyEntry slug="senior-asset-safety" />
         </section>
 
         {/* FAQ */}
