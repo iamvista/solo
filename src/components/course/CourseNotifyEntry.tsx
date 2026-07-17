@@ -1,4 +1,4 @@
-import { workshops } from "@/lib/workshops";
+import { getWorkshopBySlug } from "@/lib/workshops";
 import { NextCohortNotify } from "./NextCohortNotify";
 
 /**
@@ -6,7 +6,7 @@ import { NextCohortNotify } from "./NextCohortNotify";
  * 免得 9 個手寫銷售頁各自硬編碼一份會漂移的課程資料。
  */
 export function CourseNotifyEntry({ slug }: { slug: string }) {
-  const workshop = workshops.find((w) => w.id === slug);
+  const workshop = getWorkshopBySlug(slug);
   if (!workshop) return null;
 
   return (

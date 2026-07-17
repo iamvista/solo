@@ -331,6 +331,11 @@ export const workshops: Workshop[] = [
   },
 ];
 
+/** 取課程（依 slug）。課程頁的通知入口共用這支，免得各入口各查一份而漂移。 */
+export function getWorkshopBySlug(slug: string): Workshop | undefined {
+  return workshops.find((w) => w.id === slug);
+}
+
 /** 取得有作者頁的老師（依 slug） */
 export function getInstructorBySlug(slug: string): Instructor | undefined {
   return workshops.map((w) => w.instructor).find((i) => i.slug === slug);

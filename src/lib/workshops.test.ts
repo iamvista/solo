@@ -3,7 +3,19 @@ import {
   getInstructorBySlug,
   getAllInstructorSlugs,
   getInstructorWorkshops,
+  getWorkshopBySlug,
+  workshops,
 } from "./workshops";
+
+describe("getWorkshopBySlug", () => {
+  it("finds a workshop by its slug", () => {
+    const first = workshops[0];
+    expect(getWorkshopBySlug(first.id)?.id).toBe(first.id);
+  });
+  it("returns undefined for unknown slug", () => {
+    expect(getWorkshopBySlug("no-such-course")).toBeUndefined();
+  });
+});
 
 describe("getAllInstructorSlugs", () => {
   it("includes vista", () => {
