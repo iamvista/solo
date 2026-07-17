@@ -5,9 +5,13 @@ import { createClient as createServiceClient } from "@supabase/supabase-js";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { isAdmin } from "@/lib/supabase/admin";
-import { fetchWaitlist, timeslotDistribution } from "@/lib/waitlist-query";
+import {
+  fetchWaitlist,
+  fetchWaitlistCourses,
+  timeslotDistribution,
+} from "@/lib/waitlist-query";
 import { timeslotLabel } from "@/lib/waitlist-timeslots";
-import { sourceLabel } from "@/lib/waitlist-source";
+import { sourceLabel, courseLabel } from "@/lib/waitlist-source";
 import { WAITLIST_INTENTS } from "@/lib/waitlist";
 import { BroadcastPanel } from "./BroadcastPanel";
 
@@ -42,7 +46,10 @@ export default async function AdminWaitlistPage({
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
-  const { rows } = await fetchWaitlist(supabase, filters);
+  const [{ rows }, courses] = await Promise.all([
+    fetchWaitlist(supabase, filters),
+    fetchWaitlistCourses(supabase),
+  ]);
   const dist = timeslotDistribution(rows);
   const activeCount = rows.filter((r) => !r.unsubscribed_at).length;
 
@@ -52,6 +59,16 @@ export default async function AdminWaitlistPage({
   const exportHref = `/api/admin/waitlist/export${
     exportParams.toString() ? `?${exportParams}` : ""
   }`;
+
+  const clearCourseHref = (() => {
+    const p = new URLSearchParams(
+      Object.entries(filters).filter(([k, v]) => v && k !== "course") as [
+        string,
+        string,
+      ][],
+    );
+    return `/admin/waitlist${p.toString() ? `?${p}` : ""}`;
+  })();
 
   const intentHref = (intent?: string) => {
     const p = new URLSearchParams(
@@ -75,6 +92,50 @@ export default async function AdminWaitlistPage({
           <a href={exportHref}>📄 匯出 CSV</a>
         </Button>
       </div>
+
+      {/* 課程篩選。廣播的收件範圍由它決定，所以擺在最前面。 */}
+      <form
+        method="get"
+        action="/admin/waitlist"
+        className="mb-4 flex flex-wrap items-center gap-2 text-sm"
+      >
+        {filters.intent && (
+          <input type="hidden" name="intent" value={filters.intent} />
+        )}
+        {filters.campaign && (
+          <input type="hidden" name="campaign" value={filters.campaign} />
+        )}
+        {filters.instructor && (
+          <input type="hidden" name="instructor" value={filters.instructor} />
+        )}
+        <label htmlFor="course" className="text-stone-500">
+          課程：
+        </label>
+        <select
+          id="course"
+          name="course"
+          defaultValue={filters.course ?? ""}
+          className="rounded-md border border-stone-200 bg-white px-3 py-1.5 text-stone-800"
+        >
+          <option value="">全部課程</option>
+          {courses.map((c) => (
+            <option key={c} value={c}>
+              {courseLabel(c)}
+            </option>
+          ))}
+        </select>
+        <Button type="submit" variant="outline" size="sm">
+          篩選
+        </Button>
+        {filters.course && (
+          <Link
+            href={clearCourseHref}
+            className="text-stone-500 underline underline-offset-4 hover:text-stone-800"
+          >
+            清除課程篩選
+          </Link>
+        )}
+      </form>
 
       <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
         <span className="text-stone-500">名單類型：</span>
