@@ -100,7 +100,8 @@ describe("POST /api/admin/waitlist/broadcast", () => {
 
   it("requires cohort date and enrol url before sending", async () => {
     fetchRows.mockResolvedValue({ rows: [row(1)], error: null });
-    const res = await POST(req({ filters: {}, confirm: true }));
+    // 必須帶 course：否則會先被課程閘門擋下，這條就測不到日期與連結的檢查了
+    const res = await POST(req({ filters: { course: "ai-content" }, confirm: true }));
     expect(res.status).toBe(400);
     expect(sendBatchEmails).not.toHaveBeenCalled();
   });
@@ -152,5 +153,63 @@ describe("POST /api/admin/waitlist/broadcast", () => {
     const res = await POST(req({ ...valid, confirm: true }));
     expect(await res.json()).toMatchObject({ recipientCount: 0, sent: 0 });
     expect(sendBatchEmails).not.toHaveBeenCalled();
+  });
+});
+
+/**
+ * 一則公告只帶一個梯次日期與一條報名連結，但每封信的標題用的是收件人自己的
+ * 課程名稱。跨課程寄出時，非目標課程的每個人都會收到自己的課名配上別堂課的
+ * 日期與連結。
+ */
+describe("a broadcast without a course is refused", () => {
+  it("refuses a confirmed send whose filters name no course", async () => {
+    fetchRows.mockResolvedValue({ rows: [row(1), row(2)], error: null });
+    const res = await POST(
+      req({
+        filters: {},
+        cohortDate: "2026/08/15（六）",
+        enrolUrl: "https://www.solo.tw/courses/ai-content",
+        confirm: true,
+      }),
+    );
+    expect(res.status).toBe(400);
+    // 重點不是「少寄幾封」，是一封都不寄
+    expect(sendBatchEmails).not.toHaveBeenCalled();
+    expect(notifiedIds).toEqual([]);
+    expect((await res.json()).error).toMatch(/課程/);
+  });
+
+  it("refuses when filters are omitted entirely", async () => {
+    fetchRows.mockResolvedValue({ rows: [row(1)], error: null });
+    const res = await POST(
+      req({
+        cohortDate: "2026/08/15（六）",
+        enrolUrl: "https://www.solo.tw/courses/ai-content",
+        confirm: true,
+      }),
+    );
+    expect(res.status).toBe(400);
+    expect(sendBatchEmails).not.toHaveBeenCalled();
+  });
+
+  it("refuses an intent-only filter, which would still span courses", async () => {
+    fetchRows.mockResolvedValue({ rows: [row(1)], error: null });
+    const res = await POST(
+      req({
+        filters: { intent: "date_conflict" },
+        cohortDate: "2026/08/15（六）",
+        enrolUrl: "https://www.solo.tw/courses/ai-content",
+        confirm: true,
+      }),
+    );
+    expect(res.status).toBe(400);
+    expect(sendBatchEmails).not.toHaveBeenCalled();
+  });
+
+  it("refuses the preview too, so the operator learns before counting", async () => {
+    const res = await POST(req({ filters: {}, confirm: false }));
+    expect(res.status).toBe(400);
+    // 連查都不查：擋在算人數之前
+    expect(fetchRows).not.toHaveBeenCalled();
   });
 });

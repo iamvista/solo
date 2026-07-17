@@ -1,3 +1,13 @@
+import { getWorkshopBySlug } from "@/lib/workshops";
+
+/**
+ * 課程在後臺選單上的顯示名稱。查無標題就退回 slug：這份名單來自 course_waitlist
+ * 的實際資料，可能包含已從 workshops 移除的舊課程，那些候補者仍在名單上。
+ */
+export function courseLabel(slug: string): string {
+  return getWorkshopBySlug(slug)?.title ?? slug;
+}
+
 /**
  * 把 source_page 轉成後臺看得懂的入口標示。
  *

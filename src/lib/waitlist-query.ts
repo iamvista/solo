@@ -66,6 +66,21 @@ export async function fetchWaitlist(
   return { rows: (data || []) as WaitlistRow[], error: error?.message ?? null };
 }
 
+/**
+ * 有候補資料的課程清單，供後臺的課程選單使用。
+ *
+ * 刻意不列 workshops 的全部課程：選單是用來選廣播對象的，列出零候補者的課程
+ * 只會讓操作者選到一個空集合。也刻意不從當前篩選結果推導：已選課程時，
+ * 那份結果只會剩下該課程，選單就再也切不回別門課。
+ */
+export async function fetchWaitlistCourses(
+  supabase: SupabaseClient,
+): Promise<string[]> {
+  const { data } = await supabase.from("course_waitlist").select("course_slug");
+  const slugs = (data || []).map((r: { course_slug: string }) => r.course_slug);
+  return Array.from(new Set(slugs)).sort();
+}
+
 /** 偏好時段分佈，供後臺判斷下一梯該排在什麼時候。 */
 export function timeslotDistribution(
   rows: WaitlistRow[],

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { WaitlistFilters } from "@/lib/waitlist-query";
+import { courseLabel } from "@/lib/waitlist-source";
 
 type Phase = "idle" | "previewing" | "confirming" | "sending" | "done";
 
@@ -76,11 +77,28 @@ export function BroadcastPanel({ filters }: { filters: WaitlistFilters }) {
     );
   }
 
+  // 一則公告只帶一個梯次日期與一條報名連結，但每封信的標題用的是收件人自己的
+  // 課程名稱。未選課程就寄，等於讓其他課的候補者收到自己的課名配上別堂課的
+  // 日期與連結。後端也會擋，這裡是不讓操作者走到那一步。
+  if (!filters.course) {
+    return (
+      <div className="rounded-lg border border-stone-200 bg-white p-4">
+        <h2 className="text-sm font-semibold text-stone-900">廣播開課通知</h2>
+        <p className="mt-1 text-xs text-stone-500">
+          請先在上方選擇課程。一則公告只帶一個梯次日期與報名連結，
+          跨課程寄出會讓其他課的候補者收到錯誤的日期與連結。
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg border border-stone-200 bg-white p-4">
-      <h2 className="text-sm font-semibold text-stone-900">廣播開課通知</h2>
+      <h2 className="text-sm font-semibold text-stone-900">
+        廣播開課通知：{courseLabel(filters.course)}
+      </h2>
       <p className="mt-1 text-xs text-stone-500">
-        寄給目前篩選出的名單（自動排除已退訂者）。梯次日期與報名連結在這裡填，
+        寄給這門課目前篩選出的名單（自動排除已退訂者）。梯次日期與報名連結在這裡填，
         不讀自課程設定檔。
       </p>
 

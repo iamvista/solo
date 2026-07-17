@@ -1,5 +1,18 @@
 import { describe, it, expect } from "vitest";
-import { sourceLabel } from "./waitlist-source";
+import { sourceLabel, courseLabel } from "./waitlist-source";
+import { workshops } from "./workshops";
+
+describe("courseLabel", () => {
+  it("shows the course title rather than the slug", () => {
+    const w = workshops[0];
+    expect(courseLabel(w.id)).toBe(w.title);
+  });
+
+  it("falls back to the slug for a course no longer in the catalogue", () => {
+    // course_waitlist 可能留有已下架課程的候補者，他們不該從選單消失
+    expect(courseLabel("ai-social-content-old")).toBe("ai-social-content-old");
+  });
+});
 
 describe("sourceLabel", () => {
   it.each([

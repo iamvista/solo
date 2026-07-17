@@ -40,6 +40,17 @@ export async function POST(request: NextRequest) {
   }
 
   const filters = body.filters ?? {};
+
+  // 一則公告只帶一個梯次日期與一條報名連結，但每封信的標題用的是收件人自己的
+  // 課程名稱。跨課程寄出時，非目標課程的每個人都會收到自己的課名配上別堂課的
+  // 日期與連結。信寄出去收不回來，所以這裡擋在算人數之前。
+  if (!filters.course) {
+    return NextResponse.json(
+      { error: "廣播必須指定課程：一則公告只帶一個梯次日期與報名連結，跨課程寄出會讓其他課的候補者收到錯誤資訊。" },
+      { status: 400 },
+    );
+  }
+
   const supabase = createServiceClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
