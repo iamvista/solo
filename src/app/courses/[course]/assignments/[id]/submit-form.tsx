@@ -5,11 +5,10 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { SUBMISSIONS_BUCKET } from "@/lib/assignments";
-
-interface ExistingFile {
-  id: string;
-  filename: string;
-}
+import {
+  SubmissionAttachments,
+  type AttachmentView,
+} from "@/components/course/SubmissionAttachments";
 
 interface Props {
   assignmentId: string;
@@ -18,7 +17,7 @@ interface Props {
   allowLink: boolean;
   initialText: string;
   initialLink: string;
-  existingFiles: ExistingFile[];
+  existingFiles: AttachmentView[];
   hasSubmitted: boolean;
 }
 
@@ -150,13 +149,10 @@ export function SubmitForm({
             上傳檔案
           </label>
           {existingFiles.length > 0 && (
-            <ul className="mt-1 space-y-1">
-              {existingFiles.map((f) => (
-                <li key={f.id} className="text-xs text-slate-500">
-                  目前已附：{f.filename}
-                </li>
-              ))}
-            </ul>
+            <>
+              <p className="mt-1 text-xs text-slate-500">目前已附：</p>
+              <SubmissionAttachments files={existingFiles} />
+            </>
           )}
           <input
             type="file"
