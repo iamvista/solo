@@ -57,6 +57,7 @@ function assignment(overrides: Partial<Assignment> = {}): Assignment {
   return {
     id: ASSIGNMENT_ID,
     course_id: COURSE,
+    cohort_key: "1",
     title: "第一份作業",
     description: null,
     sort_order: 0,
@@ -86,7 +87,11 @@ beforeEach(() => {
   mockGetAssignment.mockReset().mockResolvedValue(assignment());
   mockGetVerifiedStudent
     .mockReset()
-    .mockResolvedValue({ email: "student@example.com", name: "王小明" });
+    .mockResolvedValue({
+      email: "student@example.com",
+      name: "王小明",
+      cohortKeys: ["1"],
+    });
   upsert.mockReset();
   filesInsert.mockReset();
   filesDelete.mockReset();

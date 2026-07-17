@@ -55,41 +55,55 @@
 
 報名時取該課程招生中的那一期。若沒有任何一期招生中，報名照舊完成但 `cohort_id` 為 null，而非讓報名失敗。**收錢的路不能因為期別沒設好就斷掉**，那是本末倒置；孤兒報名可由 `/admin/course-cohorts` 事後補指。
 
-### 回填以 git 時間戳為據，且只做一次
+### 回填以 recur_product_id 為據，不用時間戳推論
 
-既有 23 筆 `ai-academic-writing` 報名全部歸為第一期，依據是 `ef7188e` 的 2026-07-16 02:02 UTC。查詢已證實全部 23 筆都在該時刻之前，最晚一筆相差 38 分鐘。
+2026-07-17 已將 Recur 商品拆分為每期一組（PR #15）：第一期 `b3dc06` / `u0rnbc`（名稱改回 8/16、已關閉），第二期 `tpl4a90` / `dckcqar`（新建）。
 
-回填寫死時間點而非在程式中推導：這是一次性的歷史修正，不是常態邏輯。把它留在 migration 裡，日後任何人都查得到當初憑什麼這樣切。
+因此期別是**付款紀錄裡的事實**：買了哪個商品，就是哪一期。回填直接依 `recur_product_id` 對應，不需要 git 時間戳。
+
+**替代方案：** 以 `ef7188e` 的時間戳（2026-07-16 02:02 UTC）切分。原本唯一可行的辦法，但那是外部推論而非付款紀錄本身。商品拆分後已無必要。**否決。**
 
 其他課程（`positioning-convergence`、`ai-content`、`vibe-coding`、`vibe-coding-claude-code`）各建立唯一一期，既有報名全數歸入。
 
 ### 作業屬於期別，不屬於課程
 
-`assignments.cohort_id` 取代 `course_id` 作為歸屬。學員資格由「這門課的 paid 報名」收斂為「這一期的 paid 報名」。
+`assignments.cohort_key` 決定歸屬。學員資格由「這門課的 paid 報名」收斂為「他所屬那幾期的 paid 報名」。
 
-`assignments.course_id` 保留但不再用於授權，僅供查詢方便與人類閱讀；授權一律走 `cohort_id`。保留而非刪除，是因為刪欄位需要重寫既有查詢，而它的存在不造成危害。
+`assignments.course_id` 保留但不再單獨用於授權，僅供查詢方便與人類閱讀。
+
+### 期別不進網址，由報名紀錄決定
+
+學員的作業區網址維持 `/courses/<課程>/assignments`，不加期別區段。系統查出該 email 屬於哪些期，只顯示那幾期的作業。
+
+**替代方案：** 網址改為 `/courses/<課程>/<期別>/assignments`。期別顯而易見，但代價成串：已貼出的舊網址全部失效需要導向、學員同時在兩期時要多一個選期畫面、簽章 cookie 要從 course 改為 cohort 維度。**否決**：期別是學員的屬性，不是他要選的東西；把它放進網址等於要求學員知道一件系統已經知道的事。
+
+**回訓生（同時在兩期）** 因此自然可解：他兩期都付了錢，就兩期的作業都看得到，以期別名稱分組顯示。這不是特例處理，是規則的自然結果。
+
+老師端同理：`/teach/<課程>` 以期別分組顯示作業，新增作業時選期別。不新增路由。
 
 ## Implementation Contract
 
 ### 資料模型
 
-**`course_cohorts`**（新表，RLS 啟用且零 policy）：
+**`courses-config.ts`** 新增 `cohorts` 陣列，取代單一的 `date` 與 `earlyBirdDeadline`：
 
-| 欄位 | 型別 | 說明 |
-|---|---|---|
-| `id` | uuid pk | |
-| `course_id` | text not null | 對應 `courses-config.ts` 的 key |
-| `name` | text not null | 顯示名稱，例如「第一期」 |
-| `session_date` | text | 上課日期，例如 `2026/8/16（日）`。文字而非 date，與設定檔一致 |
-| `is_open` | boolean not null default false | 是否招生中 |
-| `sort_order` | int not null default 0 | |
-| `created_at` | timestamptz | |
+```ts
+interface Cohort {
+  key: string;                  // "1"、"2"，穩定不變，寫進資料庫
+  name: string;                 // "第一期"
+  date: string;                 // "2026/8/16（日）"
+  open?: boolean;               // 招生中；一門課至多一個
+  earlyBirdDeadline?: string;   // 該期的早鳥截止
+  recurProductIdEarlyBird?: string;
+  recurProductIdRegular?: string;
+}
+```
 
-unique `(course_id, name)`；partial unique index `(course_id) where is_open`。
+商品 ID 移入期別：每期一組獨立商品（PR #15 已確立）。
 
-**`course_enrollments`** 新增 `cohort_id uuid null references course_cohorts(id)`。僅新增欄位，不改動任何既有欄位。
+**`course_enrollments`** 新增 `cohort_key text`。僅新增欄位，不改動任何既有欄位。
 
-**`assignments`** 新增 `cohort_id uuid null references course_cohorts(id) on delete cascade`。既有作業回填至其課程的唯一一期。回填後於應用層要求必填。
+**`assignments`** 與 **`course_guests`** 各新增 `cohort_key text`。既有資料回填至其課程的唯一一期。
 
 ### 回填
 
@@ -109,11 +123,11 @@ where course_id = 'ai-academic-writing' and created_at < '2026-07-16 02:02:00+00
 
 ### 可觀察行為
 
-**學員：** 網址由 `/courses/<課程>/assignments` 變為 `/courses/<課程>/<期別>/assignments`。持第一期資格者存取第二期的網址一律拒絕，且回應不含第二期任何作業內容。
+**學員：** 網址維持 `/courses/<課程>/assignments`。只看得到自己所屬期別的作業；同時在兩期者兩期都看得到，以期別名稱分組。回應不含其他期別的任何作業內容。
 
-**老師：** `/teach/<課程>` 先列出期別與各期繳交數，點入某一期才看到該期作業。建作業、掛資源、通知、來賓名冊全部在期別層級。
+**老師：** `/teach/<課程>` 以期別分組顯示作業與各期繳交數。新增作業時從下拉選單指定期別。通知只寄給該作業所屬期別的學員。來賓加入時指定期別。
 
-**平臺管理者：** `/admin/course-cohorts` 建立期別、切換招生中、查看各期人數，並顯示設定檔目前的 `date` 以便比對。
+**平臺管理者：** 期別定義在 `courses-config.ts`，與課程本身同處。無需管理介面：開新一期就是在陣列裡加一筆並移動 `open`，與新增課程同一個動作。
 
 ### 失敗模式
 

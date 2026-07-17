@@ -106,6 +106,15 @@ export async function authorizeReward(
   const student = await getVerifiedStudent(assignment.course_id);
   if (!student) return { ok: false, status: 401 };
 
+  // The reward belongs to an assignment, which belongs to a cohort. A student
+  // from another cohort has no claim on it even if they somehow submitted.
+  if (
+    !assignment.cohort_key ||
+    !student.cohortKeys.includes(assignment.cohort_key)
+  ) {
+    return { ok: false, status: 404 };
+  }
+
   if (!(await hasUnlocked(assignment.id, student.email))) {
     return { ok: false, status: 403 };
   }

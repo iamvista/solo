@@ -33,6 +33,15 @@ export async function POST(
     return NextResponse.json({ error: "請先取得作業區入口連結" }, { status: 401 });
   }
 
+  // The assignment must belong to a cohort this student paid for. The course
+  // check above is not enough: cohorts share a course.
+  if (
+    !assignment.cohort_key ||
+    !student.cohortKeys.includes(assignment.cohort_key)
+  ) {
+    return NextResponse.json({ error: "找不到這份作業" }, { status: 404 });
+  }
+
   if (!assignment.allow_file) {
     return NextResponse.json(
       { error: "這份作業不收檔案" },

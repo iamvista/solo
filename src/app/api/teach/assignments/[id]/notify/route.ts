@@ -51,9 +51,20 @@ export async function POST(
     return NextResponse.json({ error: "找不到這門課" }, { status: 404 });
   }
 
-  // Derived from the same eligibility rule the assignment area itself uses, so
-  // nobody is mailed about a page they cannot open and no student is missed.
-  const students = await listEligibleStudents(assignment.course_id);
+  // Scoped to the assignment's own cohort: the other cohorts' students cannot
+  // open this assignment, so mailing them would be noise pointing at a locked
+  // door. Derived from the same eligibility rule the assignment area uses, so
+  // "who may enter" and "who gets the mail" cannot drift apart.
+  if (!assignment.cohort_key) {
+    return NextResponse.json(
+      { error: "這份作業還沒有指定期別" },
+      { status: 400 },
+    );
+  }
+  const students = await listEligibleStudents(
+    assignment.course_id,
+    assignment.cohort_key,
+  );
   if (students.length === 0) {
     return NextResponse.json({ ok: true, sent: 0, failed: 0 });
   }

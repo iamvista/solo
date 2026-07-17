@@ -5,9 +5,9 @@ process.env.NEXT_PUBLIC_SITE_URL = "https://www.solo.tw";
 
 const COURSE = "positioning-convergence"; // a real slug from courses-config.ts
 
-type Row = { email: string; name: string | null };
+type Row = { email: string; name: string | null; cohort_key?: string | null };
 let enrollmentRows: Row[] = [];
-let guestRow: Row | null = null;
+let guestRows: Row[] = [];
 let insertError: unknown = null;
 const tokenInserts: Array<Record<string, unknown>> = [];
 
@@ -27,13 +27,16 @@ vi.mock("@/lib/supabase/service", () => ({
       const isGuests = table === "course_guests";
       return {
         select: () => {
+          // 兩張表的查法不同：course_enrollments 以 ilike 收尾，
+          // course_guests 直接 await builder。chain 兩者都要支援。
+          const result = () => ({
+            data: isGuests ? guestRows : enrollmentRows,
+            error: null,
+          });
           const chain = {
             eq: () => chain,
-            ilike: () => Promise.resolve({ data: enrollmentRows, error: null }),
-            maybeSingle: async () => ({
-              data: isGuests ? guestRow : null,
-              error: null,
-            }),
+            ilike: () => Promise.resolve(result()),
+            then: (resolve: (v: unknown) => unknown) => resolve(result()),
           };
           return chain;
         },
@@ -76,7 +79,7 @@ async function snapshot(res: Response) {
 
 beforeEach(() => {
   enrollmentRows = [];
-  guestRow = null;
+  guestRows = [];
   insertError = null;
   tokenInserts.length = 0;
   sendEmail.mockClear();
@@ -85,7 +88,7 @@ beforeEach(() => {
 describe("POST /api/assignments/access/request", () => {
   it("mints a token and mails an eligible student", async () => {
     const email = freshEmail();
-    enrollmentRows = [{ email, name: "王小明" }];
+    enrollmentRows = [{ email, name: "王小明", cohort_key: "1" }];
 
     const res = await POST(req({ courseId: COURSE, email }));
 
@@ -110,7 +113,7 @@ describe("POST /api/assignments/access/request", () => {
     // The whole point of the identical response: this endpoint must not become
     // an oracle for who bought the course.
     const enrolledEmail = freshEmail();
-    enrollmentRows = [{ email: enrolledEmail, name: "王小明" }];
+    enrollmentRows = [{ email: enrolledEmail, name: "王小明", cohort_key: "1" }];
     const enrolled = await snapshot(
       await POST(req({ courseId: COURSE, email: enrolledEmail })),
     );
@@ -125,7 +128,7 @@ describe("POST /api/assignments/access/request", () => {
 
   it("gives an unknown course the same response too", async () => {
     const email = freshEmail();
-    enrollmentRows = [{ email, name: "王小明" }];
+    enrollmentRows = [{ email, name: "王小明", cohort_key: "1" }];
     const known = await snapshot(await POST(req({ courseId: COURSE, email })));
 
     sendEmail.mockClear();
@@ -146,7 +149,7 @@ describe("POST /api/assignments/access/request", () => {
   it("does not mail when the token insert fails", async () => {
     // Better to send nothing than to send a link that can never verify.
     const email = freshEmail();
-    enrollmentRows = [{ email, name: "王小明" }];
+    enrollmentRows = [{ email, name: "王小明", cohort_key: "1" }];
     insertError = { message: "boom" };
 
     const res = await POST(req({ courseId: COURSE, email }));
@@ -157,7 +160,7 @@ describe("POST /api/assignments/access/request", () => {
 
   it("normalizes the address before minting the token", async () => {
     const email = freshEmail();
-    enrollmentRows = [{ email: email.toUpperCase(), name: "王小明" }];
+    enrollmentRows = [{ email: email.toUpperCase(), name: "王小明", cohort_key: "1" }];
 
     await POST(req({ courseId: COURSE, email: `  ${email.toUpperCase()} ` }));
 
@@ -170,7 +173,7 @@ describe("guests", () => {
     // Guests are indistinguishable from paying students once admitted.
     const email = freshEmail();
     enrollmentRows = [];
-    guestRow = { email, name: "來賓小明" };
+    guestRows = [{ email, name: "來賓小明", cohort_key: "1" }];
 
     const res = await POST(req({ courseId: COURSE, email }));
 
@@ -199,7 +202,7 @@ describe("rate limiting", () => {
     // A per-IP limit alone would let this through — this is the limit that
     // actually protects a student's inbox.
     const email = freshEmail();
-    enrollmentRows = [{ email, name: "王小明" }];
+    enrollmentRows = [{ email, name: "王小明", cohort_key: "1" }];
 
     const statuses: number[] = [];
     for (let i = 0; i < 5; i++) {
@@ -215,7 +218,7 @@ describe("rate limiting", () => {
     // If throttling only applied to enrolled addresses, a 429 would itself
     // reveal roster membership.
     const enrolledEmail = freshEmail();
-    enrollmentRows = [{ email: enrolledEmail, name: "王小明" }];
+    enrollmentRows = [{ email: enrolledEmail, name: "王小明", cohort_key: "1" }];
     for (let i = 0; i < 3; i++) {
       await POST(req({ courseId: COURSE, email: enrolledEmail }, freshIp()));
     }
@@ -238,7 +241,7 @@ describe("rate limiting", () => {
 
   it("does not mail for throttled requests", async () => {
     const email = freshEmail();
-    enrollmentRows = [{ email, name: "王小明" }];
+    enrollmentRows = [{ email, name: "王小明", cohort_key: "1" }];
 
     for (let i = 0; i < 3; i++) {
       await POST(req({ courseId: COURSE, email }, freshIp()));

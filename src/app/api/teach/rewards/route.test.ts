@@ -45,6 +45,7 @@ function assignment(overrides: Partial<Assignment> = {}): Assignment {
   return {
     id: ASSIGNMENT_ID,
     course_id: COURSE,
+    cohort_key: "1",
     title: "作業一",
     description: null,
     sort_order: 0,

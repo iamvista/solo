@@ -5,6 +5,11 @@ export const SUBMISSIONS_BUCKET = "submissions";
 export interface Assignment {
   id: string;
   course_id: string;
+  /**
+   * 這份作業屬於哪一期。學員只看得到自己那幾期的作業。
+   * 對應 courses-config.ts 的 cohorts[].key，弱連結，比照 course_id。
+   */
+  cohort_key: string | null;
   title: string;
   description: string | null;
   sort_order: number;
@@ -36,7 +41,7 @@ export interface Submission {
 }
 
 const ASSIGNMENT_COLUMNS =
-  "id, course_id, title, description, sort_order, allow_file, allow_text, allow_link, due_at, is_published";
+  "id, course_id, cohort_key, title, description, sort_order, allow_file, allow_text, allow_link, due_at, is_published";
 const SUBMISSION_COLUMNS =
   "id, assignment_id, student_email, text_content, link_url, submitted_at, updated_at, teacher_comment, reviewed_at";
 
@@ -61,16 +66,24 @@ export async function getAssignment(
   return data as Assignment;
 }
 
-/** Published assignments for a course, in display order. Student surfaces. */
+/**
+ * Published assignments for the cohorts a student belongs to, in display order.
+ *
+ * Student surfaces only. Takes the student's cohorts rather than a course:
+ * passing a course would hand a first-cohort student the second cohort's work.
+ */
 export async function listPublishedAssignments(
   courseId: string,
+  cohortKeys: string[],
 ): Promise<Assignment[]> {
+  if (cohortKeys.length === 0) return [];
   const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("assignments")
     .select(ASSIGNMENT_COLUMNS)
     .eq("course_id", courseId)
     .eq("is_published", true)
+    .in("cohort_key", cohortKeys)
     .order("sort_order", { ascending: true });
 
   if (error || !data) return [];

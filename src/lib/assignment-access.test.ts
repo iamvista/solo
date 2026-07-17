@@ -2,10 +2,10 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 process.env.ASSIGNMENT_SESSION_SECRET = "s".repeat(32);
 
-type Row = { email: string; name: string | null };
+type Row = { email: string; name: string | null; cohort_key?: string | null };
 
 let rows: Row[] = [];
-let guestRow: Row | null = null;
+let guestRows: Row[] = [];
 let queryError: unknown = null;
 const filters: Array<[string, unknown]> = [];
 const tablesTouched: string[] = [];
@@ -37,7 +37,7 @@ vi.mock("@/lib/supabase/service", () => ({
           // builder directly (listEligibleStudents), others end at .ilike()
           // or .maybeSingle().
           const result = () => ({
-            data: isGuests ? (guestRow ? [guestRow] : []) : rows,
+            data: isGuests ? guestRows : rows,
             error: queryError,
           });
           const chain = {
@@ -50,7 +50,7 @@ vi.mock("@/lib/supabase/service", () => ({
               return Promise.resolve({ data: rows, error: queryError });
             },
             maybeSingle: async () => ({
-              data: isGuests ? guestRow : null,
+              data: isGuests ? (guestRows[0] ?? null) : null,
               error: queryError,
             }),
             then: (resolve: (v: unknown) => unknown) => resolve(result()),
@@ -79,7 +79,7 @@ const { generateSessionToken, sessionCookieName } = await import(
 
 beforeEach(() => {
   rows = [];
-  guestRow = null;
+  guestRows = [];
   queryError = null;
   filters.length = 0;
   tablesTouched.length = 0;
@@ -88,7 +88,7 @@ beforeEach(() => {
 
 describe("findEligibleStudent", () => {
   it("only ever reads course_enrollments, filtered to paid", async () => {
-    rows = [{ email: "student@example.com", name: "王小明" }];
+    rows = [{ email: "student@example.com", name: "王小明", cohort_key: "1" }];
     await findEligibleStudent("course-x", "student@example.com");
 
     expect(tablesTouched[0]).toBe("course_enrollments");
@@ -97,17 +97,17 @@ describe("findEligibleStudent", () => {
   });
 
   it("resolves an enrolled student and returns the enrollment name", async () => {
-    rows = [{ email: "student@example.com", name: "王小明" }];
+    rows = [{ email: "student@example.com", name: "王小明", cohort_key: "1" }];
     await expect(
       findEligibleStudent("course-x", "student@example.com"),
-    ).resolves.toEqual({ email: "student@example.com", name: "王小明" });
+    ).resolves.toEqual({ email: "student@example.com", name: "王小明", cohortKeys: ["1"] });
   });
 
   it("matches case-insensitively in both directions", async () => {
-    rows = [{ email: "STUDENT@Example.com", name: "王小明" }];
+    rows = [{ email: "STUDENT@Example.com", name: "王小明", cohort_key: "1" }];
     await expect(
       findEligibleStudent("course-x", "  Student@EXAMPLE.com  "),
-    ).resolves.toEqual({ email: "student@example.com", name: "王小明" });
+    ).resolves.toEqual({ email: "student@example.com", name: "王小明", cohortKeys: ["1"] });
   });
 
   it("returns null when no enrollment matches", async () => {
@@ -120,7 +120,7 @@ describe("findEligibleStudent", () => {
   it("returns null when the narrowed rows do not match exactly", async () => {
     // ilike narrows but does not decide: `_` is a LIKE wildcard and a legal
     // email character, so a near-miss row must still be rejected in JS.
-    rows = [{ email: "aXb@example.com", name: "冒牌" }];
+    rows = [{ email: "aXb@example.com", name: "冒牌", cohort_key: "1" }];
     await expect(
       findEligibleStudent("course-x", "a_b@example.com"),
     ).resolves.toBeNull();
@@ -139,57 +139,66 @@ describe("findEligibleStudent", () => {
   });
 
   it("tolerates a missing name", async () => {
-    rows = [{ email: "student@example.com", name: null }];
+    rows = [{ email: "student@example.com", name: null, cohort_key: "1" }];
     await expect(
       findEligibleStudent("course-x", "student@example.com"),
-    ).resolves.toEqual({ email: "student@example.com", name: "" });
+    ).resolves.toEqual({ email: "student@example.com", name: "", cohortKeys: ["1"] });
   });
 });
 
 describe("findEligibleStudent: guest roster", () => {
   it("admits a guest who never paid", async () => {
     rows = [];
-    guestRow = { email: "guest@example.com", name: "來賓小明" };
+    guestRows = [{ email: "guest@example.com", name: "來賓小明", cohort_key: "1" }];
 
     await expect(
       findEligibleStudent("course-x", "guest@example.com"),
-    ).resolves.toEqual({ email: "guest@example.com", name: "來賓小明" });
+    ).resolves.toEqual({ email: "guest@example.com", name: "來賓小明", cohortKeys: ["1"] });
   });
 
   it("scopes the guest lookup to the course and the address", async () => {
     rows = [];
-    guestRow = { email: "guest@example.com", name: "來賓" };
+    guestRows = [{ email: "guest@example.com", name: "來賓", cohort_key: "1" }];
     await findEligibleStudent("course-x", "guest@example.com");
 
     expect(filters).toContainEqual(["course_guests.course_id", "course-x"]);
     expect(filters).toContainEqual(["course_guests.email", "guest@example.com"]);
   });
 
-  it("does not consult the guest roster when the student already paid", async () => {
-    // Paying students are the common case and must cost one query, not two.
-    rows = [{ email: "student@example.com", name: "付費學員" }];
-    guestRow = { email: "student@example.com", name: "來賓名" };
+  it("consults both grants and merges their cohorts", async () => {
+    // Deliberately does NOT short-circuit on the paid hit. Someone who paid for
+    // the first cohort and was comped into the second belongs to both, and
+    // returning early would silently drop one of them.
+    //
+    // The cost is one extra query for every student, including the common case
+    // of a single paid cohort. Worth it: the alternative is a wrong answer for
+    // returning students.
+    rows = [{ email: "student@example.com", name: "付費學員", cohort_key: "1" }];
+    guestRows = [{ email: "student@example.com", name: "來賓名", cohort_key: "2" }];
 
     const result = await findEligibleStudent("course-x", "student@example.com");
 
-    expect(result).toEqual({ email: "student@example.com", name: "付費學員" });
-    expect(tablesTouched).not.toContain("course_guests");
+    expect(tablesTouched).toContain("course_enrollments");
+    expect(tablesTouched).toContain("course_guests");
+    expect(result?.cohortKeys.sort()).toEqual(["1", "2"]);
+    // 付費那筆的姓名優先：那是他付款時親手填的。
+    expect(result?.name).toBe("付費學員");
   });
 
   it("keeps access for a refunded student who is on the guest roster", async () => {
     // The two grants are independent: the teacher's admission stands on its own
     // terms, whatever the payment later did.
     rows = []; // refunded, so the paid query returns nothing
-    guestRow = { email: "both@example.com", name: "退款但受邀" };
+    guestRows = [{ email: "both@example.com", name: "退款但受邀", cohort_key: "1" }];
 
     await expect(
       findEligibleStudent("course-x", "both@example.com"),
-    ).resolves.toEqual({ email: "both@example.com", name: "退款但受邀" });
+    ).resolves.toEqual({ email: "both@example.com", name: "退款但受邀", cohortKeys: ["1"] });
   });
 
   it("refuses someone who neither paid nor was admitted", async () => {
     rows = [];
-    guestRow = null;
+    guestRows = [];
     await expect(
       findEligibleStudent("course-x", "stranger@example.com"),
     ).resolves.toBeNull();
@@ -199,7 +208,7 @@ describe("findEligibleStudent: guest roster", () => {
     // The whole reason guests exist: admitting someone must not fabricate a
     // payment record. The mock throws on any write.
     rows = [];
-    guestRow = { email: "guest@example.com", name: "來賓" };
+    guestRows = [{ email: "guest@example.com", name: "來賓", cohort_key: "1" }];
     await expect(
       findEligibleStudent("course-x", "guest@example.com"),
     ).resolves.not.toBeNull();
@@ -208,10 +217,10 @@ describe("findEligibleStudent: guest roster", () => {
 
 describe("listEligibleStudents", () => {
   it("returns paying students and guests together", async () => {
-    rows = [{ email: "payer@example.com", name: "付費學員" }];
-    guestRow = { email: "guest@example.com", name: "來賓" };
+    rows = [{ email: "payer@example.com", name: "付費學員", cohort_key: "1" }];
+    guestRows = [{ email: "guest@example.com", name: "來賓", cohort_key: "1" }];
 
-    const result = await listEligibleStudents("course-x");
+    const result = await listEligibleStudents("course-x", "1");
 
     expect(result.map((s) => s.email).sort()).toEqual([
       "guest@example.com",
@@ -221,18 +230,22 @@ describe("listEligibleStudents", () => {
 
   it("collapses someone who both paid and was admitted into one person", async () => {
     // One human, one mail.
-    rows = [{ email: "both@example.com", name: "付費名" }];
-    guestRow = { email: "both@example.com", name: "來賓名" };
+    rows = [{ email: "both@example.com", name: "付費名", cohort_key: "1" }];
+    guestRows = [{ email: "both@example.com", name: "來賓名", cohort_key: "1" }];
 
-    const result = await listEligibleStudents("course-x");
+    const result = await listEligibleStudents("course-x", "1");
 
     expect(result).toHaveLength(1);
     // The paid record wins: it is read first and is the more authoritative name.
-    expect(result[0]).toEqual({ email: "both@example.com", name: "付費名" });
+    expect(result[0]).toEqual({
+      email: "both@example.com",
+      name: "付費名",
+      cohortKeys: ["1"],
+    });
   });
 
   it("returns nothing for a blank course", async () => {
-    await expect(listEligibleStudents("")).resolves.toEqual([]);
+    await expect(listEligibleStudents("", "1")).resolves.toEqual([]);
   });
 });
 
@@ -245,12 +258,13 @@ describe("getVerifiedStudent", () => {
   }
 
   it("resolves the student when the cookie is valid and still paid", async () => {
-    rows = [{ email: "student@example.com", name: "王小明" }];
+    rows = [{ email: "student@example.com", name: "王小明", cohort_key: "1" }];
     presentCookie("course-x", "student@example.com");
 
     await expect(getVerifiedStudent("course-x")).resolves.toEqual({
       email: "student@example.com",
       name: "王小明",
+      cohortKeys: ["1"],
     });
   });
 
@@ -268,13 +282,13 @@ describe("getVerifiedStudent", () => {
   });
 
   it("returns null when the cookie is tampered with", async () => {
-    rows = [{ email: "student@example.com", name: "王小明" }];
+    rows = [{ email: "student@example.com", name: "王小明", cohort_key: "1" }];
     cookieGet.mockReturnValue({ value: "forged.signature" });
     await expect(getVerifiedStudent("course-x")).resolves.toBeNull();
   });
 
   it("refuses a session minted for another course", async () => {
-    rows = [{ email: "student@example.com", name: "王小明" }];
+    rows = [{ email: "student@example.com", name: "王小明", cohort_key: "1" }];
     // A course-y session, presented under the course-x cookie name.
     const value = generateSessionToken({
       email: "student@example.com",
@@ -285,6 +299,66 @@ describe("getVerifiedStudent", () => {
     );
 
     await expect(getVerifiedStudent("course-x")).resolves.toBeNull();
+  });
+});
+
+describe("跨期隔離", () => {
+  // 這次變更的核心承諾：第一期的學員看不到第二期的作業與回放。
+  // 一門課開很多期，course_id 相同，所以「同一門課」這個條件擋不住任何事。
+
+  it("只回傳這個人真正付過錢的那幾期", async () => {
+    rows = [{ email: "first@example.com", name: "第一期學員", cohort_key: "1" }];
+    guestRows = [];
+
+    const student = await findEligibleStudent("course-x", "first@example.com");
+
+    expect(student?.cohortKeys).toEqual(["1"]);
+    expect(student?.cohortKeys).not.toContain("2");
+  });
+
+  it("回訓生兩期都報名就兩期都算", async () => {
+    // 不是特例處理，是規則的自然結果：他兩期都付了錢。
+    rows = [
+      { email: "repeat@example.com", name: "回訓生", cohort_key: "1" },
+      { email: "repeat@example.com", name: "回訓生", cohort_key: "2" },
+    ];
+    guestRows = [];
+
+    const student = await findEligibleStudent("course-x", "repeat@example.com");
+
+    expect(student?.cohortKeys.sort()).toEqual(["1", "2"]);
+  });
+
+  it("同一個人的多筆報名不會讓期別重複", async () => {
+    rows = [
+      { email: "dup@example.com", name: "x", cohort_key: "1" },
+      { email: "dup@example.com", name: "x", cohort_key: "1" },
+    ];
+    guestRows = [];
+
+    const student = await findEligibleStudent("course-x", "dup@example.com");
+
+    expect(student?.cohortKeys).toEqual(["1"]);
+  });
+
+  it("沒有期別的報名不算數", async () => {
+    // 舊資料或期別沒設好時，寧可讓他進不去也不要讓他看到不該看的。
+    rows = [{ email: "orphan@example.com", name: "孤兒報名", cohort_key: null }];
+    guestRows = [];
+
+    await expect(
+      findEligibleStudent("course-x", "orphan@example.com"),
+    ).resolves.toBeNull();
+  });
+
+  it("通知只找該期的人", async () => {
+    rows = [{ email: "second@example.com", name: "第二期學員", cohort_key: "2" }];
+    guestRows = [];
+
+    await listEligibleStudents("course-x", "2");
+
+    expect(filters).toContainEqual(["course_enrollments.cohort_key", "2"]);
+    expect(filters).toContainEqual(["course_guests.cohort_key", "2"]);
   });
 });
 

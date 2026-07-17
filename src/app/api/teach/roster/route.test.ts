@@ -76,7 +76,12 @@ function post(body: unknown) {
   });
 }
 
-const base = { course_id: COURSE, email: "guest@example.com", name: "來賓" };
+const base = {
+  course_id: COURSE,
+  cohort_key: "1", // positioning-convergence 的唯一一期
+  email: "guest@example.com",
+  name: "來賓",
+};
 
 beforeEach(() => {
   mockRequireCourseTeacher
@@ -97,6 +102,7 @@ describe("POST /api/teach/roster", () => {
     expect(res.status).toBe(200);
     expect(guestInsert).toHaveBeenCalledWith({
       course_id: COURSE,
+      cohort_key: "1",
       email: "guest@example.com",
       name: "來賓",
       note: "匯款",
@@ -151,6 +157,20 @@ describe("POST /api/teach/roster", () => {
   it("refuses an unknown course", async () => {
     const res = await POST(post({ ...base, course_id: "no-such-course" }));
     expect(res.status).toBe(404);
+    expect(guestInsert).not.toHaveBeenCalled();
+  });
+
+  it("rejects an unknown cohort", async () => {
+    // 「加入這門課」在一門課開多期時是沒有意義的說法。
+    const res = await POST(post({ ...base, cohort_key: "99" }));
+    expect(res.status).toBe(400);
+    expect(guestInsert).not.toHaveBeenCalled();
+  });
+
+  it("rejects a missing cohort", async () => {
+    const { cohort_key: _drop, ...noCohort } = base;
+    const res = await POST(post(noCohort));
+    expect(res.status).toBe(400);
     expect(guestInsert).not.toHaveBeenCalled();
   });
 

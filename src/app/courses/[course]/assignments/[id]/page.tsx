@@ -40,6 +40,13 @@ export default async function AssignmentDetailPage({ params }: PageProps) {
     redirect(`/courses/${slug}/assignments`);
   }
 
+  // The assignment must belong to a cohort this student paid for. Without this,
+  // a first-cohort student could open the second cohort's assignment simply by
+  // pasting its id — the course matches, so the earlier check would pass.
+  if (!assignment.cohort_key || !student.cohortKeys.includes(assignment.cohort_key)) {
+    notFound();
+  }
+
   const submission = await getOwnSubmission(assignment.id, student.email);
   const [files, rewards] = await Promise.all([
     submission ? getSubmissionFiles(submission.id) : Promise.resolve([]),

@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import { getCourseConfig } from "@/lib/courses-config";
+import { getCohort, getCourseConfig } from "@/lib/courses-config";
 import { requireCourseTeacher } from "@/lib/teaching";
 
 export interface AssignmentInput {
+  cohort_key: string;
   title: string;
   description: string | null;
   sort_order: number;
@@ -23,11 +24,22 @@ export interface AssignmentInput {
  */
 export function parseAssignmentInput(
   body: unknown,
+  courseId?: string,
 ): { ok: true; value: AssignmentInput } | { ok: false; error: string } {
   const b = body as Record<string, unknown> | null;
 
   const title = String(b?.title ?? "").trim();
   if (!title) return { ok: false, error: "請填寫標題" };
+
+  // 作業屬於某一期，不屬於整門課。沒有期別的作業，學員資格就無從判定。
+  const cohortKey = String(b?.cohort_key ?? "").trim();
+  if (!cohortKey) return { ok: false, error: "請選擇期別" };
+  if (courseId) {
+    const config = getCourseConfig(courseId);
+    if (config && !getCohort(config, cohortKey)) {
+      return { ok: false, error: "期別不存在" };
+    }
+  }
 
   const allowFile = b?.allow_file !== false;
   const allowText = b?.allow_text !== false;
@@ -50,6 +62,7 @@ export function parseAssignmentInput(
   return {
     ok: true,
     value: {
+      cohort_key: cohortKey,
       title,
       description: String(b?.description ?? "").trim() || null,
       sort_order: Number.isFinite(Number(b?.sort_order)) ? Number(b?.sort_order) : 0,
@@ -80,7 +93,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "沒有權限" }, { status: 403 });
   }
 
-  const parsed = parseAssignmentInput(body);
+  const parsed = parseAssignmentInput(body, courseId);
   if (!parsed.ok) {
     return NextResponse.json({ error: parsed.error }, { status: 400 });
   }

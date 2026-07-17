@@ -33,7 +33,11 @@ export default async function NewAssignmentPage({ params }: PageProps) {
 
       <h1 className="mt-4 mb-8 text-2xl font-bold text-slate-900">新增作業</h1>
 
-      <AssignmentForm courseId={slug} onDone={`/teach/${slug}`} />
+      <AssignmentForm
+        courseId={slug}
+        cohorts={course.cohorts}
+        onDone={`/teach/${slug}`}
+      />
     </main>
   );
 }

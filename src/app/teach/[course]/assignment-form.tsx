@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export interface AssignmentFormValues {
   id?: string;
+  cohort_key: string;
   title: string;
   description: string;
   sort_order: number;
@@ -18,11 +19,13 @@ export interface AssignmentFormValues {
 
 interface Props {
   courseId: string;
+  cohorts: Array<{ key: string; name: string; date: string; open?: boolean }>;
   initial?: AssignmentFormValues;
   onDone?: string;
 }
 
 const EMPTY: AssignmentFormValues = {
+  cohort_key: "",
   title: "",
   description: "",
   sort_order: 0,
@@ -33,9 +36,15 @@ const EMPTY: AssignmentFormValues = {
   is_published: false,
 };
 
-export function AssignmentForm({ courseId, initial, onDone }: Props) {
+export function AssignmentForm({ courseId, cohorts, initial, onDone }: Props) {
   const router = useRouter();
-  const [values, setValues] = useState<AssignmentFormValues>(initial ?? EMPTY);
+  const [values, setValues] = useState<AssignmentFormValues>(
+    initial ?? {
+      ...EMPTY,
+      // 預設帶招生中那一期：新作業幾乎都是為當期開的。
+      cohort_key: cohorts.find((c) => c.open)?.key ?? cohorts[0]?.key ?? "",
+    },
+  );
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -82,6 +91,24 @@ export function AssignmentForm({ courseId, initial, onDone }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-slate-900">期別</label>
+        <select
+          value={values.cohort_key}
+          onChange={(e) => set("cohort_key", e.target.value)}
+          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-900 focus:outline-none"
+        >
+          {cohorts.map((c) => (
+            <option key={c.key} value={c.key}>
+              {c.name}（{c.date}）{c.open ? "・招生中" : ""}
+            </option>
+          ))}
+        </select>
+        <p className="mt-1 text-xs text-slate-500">
+          只有這一期的學員看得到這份作業。
+        </p>
+      </div>
+
       <div>
         <label className="block text-sm font-medium text-slate-900">標題</label>
         <input
