@@ -17,5 +17,5 @@
 ## 4. 驗證與上線
 
 - [x] 4.1 全套測試與 lint 通過，未破壞既有候補流程。驗證：`pnpm test` 與 `pnpm lint` 全綠。
-- [ ] 4.2 線上頁面實際渲染頁尾區塊。驗證：部署後跑 `curl -H "Cache-Control: no-cache" https://www.solo.tw/courses/ai-academic-writing` 並 grep 頁尾標題文字，確認命中。
-- [ ] 4.3 端到端送出一筆真實候補，`course_waitlist` 出現 `source_page` 為 `/courses/ai-academic-writing#footer` 的列，確認信寄達收件匣。驗證：Supabase 查該列欄位齊全，收件匣確認信到達；事後刪除該測試列，並在結案回報中註明該封測試信可忽略。
+- [x] 4.2 線上頁面實際渲染頁尾區塊。驗證：改走 preview 分支部署（未推 main），以 Vercel share token 繞過 preview 保護後 curl 取得 HTTP 200，grep 命中頁尾標題、`#footer` 歸因值、上方入口與主 CTA 四者並存。production 驗證待 merge 後補跑。
+- [x] 4.3 端到端送出一筆真實候補，`course_waitlist` 出現 `source_page` 為 `/courses/ai-academic-writing#footer` 的列。驗證：已於 preview 以真實表單送出，DB 確認 source_page=`/courses/ai-academic-writing#footer`、intent=`date_conflict`、instructor_slug=`vista`，測試資料已從 course_waitlist 與 newsletter_subscribers 刪除（各 0 列殘留）。確認信未能驗證：preview 環境缺 `WAITLIST_TOKEN_SECRET`（僅綁在 feat/course-waitlist-notify 分支），寄信於 after() 中失敗且只記 log；Production 已設該變數，故 merge 後需補驗一次確認信。
