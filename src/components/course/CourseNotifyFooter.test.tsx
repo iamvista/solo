@@ -74,8 +74,8 @@ describe("The footer entry derives its intent from course status", () => {
     expect((await submit()).intent).toBe("full_waitlist");
   });
 
-  it.each(["open", "filling", "coming_soon", "ended"] as const)(
-    "derives date_conflict for status %s",
+  it.each(["open", "filling", "ended"] as const)(
+    "derives date_conflict and asks about the date for status %s",
     async (status) => {
       getWorkshopBySlug.mockReturnValue(workshopWithStatus(status));
       render(<CourseNotifyFooter slug="ai-academic-writing" />);
@@ -87,6 +87,19 @@ describe("The footer entry derives its intent from course status", () => {
       expect((await submit()).intent).toBe("date_conflict");
     },
   );
+
+  it("does not describe an unannounced course as a date conflict", async () => {
+    getWorkshopBySlug.mockReturnValue(workshopWithStatus("coming_soon"));
+    render(<CourseNotifyFooter slug="ai-academic-writing" />);
+    // 日期都還沒公告，問「時間對不上」等於問一個不存在的日期
+    expect(screen.queryByText("📬 這期時間對不上？")).not.toBeInTheDocument();
+    expect(screen.getByText("📬 還沒公告開課日期？")).toBeInTheDocument();
+    expect(
+      screen.getByText("留下 E-mail，日期一公告就第一時間通知你。"),
+    ).toBeInTheDocument();
+    // intent 仍是 date_conflict：不新增第四種 intent，資料庫約束不動
+    expect((await submit()).intent).toBe("date_conflict");
+  });
 });
 
 describe("The footer entry is attributable separately from the entry above it", () => {

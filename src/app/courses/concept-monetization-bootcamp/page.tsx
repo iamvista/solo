@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
+import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
 
 export const metadata: Metadata = {
   title:
@@ -482,6 +483,8 @@ export default function ConceptMonetizationBootcampPage() {
               </div>
             </div>
           </section>
+
+          <CourseNotifyFooter slug="concept-monetization-bootcamp" />
 
           {/* 返回課程列表 */}
           <div className="border-t pt-10 pb-16 text-center sm:pb-20">

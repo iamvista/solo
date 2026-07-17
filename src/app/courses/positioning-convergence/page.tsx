@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
+import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
 
 export const metadata: Metadata = {
   title: "定位收斂工作坊｜什麼都會的人，如何選出那一個能變現的自己 | solo.tw",
@@ -637,6 +638,8 @@ export default function PositioningConvergencePage() {
               </Button>
             </div>
           </section>
+
+          <CourseNotifyFooter slug="positioning-convergence" />
 
           {/* 返回課程列表 */}
           <div className="border-t pt-10 pb-16 text-center sm:pb-20">

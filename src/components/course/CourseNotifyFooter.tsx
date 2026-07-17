@@ -25,18 +25,32 @@ export function CourseNotifyFooter({ slug }: { slug: string }) {
 
   const isFull = workshop.status === "full";
   const intent: WaitlistIntent = isFull ? "full_waitlist" : "date_conflict";
+  // intent 只有兩種，區塊提示卻要三種：date_conflict 涵蓋的狀態裡，
+  // coming_soon 根本還沒公告日期，說「時間對不上」是在問一個不存在的日期。
+  const prompt = isFull
+    ? {
+        heading: "這期已經額滿？",
+        detail: "留下 E-mail，有名額釋出時第一時間通知你。",
+      }
+    : workshop.status === "coming_soon"
+      ? {
+          heading: "還沒公告開課日期？",
+          detail: "留下 E-mail，日期一公告就第一時間通知你。",
+        }
+      : {
+          heading: "這期時間對不上？",
+          detail: "留下 E-mail，下期開課時第一時間通知你。",
+        };
 
   return (
     <section className="border-t py-14 sm:py-16">
       <div className="mx-auto max-w-md">
         <div className="text-center">
           <p className="text-lg font-semibold text-foreground">
-            📬 {isFull ? "這期已經額滿？" : "這期時間對不上？"}
+            📬 {prompt.heading}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            {isFull
-              ? "留下 E-mail，有名額釋出時第一時間通知你。"
-              : "留下 E-mail，下期開課時第一時間通知你。"}
+            {prompt.detail}
           </p>
         </div>
         <WaitlistForm

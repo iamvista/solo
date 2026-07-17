@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
+import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
 
 export const metadata: Metadata = {
   title: "AI 內容產製系統工作坊｜3 小時實戰工作坊 | solo.tw",
@@ -923,6 +924,8 @@ export default function AIContentPage() {
             </div>
           </div>
         </section>
+
+        <CourseNotifyFooter slug="ai-content" />
 
         {/* 返回課程列表 */}
         <div className="border-t pt-10 pb-16 text-center sm:pb-20">
