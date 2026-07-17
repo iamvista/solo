@@ -89,6 +89,8 @@ The system SHALL provide nullable `preferred_timeslot`, `notified_at`, and `unsu
 
 Every surface that presents a course to a visitor SHALL offer a way to join the notification list, in every course status, not only when the course is full. Those surfaces are the course sales pages and the course cards on instructor pages.
 
+This requirement SHALL apply only to courses present in the `workshops` source. A page for a course absent from that source SHALL NOT carry an entry: the system cannot resolve such a course's title or status, so any entry there could not function, and an entry that cannot function is worse than none: it renders nothing while the page appears to offer the feature, and the visitors it loses leave no trace.
+
 A surface MAY carry more than one entry. Every entry SHALL be composed from the same shared form component and SHALL resolve its course data from the same shared course lookup, so that entry behaviour cannot diverge between surfaces or between entries on one surface.
 
 The entry placed below the enrolment action SHALL behave as follows: when the course is full it SHALL be the surface's primary action; when the course still has seats it SHALL be a secondary text link, and its form SHALL appear only after that link is activated, so that the enrolment action remains the sole primary action.
@@ -116,6 +118,11 @@ The form's heading and submit label SHALL reflect the derived intent. The submit
 
 - **WHEN** a course sales page renders an entry at the foot of the page, separated from the enrolment action by the page's own content
 - **THEN** that entry presents its form already expanded, and the enrolment action remains the page's only primary action
+
+#### Scenario: A page for a course outside the workshops source carries no entry
+
+- **WHEN** a sales page exists for a course absent from the `workshops` source
+- **THEN** the page carries no notification entry at all, rather than one that renders nothing
 
 #### Scenario: The originating surface is recorded
 
