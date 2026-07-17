@@ -13,6 +13,16 @@ export interface EligibleStudent {
   email: string;
   /** Display name taken from the enrollment record; may be empty. */
   name: string;
+  /**
+   * The cohorts this person belongs to on this course.
+   *
+   * Usually one. A returning student who paid for two cohorts belongs to both,
+   * and sees both cohorts' assignments — that is the rule working, not a
+   * special case: they paid for both.
+   *
+   * Empty is impossible: a student with no cohort is not eligible.
+   */
+  cohortKeys: string[];
 }
 
 export function normalizeEmail(email: string): string {
@@ -37,7 +47,7 @@ async function findPaidEnrollment(
   const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("course_enrollments")
-    .select("email, name")
+    .select("email, name, cohort_key")
     .eq("course_id", courseId)
     .eq("status", "paid")
     .ilike("email", escapeLike(normalized));
@@ -47,10 +57,23 @@ async function findPaidEnrollment(
   // ilike narrows using the index; this comparison is what actually decides.
   // Relying on ilike alone would be wrong even with escaping, because its
   // case-folding rules are the database's, not JavaScript's.
-  const match = data.find((row) => normalizeEmail(row.email ?? "") === normalized);
-  if (!match) return null;
+  const matches = data.filter(
+    (row) => normalizeEmail(row.email ?? "") === normalized,
+  );
+  if (matches.length === 0) return null;
 
-  return { email: normalized, name: (match.name ?? "").trim() };
+  // One row per cohort they paid for.
+  const cohortKeys = [
+    ...new Set(
+      matches.map((r) => r.cohort_key as string | null).filter(Boolean) as string[],
+    ),
+  ];
+
+  return {
+    email: normalized,
+    name: (matches[0].name ?? "").trim(),
+    cohortKeys,
+  };
 }
 
 /**
@@ -69,13 +92,23 @@ async function findGuest(
   const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("course_guests")
-    .select("email, name")
+    .select("email, name, cohort_key")
     .eq("course_id", courseId)
-    .eq("email", normalized)
-    .maybeSingle();
+    .eq("email", normalized);
 
-  if (error || !data) return null;
-  return { email: normalized, name: (data.name ?? "").trim() };
+  if (error || !data || data.length === 0) return null;
+
+  const cohortKeys = [
+    ...new Set(
+      data.map((r) => r.cohort_key as string | null).filter(Boolean) as string[],
+    ),
+  ];
+
+  return {
+    email: normalized,
+    name: (data[0].name ?? "").trim(),
+    cohortKeys,
+  };
 }
 
 /**
@@ -97,16 +130,35 @@ export async function findEligibleStudent(
   const normalized = normalizeEmail(email);
   if (!normalized || !courseId) return null;
 
-  // Paying students are the common case, so they cost one query. Only someone
-  // without a payment reaches the second.
-  const paid = await findPaidEnrollment(courseId, normalized);
-  if (paid) return paid;
+  // Both grants are consulted and their cohorts merged: someone who paid for
+  // the first cohort and was comped into the second belongs to both. Returning
+  // on the first hit would silently drop the other cohort.
+  const [paid, guest] = await Promise.all([
+    findPaidEnrollment(courseId, normalized),
+    findGuest(courseId, normalized),
+  ]);
 
-  return findGuest(courseId, normalized);
+  if (!paid && !guest) return null;
+
+  const cohortKeys = [
+    ...new Set([...(paid?.cohortKeys ?? []), ...(guest?.cohortKeys ?? [])]),
+  ];
+  if (cohortKeys.length === 0) return null;
+
+  return {
+    email: normalized,
+    // The paid record's name wins: it is what they typed when paying.
+    name: paid?.name || guest?.name || "",
+    cohortKeys,
+  };
 }
 
 /**
- * Everyone eligible for a course: paying students plus admitted guests.
+ * Everyone eligible for one cohort: paying students plus admitted guests.
+ *
+ * Scoped to a cohort, not a course: a notification about the second cohort's
+ * assignment must not reach the first cohort's students. They cannot open it,
+ * and mailing them about it is noise at best.
  *
  * Deliberately built from the same two grants findEligibleStudent() checks, so
  * "who may enter" and "who gets the mail" cannot answer differently. A separate
@@ -118,8 +170,9 @@ export async function findEligibleStudent(
  */
 export async function listEligibleStudents(
   courseId: string,
+  cohortKey: string,
 ): Promise<EligibleStudent[]> {
-  if (!courseId) return [];
+  if (!courseId || !cohortKey) return [];
   const supabase = createServiceClient();
 
   const [paid, guests] = await Promise.all([
@@ -127,15 +180,24 @@ export async function listEligibleStudents(
       .from("course_enrollments")
       .select("email, name")
       .eq("course_id", courseId)
+      .eq("cohort_key", cohortKey)
       .eq("status", "paid"),
-    supabase.from("course_guests").select("email, name").eq("course_id", courseId),
+    supabase
+      .from("course_guests")
+      .select("email, name")
+      .eq("course_id", courseId)
+      .eq("cohort_key", cohortKey),
   ]);
 
   const byEmail = new Map<string, EligibleStudent>();
   for (const row of [...(paid.data ?? []), ...(guests.data ?? [])]) {
     const email = normalizeEmail(row.email ?? "");
     if (!email || byEmail.has(email)) continue;
-    byEmail.set(email, { email, name: (row.name ?? "").trim() });
+    byEmail.set(email, {
+      email,
+      name: (row.name ?? "").trim(),
+      cohortKeys: [cohortKey],
+    });
   }
   return [...byEmail.values()];
 }

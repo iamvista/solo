@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import { getCourseConfig } from "@/lib/courses-config";
+import { getCohort, getCourseConfig } from "@/lib/courses-config";
 import { normalizeEmail } from "@/lib/assignment-access";
 import { requireCourseTeacher } from "@/lib/teaching";
 
@@ -31,6 +31,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "沒有權限" }, { status: 403 });
   }
 
+  // 來賓要進哪一期。一門課開多期時，「加入這門課」是沒有意義的說法。
+  const cohortKey = String(b?.cohort_key ?? "");
+  const config = getCourseConfig(courseId)!;
+  if (!getCohort(config, cohortKey)) {
+    return NextResponse.json({ error: "請指定期別" }, { status: 400 });
+  }
+
   const email = normalizeEmail(String(b?.email ?? ""));
   if (!email || !email.includes("@")) {
     return NextResponse.json({ error: "請填寫有效的 email" }, { status: 400 });
@@ -44,6 +51,7 @@ export async function POST(request: Request) {
     .from("course_enrollments")
     .select("id")
     .eq("course_id", courseId)
+    .eq("cohort_key", cohortKey)
     .eq("status", "paid")
     .ilike("email", email.replace(/[\\%_]/g, (m) => `\\${m}`));
 
@@ -56,6 +64,7 @@ export async function POST(request: Request) {
 
   const { error } = await supabase.from("course_guests").insert({
     course_id: courseId,
+    cohort_key: cohortKey,
     email,
     name: String(b?.name ?? "").trim() || null,
     note: String(b?.note ?? "").trim() || null,

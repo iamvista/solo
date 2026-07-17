@@ -49,6 +49,7 @@ function assignment(overrides: Partial<Assignment> = {}): Assignment {
   return {
     id: ASSIGNMENT_ID,
     course_id: COURSE,
+    cohort_key: "1",
     title: "作業一",
     description: null,
     sort_order: 0,
@@ -82,7 +83,7 @@ beforeEach(() => {
 
 describe("PATCH /api/teach/assignments/[id]", () => {
   it("updates an assignment for a teacher of that course", async () => {
-    const res = await PATCH(req({ title: "改過的標題" }), ctx);
+    const res = await PATCH(req({ cohort_key: "1", title: "改過的標題" }), ctx);
 
     expect(res.status).toBe(200);
     expect(update.mock.calls[0][0]).toMatchObject({ title: "改過的標題" });
@@ -90,12 +91,12 @@ describe("PATCH /api/teach/assignments/[id]", () => {
 
   it("refuses a teacher who does not teach that course", async () => {
     mockRequireCourseTeacher.mockResolvedValue(null);
-    expect((await PATCH(req({ title: "x" }), ctx)).status).toBe(403);
+    expect((await PATCH(req({ cohort_key: "1", title: "x" }), ctx)).status).toBe(403);
     expect(update).not.toHaveBeenCalled();
   });
 
   it("authorizes against the assignment's own course", async () => {
-    await PATCH(req({ title: "x" }), ctx);
+    await PATCH(req({ cohort_key: "1", title: "x" }), ctx);
     expect(mockRequireCourseTeacher).toHaveBeenCalledWith(COURSE);
   });
 });
@@ -107,7 +108,7 @@ describe("saving an assignment never mails anyone", () => {
   it("sends no mail when publishing an existing assignment", async () => {
     mockGetAssignment.mockResolvedValue(assignment({ is_published: false }));
 
-    await PATCH(req({ title: "作業一", is_published: true }), ctx);
+    await PATCH(req({ cohort_key: "1", title: "作業一", is_published: true }), ctx);
 
     expect(update.mock.calls[0][0]).toMatchObject({ is_published: true });
     expect(sendEmail).not.toHaveBeenCalled();
@@ -117,7 +118,7 @@ describe("saving an assignment never mails anyone", () => {
   it("sends no mail when editing an already-published assignment", async () => {
     mockGetAssignment.mockResolvedValue(assignment({ is_published: true }));
 
-    await PATCH(req({ title: "修好錯字", is_published: true }), ctx);
+    await PATCH(req({ cohort_key: "1", title: "修好錯字", is_published: true }), ctx);
 
     expect(sendEmail).not.toHaveBeenCalled();
     expect(sendBatchEmails).not.toHaveBeenCalled();
@@ -126,7 +127,7 @@ describe("saving an assignment never mails anyone", () => {
   it("sends no mail when unpublishing", async () => {
     mockGetAssignment.mockResolvedValue(assignment({ is_published: true }));
 
-    await PATCH(req({ title: "作業一", is_published: false }), ctx);
+    await PATCH(req({ cohort_key: "1", title: "作業一", is_published: false }), ctx);
 
     expect(sendEmail).not.toHaveBeenCalled();
     expect(sendBatchEmails).not.toHaveBeenCalled();

@@ -59,32 +59,78 @@ export default async function TeachCoursePage({ params }: PageProps) {
           還沒有作業。
         </p>
       ) : (
-        <ul className="mt-8 space-y-3">
-          {assignments.map((a) => (
-            <li key={a.id}>
-              <Link
-                href={`/teach/${slug}/assignments/${a.id}`}
-                className="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white p-5 transition hover:border-slate-400"
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-semibold text-slate-900">{a.title}</h2>
-                    {!a.is_published && (
-                      <span className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-800">
-                        未發布
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-1 text-xs text-slate-500">
-                    收到 {counts.get(a.id) ?? 0} 份繳交
-                  </p>
-                </div>
-                <span className="text-sm text-slate-400">→</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-8 space-y-8">
+          {course.cohorts.map((cohort) => {
+            const items = assignments.filter((a) => a.cohort_key === cohort.key);
+            if (items.length === 0) return null;
+            return (
+              <section key={cohort.key}>
+                <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-500">
+                  {cohort.name}（{cohort.date}）
+                  {cohort.open && (
+                    <span className="rounded bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">
+                      招生中
+                    </span>
+                  )}
+                </h2>
+                <ul className="space-y-3">
+                  {items.map((a) => (
+                    <li key={a.id}>
+                      <Link
+                        href={`/teach/${slug}/assignments/${a.id}`}
+                        className="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white p-5 transition hover:border-slate-400"
+                      >
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-semibold text-slate-900">
+                              {a.title}
+                            </h3>
+                            {!a.is_published && (
+                              <span className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-800">
+                                未發布
+                              </span>
+                            )}
+                          </div>
+                          <p className="mt-1 text-xs text-slate-500">
+                            收到 {counts.get(a.id) ?? 0} 份繳交
+                          </p>
+                        </div>
+                        <span className="text-sm text-slate-400">→</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
+
+          {assignments.some((a) => !a.cohort_key) && (
+            <section>
+              <h2 className="mb-3 text-sm font-semibold text-red-600">
+                未指定期別
+              </h2>
+              <p className="text-xs text-slate-500">
+                這些作業沒有期別，學員看不到。編輯它們並指定期別。
+              </p>
+              <ul className="mt-3 space-y-3">
+                {assignments
+                  .filter((a) => !a.cohort_key)
+                  .map((a) => (
+                    <li key={a.id}>
+                      <Link
+                        href={`/teach/${slug}/assignments/${a.id}`}
+                        className="block rounded-lg border border-red-200 bg-white p-5"
+                      >
+                        <h3 className="font-semibold text-slate-900">{a.title}</h3>
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          )}
+        </div>
       )}
+
     </main>
   );
 }

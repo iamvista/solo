@@ -87,8 +87,10 @@ export default async function TeachAssignmentPage({ params }: PageProps) {
         <div className="mt-4">
           <AssignmentForm
             courseId={slug}
+            cohorts={course.cohorts}
             initial={{
               id: assignment.id,
+              cohort_key: assignment.cohort_key ?? "",
               title: assignment.title,
               description: assignment.description ?? "",
               sort_order: assignment.sort_order,

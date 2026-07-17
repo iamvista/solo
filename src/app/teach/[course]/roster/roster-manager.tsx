@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export interface GuestRow {
   id: string;
+  cohort_key: string | null;
   email: string;
   name: string | null;
   note: string | null;
@@ -14,12 +15,17 @@ export interface GuestRow {
 
 export function RosterManager({
   courseId,
+  cohorts,
   guests,
 }: {
   courseId: string;
+  cohorts: Array<{ key: string; name: string; date: string; open?: boolean }>;
   guests: GuestRow[];
 }) {
   const router = useRouter();
+  const [cohortKey, setCohortKey] = useState(
+    cohorts.find((c) => c.open)?.key ?? cohorts[0]?.key ?? "",
+  );
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
@@ -34,7 +40,13 @@ export function RosterManager({
       const res = await fetch("/api/teach/roster", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ course_id: courseId, email, name, note }),
+        body: JSON.stringify({
+          course_id: courseId,
+          cohort_key: cohortKey,
+          email,
+          name,
+          note,
+        }),
       });
       if (!res.ok) {
         const b = await res.json().catch(() => ({}));
@@ -84,7 +96,8 @@ export function RosterManager({
                   <p className="mt-1 text-xs text-slate-600">{g.note}</p>
                 )}
                 <p className="mt-1 text-xs text-slate-400">
-                  {new Date(g.created_at).toLocaleDateString("zh-TW")} 加入
+                  {cohorts.find((c) => c.key === g.cohort_key)?.name ?? "未指定期別"}
+                  ・{new Date(g.created_at).toLocaleDateString("zh-TW")} 加入
                 </p>
               </div>
               <button
@@ -105,6 +118,20 @@ export function RosterManager({
         className="mt-8 space-y-3 rounded-lg border border-slate-200 bg-white p-5"
       >
         <h2 className="text-sm font-semibold text-slate-900">加入一個人</h2>
+        <div>
+          <label className="block text-xs font-medium text-slate-700">期別</label>
+          <select
+            value={cohortKey}
+            onChange={(e) => setCohortKey(e.target.value)}
+            className="mt-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
+          >
+            {cohorts.map((c) => (
+              <option key={c.key} value={c.key}>
+                {c.name}（{c.date}）{c.open ? "・招生中" : ""}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="flex gap-3">
           <input
             type="email"

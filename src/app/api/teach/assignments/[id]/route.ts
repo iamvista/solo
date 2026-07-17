@@ -39,7 +39,7 @@ export async function PATCH(
     return NextResponse.json({ error: "格式錯誤" }, { status: 400 });
   }
 
-  const parsed = parseAssignmentInput(body);
+  const parsed = parseAssignmentInput(body, auth.assignment.course_id);
   if (!parsed.ok) {
     return NextResponse.json({ error: parsed.error }, { status: 400 });
   }

@@ -1,10 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
-import {
-  getCourseConfig,
-  resolvePricing,
-  type PricingPlan,
-} from "@/lib/courses-config";
+import { getCourseConfig, resolvePricing, type PricingPlan, getOpenCohort } from "@/lib/courses-config";
 import { normalizePhone } from "@/lib/phone";
 import { findActiveAffiliateByCode } from "@/lib/affiliates";
 import { sendCapiEvent, parseFbCookies } from "@/lib/meta-capi";
@@ -127,22 +123,39 @@ export async function POST(request: Request) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
-  // 已付款守門：同一 (course, email) 已完成報名就擋下，避免重複建單／重複付款。
-  const { data: paidRow } = await supabase
+  // 招生中的期別。報名歸期的依據：買的就是現在在賣的那一期。
+  // 沒有招生中的期別時 cohortKey 為 null——刻意讓報名照常完成，
+  // 收錢的路不能因為期別沒設好就斷掉。
+  const openCohort = getOpenCohort(course);
+  const cohortKey = openCohort?.key ?? null;
+  if (!openCohort) {
+    console.warn(
+      "[register] 沒有招生中的期別，報名將不歸期",
+      course.slug,
+      email,
+    );
+  }
+
+  // 已付款守門：同一 (course, cohort, email) 已完成報名就擋下，避免重複付款。
+  // 刻意收斂到期別：同一門課開很多期，第一期的學員要報第二期是正當的，
+  // 用 course 層級擋會把他擋在門外，還告訴他「你已經報過這堂課了」。
+  let paidQuery = supabase
     .from("course_enrollments")
     .select("id")
     .eq("course_id", course.slug)
     .eq("email", email)
-    .eq("status", "paid")
-    .limit(1)
-    .maybeSingle();
+    .eq("status", "paid");
+  paidQuery = cohortKey
+    ? paidQuery.eq("cohort_key", cohortKey)
+    : paidQuery.is("cohort_key", null);
+  const { data: paidRow } = await paidQuery.limit(1).maybeSingle();
   if (paidRow) {
     return Response.json(
       {
         ok: false,
         alreadyPaid: true,
         error:
-          "你已經完成這堂課的報名了，不需要再次付款。若要修改資料或有任何疑問，請直接寫信給我們。",
+          `你已經完成${openCohort ? openCohort.name : "這一期"}的報名了，不需要再次付款。若要修改資料或有任何疑問，請直接寫信給我們。`,
       },
       { status: 409 },
     );
@@ -150,6 +163,7 @@ export async function POST(request: Request) {
 
   const enrollmentValues = {
     course_id: course.slug,
+    cohort_key: cohortKey,
     plan: pricing.plan,
     email,
     name,

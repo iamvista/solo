@@ -26,7 +26,7 @@ export default async function RosterPage({ params }: PageProps) {
   const supabase = createServiceClient();
   const { data } = await supabase
     .from("course_guests")
-    .select("id, email, name, note, created_at")
+    .select("id, cohort_key, email, name, note, created_at")
     .eq("course_id", slug)
     .order("created_at", { ascending: false });
 
@@ -45,7 +45,11 @@ export default async function RosterPage({ params }: PageProps) {
         跟付費學員完全一樣，填 email 就能收到入口連結。
       </p>
 
-      <RosterManager courseId={slug} guests={(data ?? []) as GuestRow[]} />
+      <RosterManager
+        courseId={slug}
+        cohorts={course.cohorts}
+        guests={(data ?? []) as GuestRow[]}
+      />
     </main>
   );
 }

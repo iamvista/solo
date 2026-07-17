@@ -44,7 +44,11 @@ function req(body: unknown) {
   });
 }
 
-const base = { course_id: COURSE, title: "第一份作業" };
+const base = {
+  course_id: COURSE,
+  cohort_key: "1", // positioning-convergence 的唯一一期
+  title: "第一份作業",
+};
 
 beforeEach(() => {
   mockRequireCourseTeacher
@@ -95,6 +99,20 @@ describe("POST /api/teach/assignments", () => {
     expect(insert).not.toHaveBeenCalled();
   });
 
+  it("rejects an assignment with no cohort", async () => {
+    // 作業屬於某一期，不屬於整門課。沒有期別，學員資格就無從判定。
+    const { cohort_key: _drop, ...noCohort } = base;
+    const res = await POST(req(noCohort));
+    expect(res.status).toBe(400);
+    expect(insert).not.toHaveBeenCalled();
+  });
+
+  it("rejects an assignment whose cohort does not exist", async () => {
+    const res = await POST(req({ ...base, cohort_key: "99" }));
+    expect(res.status).toBe(400);
+    expect(insert).not.toHaveBeenCalled();
+  });
+
   it("rejects a blank title", async () => {
     const res = await POST(req({ ...base, title: "   " }));
     expect(res.status).toBe(400);
@@ -127,7 +145,7 @@ describe("saving an assignment never mails anyone", () => {
 
 describe("parseAssignmentInput", () => {
   it("defaults all three forms to enabled", () => {
-    const result = parseAssignmentInput({ title: "x" });
+    const result = parseAssignmentInput({ cohort_key: "1", title: "x" });
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.value.allow_file).toBe(true);
@@ -137,7 +155,7 @@ describe("parseAssignmentInput", () => {
   });
 
   it("accepts a due date but keeps it advisory", () => {
-    const result = parseAssignmentInput({ title: "x", due_at: "2026-08-01" });
+    const result = parseAssignmentInput({ cohort_key: "1", title: "x", due_at: "2026-08-01" });
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.value.due_at).toBe(new Date("2026-08-01").toISOString());
@@ -148,12 +166,12 @@ describe("parseAssignmentInput", () => {
   });
 
   it("rejects an unparseable due date", () => {
-    const result = parseAssignmentInput({ title: "x", due_at: "not-a-date" });
+    const result = parseAssignmentInput({ cohort_key: "1", title: "x", due_at: "not-a-date" });
     expect(result.ok).toBe(false);
   });
 
   it("treats a blank due date as none", () => {
-    const result = parseAssignmentInput({ title: "x", due_at: "  " });
+    const result = parseAssignmentInput({ cohort_key: "1", title: "x", due_at: "  " });
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.value.due_at).toBeNull();
   });

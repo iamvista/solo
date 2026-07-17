@@ -62,6 +62,7 @@ const reward = {
 const assignment = {
   id: ASSIGNMENT_ID,
   course_id: COURSE,
+  cohort_key: "1",
   title: "作業一",
   is_published: true,
 };
@@ -73,7 +74,11 @@ beforeEach(() => {
   submissionFilters.length = 0;
   mockGetVerifiedStudent
     .mockReset()
-    .mockResolvedValue({ email: "student@example.com", name: "王小明" });
+    .mockResolvedValue({
+      email: "student@example.com",
+      name: "王小明",
+      cohortKeys: ["1"],
+    });
 });
 
 describe("authorizeReward", () => {

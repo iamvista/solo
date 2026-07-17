@@ -3,6 +3,37 @@
  * 新增課程：在這裡登記，/courses/[course]/register 會自動拿來生表單。
  */
 
+/**
+ * 一門課的一期。
+ *
+ * 期別放在設定檔而非資料庫，理由與課程本身相同：它是課程設定，不是交易資料。
+ * 開新一期＝在 cohorts 陣列加一筆並把 open 移過去，與新增課程同一個動作。
+ *
+ * 先前沒有這個概念，於是開第二期時 date 被就地改掉（commit ef7188e），
+ * 第一期的日期從此消失。cohorts 讓每一期各自留存。
+ */
+export interface Cohort {
+  /**
+   * 穩定識別碼，會寫進 course_enrollments.cohort_key。
+   * 一旦有人報名就不可更改，否則既有報名會對不到期別。
+   */
+  key: string;
+  /** 顯示名稱，例如「第一期」 */
+  name: string;
+  /** 開課日期（顯示用），例如 "2026/8/16（日）" */
+  date: string;
+  /** 是否招生中。一門課至多一期為 true；報名時據此決定 cohort_key。 */
+  open?: boolean;
+  /**
+   * 這一期的 Recur 商品 ID（早鳥與原價等全部列入）。
+   *
+   * 每期一組獨立商品是刻意的：商品若跨期共用後改名，前一期學員的收據會
+   * 變成後一期的日期，而 recur_product_id 也就分不出期別。回填正是靠這個
+   * 陣列把既有報名對應到期。
+   */
+  productIds: string[];
+}
+
 export interface CourseConfig {
   /** 課程 slug，對應 URL */
   slug: string;
@@ -10,7 +41,13 @@ export interface CourseConfig {
   title: string;
   /** 副標／描述（出現在表單頁標頭） */
   subtitle: string;
-  /** 開課時間（顯示用） */
+  /**
+   * 開課時間（顯示用）。永遠等於招生中那一期的 date。
+   *
+   * 保留在頂層而非改由 cohorts 推導：date 有五處讀取（報名頁、課程列表、
+   * OG 圖等），改動它們等於讓收錢頁面的渲染多依賴一層查詢。兩者的一致性
+   * 由 courses-config.test.ts 釘死，改了一邊沒改另一邊測試會紅。
+   */
   date: string;
   /** 上課時段 */
   time: string;
@@ -18,6 +55,13 @@ export interface CourseConfig {
   location: string;
   /** 名額限制 */
   capacity: number;
+  /**
+   * 期別。每門課至少一期。
+   *
+   * 招生中那一期的 date 與 productIds 必須與頂層的 date、
+   * recurProductId* 一致；courses-config.test.ts 會驗。
+   */
+  cohorts: Cohort[];
   /** 早鳥 Recur 產品 ID（如有早鳥則必填） */
   recurProductIdEarlyBird?: string;
   /** 早鳥金額 */
@@ -69,6 +113,15 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     time: "臺灣時間 15:00 – 18:00（3 小時）",
     location: "線上舉辦（報名後通知會議網址連結）",
     capacity: 20,
+    cohorts: [
+      {
+        key: "1",
+        name: "第一期",
+        date: "2026/7/19（日）",
+        open: true,
+        productIds: ["pf2eoon7kaofq8m8ufybmauu"],
+      },
+    ],
     recurProductIdRegular: "pf2eoon7kaofq8m8ufybmauu",
     regularPrice: 4000,
     detailUrl: "/courses/positioning-convergence",
@@ -96,6 +149,28 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     time: "09:00–12:00（3 小時）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 20,
+    cohorts: [
+      // 第一期報名已截止（18/20），商品已於 Recur 設為 active: false。
+      {
+        key: "1",
+        name: "第一期",
+        date: "2026/8/16（日）",
+        productIds: [
+          "b3dc06svryzlii74r2bpn6qo", // 早鳥
+          "u0rnbc9kgub6azuw44ub72ml", // 原價
+        ],
+      },
+      {
+        key: "2",
+        name: "第二期",
+        date: "2026/9/12（六）",
+        open: true,
+        productIds: [
+          "tpl4a90ujudu17w69oggetbk", // 早鳥
+          "dckcqar572yqgeij7ubqsljj", // 原價
+        ],
+      },
+    ],
     recurProductIdEarlyBird: "tpl4a90ujudu17w69oggetbk",
     earlyBirdPrice: 4500,
     earlyBirdDeadline: "2026-08-12",
@@ -130,6 +205,15 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     time: "9:00–12:00（3 小時，含休息）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 16,
+    cohorts: [
+      {
+        key: "1",
+        name: "第一期",
+        date: "2026/8/29（六）",
+        open: true,
+        productIds: ["gngyqhltfyujbl0wjd78304x"],
+      },
+    ],
     recurProductIdRegular: "gngyqhltfyujbl0wjd78304x",
     regularPrice: 5000,
     detailUrl: "/courses/ai-content",
@@ -149,6 +233,15 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     time: "9:00–12:00（3 小時）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 12,
+    cohorts: [
+      {
+        key: "1",
+        name: "第一期",
+        date: "2026/8/15（六）",
+        open: true,
+        productIds: ["y7q482kwsc16h7iw3akwufzq"],
+      },
+    ],
     recurProductIdRegular: "y7q482kwsc16h7iw3akwufzq",
     regularPrice: 4000,
     detailUrl: "/courses/vibe-coding",
@@ -168,6 +261,19 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     time: "週四 20:00–21:30（21:30–22:00 QA），連續 6 週",
     location: "線上 Google Meet＋LINE 群組互動討論（報名後寄送連結、提供回放）",
     capacity: 15,
+    cohorts: [
+      {
+        key: "1",
+        name: "創辦梯次",
+        date: "2026/8/6 起連續 6 週（週四）",
+        open: true,
+        productIds: [
+          "df2j3u3vfh8u2wwh14048yym", // 單人
+          "bq16q93lbuddoarykucd311m", // 雙人同行
+          "jz9tbaygcitkkdpr3y5ah97z", // VIP 診斷席
+        ],
+      },
+    ],
     recurProductIdRegular: "df2j3u3vfh8u2wwh14048yym",
     regularPrice: 9999,
     recurProductIdDual: "bq16q93lbuddoarykucd311m",
@@ -347,4 +453,31 @@ export function availablePlans(
   }
 
   return plans;
+}
+
+/**
+ * 招生中的那一期，沒有就回 null。
+ *
+ * 報名時據此決定 cohort_key。至多一期為 open 由 courses-config.test.ts 保證。
+ */
+export function getOpenCohort(config: CourseConfig): Cohort | null {
+  return config.cohorts.find((c) => c.open) ?? null;
+}
+
+/** 以 key 取得期別。 */
+export function getCohort(config: CourseConfig, key: string): Cohort | null {
+  return config.cohorts.find((c) => c.key === key) ?? null;
+}
+
+/**
+ * 依 Recur 商品 ID 找出期別。
+ *
+ * 回填與報名歸期的依據：買了哪個商品就是哪一期。這是付款紀錄裡的事實，
+ * 不是從時間推論出來的。
+ */
+export function getCohortByProductId(
+  config: CourseConfig,
+  productId: string,
+): Cohort | null {
+  return config.cohorts.find((c) => c.productIds.includes(productId)) ?? null;
 }
