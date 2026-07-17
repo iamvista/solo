@@ -14,5 +14,5 @@
 ## 4. 驗證與上線
 
 - [x] 4.1 全套測試與 lint 通過，未破壞既有候補流程與後臺。驗證：`pnpm test` 與 `npx eslint` 對改動檔案皆無 error，`npx tsc --noEmit` 對改動檔案零新錯誤。
-- [ ] 4.2 五門課的線上頁面皆渲染頁尾區塊。驗證：部署後對 5 個 URL 逐一跑 `curl -H "Cache-Control: no-cache"`，grep 命中各自的頁尾提示文字與 `#footer` 歸因值。
-- [ ] 4.3 後臺來源欄在正式站可見。驗證：以管理者身分開 `/admin/waitlist`，確認既有 5 筆真實資料的來源欄正確呈現（不新增測試資料）。
+- [x] 4.2 五門課的線上頁面皆渲染頁尾區塊。驗證：production 部署後對 6 個 URL（含既有的 ai-academic-writing）逐一跑 `curl -H "Cache-Control: no-cache"`，六頁皆命中各自的 `#footer` 歸因值與正確提示文案；vibe-coding-claude-code 顯示「還沒公告開課日期？」，其餘顯示「這期時間對不上？」。
+- [x] 4.3 後臺來源欄在正式站可見。驗證：以管理者身分開 https://www.solo.tw/admin/waitlist 目視確認，既有 5 筆真實資料的來源欄正確呈現（3 筆「報名按鈕下方」、2 筆「講師頁」），未新增任何測試資料。頁尾入口目前 0 筆，為後續對照的基準線。
