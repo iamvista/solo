@@ -171,11 +171,20 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     whatsNext: COURSE_BRAIN_LAB_NEXT_STEPS,
   },
 
-  // 定位收斂工作坊（2026/7/19 線上）
+  // 定位收斂工作坊・第一期（2026/7/19 線上）
   pf2eoon7kaofq8m8ufybmauu: {
     kind: "course",
     productId: "pf2eoon7kaofq8m8ufybmauu",
     productName: "定位收斂工作坊（2026/7/19 線上）",
+    whatsNext: COURSE_POSITIONING_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/positioning-convergence",
+  },
+
+  // 定位收斂工作坊・第二期（2026/9/5 線上）
+  ffgmhhdizaem3hxpq9gb7xsq: {
+    kind: "course",
+    productId: "ffgmhhdizaem3hxpq9gb7xsq",
+    productName: "定位收斂工作坊（2026/9/5 線上）",
     whatsNext: COURSE_POSITIONING_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/positioning-convergence",
   },

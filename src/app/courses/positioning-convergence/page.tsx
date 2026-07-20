@@ -11,7 +11,7 @@ import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
 export const metadata: Metadata = {
   title: "定位收斂工作坊｜什麼都會的人，如何選出那一個能變現的自己 | solo.tw",
   description:
-    "Susie Li 親授・3 小時實戰。給「什麼都會、卻選不出一個自己」的人：用六步收斂法狠下心收斂成一個記得住、又能變現的定位。第二期即將受理報名，留信箱優先通知。",
+    "Susie Li 親授・3 小時實戰。給「什麼都會、卻選不出一個自己」的人：用六步收斂法狠下心收斂成一個記得住、又能變現的定位。第二期 2026/9/5（六）線上開課，開放報名中。",
   openGraph: {
     title: "定位收斂工作坊｜Susie Li 親授 | solo.tw",
     description:
@@ -23,8 +23,9 @@ export const metadata: Metadata = {
   },
 };
 
-// 第一期已結束（2026-07-19），第二期日期未公告：CTA 一律導向開課通知，
-// 不再指向 /register 付款流程，避免收到還沒開的梯次的錢。
+// Recur 金流：報名導向 /register 流程（表單 + Recur Hosted Checkout）
+const REGISTER_URL = "/courses/positioning-convergence/register";
+
 // 六步收斂法（路徑＝地圖）
 const sixSteps = [
   {
@@ -190,7 +191,9 @@ export default function PositioningConvergencePage() {
             "給「什麼都會、卻選不出一個自己」的人，用六步收斂法狠下心收斂成一個記得住、又能變現的定位。",
           url: "https://www.solo.tw/courses/positioning-convergence",
           instructor: "Susie Li",
+          price: 4000,
           duration: "PT3H",
+          startDate: "2026-09-05",
           location: "線上",
           image: "https://www.solo.tw/images/workshops/cover-positioning-convergence.webp",
         })}
@@ -212,7 +215,7 @@ export default function PositioningConvergencePage() {
         <section className="bg-gradient-to-b from-[#C8953D]/8 via-[#C8953D]/4 to-background">
           <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
             <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
-              🧭 定位收斂 · Susie Li 親授｜第二期即將受理報名
+              🧭 定位收斂 · Susie Li 親授｜第二期 9/5 開課
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               定位收斂工作坊
@@ -226,7 +229,7 @@ export default function PositioningConvergencePage() {
             </p>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
-                <a href="#register">留信箱・開課通知我</a>
+                <a href={REGISTER_URL}>立即報名</a>
               </Button>
               <Button size="lg" variant="outline" className="h-12 px-8 text-base" asChild>
                 <a href="#course-content">查看課程內容</a>
@@ -547,7 +550,7 @@ export default function PositioningConvergencePage() {
                   <div className="space-y-3 text-base">
                     <div className="flex items-center gap-2">
                       <span>📅</span>
-                      <span className="font-medium">第二期即將受理報名，敬請期待</span>
+                      <span className="font-medium">第二期｜2026/9/5（六）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
@@ -573,7 +576,7 @@ export default function PositioningConvergencePage() {
                       </p>
                       <p className="mt-1 text-3xl font-bold text-foreground">NT$4,000</p>
                       <p className="mt-1 text-xs font-medium text-[#C8953D]">
-                        第一期價格・約十分之一（第二期價格以公告為準）
+                        約十分之一的價格
                       </p>
                       <p className="mt-1 text-xs text-muted-foreground">含全程實作引導</p>
                     </div>
@@ -589,12 +592,17 @@ export default function PositioningConvergencePage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-[#C8953D]/30 bg-[#C8953D]/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>第一期已結束・限額 20 人，第二期開放報名時由通知名單優先。</span>
+                  <span>第二期・限額 20 人，額滿或開課前即截止——把握這一梯。</span>
                 </div>
 
-                <p className="mt-6 text-center text-sm text-muted-foreground">
-                  第二期日期尚未公告，留下 E-mail，開放報名時第一時間通知你。
-                </p>
+                <div className="mt-6 text-center">
+                  <Button size="lg" className="h-12 w-full max-w-sm px-8 text-base" asChild>
+                    <a href={REGISTER_URL}>立即報名</a>
+                  </Button>
+                  <p className="mt-3 text-xs text-muted-foreground">
+                    點擊後填寫報名表並線上完成付款即報名成功。會議網址連結將於課前以 email 通知。
+                  </p>
+                </div>
               </CardContent>
             </Card>
             <CourseNotifyEntry slug="positioning-convergence" />
@@ -626,7 +634,7 @@ export default function PositioningConvergencePage() {
                 選出那一個能被記住、也能變現的自己。
               </p>
               <Button size="lg" className="mt-8 h-12 px-8 text-base" asChild>
-                <a href="#register">留信箱通知我｜定位收斂工作坊第二期</a>
+                <a href={REGISTER_URL}>立即報名｜定位收斂工作坊</a>
               </Button>
             </div>
           </section>

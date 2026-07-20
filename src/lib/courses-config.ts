@@ -109,7 +109,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     slug: "positioning-convergence",
     title: "定位收斂工作坊",
     subtitle: "什麼都會的人，如何選出那一個能變現的自己",
-    date: "2026/7/19（日）",
+    date: "2026/9/5（六）",
     time: "臺灣時間 15:00 – 18:00（3 小時）",
     location: "線上舉辦（報名後通知會議網址連結）",
     capacity: 20,
@@ -118,11 +118,17 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
         key: "1",
         name: "第一期",
         date: "2026/7/19（日）",
-        open: true,
         productIds: ["pf2eoon7kaofq8m8ufybmauu"],
       },
+      {
+        key: "2",
+        name: "第二期",
+        date: "2026/9/5（六）",
+        open: true,
+        productIds: ["ffgmhhdizaem3hxpq9gb7xsq"],
+      },
     ],
-    recurProductIdRegular: "pf2eoon7kaofq8m8ufybmauu",
+    recurProductIdRegular: "ffgmhhdizaem3hxpq9gb7xsq",
     regularPrice: 4000,
     detailUrl: "/courses/positioning-convergence",
     hideInvoiceSection: true,
@@ -131,7 +137,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     customQuestionPlaceholder:
       "例：我同時做命理、寫作、教練，不知道對外該主打哪一個；抬頭一長串卻講不清楚自己是誰……",
     preRegistrationNotice:
-      "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；現場我們會帶你一起攤開、盤點、再收斂。【過往寫作課學員】本報名表單不需填優惠碼；請在最後一步 PAYUNi 結帳頁的「優惠碼」欄位，輸入你收到的舊生專屬碼，即折 NT$300（4,000→3,700），只需輸入這一次。",
+      "課前請把你過去到現在的經歷、技能、興趣、學過的東西先想一輪；現場我們會帶你一起攤開、盤點、再收斂。",
     attributionOptions: [
       "Susie 的 FB／IG／Threads",
       "朋友／同事推薦",
