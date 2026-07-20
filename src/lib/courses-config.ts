@@ -129,7 +129,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
       },
     ],
     recurProductIdRegular: "ffgmhhdizaem3hxpq9gb7xsq",
-    regularPrice: 4000,
+    regularPrice: 4500,
     detailUrl: "/courses/positioning-convergence",
     hideInvoiceSection: true,
     customQuestionLabel:

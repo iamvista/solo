@@ -3,7 +3,7 @@
 > 完整內容索引：共 7 個課程與 52 篇文章，供 AI 客戶端檢索與引用。
 
 站點：https://www.solo.tw
-更新時間：2026-07-20T09:37:54.434Z
+更新時間：2026-07-20T10:31:32.871Z
 
 ## 1-on-1 量身陪跑 (/consulting)
 
@@ -86,7 +86,7 @@ URL: https://www.solo.tw/tools
 - 名額: 20 人
 - 狀態: open
 - 分類: innovation
-- 價格: 定價 NT$4,000
+- 價格: 定價 NT$4,500
 
 ### AI 賦能學術研究與寫作實戰工作坊
 - URL: https://www.solo.tw/courses/ai-academic-writing

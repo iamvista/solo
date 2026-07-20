@@ -157,8 +157,8 @@ export const workshops: Workshop[] = [
     location: "線上舉辦（報名後通知會議網址連結）",
     capacity: 20,
     price: {
-      original: 4000,
-      regular: 4000,
+      original: 4500,
+      regular: 4500,
     },
     tags: ["定位", "個人品牌", "內容策略", "收斂取捨"],
     status: "open",

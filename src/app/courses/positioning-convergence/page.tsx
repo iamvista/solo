@@ -191,7 +191,7 @@ export default function PositioningConvergencePage() {
             "給「什麼都會、卻選不出一個自己」的人，用六步收斂法狠下心收斂成一個記得住、又能變現的定位。",
           url: "https://www.solo.tw/courses/positioning-convergence",
           instructor: "Susie Li",
-          price: 4000,
+          price: 4500,
           duration: "PT3H",
           startDate: "2026-09-05",
           location: "線上",
@@ -352,6 +352,21 @@ export default function PositioningConvergencePage() {
               <br className="hidden sm:block" />
               第三步要處理的，不是技巧，是「捨」這一關。
             </p>
+            <div className="mx-auto mt-8 max-w-2xl">
+              <div className="aspect-video w-full overflow-hidden rounded-xl">
+                <iframe
+                  src="https://www.youtube.com/embed/nyln9EQJLYg"
+                  title="什麼都會的人，為什麼選不出定位？不是不會選，是捨不得"
+                  className="h-full w-full"
+                  loading="lazy"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm text-muted-foreground">
+                影片：什麼都會的人，為什麼選不出定位？
+              </p>
+            </div>
           </section>
 
           {/* 五層內容引擎 */}
@@ -391,6 +406,21 @@ export default function PositioningConvergencePage() {
               關鍵在第三層「翻譯」：把感受翻成語言。
               這群人最大的價值是「會感受」，最大的卡點是「講不清楚」。
             </p>
+            <div className="mx-auto mt-8 max-w-2xl">
+              <div className="aspect-video w-full overflow-hidden rounded-xl">
+                <iframe
+                  src="https://www.youtube.com/embed/vt5fnfUfr_o"
+                  title="會感受卻講不清楚？把模糊的感受「翻譯」成客戶聽得懂的語言"
+                  className="h-full w-full"
+                  loading="lazy"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm text-muted-foreground">
+                影片：會感受卻講不清楚？把感受翻譯成客戶聽得懂的語言
+              </p>
+            </div>
           </section>
 
           {/* 課程架構：三大模組 */}
@@ -574,9 +604,9 @@ export default function PositioningConvergencePage() {
                         海外同類定位陪跑 約{" "}
                         <span className="line-through">NT$40,000</span>
                       </p>
-                      <p className="mt-1 text-3xl font-bold text-foreground">NT$4,000</p>
+                      <p className="mt-1 text-3xl font-bold text-foreground">NT$4,500</p>
                       <p className="mt-1 text-xs font-medium text-[#C8953D]">
-                        約十分之一的價格
+                        約九分之一的價格
                       </p>
                       <p className="mt-1 text-xs text-muted-foreground">含全程實作引導</p>
                     </div>
@@ -586,7 +616,7 @@ export default function PositioningConvergencePage() {
                 {/* 價格錨定說明 */}
                 <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">
                   海外一對一定位陪跑動輒四萬起跳；我把同一套方法收進 3 小時工作坊，
-                  讓你用約十分之一的價格，先拿到結果。
+                  讓你用約九分之一的價格，先拿到結果。
                 </p>
 
                 {/* 報名急迫感 */}
