@@ -150,8 +150,9 @@ export const workshops: Workshop[] = [
       "給「什麼都會、卻選不出一個自己」的人：命理師、占卜師、各類教練與身心靈工作者。這不是寫作課，而是陪你用六步收斂法狠下心收斂成一個記得住、又能變現的定位。3 小時帶走一句話定位與一個主產品方向。",
     instructor: susie,
     emoji: "🧭",
-    date: "2026 年 7 月 19 日（日）",
-    sortDate: "2026-07-19",
+    // 第一期 2026-07-19 已結束，第二期日期尚未公告，改為開課通知模式
+    date: "第二期即將受理報名，敬請期待",
+    sortDate: "9999-12-31",
     time: "臺灣時間 15:00–18:00",
     duration: "3 小時",
     location: "線上舉辦（報名後通知會議網址連結）",
@@ -161,7 +162,8 @@ export const workshops: Workshop[] = [
       regular: 4000,
     },
     tags: ["定位", "個人品牌", "內容策略", "收斂取捨"],
-    status: "open",
+    status: "coming_soon",
+    cohort: "第二期",
     url: "/courses/positioning-convergence",
     isExternal: false,
     highlights: [
