@@ -60,7 +60,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              2026/8/29（六）
+              2026/8/30（日）
             </span>
           </div>
 

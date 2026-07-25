@@ -139,11 +139,11 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     detailUrl: "https://www.solo.tw/courses/vibe-coding-claude-code",
   },
 
-  // AI 內容產製系統工作坊（2026/8/29 臺北）
+  // AI 內容產製系統工作坊（2026/8/30 臺北）
   gngyqhltfyujbl0wjd78304x: {
     kind: "course",
     productId: "gngyqhltfyujbl0wjd78304x",
-    productName: "AI 內容產製系統工作坊（2026/8/29 臺北）",
+    productName: "AI 內容產製系統工作坊（2026/8/30 臺北）",
     whatsNext: COURSE_AI_CONTENT_NEXT_STEPS,
     detailUrl: "https://www.solo.tw/courses/ai-content",
   },
