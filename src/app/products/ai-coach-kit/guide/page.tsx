@@ -74,7 +74,7 @@ const guides = [
     slug: "notebooklm",
     icon: BookOpen,
     number: "6",
-    title: "NotebookLM 知識庫建立教學",
+    title: "Gemini Notebook 知識庫建立教學",
     desc: "用 Google 的免費工具建立 AI 可讀的知識庫，作為你自建教練的知識來源。",
   },
 ];

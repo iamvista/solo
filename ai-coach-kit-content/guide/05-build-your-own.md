@@ -33,9 +33,9 @@ AI Coach Kit 附帶的 Vista 教練是一個示範版本，設計用來讓你快
 
 把這些內容存成文字或記下 URL，下一步會用到。
 
-### 3. 建立 NotebookLM 知識庫
+### 3. 建立 Gemini Notebook 知識庫
 
-前往 notebooklm.google.com，用這些文章建立一個知識庫。完整的 NotebookLM 設定步驟請參考 [06-notebooklm-guide.md](06-notebooklm-guide.md)。
+前往 notebooklm.google.com，用這些文章建立一個知識庫。完整的 Gemini Notebook 設定步驟請參考 [06-notebooklm-guide.md](06-notebooklm-guide.md)。
 
 完成後，記下你的 Notebook ID（在網址列中可以找到）。
 
@@ -55,7 +55,7 @@ cp ~/solo-workspace/coach/_template.md ~/solo-workspace/coach/your-coach-name.md
 
 name：教練的名稱，例如「James Clear 習慣教練」
 
-notebook_ids：貼上你在 NotebookLM 記下的 Notebook ID
+notebook_ids：貼上你在 Gemini Notebook 記下的 Notebook ID
 
 style：描述這位導師的教練風格，用 2 到 4 句話說明
 範例：「用系統性思維分析習慣養成，強調身分認同的轉變而非結果導向。傾向用具體的 1% 改進框架，提問方式著重在環境設計而非意志力。語氣平易近人，常用實際案例佐證觀點。」
@@ -89,4 +89,4 @@ goal：這個教練最適合幫助哪類型的目標
 
 ## 下一步
 
-準備好建立 NotebookLM 知識庫了嗎？請繼續閱讀 [06-notebooklm-guide.md](06-notebooklm-guide.md)：NotebookLM 知識庫建立教學。
+準備好建立 Gemini Notebook 知識庫了嗎？請繼續閱讀 [06-notebooklm-guide.md](06-notebooklm-guide.md)：Gemini Notebook 知識庫建立教學。

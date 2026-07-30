@@ -7,7 +7,7 @@ import { ArrowRight, Check } from "lucide-react";
 export const metadata: Metadata = {
   title: "副腦計畫｜Brain+1 Lab：35 天 AI 副腦陪跑營｜Vista Cheng",
   description:
-    "35 天，把你累積多年的素材變成可問答的副腦。NotebookLM + Obsidian + Claude Skills 三個利器，6/1 開營。",
+    "35 天，把你累積多年的素材變成可問答的副腦。Gemini Notebook + Obsidian + Claude Skills 三個利器，6/1 開營。",
   metadataBase: new URL("https://brain.solo.tw"),
   alternates: { canonical: "https://brain.solo.tw" },
   openGraph: {
@@ -63,7 +63,7 @@ const offerItems = [
 
 const faqs = [
   {
-    q: "我已經是重度的 NotebookLM 使用者了！",
+    q: "我已經是重度的 Gemini Notebook 使用者了！",
     a: "那太好了，可以跳過工具設定與學習，直接開始使用。",
   },
   {
@@ -75,7 +75,7 @@ const faqs = [
     a: "全程錄影回放。但 Demo Day（7/4 週六）建議上線觀摩。",
   },
   {
-    q: "NotebookLM 改版怎麼辦？",
+    q: "Gemini Notebook 改版怎麼辦？",
     a: "我主要教的是素材分類，我會分享跨資料庫查詢的方法。",
   },
   {
@@ -210,7 +210,7 @@ export default function BrainLandingPage() {
 
           <p className="mx-auto mt-12 max-w-3xl text-center text-stone-600">
             <span className="font-semibold text-stone-900">怎麼做到</span>
-            ：每天 15 分鐘 × 3 個專題筆記 × NotebookLM + Obsidian + Claude Skills 三個利器。
+            ：每天 15 分鐘 × 3 個專題筆記 × Gemini Notebook + Obsidian + Claude Skills 三個利器。
           </p>
 
           <div className="mt-12 overflow-hidden rounded-xl border border-stone-200 bg-white">
@@ -264,7 +264,7 @@ export default function BrainLandingPage() {
               <span className="text-amber-700">先用這份簡報暖身。</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
-              我把 NotebookLM 的入門情報，製作成一份免費的教學簡報——
+              我把 Gemini Notebook 的入門情報，製作成一份免費的教學簡報——
               <span className="font-semibold text-stone-900">34 張投影片、約 50 分鐘可以看完</span>
               ，從註冊、Steven Johnson 的專家建議，到學生與職場人士的實戰場景，全部為你引路。
             </p>
@@ -275,7 +275,7 @@ export default function BrainLandingPage() {
               <div className="relative bg-gradient-to-br from-amber-100 to-orange-100 p-8 sm:col-span-2 sm:p-10">
                 <div className="text-5xl">📓</div>
                 <h3 className="mt-4 text-xl font-bold text-stone-900">
-                  Google NotebookLM
+                  Google Gemini Notebook
                   <br />
                   新手入門
                 </h3>
@@ -292,7 +292,7 @@ export default function BrainLandingPage() {
                 <div className="text-sm font-semibold text-amber-700">你會學到</div>
                 <ul className="mt-4 space-y-3 text-stone-700">
                   {[
-                    "NotebookLM 是什麼、和 ChatGPT 差別在哪",
+                    "Gemini Notebook 是什麼、和 ChatGPT 差別在哪",
                     "註冊到第一份筆記本的最短路徑（5 步驟）",
                     "Steven Johnson 親授的官方建議（中文版）",
                     "學生 × 職場人士分眾用法 + 即學即用練習",
@@ -346,7 +346,7 @@ export default function BrainLandingPage() {
             為什麼是我
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-stone-600">
-            我不是教 NotebookLM 的人，我是每天用 NotebookLM 工作的人。
+            我不是教 Gemini Notebook 的人，我是每天用 Gemini Notebook 工作的人。
           </p>
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2">

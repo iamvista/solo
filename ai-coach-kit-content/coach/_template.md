@@ -1,7 +1,7 @@
 ---
 name: "{教練名稱}"
 notebook_ids:
-  - "{NotebookLM 筆記本 ID，可多個}"
+  - "{Gemini Notebook 筆記本 ID，可多個}"
 style: "{教練風格，一句話描述}"
 progress_file: "coach/{教練名稱小寫}-progress.md"
 ---

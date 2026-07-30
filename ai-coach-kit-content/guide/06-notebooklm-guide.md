@@ -1,18 +1,18 @@
-# NotebookLM 知識庫建立教學
+# Gemini Notebook 知識庫建立教學
 
-這篇教你什麼：用 Google 的免費工具 NotebookLM 建立一個 AI 可讀的知識庫，作為你自建教練的知識來源。
+這篇教你什麼：用 Google 的免費工具 Gemini Notebook 建立一個 AI 可讀的知識庫，作為你自建教練的知識來源。
 
 ---
 
-## NotebookLM 是什麼？
+## Gemini Notebook 是什麼？
 
-NotebookLM 是 Google 提供的免費 AI 筆記工具，讓你把文章、網頁、PDF 等資料上傳後，AI 就可以根據這些內容回答問題或生成分析。在 AI Coach Kit 系統中，我們用它來存放你選定導師的所有文章，讓教練的回應有知識依據。
+Gemini Notebook 是 Google 提供的免費 AI 筆記工具，讓你把文章、網頁、PDF 等資料上傳後，AI 就可以根據這些內容回答問題或生成分析。在 AI Coach Kit 系統中，我們用它來存放你選定導師的所有文章，讓教練的回應有知識依據。
 
 ---
 
 ## 步驟
 
-### 1. 前往 NotebookLM
+### 1. 前往 Gemini Notebook
 
 打開瀏覽器，前往：
 
@@ -36,7 +36,7 @@ notebooklm.google.com
 
 ### 5. 新增來源資料
 
-這是最重要的步驟。NotebookLM 支援四種方式新增資料：
+這是最重要的步驟。Gemini Notebook 支援四種方式新增資料：
 
 方式一：URL（網址）
 1. 點選「新增來源」
@@ -88,9 +88,9 @@ https://notebooklm.google.com/notebook/a1b2c3d4-e5f6-7890-abcd-ef1234567890
 
 ## 常見問題
 
-問：NotebookLM 要付費嗎？
+問：Gemini Notebook 要付費嗎？
 
-答：完全免費，只需要有一個 Google 帳號即可使用。目前 NotebookLM 的基本功能對所有使用者免費開放，不需要信用卡。
+答：完全免費，只需要有一個 Google 帳號即可使用。目前 Gemini Notebook 的基本功能對所有使用者免費開放，不需要信用卡。
 
 問：來源新增後多久可以用？
 

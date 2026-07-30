@@ -58,9 +58,9 @@ tags:
 
 ---
 
-## 3. NotebookLM——我的第二大腦
+## 3. Gemini Notebook——我的第二大腦
 
-[NotebookLM](https://notebooklm.google.com/) 是 Google 推出的 [AI 知識管理工具](https://www.vista.tw/blog/notebooklm-evolution-guide-from-note-taking-tool-to)，也是我覺得最被低估的一個。
+[Gemini Notebook](https://notebooklm.google.com/) 是 Google 推出的 [AI 知識管理工具](https://www.vista.tw/blog/notebooklm-evolution-guide-from-note-taking-tool-to)，也是我覺得最被低估的一個。
 
 它的運作方式跟其他 AI 不一樣。你不是丟一個問題讓它從網路上找答案——你是**餵它你自己的資料**（PDF、文章、筆記、影片連結），然後它只根據你給的內容來回答問題。
 
@@ -120,7 +120,7 @@ Claude 擅長結構化分析，Grok 擅長跳脫框架。
 
 - **Claude Code** → 技術執行（建網站、寫程式、自動化）
 - **Claude Cowork** → 深度協作（寫作、備課、決策分析）
-- **NotebookLM** → 知識管理（學習、研究、素材整理）
+- **Gemini Notebook** → 知識管理（學習、研究、素材整理）
 - **Gemini** → 視覺產出（配圖、插圖、設計素材）
 - **Grok** → 創意激盪（腦力激盪、反向思考、趨勢探索）
 

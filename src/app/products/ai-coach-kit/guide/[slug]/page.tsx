@@ -342,9 +342,9 @@ Vista Coach 是一個很好的範例，但你的產業、你的知識、你的�
 
 把那位作者的文章 URL、書摘、課程筆記收集起來。
 
-## Step 3：建立 NotebookLM 知識庫
+## Step 3：建立 Gemini Notebook 知識庫
 
-詳見下一篇教學。簡單說就是把文章灌進 Google 的 NotebookLM 工具。
+詳見下一篇教學。簡單說就是把文章灌進 Google 的 Gemini Notebook 工具。
 
 ## Step 4：複製模板
 
@@ -353,7 +353,7 @@ Vista Coach 是一個很好的範例，但你的產業、你的知識、你的�
 ## Step 5：填寫設定
 
 - name：教練名稱（例如「Atomic Habits Coach」）
-- notebook_ids：你的 NotebookLM 筆記本 ID
+- notebook_ids：你的 Gemini Notebook 筆記本 ID
 - style：教練風格（例如「簡潔、科學導向、用案例說明」）
 - progress_file：進度檔路徑
 
@@ -424,8 +424,8 @@ Desktop：輸入「啟動教練」
 如對特定內容的使用是否合法有疑慮，建議諮詢專業法律人士。`,
   },
   notebooklm: {
-    title: "NotebookLM 知識庫建立教學",
-    body: `## 什麼是 NotebookLM？
+    title: "Gemini Notebook 知識庫建立教學",
+    body: `## 什麼是 Gemini Notebook？
 
 Google 推出的免費工具，可以把文章、書摘、筆記變成 AI 可以搜尋的知識庫。
 
@@ -445,7 +445,7 @@ Google 推出的免費工具，可以把文章、書摘、筆記變成 AI 可以
 
 點「新增來源」，有 4 種方式：
 
-- 網址：直接貼文章 URL，NotebookLM 會自動擷取內容
+- 網址：直接貼文章 URL，Gemini Notebook 會自動擷取內容
 - 文字：複製貼上文章內容
 - 檔案上傳：PDF、文字檔
 - Google Drive：連結你的 Drive 文件
@@ -476,7 +476,7 @@ notebooklm.google.com/notebook/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ## 常見問題
 
-Q：NotebookLM 要付費嗎？
+Q：Gemini Notebook 要付費嗎？
 A：完全免費，只需要 Google 帳號。`,
   },
 };

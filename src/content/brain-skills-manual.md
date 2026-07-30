@@ -12,7 +12,7 @@
 2. [環境準備](#2-環境準備)
    - [2.1 Mac 環境安裝](#21-mac-環境安裝)
    - [2.2 Windows 環境安裝](#22-windows-環境安裝)
-   - [2.3 NotebookLM 設定](#23-notebooklm-設定)
+   - [2.3 Gemini Notebook 設定](#23-gemini-notebook-設定)
    - [2.4 Obsidian Vault 建置](#24-obsidian-vault-建置)
    - [2.5 Claude Code CLI 安裝](#25-claude-code-cli-安裝)
    - [2.6（選）notebooklm-mcp 自動化](#26-選notebooklm-mcp-自動化)
@@ -47,7 +47,7 @@
    ↓
 [Notebook 資料夾]   ← notebook-builder skill 上傳
    ↓
-[NotebookLM Notebook]   ← notebooklm-brief-verifier 驗 brief
+[Gemini Notebook 筆記本]   ← notebooklm-brief-verifier 驗 brief
    ↓
 [跨庫整合]   ← cross-notebook-query 串多 Notebook
    ↓
@@ -61,21 +61,21 @@
 | # | Skill | 指令 | 對應週次 | 主要功能 |
 |---|---|---|---|---|
 | 1 | 收件夾分流 | `/inbox-router` | W1 | 把 `00_inbox/` 的素材按 hashtag 自動搬到對應 Notebook 資料夾 |
-| 2 | Notebook 建置 | `/notebook-builder` | W1–W4 | 從 Obsidian 資料夾批次上傳 sources 到 NotebookLM |
-| 3 | brief 驗證 | `/notebooklm-brief-verifier` | W2 | 檢查 NotebookLM brief 的覆蓋度、斷章取義、漏連結 |
+| 2 | Notebook 建置 | `/notebook-builder` | W1–W4 | 從 Obsidian 資料夾批次上傳 sources 到 Gemini Notebook |
+| 3 | brief 驗證 | `/notebooklm-brief-verifier` | W2 | 檢查 Gemini Notebook brief 的覆蓋度、斷章取義、漏連結 |
 | 4 | 音訊抽 highlight | `/audio-highlight-extractor` | W3 | 把 podcast / 訪談逐字稿抽出 5–10 段 highlight |
-| 5 | 跨庫查詢 | `/cross-notebook-query` | W4 | 對多個 NotebookLM Notebook 同時提問並整合答案 |
+| 5 | 跨庫查詢 | `/cross-notebook-query` | W4 | 對多個 Gemini Notebook 筆記本同時提問並整合答案 |
 | 6 | 個人 GPT 初始化 | `/personal-gpt-init` | W4 結業 | 把所有 Notebook 接成 ChatGPT GPT / Claude Project / Gemini Gem |
 
 ### 工具堆疊
 
 | 工具 | 角色 | 必需 / 建議 |
 |---|---|---|
-| **NotebookLM** | 副腦的核心、問答引擎 | ✅ 必需 |
+| **Gemini Notebook** | 副腦的核心、問答引擎 | ✅ 必需 |
 | **Obsidian** | raw 素材入口 + 長期倉庫 | ✅ 必需 |
 | **Claude（網頁）** | 跟副腦對話的入口、抽象化助手 | ✅ 必需 |
 | **Claude Code（CLI）** | 跑 6 個 skill 的執行環境 | ✅ 必需（W2 起）|
-| **notebooklm-mcp** | Claude Code 跟 NotebookLM 的橋接器 | 🟡 建議（讓 skill 可自動化） |
+| **notebooklm-mcp** | Claude Code 跟 Gemini Notebook 的橋接器 | 🟡 建議（讓 skill 可自動化） |
 
 ---
 
@@ -85,7 +85,7 @@
 
 - 一台 Mac 或 Windows 電腦
 - 穩定網路
-- Google 帳號（NotebookLM 用）
+- Google 帳號（Gemini Notebook 用）
 - Claude 帳號（Anthropic 官網註冊，免費版起步可，付費版進階更順）
 
 ---
@@ -154,20 +154,20 @@ git --version
 
 ---
 
-### 2.3 NotebookLM 設定
+### 2.3 Gemini Notebook 設定
 
-NotebookLM 是副腦計畫的核心。先確認你能用。
+Gemini Notebook 是副腦計畫的核心。先確認你能用。
 
 1. 開瀏覽器到 https://notebooklm.google.com
 2. 用 Google 帳號登入（建議用你日常工作那組）
-3. 第一次進入會看到歡迎頁，點 `Get started` 或 `Try NotebookLM`
+3. 第一次進入會看到歡迎頁，點 `Get started` 或 `Try Gemini Notebook`
 
 #### 建第一個測試 Notebook
 
 1. 點右上 `+ Create new`
 2. 命名「測試」
 3. 上傳一份 PDF 或貼一段文字當 source
-4. 等 NotebookLM 處理完（30 秒–2 分鐘）
+4. 等 Gemini Notebook 處理完（30 秒–2 分鐘）
 5. 在下方對話框問：「這份文件的核心論點是什麼？」
 
 #### ✅ 確認你看到
@@ -180,7 +180,7 @@ NotebookLM 是副腦計畫的核心。先確認你能用。
 
 #### 區域 / 帳號限制
 
-NotebookLM 在某些國家或某類 Google 帳號上不開放。如果你開不到 NotebookLM，試：
+Gemini Notebook 在某些國家或某類 Google 帳號上不開放。如果你開不到 Gemini Notebook，試：
 - 換另一個 Google 帳號
 - 用 VPN 切到美國或日本
 
@@ -305,7 +305,7 @@ claude
 
 ### 2.6（選）notebooklm-mcp 自動化
 
-NotebookLM 沒有公開 REST API。要讓 skills 自動上傳 sources / 跨庫查詢，需要裝 notebooklm-mcp。
+Gemini Notebook 沒有公開 REST API。要讓 skills 自動上傳 sources / 跨庫查詢，需要裝 notebooklm-mcp。
 
 #### 為什麼裝它
 
@@ -324,7 +324,7 @@ npm install -g notebooklm-mcp
 nlm login
 ```
 
-`nlm login` 會跳出瀏覽器要你登入 Google 帳號（要跟 NotebookLM 同一個）。
+`nlm login` 會跳出瀏覽器要你登入 Google 帳號（要跟 Gemini Notebook 同一個）。
 
 完成後在 `~/.claude/settings.json` 加上 mcp server 設定（W2 直播會詳細帶）。
 
@@ -457,14 +457,14 @@ claude
 
 ### `/notebook-builder` — Notebook 建置
 
-**用途**：從 Obsidian 資料夾批次上傳所有 sources 到 NotebookLM。
+**用途**：從 Obsidian 資料夾批次上傳所有 sources 到 Gemini Notebook。
 
-**何時用**：你決定建一個新的 NotebookLM Notebook 時。
+**何時用**：你決定建一個新的 Gemini Notebook 筆記本時。
 
 **輸入**：資料夾路徑（如 `01_notebook-01`）。
 
 **輸出**：
-- NotebookLM Notebook 建立完成（給 URL）
+- Gemini Notebook 筆記本建立完成（給 URL）
 - `<folder>/source-list.md` 紀錄上傳清單
 
 **雙路徑**：
@@ -475,7 +475,7 @@ claude
 
 ### `/notebooklm-brief-verifier` — brief 驗證
 
-**用途**：檢查 NotebookLM 的 brief 是否：
+**用途**：檢查 Gemini Notebook 的 brief 是否：
 1. 覆蓋全部 sources（沒漏引用）
 2. 沒斷章取義（brief 跟原文觀點一致）
 3. 沒漏跨 source 連結（兩份 source 處理同概念但 brief 沒整合）
@@ -490,7 +490,7 @@ claude
 
 **用途**：把 podcast / 訪談 / 影片字幕的逐字稿，按主題抽出 5–10 段 highlight，產出可上傳的 markdown source。
 
-**何時用**：你要把音訊內容變成 NotebookLM source 時。
+**何時用**：你要把音訊內容變成 Gemini Notebook source 時。
 
 **輸入**：
 - 逐字稿檔案（.txt / .srt / .vtt）
@@ -502,7 +502,7 @@ claude
 
 ### `/cross-notebook-query` — 跨庫查詢
 
-**用途**：對多個 NotebookLM Notebook 同時提問，整合回答 + 比對交集 / 差異 / 衝突。
+**用途**：對多個 Gemini Notebook 筆記本同時提問，整合回答 + 比對交集 / 差異 / 衝突。
 
 **何時用**：你想問跨類型的問題（例如「客戶最在意什麼？」需要書 + podcast + 你的工作經驗一起看）。
 
@@ -589,7 +589,7 @@ Claude 會列出 inbox 內容，顯示移動計畫。確認 yes 後執行。
 Claude 會：
 1. 列出 8 份 sources
 2. 問 Notebook 主題（你回：「行銷理論交叉閱讀｜書 + 論文｜2026-06」）
-3. 批次上傳到 NotebookLM
+3. 批次上傳到 Gemini Notebook
 4. 給你 Notebook URL
 
 開瀏覽器到 URL，對 Notebook 提 5 個問題（事實 / 比較 / 連結 / 反駁 / 創造）。
@@ -637,7 +637,7 @@ Claude 抽 8 段 highlight，存到 `00_inbox/cal-newport-ep42-highlights.md`。
 /notebook-builder 02_notebook-02
 ```
 
-Notebook 建好後，回 NotebookLM 介面手寫 brief，照 5 元素：
+Notebook 建好後，回 Gemini Notebook 介面手寫 brief，照 5 元素：
 
 1. 主題定義
 2. sources 角色
@@ -864,9 +864,9 @@ npm config get prefix
 
 ---
 
-### 7.2 NotebookLM 相關
+### 7.2 Gemini Notebook 相關
 
-**Q：NotebookLM 我打不開**
+**Q：Gemini Notebook 我打不開**
 
 地區或帳號限制。試：
 - 換另一個 Google 帳號（公開 gmail.com 通常 OK）
@@ -938,10 +938,10 @@ npm config get prefix
 |---|---|
 | 個人筆記系統論 | 工程化的可問答副腦 |
 | PARA 分類法 | hashtag + Notebook 邊界 |
-| 任何工具都行 | 鎖定 NotebookLM + Obsidian + Claude |
+| 任何工具都行 | 鎖定 Gemini Notebook + Obsidian + Claude |
 | 中度 manual | 大量 AI 自動化 |
 
-兩者可互補（用 BASB 思考分類，用副腦計畫的 skill 落實到 NotebookLM）。
+兩者可互補（用 BASB 思考分類，用副腦計畫的 skill 落實到 Gemini Notebook）。
 
 **Q：35 天結束後我還能繼續用嗎？**
 
@@ -989,9 +989,9 @@ echo "🎉 Done. 6 skills should be at ~/.claude/skills/"
 ls ~/.claude/skills/
 ```
 
-### 附錄 C：NotebookLM 跟其他 AI 工具差別
+### 附錄 C：Gemini Notebook 跟其他 AI 工具差別
 
-| 項目 | NotebookLM | ChatGPT | Notion AI |
+| 項目 | Gemini Notebook | ChatGPT | Notion AI |
 |---|---|---|---|
 | 來源綁定 | ✅ 只用你給的 source | ❌ 通用知識 | 🟡 部分 |
 | 答案有引用 | ✅ 點擊跳回原段落 | ❌ 沒有 | ❌ 沒有 |
@@ -999,7 +999,7 @@ ls ~/.claude/skills/
 | 不亂掰 | ✅ source-grounded | ❌ 會幻覺 | 🟡 偶爾 |
 | 聲音檔處理 | ✅ 部分（需轉文字） | ❌ 沒原生 | ❌ 沒 |
 
-副腦計畫選 NotebookLM 的核心理由：source-grounded + 答案附引用 + 跨 source 連結。
+副腦計畫選 Gemini Notebook 的核心理由：source-grounded + 答案附引用 + 跨 source 連結。
 
 ### 附錄 D：6 個 Skill 對應週次速查
 

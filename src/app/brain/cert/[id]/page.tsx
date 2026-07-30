@@ -193,7 +193,7 @@ export default async function CertificatePage({ params }: PageProps) {
           <h2 className="text-2xl font-bold">關於副腦計畫</h2>
           <p className="mt-4 leading-relaxed text-stone-300">
             副腦計畫｜Brain+1 Lab 是 Vista Cheng 設計的 35 天 AI 副腦陪跑營。
-            學員透過 NotebookLM、Obsidian 與 Claude Code 6 個專屬 skills，
+            學員透過 Gemini Notebook、Obsidian 與 Claude Code 6 個專屬 skills，
             把累積多年的素材變成可問答的個人 AI 副腦。
           </p>
           <p className="mt-4 leading-relaxed text-stone-300">

@@ -15,7 +15,7 @@ description: 教練週報總結。每週日使用，回顧整週、設計下週�
 
 1. 讀取教練設定檔，取得 notebook_ids、style、progress_file
 2. 讀取完整的 progress file
-3. 查詢所有 NotebookLM 筆記本，搜尋與本週工作相關的原則
+3. 查詢所有 Gemini Notebook 筆記本，搜尋與本週工作相關的原則
 4. 產出週報總結：
    - 過去 7 天總結：完成了什麼、學到什麼、關鍵數據
    - 實驗進度分析：每個實驗的完成度、距離成功指標的差距

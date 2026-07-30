@@ -210,14 +210,14 @@ ALTER TABLE download_tokens ENABLE ROW LEVEL SECURITY;
 - 為什麼要建自己的教練（Vista Coach 是範例，你的領域你最懂）
 - 選擇知識來源（選一位對你影響最大的作者）
 - 收集 20-30 篇文章
-- 建立 NotebookLM 筆記本（見 06）
+- 建立 Gemini Notebook 筆記本（見 06）
 - 複製 _template.md，填寫設定
 - 啟動並校準
 - 進階：多教練並行
 
-### 06 NotebookLM 知識庫建立教學
+### 06 Gemini Notebook 知識庫建立教學
 
-- 什麼是 NotebookLM？
+- 什麼是 Gemini Notebook？
 - 到 notebooklm.google.com 登入
 - 建立新筆記本
 - 加入來源：4 種方式（URL、文字、檔案、Google Drive）
@@ -265,7 +265,7 @@ ALTER TABLE download_tokens ENABLE ROW LEVEL SECURITY;
 - PAYUNi 付款整合（已有）
 - 4 個教練 Skill 檔案（今天做好的）
 - 教練模板（今天做好的）
-- Vista Coach 設定 + 3 本 NotebookLM 筆記本（今天建好的）
+- Vista Coach 設定 + 3 本 Gemini Notebook 筆記本（今天建好的）
 - solo.tw 設計系統（Tailwind + shadcn/ui）
 
 ### 不需要做的

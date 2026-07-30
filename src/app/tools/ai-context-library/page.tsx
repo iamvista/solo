@@ -199,7 +199,7 @@ const installPlatforms = [
   },
   {
     id: "notebooklm",
-    name: "NotebookLM",
+    name: "Gemini Notebook",
     tagline: "免費，研究參照主力",
     plan: "免費（Google 帳號）",
     difficulty: "⭐",
@@ -218,7 +218,7 @@ const installPlatforms = [
       },
       {
         title: "跟 Notebook 對話",
-        body: "NotebookLM 不像 Claude／ChatGPT 是 chat 助手定位，它更偏「研究工具」。可以直接在輸入框問：",
+        body: "Gemini Notebook 不像 Claude／ChatGPT 是 chat 助手定位，它更偏「研究工具」。可以直接在輸入框問：",
         code: `依照 03-belief-map 的立場，寫一篇 600 字反駁「AI 會取代寫作者」的短文。`,
       },
       {
@@ -253,7 +253,7 @@ const faqItems = [
   {
     question: "這兩份模板適合誰下載？",
     answer:
-      "適合知識工作者、講師、顧問、作者、研究者，以及靠觀點與寫作變現的 獨立創作者。只要你常用 Claude、ChatGPT、Gemini、NotebookLM 之類的 AI 工具寫作或思考，這兩份模板就能幫你大幅提升輸出可用率。",
+      "適合知識工作者、講師、顧問、作者、研究者，以及靠觀點與寫作變現的 獨立創作者。只要你常用 Claude、ChatGPT、Gemini、Gemini Notebook 之類的 AI 工具寫作或思考，這兩份模板就能幫你大幅提升輸出可用率。",
   },
   {
     question: "下載要付費或留 Email 嗎？",
@@ -273,7 +273,7 @@ const faqItems = [
   {
     question: "只能用 Claude 嗎？",
     answer:
-      "不是。任何支援「專案知識」「自訂指令」或「長期上下文」的 AI 工具都能用，包括 Claude Project、ChatGPT Project、Gemini Gem、NotebookLM 等。本模板與任何 AI 平台無官方合作、授權或背書關係，請依個人需求自由選擇工具。",
+      "不是。任何支援「專案知識」「自訂指令」或「長期上下文」的 AI 工具都能用，包括 Claude Project、ChatGPT Project、Gemini Gem、Gemini Notebook 等。本模板與任何 AI 平台無官方合作、授權或背書關係，請依個人需求自由選擇工具。",
   },
   {
     question: "這個方法跟海外的 context-first 工作流有什麼差別？",
@@ -429,7 +429,7 @@ export default function ContextLibraryPage() {
             <p className="mt-3 text-base text-stone-500">
               下載完模板後，跟著步驟做，10 分鐘就能放進你的 AI 工作區。
               <br className="hidden sm:block" />
-              建議至少裝兩個：一個主力寫作（Claude／ChatGPT 二選一），一個研究參照（NotebookLM）。
+              建議至少裝兩個：一個主力寫作（Claude／ChatGPT 二選一），一個研究參照（Gemini Notebook）。
             </p>
           </div>
 
@@ -612,7 +612,7 @@ export default function ContextLibraryPage() {
       <section className="border-t border-stone-200 bg-white py-10">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <p className="text-xs leading-relaxed text-stone-400">
-            本模板為 Vista Cheng 設計之個人 AI 工作流文件，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。模板可依需求用於 Claude、ChatGPT、Gemini、NotebookLM 或其他支援專案知識的 AI 工具。
+            本模板為 Vista Cheng 設計之個人 AI 工作流文件，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。模板可依需求用於 Claude、ChatGPT、Gemini、Gemini Notebook 或其他支援專案知識的 AI 工具。
           </p>
         </div>
       </section>

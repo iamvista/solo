@@ -62,7 +62,7 @@ Ben 用 [Polsia](https://polsia.ai) 做同樣的事，從輸入想法到看到�
 
 **一、先從自動化夜班開始。**你不需要像 Ben 一樣，建一個完整的 AI Agent 平臺。但你可以問自己：我每天做的事情裡，有哪些是可以交給 AI 在我睡覺的時候跑完的？電子報排程、社群貼文排程、數據報表自動產生——這些都是低垂的果實。
 
-**二、把一個人能不能做到，當成檢驗標準。**如果你經營一人事業，不要急著僱人或外包。先問自己：有沒有一個 AI 工具或自動化流程，可以解決這個問題？我自己用 [Claude Code 建網站](https://www.solo.tw/blog/ai-tools-for-solopreneurs)、用 [NotebookLM](https://www.vista.tw/blog/notebooklm-evolution-guide-from-note-taking-tool-to) 做知識管理、用 Gemini 做設計——每一個都是原本需要外包的事。
+**二、把一個人能不能做到，當成檢驗標準。**如果你經營一人事業，不要急著僱人或外包。先問自己：有沒有一個 AI 工具或自動化流程，可以解決這個問題？我自己用 [Claude Code 建網站](https://www.solo.tw/blog/ai-tools-for-solopreneurs)、用 [Gemini Notebook](https://www.vista.tw/blog/notebooklm-evolution-guide-from-note-taking-tool-to) 做知識管理、用 Gemini 做設計——每一個都是原本需要外包的事。
 
 **三、不要等到完美才開始。**Ben 的公司名字 Polsia，其實是 AI Slop（AI 爛泥）反過來拼的。他引用了 [Rick Rubin](https://www.rickrubin.com/) 的創作哲學——先為自己做，不要一開始就想著別人怎麼看。他的產品 UI 故意做得很怪，靈感來自一個叫 [Universal Paperclips](https://www.decisionproblem.com/paperclips/) 的極簡網頁遊戲。重點不是漂亮，是能用。
 

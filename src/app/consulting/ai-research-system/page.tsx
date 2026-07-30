@@ -32,7 +32,7 @@ const mailtoHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
 export const metadata: Metadata = {
   title: "個人 AI 研究與寫作引擎｜1-on-1 系統建構 | solo.tw",
   description:
-    "不是教你工具，是幫你建好屬於自己的 AI 研究與寫作系統。NotebookLM、Obsidian、自動化工作流，4 週交付一套能長期使用的個人系統。",
+    "不是教你工具，是幫你建好屬於自己的 AI 研究與寫作系統。Gemini Notebook、Obsidian、自動化工作流，4 週交付一套能長期使用的個人系統。",
   alternates: {
     canonical: "https://www.solo.tw/consulting/ai-research-system",
   },
@@ -47,7 +47,7 @@ const painPoints = [
   {
     icon: Layers,
     title: "工具一堆，串不起來",
-    desc: "NotebookLM、Obsidian、Notion、Google Drive 各自為政。資料散在不同地方，要用的時候永遠找不到。",
+    desc: "Gemini Notebook、Obsidian、Notion、Google Drive 各自為政。資料散在不同地方，要用的時候永遠找不到。",
   },
   {
     icon: Workflow,
@@ -72,7 +72,7 @@ const plans = [
       "90 分鐘 1:1 設計訪談：盤點現況、釐清目標",
       "個人系統架構圖（PDF）：工具串接設計與資料流",
       "客製 Prompt 庫 12–15 條：依你的研究／寫作領域量身寫",
-      "NotebookLM 主題模板 × 2：資料夾結構、source 分類、命名規範",
+      "Gemini Notebook 主題模板 × 2：資料夾結構、source 分類、命名規範",
       "個人知識庫結構藍圖：含 Notion 實作步驟（亦可套用其他工具）",
       "Vista 私房 Skill 1 份（例：研究主題探勘 / 文獻摘要工作流）",
       "工具棧建議書：付費 / 免費替代方案對照",
@@ -94,7 +94,7 @@ const plans = [
     icon: Sparkles,
     includes: [
       "啟動訪談 90 分鐘 + 個人系統架構圖",
-      "建構 2–3 個主題 NotebookLM（含 source 規範與命名）",
+      "建構 2–3 個主題 Gemini Notebook（含 source 規範與命名）",
       "MCP 自動化模組（基本款）：自動同步、跨 notebook 查詢",
       "客製 Prompt 庫 30+ 條 + 多份 Skill / 模板",
       "工作流 SOP 文件：每日 / 每週使用步驟",
@@ -116,7 +116,7 @@ const plans = [
     icon: Wand2,
     includes: [
       "包含「AI 研究與寫作引擎」全部內容",
-      "三向整合：NotebookLM × Obsidian × Anytype",
+      "三向整合：Gemini Notebook × Obsidian × Anytype",
       "進階自動化 pipeline：研究 → 草稿 → 多平臺發佈",
       "整合 Newsletter / Podcast 內容生產流",
       "1:1 諮詢 6 次（共 10 小時）",
@@ -135,7 +135,7 @@ const deliveryFlow = [
   {
     week: "Week 2",
     title: "主題建構",
-    desc: "為你建好 2–3 個主題 NotebookLM，含 source 整理、命名規範、跨 notebook 串接邏輯。",
+    desc: "為你建好 2–3 個主題 Gemini Notebook，含 source 整理、命名規範、跨 notebook 串接邏輯。",
   },
   {
     week: "Week 3",
@@ -175,11 +175,11 @@ const faqs = [
   },
   {
     q: "「設計藍圖」和「研究與寫作引擎」差在哪？我該怎麼選？",
-    a: "藍圖（NT$ 8,800）是 1 週交付：90 分鐘訪談 + 個人架構圖 + 客製 Prompt 12–15 條 + NotebookLM 模板 + 知識庫結構藍圖 + Skill + SOP 文件，並含 30 分鐘陪建 review。你拿到後可以自己動手建。引擎（NT$ 24,800）是 4 週交付：我直接幫你把 NotebookLM、自動化、Prompt 30+ 全部建好，含 4 次 1:1 諮詢與 30 天 LINE 支援。建議從藍圖開始試水溫，覺得對盤再升級到引擎，已付的藍圖費用可折抵。",
+    a: "藍圖（NT$ 8,800）是 1 週交付：90 分鐘訪談 + 個人架構圖 + 客製 Prompt 12–15 條 + Gemini Notebook 模板 + 知識庫結構藍圖 + Skill + SOP 文件，並含 30 分鐘陪建 review。你拿到後可以自己動手建。引擎（NT$ 24,800）是 4 週交付：我直接幫你把 Gemini Notebook、自動化、Prompt 30+ 全部建好，含 4 次 1:1 諮詢與 30 天 LINE 支援。建議從藍圖開始試水溫，覺得對盤再升級到引擎，已付的藍圖費用可折抵。",
   },
   {
     q: "成果能帶走嗎？離開合作後還能用嗎？",
-    a: "完全可以。所有 NotebookLM、Obsidian 設定都在你自己的帳號下，MCP 設定文件、Prompt 庫、SOP 都會交付給你。我離開後你可以獨立運作，也可以隨時回來找我升級。",
+    a: "完全可以。所有 Gemini Notebook、Obsidian 設定都在你自己的帳號下，MCP 設定文件、Prompt 庫、SOP 都會交付給你。我離開後你可以獨立運作，也可以隨時回來找我升級。",
   },
   {
     q: "交付期可以縮短或延長嗎？",
@@ -508,7 +508,7 @@ export default function AIResearchSystemPage() {
                 >
                   vista.tw
                 </Link>{" "}
-                與《Vista 一人公司》電子報，深度文章累積超過 200 篇。日常用 NotebookLM、Obsidian、Anytype
+                與《Vista 一人公司》電子報，深度文章累積超過 200 篇。日常用 Gemini Notebook、Obsidian、Anytype
                 整套工具進行學術研究、內容生產、課程設計。
               </p>
               <p className="mt-3 text-base leading-relaxed text-stone-600">
@@ -534,7 +534,7 @@ export default function AIResearchSystemPage() {
                   論文獲 TSSCI 期刊接受
                 </span>
                 <span className="rounded-full bg-white px-3 py-1 text-stone-600 ring-1 ring-stone-200">
-                  自建 NotebookLM × MCP 工具鏈
+                  自建 Gemini Notebook × MCP 工具鏈
                 </span>
               </div>
             </div>

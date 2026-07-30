@@ -8,7 +8,7 @@ interview_completion: 0/6
 
 # 個人定位卡
 
-> 把這份檔填完，安裝到你的 Claude Project（或 ChatGPT Project、Gemini Gem、NotebookLM 等任何支援專案知識的 AI 工作區）。
+> 把這份檔填完，安裝到你的 Claude Project（或 ChatGPT Project、Gemini Gem、Gemini Notebook 等任何支援專案知識的 AI 工作區）。
 > 之後每段對話都會自動參照這份脈絡，AI 在生成內容時就多了一份可重複使用的定位底稿，能更貼近你而非泛用知識工作者的中位數。
 >
 > 填寫順序建議：先一口氣把六題的 30 字版寫完，再回頭擴寫。不必追求精緻，第一版只要寫出「不是其他人」就夠了。
@@ -103,7 +103,7 @@ interview_completion: 0/6
 ## 放進 AI 工作區的方式
 
 1. 把這份檔存成 `01-personal-brand.md`
-2. 在你的 AI 工具（Claude Project、ChatGPT Project、Gemini Gem、NotebookLM 皆可）開一個專案，命名為「{你的名字} 脈絡庫」
+2. 在你的 AI 工具（Claude Project、ChatGPT Project、Gemini Gem、Gemini Notebook 皆可）開一個專案，命名為「{你的名字} 脈絡庫」
 3. 把這份檔當作專案知識（Project Knowledge）上傳
 4. 之後在這個專案下開的每段對話，AI 都會自動讀到這份脈絡
 

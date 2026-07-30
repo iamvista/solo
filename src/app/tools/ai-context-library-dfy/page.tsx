@@ -620,7 +620,7 @@ export default function ContextArchitectureDFYPage() {
           {/* ====== Disclaimer ====== */}
           <section className="border-t border-stone-100 py-10">
             <p className="text-center text-xs leading-relaxed text-stone-400">
-              本服務為 Vista Cheng 設計與提供之個人 AI 工作流顧問服務，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。產出文件可依需求用於 Claude、ChatGPT、Gemini、NotebookLM 或其他支援專案知識的 AI 工具。
+              本服務為 Vista Cheng 設計與提供之個人 AI 工作流顧問服務，非 Anthropic、Claude 或其他 AI 平台之官方產品，亦未與相關平台建立合作、授權或背書關係。產出文件可依需求用於 Claude、ChatGPT、Gemini、Gemini Notebook 或其他支援專案知識的 AI 工具。
             </p>
           </section>
         </div>

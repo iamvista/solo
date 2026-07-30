@@ -10,7 +10,7 @@ status: draft
 > 這是你寫作的指紋，也是一份寫作者重新認識自己的語言地圖。
 >
 > AI 的預訓練語料裡沒有完整的「你」，只有大量平均化的語言樣本。
-> 把這份檔放進 Claude Project（或 ChatGPT Project、Gemini Gem、NotebookLM 等任何支援專案知識的工具），就等於給 AI 一份可重複參照的風格底稿：你常用哪些詞、避開哪些詞、句子怎麼轉折、段落怎麼呼吸、文章如何從場景推進到觀點。
+> 把這份檔放進 Claude Project（或 ChatGPT Project、Gemini Gem、Gemini Notebook 等任何支援專案知識的工具），就等於給 AI 一份可重複參照的風格底稿：你常用哪些詞、避開哪些詞、句子怎麼轉折、段落怎麼呼吸、文章如何從場景推進到觀點。
 >
 > 它不會讓 AI 立刻變成你，但會大幅減少那種「看起來很順，卻完全不像你」的泛用文字。
 >
@@ -219,7 +219,7 @@ status: draft
 ## 放進 AI 工作區的方式
 
 1. 把這份檔存成 `05-voice-profile.md`
-2. 上傳到你的「{你的名字} 脈絡庫」專案（Claude Project、ChatGPT Project、Gemini Gem、NotebookLM 皆可）
+2. 上傳到你的「{你的名字} 脈絡庫」專案（Claude Project、ChatGPT Project、Gemini Gem、Gemini Notebook 皆可）
 3. 之後叫 AI 寫東西時，提示語可以簡化成：「按照 voice-profile.md 寫一段 800 字介紹 X」
 
 ---

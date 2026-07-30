@@ -337,7 +337,7 @@ function FAQSection() {
     },
     {
       q: "除了購買費用，還需要付什麼？",
-      a: "需要 Claude 訂閱（Pro 方案 $20 USD/月）。教練對話的 API 費用約 $3-9 USD/月。NotebookLM 免費。",
+      a: "需要 Claude 訂閱（Pro 方案 $20 USD/月）。教練對話的 API 費用約 $3-9 USD/月。Gemini Notebook 免費。",
     },
     {
       q: "Vista Coach 的知識庫包含什麼？",
