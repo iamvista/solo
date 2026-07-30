@@ -15,6 +15,7 @@ const footerLinks = {
     { name: "Vista.tw", href: "https://www.vista.tw" },
     { name: "Content Studio（企業服務）", href: "https://content.tw" },
     { name: "Empower.tw（AI 能力成長）", href: "https://empower.tw" },
+    { name: "Inno.tw（創新情報）", href: "https://inno.tw" },
     { name: "學習資源", href: "/learn" },
     { name: "社群", href: "/community" },
   ],
