@@ -128,6 +128,9 @@ function loadWorkshops() {
     };
     const id = pick('id');
     if (!id) continue;
+    // hidden 的課完全不進索引：它的定義是「從 /courses 列表與講師頁都不露出」，
+    // 露在 llms.txt 等於換一個門讓 AI 客戶端把它撈出來
+    if (/hidden:\s*true/.test(block)) continue;
     const original = pickNum('original');
     const regular = pickNum('regular');
     const earlyBird = pickNum('earlyBird');
