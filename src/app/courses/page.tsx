@@ -54,7 +54,11 @@ const collectionSchema = {
 /* ─── Page ─── */
 export default function CoursesPage() {
   // 已結束的課只在作者頁陳列，不計入公開課程數、也不傳給列表元件
-  const visibleWorkshops = workshops.filter((w) => w.status !== "ended");
+  // hidden 的課同樣不列出：它的定義就是「從 /courses 列表與講師頁都不露出」，
+  // 先前只有講師頁與 sitemap 有濾掉，這裡漏了一處，等於半隱藏
+  const visibleWorkshops = workshops.filter(
+    (w) => w.status !== "ended" && !w.hidden,
+  );
   return (
     <div className="relative">
       <JsonLd data={collectionSchema} />

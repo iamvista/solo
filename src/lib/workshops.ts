@@ -330,6 +330,42 @@ export const workshops: Workshop[] = [
     ],
     category: "ai",
   },
+  {
+    // stories.tw 培育序列第 4、5 封的落點。銷售頁尚未建立，先以 hidden + coming_soon
+    // 只開放 /courses/story-canvas/notify 收候補：序列已 active，沒有落點的 CTA 等於死路。
+    // 銷售頁上線後：拿掉 hidden、status 改 open、url 改回 /courses/story-canvas，
+    // 並把序列第 4、5 封的連結一併換掉（stories-tw content/magnet/nurture-sequence.sql）。
+    id: "story-canvas",
+    title: "一人公司的故事骨架工作坊",
+    subtitle: "一句一句改，改到你的定位句過得了轉述測試為止",
+    description:
+      "把一串服務項目收斂成一則別人記得住、願意替你轉述的故事。現場你會唸給素不相識的人聽，也會替別人複述一次，哪一欄還缺什麼當場就知道，不必回家自己猜。",
+    instructor: vista,
+    emoji: "📖",
+    date: "2026 年 10 月 18 日（日）",
+    sortDate: "2026-10-18",
+    time: "9:00–12:00",
+    duration: "3 小時",
+    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 20,
+    price: {
+      original: 5000,
+      earlyBird: 3600,
+      earlyBirdDeadline: "2026/9/18",
+    },
+    tags: ["敘事", "個人品牌", "定位", "內容策略"],
+    status: "coming_soon",
+    hidden: true,
+    url: "/courses/story-canvas/notify",
+    isExternal: false,
+    highlights: [
+      "用五欄骨架卡把專業收斂成一則故事",
+      "現場做轉述測試，由陌生人替你複述一次",
+      "帶著空白或半成品進來，一句一句問到寫得出來",
+      "實體小班，限額 20 人",
+    ],
+    category: "ai",
+  },
 ];
 
 /** 取課程（依 slug）。課程頁的通知入口共用這支，免得各入口各查一份而漂移。 */
