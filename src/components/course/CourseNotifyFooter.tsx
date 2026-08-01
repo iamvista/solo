@@ -2,6 +2,9 @@ import { getWorkshopBySlug } from "@/lib/workshops";
 import { WaitlistForm } from "@/components/instructor/WaitlistForm";
 import type { WaitlistIntent } from "@/lib/waitlist";
 
+/** workshops.ts 用這個 sortDate 表示「日期尚未公告」，好讓這類課排到列表最後 */
+const UNANNOUNCED_DATE = "9999-12-31";
+
 /**
  * 銷售頁尾的候補入口。
  *
@@ -33,10 +36,17 @@ export function CourseNotifyFooter({ slug }: { slug: string }) {
         detail: "留下 E-mail，有名額釋出時第一時間通知你。",
       }
     : workshop.status === "coming_soon"
-      ? {
-          heading: "還沒公告開課日期？",
-          detail: "留下 E-mail，日期一公告就第一時間通知你。",
-        }
+      ? // coming_soon 底下其實有兩種處境：日期還沒公告，以及日期公告了但報名還沒開放。
+        // 對後者說「還沒公告開課日期」是錯的，讀者上一段才剛看過日期。
+        workshop.sortDate && workshop.sortDate !== UNANNOUNCED_DATE
+        ? {
+            heading: "報名還沒開放？",
+            detail: "留下 E-mail，開放報名時第一批通知你。",
+          }
+        : {
+            heading: "還沒公告開課日期？",
+            detail: "留下 E-mail，日期一公告就第一時間通知你。",
+          }
       : {
           heading: "這期時間對不上？",
           detail: "留下 E-mail，下期開課時第一時間通知你。",

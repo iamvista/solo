@@ -100,6 +100,21 @@ describe("The footer entry derives its intent from course status", () => {
     // intent 仍是 date_conflict：不新增第四種 intent，資料庫約束不動
     expect((await submit()).intent).toBe("date_conflict");
   });
+
+  it("does not describe an announced course as unannounced", async () => {
+    getWorkshopBySlug.mockReturnValue({
+      ...workshopWithStatus("coming_soon"),
+      sortDate: "2026-10-18",
+    });
+    render(<CourseNotifyFooter slug="ai-academic-writing" />);
+    // 日期公告了、只是報名還沒開放；說「還沒公告日期」與讀者上一段剛看過的日期互相打臉
+    expect(screen.queryByText("📬 還沒公告開課日期？")).not.toBeInTheDocument();
+    expect(screen.getByText("📬 報名還沒開放？")).toBeInTheDocument();
+    expect(
+      screen.getByText("留下 E-mail，開放報名時第一批通知你。"),
+    ).toBeInTheDocument();
+    expect((await submit()).intent).toBe("date_conflict");
+  });
 });
 
 describe("The footer entry is attributable separately from the entry above it", () => {
