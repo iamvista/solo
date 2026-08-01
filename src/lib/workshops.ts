@@ -337,7 +337,7 @@ export const workshops: Workshop[] = [
     // 並把序列第 4、5 封的連結一併換掉（stories-tw content/magnet/nurture-sequence.sql）。
     id: "story-canvas",
     title: "故事力就是你的成交力",
-    subtitle: "把一則沒人記得的自我介紹，改成別人聽完會想問多少錢的故事",
+    subtitle: "把一則沒人記得的產品介紹，改成別人聽完會想問多少錢的故事",
     description:
       "會說故事跟靠故事賣東西是兩回事。這堂課處理後者：找出客戶掏錢那一刻的成交故事，放進開場、見證、報價與追單四個位置，現場唸給陌生人聽，驗收兩件事：他複述得出來嗎，以及他聽完會不會想問價格。",
     instructor: vista,

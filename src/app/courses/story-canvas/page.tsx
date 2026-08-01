@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "故事力就是你的成交力｜3 小時實體工作坊",
     description:
-      "把一則沒人記得的自我介紹，改成別人聽完會想問多少錢的故事。現場做雙層轉述測試，限額 20 人。",
+      "把一則沒人記得的產品介紹，改成別人聽完會想問多少錢的故事。現場做雙層轉述測試，限額 20 人。",
     images: [{ url: "/courses/story-canvas/og", width: 1200, height: 630 }],
   },
   alternates: {
