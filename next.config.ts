@@ -117,6 +117,19 @@ const nextConfig: NextConfig = {
         destination: "/courses",
         permanent: true,
       },
+      // 概念變現陪跑營下架（2026-08-01，Vista 指示）：查過全部 153 筆訂單，
+      // 這門課零報名，Recur 三個方案已改 active:false。同樣用精確路徑，
+      // 不用萬用字元，避免吃掉 /assignments 等交付路由。
+      {
+        source: "/courses/concept-monetization-bootcamp",
+        destination: "/courses",
+        permanent: true,
+      },
+      {
+        source: "/courses/concept-monetization-bootcamp/register",
+        destination: "/courses",
+        permanent: true,
+      },
     ];
   },
   async headers() {
