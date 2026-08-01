@@ -3,8 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
-import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
+import { WaitlistForm } from "@/components/instructor/WaitlistForm";
 import { getWorkshopBySlug } from "@/lib/workshops";
 import { notFound } from "next/navigation";
 
@@ -461,16 +461,28 @@ export default function StoryCanvasPage() {
 
                 <div className="mt-6 rounded-xl border border-dashed p-4 text-center">
                   <p className="text-sm font-semibold text-foreground">
-                    報名尚未開放
+                    本梯開放卡位
                   </p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    留下 E-mail，開放報名時我會從這份名單開始通知，早鳥名額也從這裡先給。
+                    線上刷卡還在準備，這一梯先用留信箱的方式報名：留下 E-mail，我會直接跟你確認名額與付款方式，早鳥名額也從這份名單先給。
                   </p>
+                </div>
+
+                {/* 這頁沒有線上付款按鈕，收單表單就是主要行動點，因此直接展開。
+                    不用 CourseNotifyEntry：課程狀態是 open 時它會降級成一行
+                    「這個時間無法參加」的次要連結，在沒有報名按鈕的頁面上那句話
+                    是錯的。送出的 intent 與 source_page 與該元件完全一致。 */}
+                <div className="mt-6">
+                  <WaitlistForm
+                    courseSlug={workshop.id}
+                    courseTitle={title}
+                    intent="date_conflict"
+                    sourcePage={`/courses/${workshop.id}`}
+                    instructorSlug={workshop.instructor.slug || undefined}
+                  />
                 </div>
               </CardContent>
             </Card>
-
-            <CourseNotifyEntry slug={SLUG} />
           </section>
 
           {/* ====== FAQ ====== */}

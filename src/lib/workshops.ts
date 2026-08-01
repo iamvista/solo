@@ -332,10 +332,11 @@ export const workshops: Workshop[] = [
   },
   {
     // stories.tw 培育序列第 4、5 封的落點。
-    // 2026-08-01 銷售頁上線並公開：拿掉 hidden，url 指向銷售頁。
-    // status 維持 coming_soon 而非 open：本期不接金流，頁面明講報名尚未開放，
-    // 改成 open 會讓 /courses 列表算進「開放報名中」，也會把候補入口降級成
-    // 要點一下才展開的次要連結，等於藏起目前唯一的轉換點。接上金流時再改 open。
+    // 2026-08-01 銷售頁上線並公開，同日經 Vista 拍板改為 open。
+    // 注意：本期線上刷卡尚未開通，報名走留信箱後人工確認。銷售頁因此不使用
+    // CourseNotifyEntry：open 狀態下它會降級成「這個時間無法參加」的次要連結，
+    // 那句話在沒有報名按鈕的頁面上是錯的，也會藏起唯一的轉換點。該頁改為
+    // 直接展開收單表單，送出的 intent 與 source_page 與原本一致。
     id: "story-canvas",
     title: "故事力就是你的成交力",
     subtitle: "把一則沒人記得的產品介紹，改成別人聽完會想問多少錢的故事",
@@ -355,7 +356,7 @@ export const workshops: Workshop[] = [
       earlyBirdDeadline: "2026/9/18",
     },
     tags: ["敘事", "文案", "成交", "個人品牌"],
-    status: "coming_soon",
+    status: "open",
     url: "/courses/story-canvas",
     isExternal: false,
     highlights: [
