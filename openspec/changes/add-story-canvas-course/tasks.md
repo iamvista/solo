@@ -24,6 +24,6 @@
 
 ## 5. 審閱與公開
 
-- [ ] 5.1 〔需求：課程的公開與隱藏由單一旗標決定〕保持 `story-canvas` 的 `hidden: true` 推上線，交 Vista 審閱文案。行為：`/courses/story-canvas` 可直接開啟，但 `/courses`、`/teachers/vista`、`sitemap.xml`、`llms.txt` 都不含這門課。驗收：線上以 `curl -H "Cache-Control: no-cache"` 逐一確認，銷售頁 200、四個露出面零命中。
+- [x] 5.1 〔需求：課程的公開與隱藏由單一旗標決定〕保持 `story-canvas` 的 `hidden: true` 推上線，交 Vista 審閱文案。行為：`/courses/story-canvas` 可直接開啟，但 `/courses`、`/teachers/vista`、`sitemap.xml`、`llms.txt` 都不含這門課。驗收：線上以 `curl -H "Cache-Control: no-cache"` 逐一確認，銷售頁 200、四個露出面零命中。
 - [ ] 5.2 Vista 核可文案後移除 `hidden`、`status` 改 `open`、`url` 改回 `/courses/story-canvas`。驗收：線上四個露出面都出現這門課，且 `/courses` 列表的課程數加一。
 - [ ] 5.3 更新 stories.tw 序列第 4、5 封的 CTA 為銷售頁網址，並以 `REPLACE()` 對 D1 `automation_steps` 同步（主檔是 `INSERT OR IGNORE`，重跑不生效）。驗收：查 D1 兩列，通知頁網址 0 處、銷售頁網址各 1 處。
