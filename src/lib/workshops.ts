@@ -331,10 +331,11 @@ export const workshops: Workshop[] = [
     category: "ai",
   },
   {
-    // stories.tw 培育序列第 4、5 封的落點。銷售頁尚未建立，先以 hidden + coming_soon
-    // 只開放 /courses/story-canvas/notify 收候補：序列已 active，沒有落點的 CTA 等於死路。
-    // 銷售頁上線後：拿掉 hidden、status 改 open、url 改回 /courses/story-canvas，
-    // 並把序列第 4、5 封的連結一併換掉（stories-tw content/magnet/nurture-sequence.sql）。
+    // stories.tw 培育序列第 4、5 封的落點。
+    // 2026-08-01 銷售頁上線並公開：拿掉 hidden，url 指向銷售頁。
+    // status 維持 coming_soon 而非 open：本期不接金流，頁面明講報名尚未開放，
+    // 改成 open 會讓 /courses 列表算進「開放報名中」，也會把候補入口降級成
+    // 要點一下才展開的次要連結，等於藏起目前唯一的轉換點。接上金流時再改 open。
     id: "story-canvas",
     title: "故事力就是你的成交力",
     subtitle: "把一則沒人記得的產品介紹，改成別人聽完會想問多少錢的故事",
@@ -355,8 +356,7 @@ export const workshops: Workshop[] = [
     },
     tags: ["敘事", "文案", "成交", "個人品牌"],
     status: "coming_soon",
-    hidden: true,
-    url: "/courses/story-canvas/notify",
+    url: "/courses/story-canvas",
     isExternal: false,
     highlights: [
       "雙層判準：複述得出來，而且聽完會想問價格",
