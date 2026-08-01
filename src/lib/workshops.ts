@@ -110,6 +110,9 @@ export type WorkshopCategory = keyof typeof categories;
 // 工作坊列表
 export const workshops: Workshop[] = [
   {
+    // 2026-08-01 Vista 指示下架：hidden 讓它從 /courses、講師頁、sitemap 與
+    // llms.txt 全部退場，資料保留可隨時復原。頁面網址本身仍可直接開啟，
+    // Recur 三個付款方案也仍然有效，那兩層要另外處理。
     id: "concept-monetization-bootcamp",
     title: "概念變現陪跑營",
     subtitle: "6 週，用 AI 把你的專業變成一個會賣的知識產品",
@@ -132,6 +135,7 @@ export const workshops: Workshop[] = [
     },
     tags: ["AI", "知識變現", "產品化", "線上陪跑"],
     status: "open",
+    hidden: true,
     url: "/courses/concept-monetization-bootcamp",
     isExternal: false,
     highlights: [
