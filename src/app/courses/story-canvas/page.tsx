@@ -11,13 +11,13 @@ import { notFound } from "next/navigation";
 const SLUG = "story-canvas";
 
 export const metadata: Metadata = {
-  title: "一人公司的故事骨架工作坊｜3 小時實體工作坊 | solo.tw",
+  title: "故事力就是你的成交力｜3 小時實體工作坊 | solo.tw",
   description:
-    "把一串沒人記得的服務項目，收斂成一則別人願意替你轉述的故事。三小時實體工作坊，現場唸給陌生人聽、由對方複述驗收，限額 20 人。",
+    "會說故事跟靠故事賣東西是兩回事。三小時找出客戶掏錢那一刻的成交故事，放進開場、見證、報價與追單四個位置，現場驗收兩件事：他複述得出來嗎，他會不會想問價格。限額 20 人。",
   openGraph: {
-    title: "一人公司的故事骨架工作坊｜3 小時實體工作坊",
+    title: "故事力就是你的成交力｜3 小時實體工作坊",
     description:
-      "把一串沒人記得的服務項目，收斂成一則別人願意替你轉述的故事。現場做轉述測試，限額 20 人。",
+      "把一則沒人記得的自我介紹，改成別人聽完會想問多少錢的故事。現場做雙層轉述測試，限額 20 人。",
     images: [{ url: "/courses/story-canvas/og", width: 1200, height: 630 }],
   },
   alternates: {
@@ -29,125 +29,119 @@ export const metadata: Metadata = {
 
 const painPoints = [
   {
-    emoji: "🤝",
-    title: "隔週再遇到，他想不起來你在做什麼",
-    text: "當下他點頭、也覺得你很專業，但那份印象撐不過一個星期。",
+    emoji: "🙂",
+    title: "對方說你很厲害，然後就沒有然後",
+    text: "當下氣氛很好，結束後沒有下一步，也沒有人問價格。",
+  },
+  {
+    emoji: "📄",
+    title: "見證擺滿一整頁，讀者一則也沒讀完",
+    text: "每一則都在說很專業很用心，換掉名字也成立，於是全部被跳過。",
+  },
+  {
+    emoji: "💸",
+    title: "報價一講出口，對話就冷掉",
+    text: "問題通常不在數字，在數字前面那一段話沒有把價值墊起來。",
+  },
+  {
+    emoji: "👍",
+    title: "貼文有人按讚，沒有人私訊問你怎麼合作",
+    text: "互動看起來不錯，但那些讚沒有一個走到詢價。",
+  },
+  {
+    emoji: "🎤",
+    title: "說明會講得很順，回去就沒下文",
+    text: "現場聽懂了，可是回家後他複述不出來，也就說服不了要一起決定的人。",
   },
   {
     emoji: "📇",
     title: "有人想介紹你，卻只講得出你的職稱",
-    text: "最可惜的不是沒人幫你，是有人想幫你，手上卻沒有一句可以複述的話。",
-  },
-  {
-    emoji: "📋",
-    title: "自我介紹愈講愈長，愈長愈沒有形狀",
-    text: "服務項目、年資、服務過幾家企業，資訊量很大，聽的人卻抓不到把手。",
-  },
-  {
-    emoji: "🌫️",
-    title: "定位句換一個同行來唸也成立",
-    text: "寫得四平八穩，卻沒有一個字只屬於你。",
-  },
-  {
-    emoji: "✍️",
-    title: "自己改稿改到天花板",
-    text: "你太熟悉自己的故事，熟到看不出哪裡跳掉了一段。",
-  },
-  {
-    emoji: "🔁",
-    title: "每一次都得自己在場才講得清楚",
-    text: "故事不會自己走路，你就得一場一場親自解釋。",
+    text: "最可惜的不是沒人幫你，是有人想幫你，手上卻沒有一句可以轉述的話。",
   },
 ];
 
 const takeaways = [
   {
-    title: "一則寫完的故事",
-    text: "不是筆記、不是待辦清單，是一則當天就能拿去用的完整敘事。",
+    title: "一則成交故事",
+    text: "不是創業歷程，也不是品牌故事，是某一位客戶決定付錢的那一刻，寫到有時間、有地點、有數字。",
   },
   {
-    title: "一句過得了轉述測試的定位句",
-    text: "判準不是你唸得順，是陌生人願不願意用自己的話再講一次。",
+    title: "四個位置各一段可直接用的文字",
+    text: "開場鉤子、見證改寫、報價說明、售後追單。當天離開就能貼進你的頁面與貼文。",
   },
   {
-    title: "一套可以重跑的修改路徑",
-    text: "下次換了受眾、換了服務，你知道該回頭改哪一欄，不必從零再想一遍。",
+    title: "一套下次還能重跑的檢查法",
+    text: "換了受眾、換了產品，你知道回頭改哪一段，不必每次從零再想一遍。",
   },
 ];
 
-/* 課綱五段對應《一人公司的故事骨架卡》的五欄，順序即現場動線 */
+/* 課綱四模組：模組一收納《一人公司的故事骨架卡》的五欄作為工作表，
+   主軸不再是定位句，而是這則故事能不能帶來詢價 */
 const curriculum = [
   {
     no: "01",
-    title: "對象切片",
-    goal: "把所有人收斂成一個具體的人",
-    text: "先決定講給誰聽，連他此刻卡在哪一步都寫下來。對象一模糊，後面四欄跟著失焦。現場你會寫下最近三位真的付錢給你的人有什麼共同點，以及他來找你的前一晚最煩的那件事。",
-    output: "現場產出：一段寫死的對象描述，含他此刻卡住的那一步",
+    title: "找出你的成交故事",
+    goal: "從客戶掏錢的那一刻往回推",
+    text: "多數人挑錯故事：講創業歷程、講理念、講自己有多努力。真正會賣的是另一種，某一位客戶原本猶豫、後來決定付錢，中間發生了什麼。現場用《一人公司的故事骨架卡》的五欄當工作表，把對象、轉折點、一句話、證據與驗收一次走完，但目標從自我介紹換成成交。",
+    output: "現場產出：一則寫得出時間、地點與人物的成交故事",
   },
   {
     no: "02",
-    title: "轉折點",
-    goal: "找出你的專業從哪一次經驗長出來",
-    text: "那件事是別人記得住你的鉤子，也是誰都抄不走的部分。講不出年份與地點就代表還不夠具體，現場會逼你再往下挖一層，挖到那件想起來還有點不舒服的事。",
-    output: "現場產出：一件講得出時間、地點與在場者的具體經歷",
+    title: "故事的四個賣點位置",
+    goal: "同一則故事放錯位置就不會賣",
+    text: "開場鉤子決定他要不要繼續聽，前三句就見真章。見證改寫是把客戶那句很專業很用心，換成他自己的話與具體數字。報價說明是價格前面那一段，決定他覺得貴還是值得。售後追單則決定他會不會再買、會不會介紹別人。四個位置要的敘事長度與情緒都不同，現場逐一改。",
+    output: "現場產出：四個位置各一段成稿",
   },
   {
     no: "03",
-    title: "定位句骨架",
-    goal: "一句話講清楚幫誰、解決什麼、換來什麼改變",
-    text: "先把服務、協助、賦能這類詞刪掉，看剩下的動詞是什麼。沒有動詞就還沒寫到重點。骨架對了，用字才有得修。",
-    output: "現場產出：一句填進骨架、動詞明確的定位句初稿",
+    title: "讓人有感的敘事結構",
+    goal: "有感不是形容詞堆出來的",
+    text: "有感只有三種材料：具體、畫面、代價。現場練的是刪，把豐富經驗換成年份與件數，把顯著提升換成對方做得出來的動作，把很用心換成你當時放棄了什麼。這一段濃縮的是我在《內容感動行銷》與《文案力就是你的鈔能力》裡反覆講的同一件事：內容要先有感，業績才跟得上。",
+    output: "現場產出：改過的版本與原稿並排，看得出差在哪裡",
   },
   {
     no: "04",
-    title: "證據欄",
-    goal: "把成果寫成可以被轉述的具體事實",
-    text: "誰、多久、變成什麼樣子。不用豐富經驗這種撐場面的詞，改用一個數字，或一個對方做得出來的動作。轉述的人抓得住的把手，通常就藏在這一欄。",
-    output: "現場產出：一則含行業、規模與時間跨度的具體佐證",
-  },
-  {
-    no: "05",
-    title: "轉述測試",
-    goal: "整堂課唯一的驗收判準",
-    text: "這一欄不是最後一個步驟，是整堂課的過關條件。你會把寫好的故事唸給現場素不相識的人聽，也會替別人複述一次。他複述得出來，這則故事才算成立；複述不出來，回頭改前面四欄，不要改他。",
-    output: "現場產出：一次真人轉述的結果，以及據此改過的定稿",
+    title: "雙層轉述測試",
+    goal: "整堂課唯一的過關條件",
+    text: "你會把改好的故事唸給現場素不相識的人聽，也會替別人複述一次。第一層看他能不能用自己的話再講一次；第二層更狠，看他聽完會不會想問多少錢。第一層過了只算及格，第二層過了才算這則故事會替你工作。過不了就回頭改前面三個模組，不要改聽的人。",
+    output: "現場產出：真人測試結果，以及據此改定的定稿",
   },
 ];
 
 const forWhom = [
-  "講師、顧問、教練、設計師、接案者，靠專業接案而不是靠公司名片的人",
-  "服務項目講得出來，但講完對方沒有畫面的人",
-  "換過賽道或轉過行，過去經歷一時串不成一條線的人",
-  "打算今年開始認真經營個人品牌，想先把那一句話定下來的人",
+  "手上有東西要賣的人：接案者、講師、顧問、教練、工作室、小型品牌",
+  "服務講得出來，但對方聽完不會主動問價格的人",
+  "見證與案例累積了一堆，卻不知道怎麼用才有效的人",
+  "每次報價都覺得要多解釋幾句才敢把數字說出口的人",
 ];
 
 const notForWhom = [
-  "只想拿一份定位句範本回去填空，不打算現場動筆的人",
+  "只想拿一套模板回去套用，不打算現場動筆的人",
   "不願意在陌生人面前把自己的故事唸出來的人",
-  "希望老師直接幫你寫好一句話交件的人",
-  "想學社群經營、投放與流量成長的人，這堂課只處理故事本身",
+  "手上還沒有任何客戶或作品，沒有素材可以拆的人",
+  "想學廣告投放、SEO 與流量成長的人，這堂課只處理故事本身",
 ];
 
 const faqs = [
   {
-    q: "還沒填完骨架卡，可以來嗎？",
-    a: "可以，而且最適合。現場本來就是拿來卡的，帶著空白或半成品進來，一句一句問到寫得出來為止。真的準備好的人反而不需要來。",
+    q: "我的定位還沒想清楚，可以來嗎？",
+    a: "可以，而且順序反過來反而更快。這堂課不從定位句開始，是從一位真實客戶決定付錢的那一刻往回推。你講得出那一刻，定位通常就浮出來了。",
   },
   {
-    q: "這件事我自己在家做不行嗎？",
-    a: "可以，只是慢。你會反覆卡在同一個地方：太熟悉自己的故事，熟到看不出哪裡跳掉了一段，身邊也很難找到願意誠實說他聽不懂的人。工作坊真正給你的不是方法，是一群當場願意誠實複述的陌生人。",
+    q: "我賣的是實體商品，不是服務，也適用嗎？",
+    a: "適用。四個賣點位置與商品形態無關：開場鉤子、見證改寫、報價說明、售後追單，實體商品同樣需要，甚至更需要，因為顧客沒辦法先試用你這個人。",
   },
   {
-    q: "需要先準備什麼嗎？",
-    a: "先下載《一人公司的故事骨架卡》，能填多少算多少，填不出來也沒關係。另外想三位最近真的付錢給你的人，現場第一欄就會用到。",
+    q: "我還沒有客戶見證怎麼辦？",
+    a: "帶最近一次別人願意付錢給你的經驗就好，哪怕只有一位。沒有客戶的話，帶一次你說服別人採納你意見的經驗，那也是同一種結構。",
+  },
+  {
+    q: "這堂課會教 AI 或文案工具嗎？",
+    a: "不會。工具幫不了你決定哪一件事值得講，那是這堂課要解決的。骨架先是你自己的，之後你用任何工具改寫都行。",
   },
   {
     q: "要帶電腦嗎？",
     a: "帶紙筆就好。手寫速度慢，會逼你刪掉撐場面的形容詞，這是刻意的。想打字也可以，但第一輪建議手寫。",
-  },
-  {
-    q: "這堂課會教 AI 工具嗎？",
-    a: "不會。這堂課處理的是故事本身，AI 幫不了你決定哪一件事值得講。你可以在課後用任何工具改寫，但骨架得先是你自己的。",
   },
   {
     q: "本梯額滿怎麼辦？",
@@ -198,7 +192,7 @@ export default function StoryCanvasPage() {
               variant="secondary"
               className="mb-4 px-4 py-2 text-sm sm:text-base"
             >
-              📖 3 小時實體工作坊｜{date}
+              {workshop.emoji} 3 小時實體工作坊｜{date}
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               {title}
@@ -207,16 +201,15 @@ export default function StoryCanvasPage() {
               {subtitle}
             </p>
             <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
-              你講完自我介紹，對方點頭。
+              你講完，對方說「你很厲害」。
               <br className="hidden sm:block" />
-              隔週再遇到，他<span className="gradient-text">想不起來</span>
-              你在做什麼。
+              然後就<span className="gradient-text">沒有然後</span>了。
             </p>
             <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              問題不出在你講得不夠多。
+              問題不是你的故事不好聽。
               <br className="hidden sm:block" />
               <span className="font-semibold text-foreground">
-                清單的資訊量很大卻沒有形狀，聽的人抓不到把手，抓不到就記不住。
+                是它沒有被放在會讓人掏錢的位置，也沒有留下一句他複述得出來的話。
               </span>
             </p>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -247,12 +240,12 @@ export default function StoryCanvasPage() {
                 <p className="mt-1 text-sm text-muted-foreground">人小班制</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">5</p>
-                <p className="mt-1 text-sm text-muted-foreground">欄骨架</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">4</p>
+                <p className="mt-1 text-sm text-muted-foreground">個賣點位置</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">1</p>
-                <p className="mt-1 text-sm text-muted-foreground">條判準</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">2</p>
+                <p className="mt-1 text-sm text-muted-foreground">層判準</p>
               </div>
             </div>
           </div>
@@ -284,15 +277,17 @@ export default function StoryCanvasPage() {
             </div>
           </section>
 
-          {/* ====== 判準 ====== */}
+          {/* ====== 兩層判準 ====== */}
           <section className="-mx-4 bg-foreground px-4 py-10 text-background sm:-mx-6 sm:px-6 sm:py-12 lg:-mx-8 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-sm opacity-80">這堂課只有一條判準</p>
+              <p className="text-sm opacity-80">這堂課的驗收只有兩層</p>
               <p className="mt-3 text-xl font-bold sm:text-2xl">
-                別人願不願意用自己的話，再講一次給第三個人聽。
+                他能不能用自己的話再講一次？
+                <br />
+                他聽完會不會想問多少錢？
               </p>
               <p className="mt-3 text-sm opacity-80">
-                過得了這關的故事會自己走路，過不了的，你講幾次都得自己在場。
+                第一層過了只算及格。第二層過了，這則故事才開始替你工作。
               </p>
             </div>
           </section>
@@ -319,10 +314,10 @@ export default function StoryCanvasPage() {
           {/* ====== 課綱 ====== */}
           <section id="curriculum" className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              課綱：五欄骨架，一次走完
+              課綱：四個模組，一條成交路徑
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              五欄不跳著寫。第三欄卡住，多半是第一欄還太寬。
+              從挑對故事開始，到有人想問價格為止。
             </p>
             <div className="mt-8 space-y-4">
               {curriculum.map((c) => (
@@ -407,6 +402,9 @@ export default function StoryCanvasPage() {
                 </p>
                 <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-foreground">
                   {workshop.instructor.longBio}
+                </p>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  這堂課教的東西，寫在我的幾本書裡：《內容感動行銷》談內容如何帶動業績，《文案力就是你的鈔能力》談文字怎麼直接連到錢，《慢讀秒懂》拆解好文案為什麼好。三十年寫作年資、十年科技媒體編輯經驗，這三小時是把那些書濃縮成你當天就改得完的四段文字。
                 </p>
               </CardContent>
             </Card>

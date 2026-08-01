@@ -53,7 +53,7 @@ export async function GET() {
               marginBottom: 28,
             }}
           >
-            📖　3 小時實體工作坊
+            {workshop?.emoji ?? "💬"}　3 小時實體工作坊
           </div>
           <div
             style={{
