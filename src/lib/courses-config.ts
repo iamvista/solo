@@ -22,6 +22,13 @@ export interface Cohort {
   name: string;
   /** 開課日期（顯示用），例如 "2026/8/16（日）" */
   date: string;
+  /**
+   * 機器可讀的開課時間，ISO 8601 且必須帶 +08:00 時區，例 "2026-08-30T09:00:00+08:00"。
+   *
+   * 只給倒數提醒 cron 用來算 D-N，不影響任何顯示。沒填就不寄倒數提醒，
+   * 這是刻意的：寧可漏寄，也不要用猜的日期寄錯時間給付費學員。
+   */
+  startsAt?: string;
   /** 是否招生中。一門課至多一期為 true；報名時據此決定 cohort_key。 */
   open?: boolean;
   /**
@@ -60,6 +67,16 @@ export interface CourseConfig {
    *
    * 招生中那一期的 date 與 productIds 必須與頂層的 date、
    * recurProductId* 一致；courses-config.test.ts 會驗。
+   *
+   * ⚠️ 課程改期時，若已經有人付款，請「新增一期」給新日期，把舊期別
+   * 的 open 拿掉並保留它原本的日期，NEVER 就地改掉既有期別的 date。
+   *
+   * 理由不是潔癖：cohort_key 會寫進 course_enrollments，是判斷「這個人
+   * 報的是哪一場」的唯一依據。就地改期會讓不同場次的學員共用同一個 key，
+   * 之後寄開課提醒、發通知、算出席都會寄錯人。ai-content 走過
+   * 6/28 → 7/12 → 8/30 三次改期都是就地改，2026-08-07 補倒數提醒功能時
+   * 才發現六月與七月的學員已經分不開，只能靠 course_enrollments 的
+   * reminder_excluded 旗標人工標記補救。
    */
   cohorts: Cohort[];
   /** 早鳥 Recur 產品 ID（如有早鳥則必填） */
@@ -216,6 +233,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
         key: "1",
         name: "第一期",
         date: "2026/8/30（日）",
+        startsAt: "2026-08-30T09:00:00+08:00",
         open: true,
         productIds: ["gngyqhltfyujbl0wjd78304x"],
       },

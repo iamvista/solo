@@ -82,6 +82,63 @@ describe("招生中的期別必須與頂層設定一致", () => {
   });
 });
 
+describe("startsAt（倒數提醒 cron 讀的開課時間）", () => {
+  // date 是給人看的字串，startsAt 是給 cron 算 D-N 的機器可讀時間。
+  // 兩者描述同一個時刻，改了一邊沒改另一邊，學員就會在錯的日子收到提醒。
+  // 這正是 2026-08-06 藍圖 PDF 那次的同類錯誤：日期在一處改了、另一處沒改。
+
+  /** 把 "2026/8/30（日）" 正規化成 "2026-08-30" */
+  function displayDateToISO(date: string): string | null {
+    const m = date.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})/);
+    if (!m) return null;
+    const [, y, mo, d] = m;
+    return `${y}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  }
+
+  const taipeiDay = (iso: string) =>
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Taipei",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date(iso));
+
+  it("有填 startsAt 的期別，其日期必須與顯示用 date 相同", () => {
+    for (const c of courses) {
+      for (const h of c.cohorts) {
+        if (!h.startsAt) continue;
+        const expected = displayDateToISO(h.date);
+        expect(expected, `${c.slug} ${h.name} 的 date 格式無法解析：${h.date}`).not.toBeNull();
+        expect(
+          taipeiDay(h.startsAt),
+          `${c.slug} ${h.name}：date 是 ${h.date}，startsAt 卻是 ${h.startsAt}`,
+        ).toBe(expected);
+      }
+    }
+  });
+
+  it("startsAt 必須是可解析且帶時區的 ISO 字串", () => {
+    for (const c of courses) {
+      for (const h of c.cohorts) {
+        if (!h.startsAt) continue;
+        expect(
+          Number.isNaN(new Date(h.startsAt).getTime()),
+          `${c.slug} ${h.name} 的 startsAt 無法解析：${h.startsAt}`,
+        ).toBe(false);
+        expect(
+          /([+-]\d{2}:\d{2}|Z)$/.test(h.startsAt),
+          `${c.slug} ${h.name} 的 startsAt 沒帶時區，會被當成 UTC 解讀：${h.startsAt}`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("ai-content 第一期已填 startsAt，開課提醒才會發", () => {
+    const first = getCohort(COURSE_CONFIGS["ai-content"], "1");
+    expect(first?.startsAt).toBe("2026-08-30T09:00:00+08:00");
+  });
+});
+
 describe("getOpenCohort", () => {
   it("回傳標記 open 的那一期", () => {
     const c = COURSE_CONFIGS["ai-academic-writing"];
