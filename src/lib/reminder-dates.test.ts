@@ -6,6 +6,8 @@ import {
   dueOffsets,
   reminderCopy,
   REMINDER_OFFSETS,
+  isTestOrder,
+  TEST_ORDER_MAX_AMOUNT,
 } from "./reminder-dates";
 
 // cron 實際跑在 UTC 02:00，換算臺北是同日 10:00。
@@ -78,6 +80,28 @@ describe("dueOffsets", () => {
     // 臺北 8/30 00:30 開始 ＝ UTC 8/29 16:30；若誤用 UTC 日會算成 8/29，D-7 就會差一天
     const lateNight = "2026-08-30T00:30:00+08:00";
     expect(dueOffsets(cronAt("2026-08-23"), lateNight)).toEqual([7]);
+  });
+});
+
+describe("isTestOrder", () => {
+  it("NT$1 的測試刷卡視為測試單", () => {
+    expect(isTestOrder(1)).toBe(true);
+  });
+
+  it("金額為 null 或 undefined 時保守視為測試單，不寄", () => {
+    expect(isTestOrder(null)).toBe(true);
+    expect(isTestOrder(undefined)).toBe(true);
+  });
+
+  it("真實課程價格不會被誤判", () => {
+    for (const amount of [3500, 4500, 5000, 6800, 7000]) {
+      expect(isTestOrder(amount), `NT$${amount} 被誤判為測試單`).toBe(false);
+    }
+  });
+
+  it("邊界值：門檻本身算測試單，門檻加一不算", () => {
+    expect(isTestOrder(TEST_ORDER_MAX_AMOUNT)).toBe(true);
+    expect(isTestOrder(TEST_ORDER_MAX_AMOUNT + 1)).toBe(false);
   });
 });
 

@@ -56,6 +56,21 @@ export function dueOffsets(now: Date, startsAt: string): ReminderOffset[] {
 }
 
 /**
+ * 內部測試單的金額上限（含）。
+ *
+ * 測試刷卡一律以 NT$1 開立，真實方案最低是校友價，兩者差了兩個數量級，
+ * 100 這條線落在中間很安全。用金額判斷而非寫死 email，是因為測試單
+ * 未必都用同一個信箱，而金額是每一筆測試單都有的特徵。
+ */
+export const TEST_ORDER_MAX_AMOUNT = 100;
+
+/** 這筆報名看起來是內部測試單嗎（測試單不寄開課提醒）。 */
+export function isTestOrder(amount: number | null | undefined): boolean {
+  if (amount === null || amount === undefined) return true;
+  return amount <= TEST_ORDER_MAX_AMOUNT;
+}
+
+/**
  * 提醒信的主旨與內文用語。
  *
  * D-1 沿用既有活動提醒的「明天見」語氣；較遠的那幾封講剩餘天數，

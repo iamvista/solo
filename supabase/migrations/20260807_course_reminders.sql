@@ -36,3 +36,22 @@ create index if not exists idx_course_reminders_lookup
 
 -- RLS：比照 course_enrollments，僅 service role 可讀寫。
 alter table course_reminders enable row level security;
+
+-- ─────────────────────────────────────────────────────────────
+-- 手動排除旗標
+--
+-- 為什麼需要：ai-content 這門課走過 6/28 → 7/12 → 8/30 三次改期，
+-- 但期別與 Recur 商品從頭到尾沒換過，於是六月付款、可能已上完舊場次的
+-- 學員，與八月才報名的新學員共用同一個 cohort_key，資料庫分不出來。
+--
+-- 正解本來是把舊學員移到獨立期別，但 courses-config.test.ts 有一條
+-- 「商品不跨期共用」的不變式，而這門課的商品確實被三場共用，
+-- 補期別會踩到那條防護。與其弱化防護，不如把「這個人不屬於本場」
+-- 這件事明確記在列上。
+-- ─────────────────────────────────────────────────────────────
+alter table course_enrollments
+  add column if not exists reminder_excluded boolean not null default false,
+  add column if not exists reminder_excluded_reason text;
+
+comment on column course_enrollments.reminder_excluded is
+  'true 代表此列不寄開課提醒（例：改期前的舊場次學員、內部測試單）';

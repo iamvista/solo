@@ -5,7 +5,7 @@ import { sendEmail } from "@/lib/email";
 import { EventReminderEmail } from "@/components/emails/event-reminder";
 import { CourseReminderEmail } from "@/components/emails/course-reminder";
 import { COURSE_CONFIGS } from "@/lib/courses-config";
-import { dueOffsets, reminderCopy } from "@/lib/reminder-dates";
+import { dueOffsets, reminderCopy, isTestOrder } from "@/lib/reminder-dates";
 
 function authorizedCron(request: NextRequest): boolean {
   const cronSecret = process.env.CRON_SECRET;
@@ -122,9 +122,11 @@ export async function GET(request: NextRequest) {
       for (const offset of dueOffsets(now, target.startsAt)) {
         let query = supabase
           .from("course_enrollments")
-          .select("email, name")
+          .select("email, name, amount")
           .eq("course_id", course.slug)
-          .eq("status", "paid");
+          .eq("status", "paid")
+          // 手動排除：改期前的舊場次學員、或任何確定不屬於本場的列。
+          .eq("reminder_excluded", false);
         query = target.cohortKey
           ? query.eq("cohort_key", target.cohortKey)
           : query.is("cohort_key", null);
@@ -138,7 +140,10 @@ export async function GET(request: NextRequest) {
           continue;
         }
 
-        const recipients = enrollments ?? [];
+        // 測試單（NT$1 那類）不寄，避免自己的驗證資料混進學員名單。
+        const recipients = (enrollments ?? []).filter(
+          (e) => !isTestOrder(e.amount),
+        );
         courseReminderPlan.push({
           course: course.slug,
           cohort: target.cohortKey,
