@@ -28,6 +28,15 @@ export async function GET(request: NextRequest) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
+  // ?simulate=YYYY-MM-DD 只影響「課程倒數提醒」那一段的日期計算，用來在開課前
+  // 預先確認某一天會挑出哪些收件者。已受 CRON_SECRET 保護，且一律強制乾跑，
+  // 不會寄信也不會寫去重紀錄 —— 否則模擬一次就會把真正該寄的那天鎖死。
+  const simulateParam = request.nextUrl.searchParams.get("simulate");
+  const simulatedNow = simulateParam
+    ? new Date(`${simulateParam}T02:00:00Z`)
+    : null;
+  const simulating = Boolean(simulatedNow && !Number.isNaN(simulatedNow.getTime()));
+
   const now = new Date();
   const tomorrow = new Date(now);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -95,7 +104,10 @@ export async function GET(request: NextRequest) {
   //
   // 安全開關：REMINDER_SEND_ENABLED 不等於 "1" 就只試算不寄，也不寫任何
   // 去重紀錄。刻意不寫，否則試算過的名單會被誤判為已寄，正式開啟後就漏寄。
-  const sendEnabled = process.env.REMINDER_SEND_ENABLED === "1";
+  // 模擬模式一律不寄，即使開關是開的。
+  const sendEnabled =
+    process.env.REMINDER_SEND_ENABLED === "1" && !simulating;
+  const reminderNow = simulating ? simulatedNow! : now;
   let courseRemindersSent = 0;
   let courseRemindersSkipped = 0;
   let courseRemindersFailed = 0;
@@ -119,7 +131,7 @@ export async function GET(request: NextRequest) {
       // 沒填 startsAt 就跳過。寧可漏寄，也不要用猜的日期寄錯時間給付費學員。
       if (!target.startsAt) continue;
 
-      for (const offset of dueOffsets(now, target.startsAt)) {
+      for (const offset of dueOffsets(reminderNow, target.startsAt)) {
         let query = supabase
           .from("course_enrollments")
           .select("email, name, amount")
@@ -216,6 +228,7 @@ export async function GET(request: NextRequest) {
     archived: archivedData?.length || 0,
     courseReminders: {
       enabled: sendEnabled,
+      simulating: simulating ? simulateParam : false,
       sent: courseRemindersSent,
       skipped: courseRemindersSkipped,
       failed: courseRemindersFailed,
