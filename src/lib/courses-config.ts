@@ -22,6 +22,13 @@ export interface Cohort {
   name: string;
   /** 開課日期（顯示用），例如 "2026/8/16（日）" */
   date: string;
+  /**
+   * 機器可讀的開課時間，ISO 8601 且必須帶 +08:00 時區，例 "2026-08-30T09:00:00+08:00"。
+   *
+   * 只給倒數提醒 cron 用來算 D-N，不影響任何顯示。沒填就不寄倒數提醒，
+   * 這是刻意的：寧可漏寄，也不要用猜的日期寄錯時間給付費學員。
+   */
+  startsAt?: string;
   /** 是否招生中。一門課至多一期為 true；報名時據此決定 cohort_key。 */
   open?: boolean;
   /**
@@ -216,6 +223,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
         key: "1",
         name: "第一期",
         date: "2026/8/30（日）",
+        startsAt: "2026-08-30T09:00:00+08:00",
         open: true,
         productIds: ["gngyqhltfyujbl0wjd78304x"],
       },
