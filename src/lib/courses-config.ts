@@ -67,6 +67,16 @@ export interface CourseConfig {
    *
    * 招生中那一期的 date 與 productIds 必須與頂層的 date、
    * recurProductId* 一致；courses-config.test.ts 會驗。
+   *
+   * ⚠️ 課程改期時，若已經有人付款，請「新增一期」給新日期，把舊期別
+   * 的 open 拿掉並保留它原本的日期，NEVER 就地改掉既有期別的 date。
+   *
+   * 理由不是潔癖：cohort_key 會寫進 course_enrollments，是判斷「這個人
+   * 報的是哪一場」的唯一依據。就地改期會讓不同場次的學員共用同一個 key，
+   * 之後寄開課提醒、發通知、算出席都會寄錯人。ai-content 走過
+   * 6/28 → 7/12 → 8/30 三次改期都是就地改，2026-08-07 補倒數提醒功能時
+   * 才發現六月與七月的學員已經分不開，只能靠 course_enrollments 的
+   * reminder_excluded 旗標人工標記補救。
    */
   cohorts: Cohort[];
   /** 早鳥 Recur 產品 ID（如有早鳥則必填） */
