@@ -130,6 +130,34 @@ const targetAudience = [
   "任何想建立一套可重複的 AI 研究工作流、不想每次都從零重來的人",
 ];
 
+// 免費線上迷你課（Mini Course Generator 公開課程）
+const freeMiniCourses = [
+  {
+    title: "第一課：把 AI 放對位置",
+    scale: "3 章 12 課",
+    summary:
+      "副駕駛與代寫的分界線在哪、學術界的三條紅線、AI 使用揭露該怎麼寫。含六題情境判斷互動，當場檢驗你的判斷。",
+    url: "https://share.minicoursegenerator.com/ai-38378725",
+  },
+  {
+    title: "第二課：讀得動",
+    scale: "4 章 12 課",
+    summary:
+      "研究工作流的八個節點裡，哪些適合交給 AI、哪些交出去會出事。四點摘要與文獻回顧矩陣，把幾十篇疊成一張看得出缺口的表。",
+    url: "https://share.minicoursegenerator.com/-29231973",
+  },
+  {
+    title: "第三課：寫得住",
+    scale: "4 章 11 課",
+    summary:
+      "卡在第一段的真正原因、讓 AI 改稿而不是換一篇的三個層級，以及用審稿人的三個問題在投稿前檢查自己。",
+    url: "https://share.minicoursegenerator.com/-25215910",
+  },
+];
+
+const FREE_COURSE_HUB_URL =
+  "https://share.minicoursegenerator.com/category/c/caab3884-358e-45d3-bc5d-ad8e2fc8afec";
+
 // 帶得走的工具
 const takeaways = [
   { name: "AI 協作原則卡", desc: "心態與界線一張卡，下筆前確認自己站在輔助這一邊。" },
@@ -442,6 +470,71 @@ export default function AiAcademicWritingPage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* 免費線上迷你課 */}
+          <section className="border-t py-14 sm:py-16">
+            <Badge variant="secondary" className="mx-auto flex w-fit">
+              免費・不需報名
+            </Badge>
+            <h2 className="mt-4 text-center text-xl font-bold sm:text-2xl">
+              還在考慮？先免費上三堂
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+              我把這套方法的觀念層整理成三堂線上迷你課，共 35 課，公開放著，
+              不需要帳號、不需要付費，自己決定進度。先上完再決定要不要來現場，
+              對你我都比較好。
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {freeMiniCourses.map((course) => (
+                <Card key={course.url} className="flex flex-col">
+                  <CardContent className="flex flex-1 flex-col p-6">
+                    <p className="text-xs font-medium text-primary">{course.scale}</p>
+                    <h3 className="mt-2 text-base font-bold">{course.title}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {course.summary}
+                    </p>
+                    <Button asChild variant="outline" size="sm" className="mt-5 w-full">
+                      <a href={course.url} target="_blank" rel="noopener noreferrer">
+                        開始上課
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <Card className="mt-6 border-primary/20 bg-primary/5">
+              <CardContent className="p-6">
+                <h3 className="text-base font-bold">免費課與這場工作坊，差在哪</h3>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <p className="text-sm font-medium">三堂免費課給你</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      判斷力：界線畫在哪、哪些環節能交給 AI、投稿前該檢查什麼。
+                      觀念層完整給出，不保留。
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">這場工作坊給你</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      帶你自己的題目與草稿到現場，走完 Agent 完整工作流，
+                      並帶走六套可重複使用的模板與清單。
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  免費課刻意不提供模板，因為模板脫離了你自己的題目就只是幾張空表。
+                  把它填起來的那個過程，才是三小時要處理的事。
+                </p>
+                <Button asChild variant="ghost" size="sm" className="mt-4 px-0">
+                  <a href={FREE_COURSE_HUB_URL} target="_blank" rel="noopener noreferrer">
+                    看三堂課的完整大綱 →
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
           </section>
 
           {/* 講師介紹 */}
