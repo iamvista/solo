@@ -133,14 +133,14 @@ const targetAudience = [
 // 免費線上迷你課（Mini Course Generator 公開課程）
 const freeMiniCourses = [
   {
-    title: "第一課：把 AI 放對位置",
+    title: "第一課：分得清",
     scale: "3 章 12 課",
     summary:
       "副駕駛與代寫的分界線在哪、學術界的三條紅線、AI 使用揭露該怎麼寫。含六題情境判斷互動，當場檢驗你的判斷。",
     url: "https://share.minicoursegenerator.com/ai-38378725",
   },
   {
-    title: "第二課：讀得動",
+    title: "第二課：讀得懂",
     scale: "4 章 12 課",
     summary:
       "研究工作流的八個節點裡，哪些適合交給 AI、哪些交出去會出事。四點摘要與文獻回顧矩陣，把幾十篇疊成一張看得出缺口的表。",
@@ -152,6 +152,27 @@ const freeMiniCourses = [
     summary:
       "卡在第一段的真正原因、讓 AI 改稿而不是換一篇的三個層級，以及用審稿人的三個問題在投稿前檢查自己。",
     url: "https://share.minicoursegenerator.com/-25215910",
+  },
+  {
+    title: "第四課：問得準",
+    scale: "3 章 8 課",
+    summary:
+      "審稿意見說貢獻不清楚，根通常不在寫作，在題目本身。用 Gap、Importance、Audience 三軸評分卡找出最弱的一軸。",
+    url: "https://share.minicoursegenerator.com/-42501575",
+  },
+  {
+    title: "第五課：做得動",
+    scale: "4 章 7 課",
+    summary:
+      "結果不對時，多跑一次是最貴的反應。一套診斷紀律、一條四階段驗證管線，以及質性研究者的編碼迭代與資料倫理紅線。",
+    url: "https://share.minicoursegenerator.com/-30393949",
+  },
+  {
+    title: "第六課：投得中",
+    scale: "4 章 8 課",
+    summary:
+      "選刊看適配而非影響因子、投稿前先自己退一次稿、回覆審稿意見時只在能移動分數的地方花力氣。",
+    url: "https://share.minicoursegenerator.com/-34447573",
   },
 ];
 
@@ -478,10 +499,10 @@ export default function AiAcademicWritingPage() {
               免費・不需報名
             </Badge>
             <h2 className="mt-4 text-center text-xl font-bold sm:text-2xl">
-              還在考慮？先免費上三堂
+              還在考慮？先免費上六堂
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
-              我把這套方法的觀念層整理成三堂線上迷你課，共 35 課，公開放著，
+              我把這套方法的觀念層整理成六堂線上迷你課，共 58 課，公開放著，
               不需要帳號、不需要付費，自己決定進度。先上完再決定要不要來現場，
               對你我都比較好。
             </p>
@@ -510,7 +531,7 @@ export default function AiAcademicWritingPage() {
                 <h3 className="text-base font-bold">免費課與這場工作坊，差在哪</h3>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <div>
-                    <p className="text-sm font-medium">三堂免費課給你</p>
+                    <p className="text-sm font-medium">六堂免費課給你</p>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       判斷力：界線畫在哪、哪些環節能交給 AI、投稿前該檢查什麼。
                       觀念層完整給出，不保留。
@@ -530,7 +551,7 @@ export default function AiAcademicWritingPage() {
                 </p>
                 <Button asChild variant="ghost" size="sm" className="mt-4 px-0">
                   <a href={FREE_COURSE_HUB_URL} target="_blank" rel="noopener noreferrer">
-                    看三堂課的完整大綱 →
+                    看六堂課的完整大綱 →
                   </a>
                 </Button>
               </CardContent>
