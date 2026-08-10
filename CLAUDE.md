@@ -54,3 +54,40 @@ Changes can be parked（暫存）— temporarily moved out of `openspec/changes/
 - 本專案同時使用 Spectra（Spec-Driven Development）和 Harness 工程系統
 - Spectra 負責需求規格管理，Harness 負責團隊角色協作和品質護欄
 - 當兩者並用時：Spectra 的 propose/discuss 取代 PM 角色，後續由 Tech Lead 接手架構設計
+
+---
+
+# solo.tw 站臺規則
+
+> **先讀 `~/.claude/ops/sites-shared.md`**（站臺共用規則：版控與併行紀律、部署後驗證、資產版號、中文寫作細則、視覺通則）。
+> 以下只寫 solo.tw 跟其他站不一樣的地方。兩邊衝突以本檔為準，並回報衝突。
+
+## Tech Stack
+
+- Next.js，部署在 **Vercel**（七條線裡唯一不在 Cloudflare 的）
+- `prebuild` 會跑 `scripts/generate-llms.mjs` 產生 llms.txt
+- 設定在 `vercel.json`
+
+## 🚨 付費內容不進 git
+
+付費商品的檔案走 Vercel Blob store `solo-private`，靠 token ＋ proxy stream 供應，**絕對不要 commit 進 repo**。加新的付費教材時先確認它進的是 Blob 而不是 `public/`。
+
+## 金流與報名
+
+- 金流走 Recur。真的有刷卡要看 Recur 的 order，不能只看報名紀錄
+- 報名狀態 `pending` 不等於已付款，判讀前先讀 `reference_solo_enrollment_pending` 那份 memory
+- Recur 的三個限制：SDK 不支援 amount 覆寫、metadata 不會進 webhook、slug 建立後改不了
+- **新梯次一律建新的 Recur 商品**，不要沿用舊商品改日期
+
+## 課程資料
+
+課程改期或改內容 MUST 同步 `src/lib/workshops.ts` 與清單頁，只改其中一邊會讓列表跟詳情對不上。
+
+## 追蹤
+
+Meta 轉換追蹤走 Pixel ＋ CAPI 雙軌，動追蹤碼前確認兩邊都改到。
+
+## Vercel 雷點
+
+- `vercel env add preview` 之前要先把分支推上去，否則會噴 `git_branch_required`
+- Ignored Build Step 會把 empty commit 判成不用建置，狀態顯示 `CANCELED`
