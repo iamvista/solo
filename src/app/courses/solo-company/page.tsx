@@ -362,7 +362,7 @@ export default function SoloCompanyPage() {
               一個人，如何把自己寫成一套會運轉的系統
             </p>
             <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
-              你的公司，是<span className="gradient-text">你在硬撐</span>，還是它在運轉？
+              貴公司，是<span className="gradient-text">你在硬撐</span>，還是有系統在運轉？
             </p>
             <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
               你一請假，所有事就停擺。
