@@ -249,6 +249,7 @@ const labTools = [
   { name: "AI 軍團編制器", use: "排出該先請哪幾位、各自負責什麼", href: "https://lab.vista.tw/m/army/" },
   { name: "拿手絕活食譜卡", use: "把你會做的事寫成一張食譜", href: "https://lab.vista.tw/m/recipe/" },
   { name: "每天早上那一頁", use: "算出你每月花多少小時在湊數字", href: "https://lab.vista.tw/dashboard/" },
+  { name: "未來新聞稿產生器", use: "先寫出終點，再倒推路線圖", href: "https://lab.vista.tw/m/future-press/" },
 ];
 
 const targetAudience = [
@@ -310,7 +311,7 @@ const faqs = [
   },
   {
     q: "課後有什麼支援？",
-    a: "上下午，各有豐富的簡報教材。另有專屬學員群組可持續交流，課堂用到的六支線上工具課後也都能繼續使用。",
+    a: "上下午，各有豐富的簡報教材。另有專屬學員群組可持續交流，課堂用到的七支線上工具課後也都能繼續使用。",
   },
   {
     q: "開課日期什麼時候公布？",
@@ -405,7 +406,7 @@ export default function SoloCompanyPage() {
                 <p className="mt-1 text-sm text-muted-foreground">人小班制</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">6</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">7</p>
                 <p className="mt-1 text-sm text-muted-foreground">支課堂工具</p>
               </div>
             </div>
@@ -716,7 +717,7 @@ export default function SoloCompanyPage() {
               先免費試一個，再決定要不要來
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              課堂上會用到六支線上工具。其中一支現在就能玩，不用註冊。
+              課堂上會用到七支線上工具。其中一支現在就能玩，不用註冊。
             </p>
 
             <Card className="mt-8 border-primary/30 bg-primary/5">
