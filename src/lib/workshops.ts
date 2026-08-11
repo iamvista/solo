@@ -110,6 +110,43 @@ export type WorkshopCategory = keyof typeof categories;
 // 工作坊列表
 export const workshops: Workshop[] = [
   {
+    // 2026-08-11 新建：《無人公司》翻書為課的六小時工作坊。
+    // 開課日期尚未拍板，沿用 vibe-coding-claude-code 的 coming_soon 寫法：
+    // date 寫成給人看的說明、sortDate 用 9999-12-31 排到最後，
+    // 沒有 COURSE_CONFIGS 對應項（沒有報名表單，CTA 是開課通知）。
+    // 定價走創始會員結構：正式價 8,800，創始梯次 5,800 並終身鎖定回訓價。
+    id: "solo-company",
+    title: "無人公司工作坊",
+    subtitle: "一個人，如何把自己寫成一套會運轉的系統",
+    description:
+      "給已經在用 AI、卻沒有因此變輕鬆的人。六小時、八次實作，把你手上重複又消耗你的工作，寫成一位 AI 員工、一條會自己走完的線、一頁每天等你的儀表板，最後帶走一份九十天路線圖。創始梯次價 NT$5,800（正式價 8,800），限 20 名。",
+    instructor: vista,
+    emoji: "🏗️",
+    date: "尚未公告，留信箱通知你",
+    sortDate: "9999-12-31",
+    time: "9:00–12:00、13:00–16:00",
+    duration: "6 小時",
+    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
+    capacity: 20,
+    featured: true,
+    cohort: "創始梯次",
+    price: {
+      original: 8800,
+      regular: 5800,
+    },
+    tags: ["AI", "一人公司", "自動化", "系統化", "實作"],
+    status: "coming_soon",
+    url: "/courses/solo-company",
+    isExternal: false,
+    highlights: [
+      "六小時八次實作，每一次都產出一件帶得走的東西",
+      "核心是設定卡與 AOP 八格：把腦子裡的判斷寫成別人接得住的流程",
+      "含護欄、責任與法律地基，不是只教油門不教煞車",
+      "創始梯次價 NT$5,800（正式價 8,800）・限 20 名・回訓終身鎖定創始價",
+    ],
+    category: "ai",
+  },
+  {
     // 2026-08-01 Vista 指示下架：hidden 讓它從 /courses、講師頁、sitemap 與
     // llms.txt 全部退場，資料保留可隨時復原。頁面網址本身仍可直接開啟，
     // Recur 三個付款方案也仍然有效，那兩層要另外處理。
