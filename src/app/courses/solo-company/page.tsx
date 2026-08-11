@@ -225,8 +225,8 @@ const notFor = [
 const foundingBenefits = [
   {
     icon: "💰",
-    title: "創始價，而且終身鎖定",
-    desc: "NT$5,800 不只是這一梯的優惠。日後任何梯次要回訓，你永遠用這個數字。",
+    title: "永久回訓，只收 NT$1,000",
+    desc: "日後任何梯次都能回來重聽，只付 NT$1,000 場地與餐飲成本。以現場空位為限，需事先登記。",
   },
   {
     icon: "🗳️",
@@ -701,7 +701,7 @@ export default function SoloCompanyPage() {
             </div>
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              創始梯次結束後，這堂課會以正式價 NT$8,800 開放。創始學員的回訓價永遠是 NT$5,800。
+              創始梯次結束後，這堂課會以正式價 NT$8,800 開放。創始學員無論哪一梯想回來重聽，都是 NT$1,000。
             </p>
           </section>
 
@@ -749,7 +749,7 @@ export default function SoloCompanyPage() {
                       <p className="text-sm text-foreground">🏅 創始梯次價</p>
                       <p className="text-3xl font-bold text-primary">NT$5,800</p>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        限 20 名・回訓終身鎖定此價・含創始學員許願區
+                        限 20 名・永久回訓只收 NT$1,000・含創始學員許願區
                       </p>
                     </div>
                   </div>
