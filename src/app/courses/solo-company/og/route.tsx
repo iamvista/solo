@@ -48,7 +48,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              6 小時實作工作坊
+              一日實作工作坊
             </span>
             <span
               style={{

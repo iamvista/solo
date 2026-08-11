@@ -13,7 +13,7 @@ export interface Instructor {
   longBio?: string;
   /** 社群／官網連結 */
   links?: { label: string; url: string }[];
-  /** 加 LINE 好友連結，預設沿用站台 LINE OA */
+  /** 加 LINE 好友連結，預設沿用站臺 LINE OA */
   lineOaUrl?: string;
 }
 
@@ -114,6 +114,9 @@ export const workshops: Workshop[] = [
     // 開課日期尚未拍板，沿用 vibe-coding-claude-code 的 coming_soon 寫法：
     // date 寫成給人看的說明、sortDate 用 9999-12-31 排到最後，
     // 沒有 COURSE_CONFIGS 對應項（沒有報名表單，CTA 是開課通知）。
+    // 2026-08-12 依 Vista 指示不把時間寫死：time 與 duration 不寫時刻與時數，
+    // 招生頁的課程表也改成段落序號而非時刻表，避免開課單位或學員拿時間點反問，
+    // 也讓現場節奏有調整餘裕。
     // 定價走創始會員結構（2026-08-12 依市場行情調整）：正式價 12,800、創始梯次 8,800。
     // 原本訂 8,800／5,800 明顯低於市場：商業實體一日 vibe coding 課的
     // 真實價格帶是 10,800 至 16,800（dotdot.school 七小時實體原價 16,800、
@@ -127,13 +130,13 @@ export const workshops: Workshop[] = [
     title: "無人公司工作坊",
     subtitle: "一個人，如何把自己寫成一套會運轉的系統",
     description:
-      "不是 AI 工具課，是用 AI 當執行力的經營課。六小時、八次實作，把你手上重複又消耗你的工作，變成一位當天就上工的 AI 員工與一條跑過一次的流程，最後帶走一份九十天路線圖。創始梯次價 NT$8,800（正式價 12,800），限 20 名。",
+      "給案子接得到、客戶回得完，卻每一件都得自己碰一次的人。不是 AI 工具課，是用 AI 當執行力的經營課。一整天、八次動手，把重複又消耗你的工作變成一位當天就上工的 AI 員工與一條跑過一次的流程。創始梯次價 NT$8,800（正式價 12,800），限 20 名。",
     instructor: vista,
     emoji: "🏗️",
     date: "尚未公告，留信箱通知你",
     sortDate: "9999-12-31",
-    time: "9:00–12:00、13:00–16:00",
-    duration: "6 小時",
+    time: "全日課程，上下半場各一段，中間午休",
+    duration: "一整天",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 20,
     featured: true,
