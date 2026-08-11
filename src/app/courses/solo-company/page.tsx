@@ -259,11 +259,11 @@ const faqs = [
   },
   {
     q: "要自備什麼？",
-    a: "筆記型電腦或平板、一個你日常在用的 AI 帳號（任何一家都可以）、紙筆。另外請先想好一件「每週都要做、做起來很煩」的事，帶著它來。",
+    a: "筆記型電腦、一個你日常在用的 AI 帳號（任何一家都可以）、紙筆。另外請先想好一件「每週都要做、做起來很煩」的事，帶著它來。",
   },
   {
     q: "課後有什麼支援？",
-    a: "上下午各一份共 400 頁的簡報教材，課後開放線上瀏覽。另有專屬學員群組可持續交流。",
+    a: "上下午，各有豐富的簡報教材，課後開放線上瀏覽。另有專屬學員群組可持續交流。",
   },
   {
     q: "開課日期什麼時候公布？",
@@ -352,8 +352,8 @@ export default function SoloCompanyPage() {
                 <p className="mt-1 text-sm text-muted-foreground">人小班制</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">400</p>
-                <p className="mt-1 text-sm text-muted-foreground">頁教材</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">6</p>
+                <p className="mt-1 text-sm text-muted-foreground">支課堂工具</p>
               </div>
             </div>
           </div>
@@ -491,7 +491,7 @@ export default function SoloCompanyPage() {
                 <Card key={i} className={s.practice ? "border-primary/20" : ""}>
                   <CardContent className="p-5">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-                      <div className="flex items-center gap-2 shrink-0 sm:w-32">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 shrink-0 sm:w-36 sm:flex-col sm:items-start sm:gap-1">
                         <Badge variant="outline" className="text-xs whitespace-nowrap">
                           {s.time}
                         </Badge>
@@ -523,7 +523,7 @@ export default function SoloCompanyPage() {
                 <Card key={i} className={s.practice ? "border-primary/20" : ""}>
                   <CardContent className="p-5">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-                      <div className="flex items-center gap-2 shrink-0 sm:w-32">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 shrink-0 sm:w-36 sm:flex-col sm:items-start sm:gap-1">
                         <Badge variant="outline" className="text-xs whitespace-nowrap">
                           {s.time}
                         </Badge>
@@ -731,7 +731,7 @@ export default function SoloCompanyPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>💻</span>
-                      <span>請攜帶筆電或平板</span>
+                      <span>請攜帶筆電</span>
                     </div>
                   </div>
 
@@ -763,7 +763,7 @@ export default function SoloCompanyPage() {
                   <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
                     {[
                       "一個你日常在用的 AI 帳號，任何一家都可以",
-                      "筆記型電腦或平板，另備紙筆（有幾次實作刻意用手寫）",
+                      "筆記型電腦，另備紙筆（有幾次實作刻意用手寫）",
                       "先想好一件「每週都要做、做起來很煩」的事，帶著它來",
                     ].map((t, i) => (
                       <li key={i} className="flex items-start gap-2">
