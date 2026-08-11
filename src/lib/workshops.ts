@@ -135,7 +135,7 @@ export const workshops: Workshop[] = [
     emoji: "🏗️",
     date: "尚未公告，留信箱通知你",
     sortDate: "9999-12-31",
-    time: "全日課程，上下半場各一段，中間午休",
+    time: "全日課程，上下半場各一段，中間午休（午餐自理）",
     duration: "一整天",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 20,

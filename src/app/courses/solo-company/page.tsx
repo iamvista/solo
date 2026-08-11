@@ -295,7 +295,7 @@ const foundingBenefits = [
   {
     icon: "🔁",
     title: "永久回訓，只收 NT$1,000",
-    desc: "日後任何梯次都能回來重聽，只付 NT$1,000 場地與餐飲成本。以現場空位為限，需事先登記。",
+    desc: "日後任何梯次都能回來重聽，只付 NT$1,000 必要成本。以現場空位為限，需事先登記。",
   },
   {
     icon: "🗳️",
@@ -335,7 +335,7 @@ const faqs = [
   },
   {
     q: "一整天抽得出來嗎？內容會不會太趕？",
-    a: "會是完整的一天，上午與下午各一段，中間午休。節奏刻意照注意力曲線編排：最重的動手放在精神最好的時候，午餐後那一段只放故事與案例，最後一段只做收斂，不再增加新概念。時間我會留有餘裕，不會為了趕進度砍掉你動手的時間。",
+    a: "會是完整的一天，上午與下午各一段，中間午休，午餐請自行到附近餐廳解決。節奏刻意照注意力曲線編排：最重的動手放在精神最好的時候，午餐後那一段只放故事與案例，最後一段只做收斂，不再增加新概念。時間我會留有餘裕，不會為了趕進度砍掉你動手的時間。",
   },
   {
     q: "要自備什麼？",
@@ -928,7 +928,7 @@ export default function SoloCompanyPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
-                      <span>全日課程，上下半場各一段，中間午休</span>
+                      <span>全日課程，上下半場各一段，中間午休（午餐自理）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>📍</span>
@@ -981,6 +981,14 @@ export default function SoloCompanyPage() {
                       </li>
                     ))}
                   </ul>
+                </div>
+
+                <div className="mt-4 rounded-lg border border-dashed p-4">
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-medium text-foreground">關於用餐：</span>
+                    課程費用不含餐飲。中午休息時間請自行到附近餐廳用餐，
+                    教室周邊步行可達的選擇很多，開課前會一併提供推薦名單。
+                  </p>
                 </div>
 
                 <p className="mt-6 text-center text-sm text-muted-foreground">
