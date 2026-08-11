@@ -95,7 +95,7 @@ export async function GET() {
               lineHeight: 1.5,
             }}
           >
-            八次動手，帶走一張設定卡、一條會自己走完的線、一份九十天路線圖
+            下課前，那位 AI 員工已經上工，那條流程已經跑過一次
           </p>
         </div>
 
