@@ -602,6 +602,9 @@ export default function SoloCompanyPage() {
             <p className="mt-2 text-center text-sm text-muted-foreground">
               下面是內容的順序，不是時刻表。實際節奏會依現場狀況調整，動手的時間我會留足。
             </p>
+            <p className="mt-1 text-center text-sm text-muted-foreground">
+              教材為專屬設計的簡報講義，涵蓋全部內容、動手指引與資料來源。
+            </p>
 
             <div className="mt-8 space-y-3">
               {flow.map((s, i) => (
