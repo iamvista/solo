@@ -48,7 +48,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              一日實作工作坊
+              半日實作工作坊
             </span>
             <span
               style={{
@@ -66,14 +66,14 @@ export async function GET() {
 
           <h1
             style={{
-              fontSize: "58px",
+              fontSize: "52px",
               fontWeight: 900,
               color: "#1c1917",
               lineHeight: 1.2,
               margin: 0,
             }}
           >
-            無人公司工作坊
+            無人公司工作坊．設計篇
           </h1>
           <h1
             style={{
@@ -84,7 +84,7 @@ export async function GET() {
               margin: "8px 0 0",
             }}
           >
-            把你自己，一段一段寫成系統
+            先想清楚要蓋什麼
           </h1>
 
           <p
@@ -95,7 +95,7 @@ export async function GET() {
               lineHeight: 1.5,
             }}
           >
-            下課前，那位 AI 員工已經上工，那條流程已經跑過一次
+            半天六次動手，帶走一位當場驗收過的 AI 員工與一份九十天路線圖
           </p>
         </div>
 

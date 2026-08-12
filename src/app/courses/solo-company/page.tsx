@@ -9,13 +9,13 @@ import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
 
 export const metadata: Metadata = {
-  title: "無人公司工作坊｜一日實作工作坊 | solo.tw",
+  title: "無人公司工作坊．設計篇｜半日實作工作坊 | solo.tw",
   description:
-    "給案子接得到、客戶回得完，卻每一件都得自己碰一次的人。不是 AI 工具課，是用 AI 當執行力的經營課。一整天、八次動手，把重複又消耗你的工作變成一位會上工的 AI 員工。創始梯次限 20 名，開課日期尚未公告。",
+    "給案子接得到、客戶回得完，卻每一件都得自己碰一次的人。不是 AI 工具課，是用 AI 當執行力的經營課。半天、六次動手，帶走一位當場驗收過的 AI 員工與一份九十天路線圖。不綁工具，免費版就能做完。創始梯次限 20 名。",
   openGraph: {
-    title: "無人公司工作坊｜把你自己，一段一段寫成系統",
+    title: "無人公司工作坊．設計篇｜先想清楚要蓋什麼",
     description:
-      "下課前，你會有一位已經上工的 AI 員工、一條跑過一次的流程，以及一份九十天路線圖。創始梯次限 20 名。",
+      "半天、六次動手，帶走一位當場驗收過的 AI 員工、一張畫出瓶頸的工作地圖，以及一份九十天路線圖。創始梯次限 20 名。",
     images: [
       {
         url: "/courses/solo-company/og",
@@ -108,7 +108,7 @@ const layers = [
     icon: "🔁",
     name: "第二層　工作流",
     mechanism: "固定的事固定地跑，你從執行者變成設計者",
-    who: "這堂課帶你走到這裡",
+    who: "這個系列要帶你走到這裡",
     cost: "一次設計，長期複利",
   },
   {
@@ -124,12 +124,7 @@ const outcomes = [
   {
     icon: "🧑‍💼",
     title: "一位已經上工的 AI 員工",
-    desc: "不是一張寫完就收起來的卡。下課前它會照你訂的標準，真的交回一次東西給你驗收。",
-  },
-  {
-    icon: "🔗",
-    title: "一條跑過一次的流程",
-    desc: "八格 AOP 當場交給 AI 跑一輪。它一定會有地方做錯，那正是你帶走的最有價值的資訊。",
+    desc: "六欄設定卡寫完，當場存成常駐的專案，並讓它照你的標準交回第一份東西給你驗收。",
   },
   {
     icon: "🗺️",
@@ -137,14 +132,19 @@ const outcomes = [
     desc: "一週的工作攤在紙上，分出執行與判斷，圈出最吃你時間又最重複的那一個環節。",
   },
   {
-    icon: "🛡️",
-    title: "一套你敢放手的護欄",
-    desc: "資料、權限、決策三道，加一份上線前的檢查表。知道出事它會叫你，你才敢真的踩油門。",
+    icon: "📋",
+    title: "一份可交付任務清單",
+    desc: "用五個問題把瓶頸篩過一遍，你會知道哪幾件能交、哪幾件先別碰，以及為什麼。",
   },
   {
-    icon: "📊",
-    title: "一頁會自己生出來的報表",
-    desc: "七個指標的規格當場定完，並用線上工具算出你現在每個月花多少小時在湊數字。",
+    icon: "🎚️",
+    title: "一個明確的起始檔位",
+    desc: "L1 到 L5 五個檔位，選定你的第一件事要從哪一檔起步，以及檢查點放在哪。",
+  },
+  {
+    icon: "🛡️",
+    title: "三道護欄與上線前檢查表",
+    desc: "資料、權限、決策各防一種風險。知道出事它會叫你，你才敢真的放手。",
   },
   {
     icon: "🗓️",
@@ -154,98 +154,63 @@ const outcomes = [
 ];
 
 const acceptance = [
-  "你那位 AI 員工，已經照你訂的標準交過至少一次東西，而且你當場驗收過。",
-  "你的第一條流程已經真的跑過一輪，你知道它在哪一步會出錯，也知道那一格該怎麼補。",
+  "你那位 AI 員工，已經存成一個打開就在的專案，而且照你訂的標準交過一次東西、你當場驗收過。",
+  "你講得出你最該先交出去的是哪一件事、它要從哪一檔起步，以及為什麼是它。",
   "你講得出接下來九十天，每一個月要做完的那一件事是什麼。",
 ];
 
-const morning = [
+const flow = [
   {
     step: "01",
     module: "開場與定錨",
-    content: "從一個具體的早晨開始：報表已經整理好在等你，而昨晚你在睡覺。",
+    content: "從一個具體的早晨開始：報表已經整理好在等你，而昨晚你在睡覺。再攤開今天的地圖。",
     hands: false,
   },
   {
     step: "02",
     module: "先做一次：把一件小事交出去",
-    content: "不從理論開始。開場沒多久，你就會真的把一件事交給 AI 跑完一次。",
+    content: "不從理論開始。開場沒多久，你就會真的把一件事交給 AI 跑完一次，先有一次成功體驗。",
     hands: true,
   },
   {
     step: "03",
-    module: "為什麼是現在",
-    content: "三次生產力解放、回不去的缺工結構，以及公司這個詞正在被改寫。",
-    hands: false,
+    module: "把工作攤開",
+    content: "執行與判斷這條線，決定你能交出去多少。人機七三分、十個環節五個部門，然後圈出你的瓶頸。",
+    hands: true,
   },
   {
     step: "04",
-    module: "你在哪一層",
-    content: "助手、工作流、代理。給自己一個座標，也看見成長空間在哪。",
+    module: "交到哪一檔",
+    content: "五個問題篩一遍，把「該不該交」變成能回答的題目；再用 L1 到 L5 選定起始檔位與檢查點。",
     hands: true,
   },
   {
     step: "05",
-    module: "把工作攤開",
-    content: "執行與判斷這條線，決定你能交出去多少。全日認知負荷最重的一段。",
+    module: "招募第一位 AI 員工",
+    content: "六欄設定卡，把工具變成一個有職責、有標準、有禁區的員工，當場存成常駐專案並驗收它的第一份產出。",
     hands: true,
   },
   {
     step: "06",
-    module: "交到哪一檔",
-    content: "五個問題篩一遍，L1 到 L5 選一檔，帶著選定的任務去吃午餐。",
-    hands: true,
+    module: "護欄：把煞車也裝上",
+    content: "五種風險、三道護欄、一份上線前檢查表。市面上多數 AI 課只教油門，這一段講煞車。",
+    hands: false,
   },
-];
-
-const afternoon = [
   {
     step: "07",
-    module: "午後暖機：別人怎麼走的",
-    content: "美國、日本、韓國與臺灣的實例。這一段只放故事與數字，不放框架。",
-    hands: false,
-  },
-  {
-    step: "08",
-    module: "招募第一位 AI 員工",
-    content: "六欄設定卡，把工具變成一個有職責、有標準、有禁區的員工，並當場驗收它的第一份產出。",
-    hands: true,
-  },
-  {
-    step: "09",
-    module: "從一個員工到一條線",
-    content: "AOP 八格寫完就交給 AI 跑一輪，把腦子裡的判斷變成別人接得住的流程。",
-    hands: true,
-  },
-  {
-    step: "10",
-    module: "護欄與看不見的地基",
-    content: "五種風險、三道護欄、法律三道裂縫。前面教油門，這一段講煞車。",
-    hands: false,
-  },
-  {
-    step: "11",
-    module: "讓公司自己回報",
-    content: "一頁七個指標，像飛機駕駛艙：正常時讓你放手，異常時把你叫回來。",
-    hands: false,
-  },
-  {
-    step: "12",
     module: "九十天，與那個人",
-    content: "三個三十天的路線圖，換一把新的尺，以及三件千萬別自動化的事。",
+    content: "三個三十天的路線圖、換一把新的尺，以及三件千萬別自動化的事。",
     hands: true,
   },
 ];
 
 const practices = [
   ["一", "挑一件每週都做的小事，現在就交給 AI 跑一次", "第一次成功的交付經驗"],
-  ["二", "把最近用 AI 做的三件事，標到三層座標上", "你目前的位置與成長空間"],
-  ["三", "把一週工作攤開，分執行與判斷，圈出瓶頸", "一張個人工作地圖"],
-  ["四", "拿你的瓶頸跑一遍五問篩子", "一份可交付任務清單"],
-  ["五", "選出第一個戰場，決定先交到哪一檔", "第一個任務與起始檔位"],
-  ["六", "寫設定卡，並當場讓它交回第一份產出", "一位驗收過的 AI 員工"],
-  ["七", "寫 AOP 八格，並交給 AI 跑一輪", "一條跑過一次的流程"],
-  ["八", "把三個三十天填成自己的三句話", "一份九十天路線圖"],
+  ["二", "把一週工作攤開，分執行與判斷，圈出瓶頸", "一張個人工作地圖"],
+  ["三", "拿你的瓶頸跑一遍五問篩子", "一份可交付任務清單"],
+  ["四", "選出第一個戰場，決定先交到哪一檔", "第一個任務與起始檔位"],
+  ["五", "寫設定卡，存成常駐專案，並讓它交回第一份產出", "一位驗收過的 AI 員工"],
+  ["六", "把三個三十天填成自己的三句話", "一份九十天路線圖"],
 ];
 
 const notAToolCourse = [
@@ -257,12 +222,12 @@ const notAToolCourse = [
   {
     dim: "下課帶走",
     tool: "一個做出來的作品",
-    ours: "一套會替你重複產出的流程",
+    ours: "一套決定該交什麼、怎麼交的判斷框架",
   },
   {
     dim: "驗收標準",
     tool: "我做出來了",
-    ours: "我不在，它照樣跑",
+    ours: "我知道哪些事不必再由我做",
   },
   {
     dim: "跟工具的關係",
@@ -272,25 +237,25 @@ const notAToolCourse = [
   {
     dim: "有沒有人教煞車",
     tool: "幾乎不談風險",
-    ours: "五種風險、三道護欄、法律地基各講一段",
+    ours: "五種風險、三道護欄、一份上線前檢查表",
   },
 ];
 
 const labTools = [
-  { name: "提示詞骨架器", use: "四格填完自動組成完整交辦", href: "https://lab.vista.tw/prompt-skeleton/" },
+  { name: "每天早上那一頁", use: "算出你每月花多少小時在湊數字", href: "https://lab.vista.tw/dashboard/" },
   { name: "你在硬撐，還是公司在運轉", use: "十分鐘測出你的系統成熟度", href: "https://lab.vista.tw/m/system/" },
+  { name: "提示詞骨架器", use: "四格填完自動組成完整交辦", href: "https://lab.vista.tw/prompt-skeleton/" },
   { name: "盲點巡查器", use: "把想不到的維度一次盤出來", href: "https://lab.vista.tw/blindspot/" },
   { name: "AI 軍團編制器", use: "排出該先請哪幾位、各自負責什麼", href: "https://lab.vista.tw/m/army/" },
   { name: "拿手絕活食譜卡", use: "把你會做的事寫成一張食譜", href: "https://lab.vista.tw/m/recipe/" },
-  { name: "每天早上那一頁", use: "算出你每月花多少小時在湊數字", href: "https://lab.vista.tw/dashboard/" },
   { name: "未來新聞稿產生器", use: "先寫出終點，再倒推路線圖", href: "https://lab.vista.tw/m/future-press/" },
 ];
 
 const foundingBenefits = [
   {
     icon: "🎟️",
-    title: "創始價 NT$8,800",
-    desc: "正式開賣後是 NT$12,800。創始梯次只有 20 個位置，這個價格不會再出現。",
+    title: "創始價 NT$5,800",
+    desc: "正式開賣後是 NT$7,800。創始梯次只有 20 個位置，這個價格不會再出現。",
   },
   {
     icon: "🔁",
@@ -299,7 +264,7 @@ const foundingBenefits = [
   },
   {
     icon: "🗳️",
-    title: "第二梯要加強什麼，你有話語權",
+    title: "施工篇要加強什麼，你有話語權",
     desc: "創始學員專屬的許願區：你說哪裡卡住，我公開回覆進度，想要的人多就先做那個。",
   },
 ];
@@ -307,19 +272,27 @@ const foundingBenefits = [
 const faqs = [
   {
     q: "我怕又是一堂聽完很有感、回去卻沒改變的課。",
-    a: "這是我自己最在意的一件事，所以課程結構是照著它設計的：全日八次動手，每一次都要產出一件具體的東西，而不是抄筆記。設定卡寫完當場就要讓 AI 交件、流程寫完當場就要跑一輪。頁面上那三條驗收標準，是我對這堂課的承諾，離開教室時做不到你可以當場跟我說。",
+    a: "這是我自己最在意的一件事，所以課程結構是照著它設計的：半天六次動手，每一次都要產出一件具體的東西，而不是抄筆記。設定卡寫完當場就要存成常駐專案並讓 AI 交件。頁面上那三條驗收標準，是我對這堂課的承諾，離開教室時做不到你可以當場跟我說。",
+  },
+  {
+    q: "設計篇跟施工篇差在哪？我可以只上一堂嗎？",
+    a: "設計篇解決的是「該蓋什麼」：哪些工作能交出去、交到哪一檔、標準怎麼訂、護欄設在哪。施工篇解決的是「怎麼真的蓋起來」：把流程接成一條會自己走完的線、讓報表每天自己生出來，會用到 AI agent 這類工具，也需要你自備訂閱。只上設計篇完全成立，你會帶走一位在上工的 AI 員工與一份路線圖。反過來只上施工篇就不建議了，因為你會沒有東西可以蓋。施工篇目前規劃中，日期與費用尚未公布。",
+  },
+  {
+    q: "需要付費訂閱 ChatGPT Plus 或 Claude Pro 嗎？",
+    a: "不用，免費版就夠。ChatGPT 與 Claude 的免費方案目前都能建立專案並設定自訂指令，那正是課堂上要把設定卡存起來的地方。要提醒的是免費版有用量上限（Claude 免費版大約每五小時十幾到四十則訊息），寫設定卡那一段的對話比較長，有機會撞到額度，所以建議你兩家都先辦好帳號，一家用完就換另一家。這其實也是課堂上的好教材：能換著用，正好證明你寫下來的那套東西不綁工具。",
+  },
+  {
+    q: "可以用 Gemini 嗎？",
+    a: "當天的對話練習用 Gemini 沒問題，但存設定卡那一步我不會示範 Gemini。Gems 傳出將於十月停止支援、改推需要付費的 Skills，我不想教一個過幾個月就失效的做法。所以課堂示範會用 ChatGPT 與 Claude 這兩家的專案功能。",
   },
   {
     q: "這跟坊間的 vibe coding 課差在哪？",
-    a: "vibe coding 課教你把一個東西做出來：網站、銷售頁、小工具。那很有價值，但沒有人教你那個東西上線之後誰維護、誰回信、出錯誰負責。這堂課處理的是後面那一段：把你腦子裡的判斷寫成流程，讓事情不需要你在場也跑得完。兩者不衝突，順序是先有東西，再有制度。",
+    a: "vibe coding 課教你把一個東西做出來：網站、銷售頁、小工具。那很有價值，但沒有人教你那個東西上線之後誰維護、誰回信、出錯誰負責。這個系列處理的是後面那一段：先想清楚哪些事該交出去（設計篇），再把它真的接成一條會跑的線（施工篇）。兩者不衝突，順序是先有東西，再有制度。",
   },
   {
     q: "我上過你的 AI 內容產製系統工作坊，這堂還需要嗎？",
-    a: "需要，但方向不同。那堂課是把「內容」這一條線做深，給你一套從輸入到分發的內容產製架構。這堂課是把整間公司攤開來，教你判斷哪些工作該交、交到哪一檔、怎麼設護欄、怎麼看儀表板。用一句話說：那堂給你一條做得很好的線，這堂教你怎麼決定要蓋哪些線、以及怎麼管它們。",
-  },
-  {
-    q: "需要付費訂閱 ChatGPT Plus、Claude Pro 或 Gemini 進階版嗎？",
-    a: "不用，免費版就夠。八次動手裡有五次是紙筆作業，真正要跟 AI 對話的三次都是純文字，不上傳大檔案、不跑程式，免費的 ChatGPT、Gemini、Claude 都做得到。唯一要提醒的是免費版有用量上限，寫設定卡與流程那兩段的對話比較長，同一天連著用有機會撞到額度，所以建議你帶兩家的帳號，一家用完就換另一家。這其實也是課堂上的好教材：能換著用，正好證明你寫下來的那套東西不綁工具。",
+    a: "需要，但方向不同。那堂課是把「內容」這一條線做深，給你一套從輸入到分發的內容產製架構。這堂課是把整間公司攤開來，教你判斷哪些工作該交、交到哪一檔、怎麼設護欄。用一句話說：那堂給你一條做得很好的線，這堂教你怎麼決定要蓋哪些線。",
   },
   {
     q: "需要會寫程式嗎？我對工具也不算熟。",
@@ -327,19 +300,15 @@ const faqs = [
   },
   {
     q: "我的行業很特殊，這套方法適用嗎？",
-    a: "課程用的是你自己的工作，不是我準備的案例。第一件實作就請你挑一件「每週都要做、做起來很煩」的事，那件事會是你一整天的主角，後面的設定卡、流程、儀表板全部圍著它做。所以適不適用，取決於你有沒有重複性的工作，跟行業關係不大。",
+    a: "課程用的是你自己的工作，不是我準備的案例。第一件實作就請你挑一件「每週都要做、做起來很煩」的事，那件事會是你半天的主角，後面的工作地圖、五問篩子、設定卡全部圍著它做。所以適不適用，取決於你有沒有重複性的工作，跟行業關係不大。",
   },
   {
-    q: "課後我一個人卡住怎麼辦？",
-    a: "課後有專屬學員群組可持續交流，課堂用到的七支線上工具也都能繼續使用。九十天路線圖裡我特別放了一段「第二個月一定會撞牆」的預告與三種解法，因為那是最多人放棄的時間點。",
-  },
-  {
-    q: "一整天抽得出來嗎？內容會不會太趕？",
-    a: "會是完整的一天，上午與下午各一段，中間午休，午餐請自行到附近餐廳解決。節奏刻意照注意力曲線編排：最重的動手放在精神最好的時候，午餐後那一段只放故事與案例，最後一段只做收斂，不再增加新概念。時間我會留有餘裕，不會為了趕進度砍掉你動手的時間。",
+    q: "半天會不會太趕？",
+    a: "半天六次動手，其餘是講解與案例。節奏刻意照注意力曲線編排：最重的動手放在精神最好的時候，最後一段只做收斂，不再增加新概念。這也是我把它從一整天改成半天的原因：與其塞滿，不如把每一次動手都做完。時間我會留有餘裕，不會為了趕進度砍掉你動手的時間。",
   },
   {
     q: "要自備什麼？",
-    a: "筆記型電腦、一個你日常在用的 AI 帳號（任何一家都可以，免費版就夠）、紙筆。另外請先想好一件「每週都要做、做起來很煩」的事，帶著它來。",
+    a: "筆記型電腦、ChatGPT 與 Claude 的帳號（免費版即可，兩家都辦）、紙筆。另外請先想好一件「每週都要做、做起來很煩」的事，帶著它來。",
   },
   {
     q: "開課日期什麼時候公布？",
@@ -356,12 +325,12 @@ export default function SoloCompanyPage() {
     <>
       <JsonLd
         data={courseSchema({
-          name: "無人公司工作坊",
+          name: "無人公司工作坊．設計篇",
           description:
-            "不是 AI 工具課，是用 AI 當執行力的經營課。一整天、八次動手，下課帶走一位已經上工的 AI 員工、一條跑過一次的流程，以及一份九十天路線圖。",
+            "不是 AI 工具課，是用 AI 當執行力的經營課。半天、六次動手，帶走一位當場驗收過的 AI 員工、一張畫出瓶頸的工作地圖，以及一份九十天路線圖。",
           url: "https://www.solo.tw/courses/solo-company",
           instructor: "Vista",
-          duration: "P1D",
+          duration: "PT3H30M",
           location: "臺北市",
         })}
       />
@@ -369,7 +338,7 @@ export default function SoloCompanyPage() {
         data={breadcrumbSchema([
           { name: "首頁", href: "/" },
           { name: "課程", href: "/courses" },
-          { name: "無人公司工作坊", href: "/courses/solo-company" },
+          { name: "無人公司工作坊．設計篇", href: "/courses/solo-company" },
         ])}
       />
       <JsonLd data={faqSchema(faqs.map((faq) => ({ question: faq.q, answer: faq.a })))} />
@@ -381,13 +350,13 @@ export default function SoloCompanyPage() {
               variant="secondary"
               className="mb-4 px-4 py-2 text-sm sm:text-base"
             >
-              🏗️ 一日實作工作坊｜創始梯次限 20 名・開課日期尚未公告
+              🏗️ 半日實作工作坊｜創始梯次限 20 名・開課日期尚未公告
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              無人公司工作坊
+              無人公司工作坊．設計篇
             </h1>
             <p className="mx-auto mt-2 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              一個人，如何把自己寫成一套會運轉的系統
+              先想清楚，你的公司該把哪些事交出去
             </p>
             <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
               貴公司，是<span className="gradient-text">你在硬撐</span>，還是有系統在運轉？
@@ -422,11 +391,11 @@ export default function SoloCompanyPage() {
             {/* Key Stats */}
             <div className="mt-10 flex justify-center gap-8 sm:gap-12">
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">1</p>
-                <p className="mt-1 text-sm text-muted-foreground">整天實作</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">半日</p>
+                <p className="mt-1 text-sm text-muted-foreground">實作工作坊</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">8</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">6</p>
                 <p className="mt-1 text-sm text-muted-foreground">次動手</p>
               </div>
               <div className="text-center">
@@ -532,7 +501,7 @@ export default function SoloCompanyPage() {
           {/* ====== 5. 三層座標 ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              這堂課要把你從第一層，帶到第二層
+              先搞清楚你站在哪一層
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
               三層的差別不是工具，是誰在推。多數人卡在第一層。
@@ -582,7 +551,7 @@ export default function SoloCompanyPage() {
               下課前，你會有一位已經上工的 AI 員工
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              不是六份寫完就收起來的講義，是六件當天就跑過、驗收過的東西。
+              不是六份寫完就收起來的講義，是六件當天就做完、驗收過的東西。
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -625,7 +594,7 @@ export default function SoloCompanyPage() {
           {/* ====== 7. Curriculum ====== */}
           <section id="curriculum" className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              一整天，會怎麼走
+              半天，會怎麼走
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
               照學習曲線排，不照書的章節排：先有一次成功，再講道理。
@@ -634,43 +603,8 @@ export default function SoloCompanyPage() {
               下面是內容的順序，不是時刻表。實際節奏會依現場狀況調整，動手的時間我會留足。
             </p>
 
-            <h3 className="mt-10 text-base font-bold text-foreground">
-              上半場　看見，然後第一次交出去
-            </h3>
-            <div className="mt-4 space-y-3">
-              {morning.map((s, i) => (
-                <Card key={i} className={s.hands ? "border-primary/20" : ""}>
-                  <CardContent className="p-5">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 shrink-0 sm:w-28 sm:flex-col sm:items-start sm:gap-1">
-                        <Badge variant="outline" className="text-xs whitespace-nowrap">
-                          {s.step}
-                        </Badge>
-                        {s.hands && (
-                          <span className="text-xs font-medium text-primary whitespace-nowrap">
-                            ✍️ 動手
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-base font-semibold text-foreground">
-                          {s.module}
-                        </h4>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {s.content}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <h3 className="mt-10 text-base font-bold text-foreground">
-              下半場　從一個工作站，到一條會跑的線
-            </h3>
-            <div className="mt-4 space-y-3">
-              {afternoon.map((s, i) => (
+            <div className="mt-8 space-y-3">
+              {flow.map((s, i) => (
                 <Card key={i} className={s.hands ? "border-primary/20" : ""}>
                   <CardContent className="p-5">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
@@ -699,10 +633,10 @@ export default function SoloCompanyPage() {
             </div>
           </section>
 
-          {/* ====== 8. 八次實作 ====== */}
+          {/* ====== 8. 六次動手 ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
-              八次動手，八件產出
+              六次動手，六件產出
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
               每一次都留下一件東西，串起來就是你自己的方案。
@@ -737,13 +671,67 @@ export default function SoloCompanyPage() {
             </div>
           </section>
 
-          {/* ====== 9. 先免費試一個 ====== */}
+          {/* ====== 9. 系列預告 ====== */}
+          <section className="border-t py-14 sm:py-16">
+            <h2 className="text-center text-xl font-bold sm:text-2xl">
+              這是設計篇，後面還有一個施工篇
+            </h2>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="p-6">
+                  <Badge className="mb-3">現在這一堂</Badge>
+                  <h3 className="text-lg font-bold text-foreground">設計篇</h3>
+                  <p className="mt-1 text-sm font-medium text-primary">
+                    先想清楚要蓋什麼
+                  </p>
+                  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                    <li>哪些工作能交出去，交到哪一檔</li>
+                    <li>標準怎麼訂、禁區寫在哪</li>
+                    <li>三道護欄與上線前檢查表</li>
+                    <li>不綁工具，免費版就能做完</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="border-dashed bg-muted/30">
+                <CardContent className="p-6">
+                  <Badge variant="outline" className="mb-3">
+                    規劃中
+                  </Badge>
+                  <h3 className="text-lg font-bold text-muted-foreground">
+                    施工篇
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-muted-foreground">
+                    真的把它蓋起來
+                  </p>
+                  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                    <li>把流程接成一條會自己走完的線</li>
+                    <li>讓那一頁報表每天自己生出來</li>
+                    <li>用 AI agent 實際搭建與上線</li>
+                    <li>會用到付費工具，需自備訂閱</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              兩件事分開，是因為難度與需要的工具不同。
+              <br className="hidden sm:block" />
+              先想清楚再動工，順序不要顛倒。施工篇的日期與費用尚未公布，
+              <span className="font-medium text-foreground">
+                留信箱時可以順便告訴我你想不想上。
+              </span>
+            </p>
+          </section>
+
+          {/* ====== 10. 先免費試一個 ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
               先免費試一個，再決定要不要來
             </h2>
             <p className="mt-3 text-center text-base text-muted-foreground">
-              課堂上會用到七支線上工具。其中一支現在就能玩，不用註冊。
+              課堂上會用到七支線上工具，全部免費、免註冊，現在就能玩。
             </p>
 
             <Card className="mt-8 border-primary/30 bg-primary/5">
@@ -757,10 +745,10 @@ export default function SoloCompanyPage() {
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   這支工具會請你把七個該看的指標填一次，然後算一筆你大概沒算過的帳：
                   光是湊這一頁，你一個月花掉多少小時、一年等於幾個工作天，
-                  以及七項裡面哪一項最該先交給 AI。填完可以直接複製一份規格書帶走。
+                  以及七項裡面哪一項最該先交給 AI。
                 </p>
                 <p className="mt-4 text-sm text-muted-foreground">
-                  這就是課程下半場那一段的內容。玩過一次，你大概就知道整堂課是什麼調性。
+                  算出來的那個數字，就是你來上這堂課要解決的東西。
                 </p>
                 <Button size="lg" className="mt-6 h-12 px-8 text-base" asChild>
                   <a
@@ -793,12 +781,9 @@ export default function SoloCompanyPage() {
                 </a>
               ))}
             </div>
-            <p className="mt-4 text-center text-sm text-muted-foreground">
-              部分工具為會員限定，開課日前會逐一對外開放。
-            </p>
           </section>
 
-          {/* ====== 10. 買之前先確認你要的是哪一種課 ====== */}
+          {/* ====== 11. 買之前先確認你要的是哪一種課 ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
               買之前，先確認你要的是哪一種課
@@ -817,7 +802,7 @@ export default function SoloCompanyPage() {
                       一般 AI 工具課
                     </th>
                     <th className="pb-3 text-left font-medium text-primary">
-                      無人公司工作坊
+                      設計篇
                     </th>
                   </tr>
                 </thead>
@@ -841,7 +826,7 @@ export default function SoloCompanyPage() {
             </p>
           </section>
 
-          {/* ====== 11. Instructor ====== */}
+          {/* ====== 12. Instructor ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">關於講師</h2>
 
@@ -882,15 +867,15 @@ export default function SoloCompanyPage() {
 
                 <div className="mt-6 rounded-lg border bg-muted/30 p-4">
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    這堂課的內容不是整理自二手資料。課堂上示範的設定卡、流程與儀表板，
-                    都是他自己每天在跑的版本，包含那些踩過的坑與後來補上的護欄。
+                    這堂課的內容不是整理自二手資料。課堂上示範的設定卡、流程與護欄，
+                    都是他自己每天在跑的版本，包含那些踩過的坑與後來補上的規則。
                   </p>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* ====== 12. 創始梯次 ====== */}
+          {/* ====== 13. 創始梯次 ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
               關於創始梯次
@@ -914,7 +899,7 @@ export default function SoloCompanyPage() {
             </div>
           </section>
 
-          {/* ====== 13. Registration ====== */}
+          {/* ====== 14. Registration ====== */}
           <section id="register" className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">開課通知</h2>
 
@@ -928,7 +913,7 @@ export default function SoloCompanyPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
-                      <span>全日課程，上下半場各一段，中間午休（午餐自理）</span>
+                      <span>半日課程，中間安排一次休息</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>📍</span>
@@ -951,12 +936,12 @@ export default function SoloCompanyPage() {
                     <div className="rounded-lg border border-primary/20 bg-background/80 p-4">
                       <p className="text-sm text-muted-foreground">正式價</p>
                       <p className="text-2xl font-bold text-muted-foreground line-through">
-                        NT$12,800
+                        NT$7,800
                       </p>
                     </div>
                     <div className="rounded-lg border border-primary/40 bg-primary/10 p-4">
                       <p className="text-sm text-foreground">🎟️ 創始梯次價</p>
-                      <p className="text-3xl font-bold text-primary">NT$8,800</p>
+                      <p className="text-3xl font-bold text-primary">NT$5,800</p>
                       <p className="mt-1 text-xs text-muted-foreground">
                         限 20 名・永久回訓只收 NT$1,000・含創始學員許願區
                       </p>
@@ -971,7 +956,7 @@ export default function SoloCompanyPage() {
                   </p>
                   <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
                     {[
-                      "一個 AI 帳號，任何一家都可以，免費版就夠（建議備兩家）",
+                      "ChatGPT 與 Claude 的帳號，免費版即可（兩家都辦，避免撞到用量上限）",
                       "筆記型電腦，另備紙筆（有幾次實作刻意用手寫）",
                       "先想好一件「每週都要做、做起來很煩」的事，帶著它來",
                     ].map((t, i) => (
@@ -986,8 +971,8 @@ export default function SoloCompanyPage() {
                 <div className="mt-4 rounded-lg border border-dashed p-4">
                   <p className="text-sm text-muted-foreground">
                     <span className="font-medium text-foreground">關於用餐：</span>
-                    課程費用不含餐飲。中午休息時間請自行到附近餐廳用餐，
-                    教室周邊步行可達的選擇很多，開課前會一併提供推薦名單。
+                    半日課程不供餐。若時段跨到用餐時間，休息時可自行到附近覓食，
+                    教室周邊步行可達的選擇很多。
                   </p>
                 </div>
 
@@ -999,7 +984,7 @@ export default function SoloCompanyPage() {
             <CourseNotifyEntry slug="solo-company" />
           </section>
 
-          {/* ====== 14. Two Choices ====== */}
+          {/* ====== 15. Two Choices ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">
               你有兩種選擇
@@ -1020,11 +1005,11 @@ export default function SoloCompanyPage() {
               <Card className="border-primary/30 bg-primary/5">
                 <CardContent className="p-6 sm:p-8">
                   <h3 className="text-lg font-bold text-primary">
-                    花一天，把自己寫成一套系統
+                    花半天，先想清楚該交出去什麼
                   </h3>
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                    一位會上工的 AI 員工、一條跑過一次的流程、一頁每天等你的報表。
-                    讓那些消耗你的部分自己跑，把時間留給只有你能做的事。
+                    一位當場驗收過的 AI 員工、一張畫出瓶頸的工作地圖、一份九十天路線圖。
+                    先把該交的事情想清楚，剩下的才有辦法一件一件放手。
                   </p>
                   <Button size="sm" className="mt-5 h-9 px-6" asChild>
                     <a href="#register">通知我開課 →</a>
@@ -1034,7 +1019,7 @@ export default function SoloCompanyPage() {
             </div>
           </section>
 
-          {/* ====== 15. FAQ ====== */}
+          {/* ====== 16. FAQ ====== */}
           <section className="border-t py-14 sm:py-16">
             <h2 className="text-center text-xl font-bold sm:text-2xl">常見問題</h2>
             <div className="mt-8 space-y-4">
