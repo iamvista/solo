@@ -371,7 +371,7 @@ export default function VibeCodingPage() {
   return (
     <>
       <JsonLd data={{
-        ...courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已舉辦 5 班，超過 60 位學員完成上線作品。", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", startDate: "2026-08-15", location: "臺北市", image: "https://www.solo.tw/images/workshops/cover-vibe-coding.webp" }),
+        ...courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已舉辦 5 班，超過 60 位學員完成上線作品。", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", location: "臺北市", image: "https://www.solo.tw/images/workshops/cover-vibe-coding.webp" }),
         aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "12", bestRating: "5" },
         review: testimonials.slice(-4).map(t => ({
           "@type": "Review",
@@ -393,7 +393,7 @@ export default function VibeCodingPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            {"\u{1F4BB}"} 3 小時實戰工作坊 — 第 8 班｜2026 年 8 月 15 日（六）
+            {"\u{1F4BB}"} 3 小時實戰工作坊｜下一梯次日期尚未公告
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Vibe Coding 實戰工作坊
@@ -413,7 +413,7 @@ export default function VibeCodingPage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#register">我要報名</a>
+              <a href="#register">留信箱・開課通知我</a>
             </Button>
             <Button
               size="lg"
@@ -846,7 +846,7 @@ export default function VibeCodingPage() {
         {/* ====== Registration ====== */}
         <section id="register" className="border-t py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
-            報名資訊
+            開課通知
           </h2>
 
           <Card className="mt-8 border-primary/20 bg-primary/5">
@@ -855,7 +855,7 @@ export default function VibeCodingPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F4C5}"}</span>
-                    <span className="font-medium">第 8 班｜2026 年 8 月 15 日（六）</span>
+                    <span className="font-medium">下一梯次｜日期尚未公告</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>{"\u{1F558}"}</span>
@@ -905,18 +905,8 @@ export default function VibeCodingPage() {
                 </ul>
               </div>
 
-              <div className="mt-6">
-                <Button
-                  size="lg"
-                  className="h-12 w-full text-base"
-                  asChild
-                >
-                  <Link href="/courses/vibe-coding/register">立即報名</Link>
-                </Button>
-              </div>
-
-              <p className="mt-4 text-center text-sm text-muted-foreground">
-                點擊後填寫報名表（含手機，方便課前聯絡你），再前往刷卡
+              <p className="mt-6 text-center text-sm text-muted-foreground">
+                下一梯次日期尚未公告。留下 E-mail，開課時第一個通知你。
               </p>
             </CardContent>
           </Card>
@@ -949,7 +939,7 @@ export default function VibeCodingPage() {
                   用 AI 把想法變成網站，從此不再被技術卡住。今天學會，明天就能幫自己、幫客戶做出專業的數位資產。
                 </p>
                 <Button size="sm" className="mt-5 h-9 px-6" asChild>
-                  <a href="#register">我要報名 →</a>
+                  <a href="#register">留信箱・開課通知我 →</a>
                 </Button>
               </CardContent>
             </Card>
@@ -980,7 +970,7 @@ export default function VibeCodingPage() {
             </p>
             <div className="mt-5 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
-                <a href="#register">我要報名</a>
+                <a href="#register">留信箱・開課通知我</a>
               </Button>
               <Button
                 size="lg"

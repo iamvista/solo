@@ -51,3 +51,6 @@ openspec/.vector-search.db*
 
 # Brainstorming session scratch (Visual Companion)
 .superpowers/
+
+# 本 repo 刻意版控 .claude/，豁免全域忽略
+!.claude/

@@ -249,34 +249,6 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     preRegistrationNotice:
       "本課程實作會用到 Claude Code，請於課前自行訂閱 Claude Pro（每月 US$20），並準備 2-3 篇你過去寫的文章（課堂會用來建立你的個人風格檔案）。",
   },
-  "vibe-coding": {
-    slug: "vibe-coding",
-    title: "Vibe Coding 實戰工作坊",
-    subtitle: "用 AI 建立你的數位資產，不需要寫程式：3 小時做出第一個能上線的網站",
-    date: "2026/8/15（六）",
-    time: "9:00–12:00（3 小時）",
-    location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
-    capacity: 12,
-    cohorts: [
-      {
-        key: "1",
-        name: "第一期",
-        date: "2026/8/15（六）",
-        open: true,
-        productIds: ["y7q482kwsc16h7iw3akwufzq"],
-      },
-    ],
-    recurProductIdRegular: "y7q482kwsc16h7iw3akwufzq",
-    regularPrice: 4000,
-    detailUrl: "/courses/vibe-coding",
-    hideInvoiceSection: true,
-    customQuestionLabel:
-      "你最想用這堂課做出什麼網站或頁面？（選填，但寫了講師會優先在課堂上對應你的情境）",
-    customQuestionPlaceholder:
-      "例：個人品牌官網、服務銷售頁、名單收集頁、活動報名頁……",
-    preRegistrationNotice:
-      "課前建議先準備一個 AI 工具帳號（Gemini／Claude／ChatGPT 擇一即可），並帶上你想製作的網站內容素材（文字、圖片、Logo 等）。請攜帶筆電（Mac 或 Windows）。",
-  },
   "concept-monetization-bootcamp": {
     slug: "concept-monetization-bootcamp",
     title: "概念變現陪跑營",
