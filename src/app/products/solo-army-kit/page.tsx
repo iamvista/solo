@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CheckoutButton } from "./CheckoutButton";
 import { InterestForm } from "../lecturer-ai-staff/InterestForm";
-import { ARMY_KIT_PRICE } from "@/lib/army-kit";
 import {
   Bot,
   Users,
@@ -20,19 +18,20 @@ import {
   Crown,
 } from "lucide-react";
 
-const PRODUCT_ID = process.env.NEXT_PUBLIC_RECUR_ARMY_KIT_PRODUCT_ID ?? "";
-const RETURN_PATH = "/products/solo-army-kit#pricing";
 const STARTER_URL = "https://www.vista.tw/solo-army";
+// 2026-08-14 完整版暫停販售，改走等候名單；沿用 Pro 版既有的 InterestForm ＋
+// /api/interest 動線，只換 productId。重新開賣時把 CheckoutButton 接回來即可。
+const CORE_INTEREST_ID = "solo-army-kit-core";
 const PRO_INTEREST_ID = "solo-army-kit-pro";
 
 export const metadata: Metadata = {
   title: "無人公司 AI 軍團啟動包｜非工程師也能建 AI 團隊 | solo.tw",
   description:
-    "一套可直接鋪進 Claude Code 的制度檔軍團：派工原則、角色人設、對抗式驗收流程，全部寫成文件，不用寫程式。一次買斷 NT$1,480。",
+    "一套可直接鋪進 Claude Code 的制度檔軍團：派工原則、角色人設、對抗式驗收流程，全部寫成文件，不用寫程式。免費版可立即下載，完整版重新設計中。",
   openGraph: {
     title: "無人公司 AI 軍團啟動包｜非工程師也能建 AI 團隊",
     description:
-      "派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。一次買斷 NT$1,480。",
+      "派工原則、角色人設、對抗式驗收流程，全部寫成文件，鋪進 Claude Code 就能用。免費版可立即下載，完整版重新設計中。",
   },
   alternates: {
     canonical: "https://www.solo.tw/products/solo-army-kit",
@@ -124,11 +123,11 @@ const faqs = [
   },
   {
     q: "和 Vista 自己在用的是同一套嗎？",
-    a: "是同一套派工邏輯與角色設計手法的泛化版。個人專屬的帳號識別碼、私人專案細節已全部移除，只留下可複製、可重用的制度骨架。",
+    a: "是同一套派工邏輯與角色設計手法的泛化版，去掉個人專屬的識別碼與私人專案細節，只留下可複製、可重用的制度骨架。目前正在重新整理這道去識別化流程，所以完整版暫停販售。",
   },
   {
-    q: "買了之後會不會之後又要另外收費？",
-    a: "一次買斷，NT$1,480，永久使用。之後制度有大幅更新時，會再公告是否推出新版本，但這次購買的內容你可以永久保留與修改。",
+    q: "為什麼完整版暫停販售？",
+    a: "內部複查時發現交付內容還有需要重做的地方：部分段落引用了沒有一併附上的檔案，另有幾份範本的來源需要重新確認。與其讓你買到半成品，先停售、重新設計完再開賣。留下 email，重新開賣時會通知你。",
   },
   {
     q: "可以拿去對外販售或公開重製嗎？",
@@ -151,7 +150,7 @@ export default function SoloArmyKitPage() {
           <p className="mx-auto mt-6 max-w-2xl text-lg text-stone-600 sm:text-xl leading-relaxed">
             派工原則、角色人設、對抗式驗收流程，全部寫成文件。
             <br className="hidden sm:block" />
-            鋪進 Claude Code，一次買斷，永久使用。
+            完整版正在重新設計，暫停販售中。
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-500">
@@ -169,12 +168,12 @@ export default function SoloArmyKitPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-primary" />
-              一次買斷
+              免費版可立即下載
             </span>
           </div>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <a href="#pricing">NT${ARMY_KIT_PRICE.toLocaleString()} 立即購買</a>
+              <a href="#pricing">登記開賣通知</a>
             </Button>
             <Button
               size="lg"
@@ -297,7 +296,7 @@ export default function SoloArmyKitPage() {
             選一個適合你的開始
           </h2>
           <p className="mt-3 text-center text-base text-stone-500">
-            先免費跑起來，需要完整制度再升級。一次買斷，沒有訂閱。
+            免費版可以立刻下載開始跑。完整版與 Pro 陪跑版都在重新設計，開賣時通知你。
           </p>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3 md:items-stretch">
@@ -342,7 +341,7 @@ export default function SoloArmyKitPage() {
             {/* Core */}
             <Card className="relative flex flex-col border-primary border-2 shadow-lg">
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1">
-                最完整
+                改版中
               </Badge>
               <CardContent className="flex flex-1 flex-col p-6 sm:p-8">
                 <div className="flex items-center gap-2">
@@ -350,13 +349,10 @@ export default function SoloArmyKitPage() {
                   <p className="text-base font-medium text-primary">完整版</p>
                 </div>
                 <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <p className="text-4xl font-bold text-primary">
-                    NT${ARMY_KIT_PRICE.toLocaleString()}
-                  </p>
-                  <span className="text-sm text-stone-400 whitespace-nowrap">一次買斷</span>
+                  <p className="text-4xl font-bold text-primary">暫停販售</p>
                 </div>
                 <p className="mt-2 text-sm text-stone-500 leading-relaxed">
-                  Vista 實際在跑的整套制度檔，去識別化後完整交付。
+                  這套制度檔正在重新設計與整理，暫時停止販售。留下 email，重新開賣時第一時間通知你。
                 </p>
                 <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-600">
                   <li className="flex items-start gap-2">
@@ -385,11 +381,7 @@ export default function SoloArmyKitPage() {
                   </li>
                 </ul>
                 <div className="mt-6">
-                  <CheckoutButton
-                    productId={PRODUCT_ID}
-                    returnPath={RETURN_PATH}
-                    label={`NT$${ARMY_KIT_PRICE.toLocaleString()} 立即購買`}
-                  />
+                  <InterestForm productId={CORE_INTEREST_ID} />
                 </div>
               </CardContent>
             </Card>
@@ -431,7 +423,7 @@ export default function SoloArmyKitPage() {
           </div>
 
           <p className="mt-8 text-center text-xs text-stone-400 max-w-lg mx-auto leading-relaxed">
-            完整版支援信用卡付款 · 由 Recur.tw 安全處理 · 一次買斷無訂閱 · Pro 登記免費、不會收費
+            免費版可直接下載 · 完整版與 Pro 版重新設計中 · 登記開賣通知免費、不會收費
           </p>
         </section>
 
@@ -459,15 +451,15 @@ export default function SoloArmyKitPage() {
           <div className="rounded-2xl bg-gradient-to-br from-primary/5 to-stone-100 p-8 text-center sm:p-12">
             <Sparkles className="mx-auto h-10 w-10 text-primary" />
             <h2 className="mt-4 text-2xl font-bold sm:text-3xl text-stone-900">
-              下一次派工，你會多一套制度
+              重新開賣時，第一個通知你
             </h2>
             <p className="mt-3 text-base text-stone-600 max-w-xl mx-auto">
-              派工原則、角色人設、對抗式驗收，全部鋪進 Claude Code 就能用，不用寫一行程式。
+              免費版現在就能下載開始跑。完整版重新設計完成後，會寄信通知登記過的人。
             </p>
             <div className="mt-6 flex justify-center">
               <Button size="lg" className="h-12 px-8 text-base" asChild>
                 <a href="#pricing">
-                  NT${ARMY_KIT_PRICE.toLocaleString()} 立即購買{" "}
+                  登記開賣通知{" "}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
