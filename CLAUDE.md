@@ -83,6 +83,19 @@ Changes can be parked（暫存）— temporarily moved out of `openspec/changes/
 
 課程改期或改內容 MUST 同步 `src/lib/workshops.ts` 與清單頁，只改其中一邊會讓列表跟詳情對不上。
 
+### 開新梯次的完整清單（缺一都會出事）
+
+1. `src/lib/workshops.ts`：新增或更新該課的 `date`／`sortDate`／`status`
+2. `src/lib/courses-config.ts`：新增 `cohorts[]` 期別與該期別的 `productIds`；NEVER 就地改舊期別的日期（已有人付款時會讓兩梯學員共用同一個 `cohort_key`）
+3. Recur：`create_product` 建**全新商品**，slug 一次取對（`<課程代號>-<期別>-<開課日 YYYYMMDD>`），舊梯次商品設 `active: false`
+4. **Google Calendar：建立該梯次的行事曆事件**（開課日、實際時段、地點；描述欄放課程頁網址與名額）
+
+第 4 項是 2026-08-15 補的。當天早上晨間簡報才發現 Vibe Coding 第 8 班排在 `workshops.ts` 與 Recur 裡、行事曆卻空白，等於系統認為有課、人不知道。管家的晨間簡報只查行事曆，行事曆沒有的課就不會被提醒，開課日當天才發現已經來不及。
+
+### 梯次結束後
+
+課程日期一過，MUST 把該梯的 Recur 商品設 `active: false`。過期梯次留著 active 會讓商品列表持續累積無效品項，也可能被直接結帳。
+
 ## 追蹤
 
 Meta 轉換追蹤走 Pixel ＋ CAPI 雙軌，動追蹤碼前確認兩邊都改到。
