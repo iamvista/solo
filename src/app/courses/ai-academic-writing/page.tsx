@@ -226,7 +226,7 @@ export default function AiAcademicWritingPage() {
             "用 AI Agent 當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。輔助不代寫，含學術倫理與 AI 揭露原則。",
           url: "https://www.solo.tw/courses/ai-academic-writing",
           instructor: "Vista",
-          price: 4500,
+          price: 5500,
           duration: "PT3H",
           startDate: "2026-09-12",
           location: "臺北市",
@@ -659,11 +659,8 @@ export default function AiAcademicWritingPage() {
                   {/* 右側：價格 */}
                   <div className="flex flex-col justify-center">
                     <div className="rounded-lg border border-primary/30 bg-background p-5 text-center">
-                      <p className="text-sm text-muted-foreground">早鳥價（8/12 前）</p>
-                      <p className="mt-1 text-3xl font-bold text-foreground">NT$4,500</p>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        原價 <span className="line-through">NT$5,500</span>
-                      </p>
+                      <p className="text-sm text-muted-foreground">課程費用</p>
+                      <p className="mt-1 text-3xl font-bold text-foreground">NT$5,500</p>
                       <p className="mt-1 text-xs font-medium text-primary">含全程實作引導</p>
                     </div>
                   </div>
@@ -672,7 +669,7 @@ export default function AiAcademicWritingPage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>早鳥價只到 8/12，限額 20 人，額滿即止——把握名額。</span>
+                  <span>限額 20 人，額滿即止，把握名額。</span>
                 </div>
 
                 {/* 課前準備 */}

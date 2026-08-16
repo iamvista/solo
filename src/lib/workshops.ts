@@ -247,8 +247,6 @@ export const workshops: Workshop[] = [
     capacity: 20,
     price: {
       original: 5500,
-      earlyBird: 4500,
-      earlyBirdDeadline: "8/12 前",
     },
     tags: ["AI", "學術研究", "論文寫作", "研究生"],
     status: "open",
