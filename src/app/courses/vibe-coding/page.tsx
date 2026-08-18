@@ -372,13 +372,19 @@ export default function VibeCodingPage() {
     <>
       <JsonLd data={{
         ...courseSchema({ name: "Vibe Coding 實戰工作坊", description: "零基礎、不需要工程師，3 小時學會用 AI 建立個人品牌網站。已舉辦 5 班，超過 60 位學員完成上線作品。", url: "https://www.solo.tw/courses/vibe-coding", instructor: "Vista", price: 4000, duration: "PT3H", location: "臺北市", image: "https://www.solo.tw/images/workshops/cover-vibe-coding.webp" }),
-        aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "12", bestRating: "5" },
-        review: testimonials.slice(-4).map(t => ({
-          "@type": "Review",
-          author: { "@type": "Person", name: t.name },
-          reviewBody: t.quote,
-          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-        })),
+        // 評分只留 aggregateRating，來源是課後問卷（4.9 分／12 份回饋），
+        // 並在下方見證區塊以可見文字呈現——Google 要求標記的評分必須在頁面上看得到。
+        //
+        // 原本還有一個 review 陣列，把每一則學員見證都標成 ratingValue "5"。
+        // 那個星等是程式填的，見證文字本身沒有評分，屬於「非使用者提供的評分」，
+        // 違反 Google 的評論摘要政策，2026-08-18 移除。見證仍完整呈現在頁面上。
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          reviewCount: "12",
+          bestRating: "5",
+          worstRating: "1",
+        },
         totalHistoricalEnrollment: "60+",
         coursePrerequisites: "無需程式基礎",
         teaches: "使用 AI 工具建立個人品牌網站、銷售頁、名單收集頁",
@@ -764,6 +770,9 @@ export default function VibeCodingPage() {
           </h2>
           <p className="mt-3 text-center text-base text-muted-foreground">
             來自前 5 班學員的真實回饋
+          </p>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            課後問卷滿意度 <span className="font-semibold text-foreground">4.9 / 5</span>（12 份回饋）
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">

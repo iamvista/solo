@@ -373,29 +373,17 @@ export default function VibeCodingClaudeCodePage() {
             "需自行訂閱 Claude Pro（US$20／月）或 Claude Max（US$100 起／月），具基本筆電操作能力",
           teaches:
             "使用 Claude Code CLI 建立個人品牌網站、銷售頁、自動化工作流；掌握 Plan Mode、Skills、Hooks、MCP",
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.9",
-            reviewCount: testimonials.length,
-            bestRating: "5",
-            worstRating: "1",
-          },
-          review: testimonials.map((t) => ({
-            "@type": "Review",
-            author: { "@type": "Person", name: t.name },
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: "5",
-              bestRating: "5",
-              worstRating: "1",
-            },
-            reviewBody: t.quote,
-            publisher: { "@type": "Organization", name: "solo.tw" },
-            itemReviewed: {
-              "@type": "Course",
-              name: t.batch,
-            },
-          })),
+          // 2026-08-18 移除 aggregateRating 與 review，兩者都不是使用者提供的評分：
+          //
+          // aggregateRating 的 ratingValue 4.9 是從 vibe-coding 頁複製過來的，而
+          // reviewCount 填的是 testimonials.length，也就是「頁面上放了幾則見證」，
+          // 不是課後問卷的回收份數；兩個數字都沒有這一班自己的資料支撐。
+          //
+          // review 則把每一則見證硬填成 ratingValue "5"，見證文字本身沒有星等，
+          // 這在 Google 的評論摘要政策裡屬於偽造評分。
+          //
+          // 首發班的學員見證是真的，仍完整呈現在頁面上，只是不再當成結構化評分資料。
+          // 若要恢復評分星等，需要這一班真實的問卷平均分與份數，並顯示在頁面上。
         }}
       />
       <JsonLd
