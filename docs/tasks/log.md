@@ -35,3 +35,4 @@
 | 2026-08-23 14:45 | Backend | 精簡 sitemap 並補強 LLM 信任與引用邊界 | `src/app/sitemap.ts`、`scripts/generate-llms.mjs` | 完成 |
 | 2026-08-23 14:50 | Tech Lead | Review Schema 關係、可信日期與產生器冪等性 | 全部本輪變更 | 通過，修正 WebSite 懸空參照 |
 | 2026-08-23 15:00 | QA | 執行測試、正式建置、本機 HTTP 與手機版驗收 | `.next/` | 建置通過；493/494 測試通過，唯一失敗為既有課程日期測試；本輪驗收全數通過 |
+| 2026-08-23 15:10 | DevOps | 推送 Vercel 正式環境並執行部署後 smoke test | `main@8584113` | 部署成功；新頁、sitemap、LLM 索引與手機版正式站驗證通過 |
