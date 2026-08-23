@@ -126,7 +126,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     slug: "positioning-convergence",
     title: "定位收斂工作坊",
     subtitle: "什麼都會的人，如何選出那一個能變現的自己",
-    date: "2026/9/5（六）",
+    date: "2026/9/26（六）",
     time: "臺灣時間 15:00 – 18:00（3 小時）",
     location: "線上舉辦（報名後通知會議網址連結）",
     capacity: 20,
@@ -140,7 +140,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
       {
         key: "2",
         name: "第二期",
-        date: "2026/9/5（六）",
+        date: "2026/9/26（六）",
         open: true,
         productIds: ["ffgmhhdizaem3hxpq9gb7xsq"],
       },

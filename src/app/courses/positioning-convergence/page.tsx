@@ -11,7 +11,7 @@ import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
 export const metadata: Metadata = {
   title: "定位收斂工作坊｜什麼都會的人，如何選出那一個能變現的自己 | solo.tw",
   description:
-    "Susie Li 親授・3 小時實戰。給「什麼都會、卻選不出一個自己」的人：用六步收斂法狠下心收斂成一個記得住、又能變現的定位。第二期 2026/9/5（六）線上開課，開放報名中。",
+    "Susie Li 親授・3 小時實戰。給「什麼都會、卻選不出一個自己」的人：用六步收斂法狠下心收斂成一個記得住、又能變現的定位。第二期 2026/9/26（六）線上開課，開放報名中。",
   openGraph: {
     title: "定位收斂工作坊｜Susie Li 親授 | solo.tw",
     description:
@@ -193,7 +193,7 @@ export default function PositioningConvergencePage() {
           instructor: "Susie Li",
           price: 4500,
           duration: "PT3H",
-          startDate: "2026-09-05",
+          startDate: "2026-09-26",
           location: "線上",
           image: "https://www.solo.tw/images/workshops/cover-positioning-convergence.webp",
         })}
@@ -215,7 +215,7 @@ export default function PositioningConvergencePage() {
         <section className="bg-gradient-to-b from-[#C8953D]/8 via-[#C8953D]/4 to-background">
           <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
             <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
-              🧭 定位收斂 · Susie Li 親授｜第二期 9/5 開課
+              🧭 定位收斂 · Susie Li 親授｜第二期 9/26 開課
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               定位收斂工作坊
@@ -580,7 +580,7 @@ export default function PositioningConvergencePage() {
                   <div className="space-y-3 text-base">
                     <div className="flex items-center gap-2">
                       <span>📅</span>
-                      <span className="font-medium">第二期｜2026/9/5（六）</span>
+                      <span className="font-medium">第二期｜2026/9/26（六）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
