@@ -99,6 +99,13 @@ export function Footer() {
               <br />
               一個人，也能做出一個團隊的成果
             </p>
+
+            {/* Google 偏好來源。讀者按下後可把 solo.tw 設為 Google 搜尋的偏好來源。
+                Google 以 iframe 注入按鈕且寬度吃滿容器，故外層必須限寬。
+                本站無主題切換（.dark 變體從未啟用），固定 light。 */}
+            <div className="mt-6 h-[60px] w-full max-w-[260px]">
+              <div google-add-preferred-source-btn="" data-theme="light" data-lang="zh-TW" />
+            </div>
           </div>
 
           {/* Product */}

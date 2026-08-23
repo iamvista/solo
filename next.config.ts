@@ -137,13 +137,13 @@ const nextConfig: NextConfig = {
     // 注意：Next.js + React 需要 'unsafe-inline' 和 'unsafe-eval' 才能執行 hydration。
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.cal.com https://embed.cal.com https://*.vercel-insights.com https://*.vercel-scripts.com https://unpkg.com https://connect.facebook.net",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.cal.com https://embed.cal.com https://*.vercel-insights.com https://*.vercel-scripts.com https://unpkg.com https://connect.facebook.net https://news.google.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
       "media-src 'self' https:",
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://*.vercel-insights.com https://app.cal.com https://api.cal.com https://api.recur.tw https://*.recur.tw https://www.facebook.com https://connect.facebook.net",
-      "frame-src 'self' https://app.cal.com https://embed.cal.com https://www.youtube.com https://www.youtube-nocookie.com",
+      "frame-src 'self' https://app.cal.com https://embed.cal.com https://www.youtube.com https://www.youtube-nocookie.com https://news.google.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self' https://buy.recur.tw https://*.recur.tw",

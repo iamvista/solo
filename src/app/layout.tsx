@@ -187,6 +187,12 @@ export default async function RootLayout({
             __html: JSON.stringify(personSchema),
           }}
         />
+        {/* Google 偏好來源。掃描頁面上帶 google-add-preferred-source-btn 屬性的元素
+            並注入按鈕，因此必須等 DOM 就緒，用 afterInteractive。按鈕本體在 Footer。 */}
+        <Script
+          src="https://news.google.com/swg/js/v1/publisher.js"
+          strategy="afterInteractive"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YJCP6KGGCZ"
           strategy="afterInteractive"
