@@ -23,6 +23,8 @@ const footerLinks = {
     { name: "關於 Vista", href: "/about" },
     { name: "定價方案", href: "/pricing" },
     { name: "開發藍圖", href: "/roadmap" },
+    { name: "內容方法", href: "/methodology" },
+    { name: "編輯與更正政策", href: "/editorial-policy" },
     { name: "隱私政策", href: "/privacy" },
     { name: "退費政策", href: "/refund" },
     { name: "服務條款", href: "/terms" },
@@ -66,7 +68,7 @@ const socialLinks = [
       </svg>
     ),
   },
-  // LINE icon 暫時隱藏 — 等 LINE Official Account 設定完成後加回
+  // LINE icon 暫時隱藏，等 LINE Official Account 設定完成後加回
   // 格式：{ name: "LINE", href: "https://line.me/R/ti/p/@你的ID", icon: ... }
 
 
@@ -152,7 +154,7 @@ export function Footer() {
         <div className="mt-12 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-base text-muted-foreground">
-              © {new Date().getFullYear()} solo.tw — AI × 一人事業
+              © {new Date().getFullYear()} solo.tw｜AI × 一人事業
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (

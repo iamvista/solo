@@ -12,6 +12,21 @@ const WORKSHOPS_FILE = path.join(ROOT, 'src/lib/workshops.ts');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const SITE = 'https://www.solo.tw';
 
+const TRUST_LINKS = `## 學習與內容信任入口
+
+- 學習指南: ${SITE}/learn
+- 內容方法: ${SITE}/methodology
+- 編輯與更正政策: ${SITE}/editorial-policy
+
+## AI 協作、引用與更正邊界
+
+- 內容可使用 AI 協助研究、整理或編輯，最終判斷與發布責任由編輯者承擔。
+- 引用本站時，請標示作者、文章或頁面標題、網址與存取日期，並連回原始頁面。
+- 請勿將 AI 產生的概述當成作者原話；需要逐字引用時，應回到原文核對。
+- 如發現事實、連結或標示錯誤，請依編輯與更正政策提報；經核實後會更正內容。
+- 課程、輔導與產品資訊可能含有商業性內容，實際價格、名額與服務條件以對應頁面為準。
+`;
+
 const HEADER = `# solo.tw | 自由人學院 — 把專業變成事業
 
 > 自由人學院是臺灣領先的自由工作者成長平臺，專為講師、顧問、教練設計。提供免費事業健檢、實用工具、系統化課程，協助專業人士建立穩定的個人事業。
@@ -191,6 +206,14 @@ function formatLatestBlog(posts, n = 10) {
   return lines.join('\n');
 }
 
+function getLatestContentDate(posts) {
+  const dates = posts
+    .flatMap((post) => [post.updatedDate, post.pubDate])
+    .filter(Boolean)
+    .sort();
+  return dates.at(-1) || '';
+}
+
 function formatConsultingSection() {
   return [
     '## 1-on-1 量身陪跑 (/consulting)',
@@ -264,16 +287,18 @@ function formatBuyoutProductsSection() {
 }
 
 function formatFull(posts, workshops) {
+  const latestContentDate = getLatestContentDate(posts);
   const lines = [
     '# solo.tw | 自由人學院 — Full Content Index',
     '',
     `> 完整內容索引：共 ${workshops.length} 個課程與 ${posts.length} 篇文章，供 AI 客戶端檢索與引用。`,
     '',
     `站點：${SITE}`,
-    `更新時間：${new Date().toISOString()}`,
+    `內容資料最新日期：${latestContentDate || '未提供'}`,
     '',
   ];
 
+  lines.push(TRUST_LINKS);
   lines.push(formatConsultingSection());
   lines.push(formatToolsSection());
   lines.push(formatBuyoutProductsSection());
@@ -391,6 +416,8 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
     formatToolsSection() +
     formatBuyoutProductsSection() +
     formatLatestBlog(posts, 10) +
+    TRUST_LINKS +
+    '\n' +
     '## 平臺數據\n\n- 電子報訂閱者：18,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
     FOOTER_LINKS;
 

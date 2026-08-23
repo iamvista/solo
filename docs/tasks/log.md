@@ -29,3 +29,8 @@
 | 2026-03-30 | Tech Lead | Code Review | 全部 Batch 1 檔案 | 移除不必要 use client, 統一 icon, aria 修復 |
 | 2026-03-30 | QA | 驗收測試 | — | Desktop + Mobile 通過, 5 個 404 修復 |
 | 2026-03-30 | DevOps | 部署 | git push main | 84a160d deployed |
+| 2026-08-23 14:30 | PM | 確認 solo.tw SEO、AEO、GEO 優化範圍 | - | 完成 |
+| 2026-08-23 14:35 | Tech Lead | 確認 sitemap、入門指南、可信度頁與 LLM 索引方案 | - | 完成 |
+| 2026-08-23 14:45 | Frontend | 升級入門指南，新增內容方法與編輯政策 | `src/app/learn/`、`src/app/methodology/`、`src/app/editorial-policy/` | 完成 |
+| 2026-08-23 14:45 | Backend | 精簡 sitemap 並補強 LLM 信任與引用邊界 | `src/app/sitemap.ts`、`scripts/generate-llms.mjs` | 完成 |
+| 2026-08-23 14:50 | Tech Lead | Review Schema 關係、可信日期與產生器冪等性 | 全部本輪變更 | 通過，修正 WebSite 懸空參照 |

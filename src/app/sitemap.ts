@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts, getAllTags } from "@/lib/blog";
+import { getAllPosts } from "@/lib/blog";
 import { getPublishedEvents } from "@/lib/supabase/events";
 import { createServiceClient } from "@/lib/supabase/service";
 import { workshops } from "@/lib/workshops";
@@ -18,25 +18,25 @@ const GUIDE_SLUGS = [
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
-
   // ── 靜態頁面 ─────────────────────────────────────────
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: `${baseUrl}/courses`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${baseUrl}/consulting`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/growth`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/tools`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/diagnose`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/events`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${baseUrl}/community`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
-    { url: `${baseUrl}/learn`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/roadmap`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: baseUrl, changeFrequency: "weekly", priority: 1 },
+    { url: `${baseUrl}/courses`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/consulting`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/pricing`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/growth`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/tools`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/diagnose`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/blog`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/events`, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/community`, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${baseUrl}/learn`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/methodology`, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${baseUrl}/editorial-policy`, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${baseUrl}/about`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/privacy`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/terms`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/roadmap`, changeFrequency: "monthly", priority: 0.5 },
   ];
 
   // ── 課程詳情頁 ───────────────────────────────────────
@@ -46,7 +46,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((w) => !w.hidden && !w.isExternal)
       .map((w) => ({
         url: `${baseUrl}${w.url}`,
-        lastModified: now,
         changeFrequency: "monthly" as const,
         priority: 0.7,
       })),
@@ -68,27 +67,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 部落格不可用——略過
   }
 
-  // ── 部落格 Tag 頁 ────────────────────────────────────
-  let tagPages: MetadataRoute.Sitemap = [];
-  try {
-    const tags = await getAllTags();
-    tagPages = tags.map((tag) => ({
-      url: `${baseUrl}/blog/tag/${encodeURIComponent(tag)}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.4,
-    }));
-  } catch {
-    // 略過
-  }
-
+  // 標籤頁保留公開存取，但不列入 sitemap。
   // ── 活動詳情頁（動態）────────────────────────────────
   let eventPages: MetadataRoute.Sitemap = [];
   try {
     const events = await getPublishedEvents();
     eventPages = events.map((ev) => ({
       url: `${baseUrl}/events/${ev.slug}`,
-      lastModified: ev.updated_at ? new Date(ev.updated_at) : now,
+      ...(ev.updated_at ? { lastModified: new Date(ev.updated_at) } : {}),
       changeFrequency: "weekly" as const,
       priority: 0.7,
     }));
@@ -107,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (data) {
       magnetPages = data.map((m: { slug: string; updated_at: string | null }) => ({
         url: `${baseUrl}/m/${m.slug}`,
-        lastModified: m.updated_at ? new Date(m.updated_at) : now,
+        ...(m.updated_at ? { lastModified: new Date(m.updated_at) } : {}),
         changeFrequency: "monthly" as const,
         priority: 0.6,
       }));
@@ -119,7 +105,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── AI Coach Kit 指南頁 ──────────────────────────────
   const guidePages: MetadataRoute.Sitemap = GUIDE_SLUGS.map((slug) => ({
     url: `${baseUrl}/products/ai-coach-kit/guide/${slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.5,
   }));
@@ -128,7 +113,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticPages,
     ...coursePages,
     ...blogPages,
-    ...tagPages,
     ...eventPages,
     ...magnetPages,
     ...guidePages,

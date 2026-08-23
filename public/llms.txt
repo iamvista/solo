@@ -171,6 +171,20 @@ URL: https://www.solo.tw/tools
 - [職場人士如何善用 AI Agent？從問 AI 到讓 AI 幫你做的關鍵轉變](https://www.solo.tw/blog/how-professionals-leverage-ai-agents) (2026-03-15)
 
 完整文章列表：https://www.solo.tw/blog 或 https://www.solo.tw/llms-full.txt
+## 學習與內容信任入口
+
+- 學習指南: https://www.solo.tw/learn
+- 內容方法: https://www.solo.tw/methodology
+- 編輯與更正政策: https://www.solo.tw/editorial-policy
+
+## AI 協作、引用與更正邊界
+
+- 內容可使用 AI 協助研究、整理或編輯，最終判斷與發布責任由編輯者承擔。
+- 引用本站時，請標示作者、文章或頁面標題、網址與存取日期，並連回原始頁面。
+- 請勿將 AI 產生的概述當成作者原話；需要逐字引用時，應回到原文核對。
+- 如發現事實、連結或標示錯誤，請依編輯與更正政策提報；經核實後會更正內容。
+- 課程、輔導與產品資訊可能含有商業性內容，實際價格、名額與服務條件以對應頁面為準。
+
 ## 平臺數據
 
 - 電子報訂閱者：18,000+ 人

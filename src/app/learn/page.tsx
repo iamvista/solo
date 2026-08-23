@@ -1,312 +1,186 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { JsonLd, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "學習資源 | solo.tw",
-  description: "一人事業經營的完整學習路徑——從市場定位、客戶開發到 AI 工具應用，系統化提升你的事業能力。",
+  title: "一人事業入門指南：從定位到穩定成長 | solo.tw",
+  description: "給自由工作者、顧問與創作者的一人事業入門指南，依序完成定位、驗證、交付與系統化，並找到 solo.tw 的課程、工具與實作資源。",
   alternates: { canonical: "https://www.solo.tw/learn" },
+  openGraph: {
+    title: "一人事業入門指南：從定位到穩定成長",
+    description: "用四個階段建立可持續的一人事業：定位、驗證、交付與系統化。",
+    url: "https://www.solo.tw/learn",
+    type: "website",
+  },
 };
 
-// 學習主題
-const learningTopics = [
+const steps = [
   {
-    id: "positioning",
-    emoji: "🎯",
-    name: "市場定位",
-    description: "找到你的利基，建立獨特價值主張",
-    articles: [
-      {
-        id: "find-your-niche",
-        title: "如何找到你的利基市場？",
-        description: "從興趣、專長、市場需求的交集找到定位",
-        readTime: "8 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "ideal-client-avatar",
-        title: "打造理想客戶頭像",
-        description: "清楚知道你要服務誰，才能吸引對的人",
-        readTime: "6 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "unique-value-proposition",
-        title: "寫出有力的價值主張",
-        description: "讓客戶一眼就知道為什麼選你",
-        readTime: "5 分鐘",
-        status: "coming_soon",
-      },
-    ],
+    number: "01",
+    title: "釐清定位",
+    description: "先定義你服務的對象、要解決的問題，以及客戶願意付費的成果。定位愈清楚，內容、產品與銷售就愈容易對焦。",
+    action: "用事業健檢找出目前最需要處理的環節。",
+    href: "/diagnose",
+    label: "開始事業健檢",
   },
   {
-    id: "pricing",
-    emoji: "💰",
-    name: "定價策略",
-    description: "從時間計費轉向價值定價",
-    articles: [
-      {
-        id: "value-based-pricing",
-        title: "價值定價入門指南",
-        description: "不再用時間換錢的定價心法",
-        readTime: "10 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "raise-your-rates",
-        title: "什麼時候該調漲價格？",
-        description: "克服漲價恐懼的實戰建議",
-        readTime: "7 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "package-services",
-        title: "如何包裝你的服務？",
-        description: "設計讓客戶容易決定的方案",
-        readTime: "8 分鐘",
-        status: "coming_soon",
-      },
-    ],
+    number: "02",
+    title: "驗證需求",
+    description: "先和真實客戶對話，再投入時間製作完整產品。用小規模提案、諮詢或工作坊測試問題是否迫切。",
+    action: "需要一起拆解方向時，可從一對一諮詢開始。",
+    href: "/consulting",
+    label: "了解諮詢服務",
   },
   {
-    id: "clients",
-    emoji: "🤝",
-    name: "客戶經營",
-    description: "建立信任，創造口碑推薦",
-    articles: [
-      {
-        id: "first-client",
-        title: "如何獲得第一個客戶？",
-        description: "新手自由工作者的起步策略",
-        readTime: "9 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "referral-system",
-        title: "建立轉介紹系統",
-        description: "讓滿意客戶主動幫你推薦",
-        readTime: "6 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "say-no",
-        title: "學會說不的藝術",
-        description: "拒絕不適合的客戶反而更成功",
-        readTime: "5 分鐘",
-        status: "coming_soon",
-      },
-    ],
+    number: "03",
+    title: "建立可重複的交付",
+    description: "把每次服務的流程、範本與判斷標準留下來，逐步形成穩定品質，也讓經驗有機會轉化成產品。",
+    action: "依照目前階段選擇一門實作課程。",
+    href: "/courses",
+    label: "瀏覽課程與工作坊",
   },
   {
-    id: "productivity",
-    emoji: "⚡",
-    name: "效率提升",
-    description: "做更少，賺更多",
-    articles: [
-      {
-        id: "time-management",
-        title: "自由工作者的時間管理",
-        description: "沒有老闆盯時如何自律？",
-        readTime: "8 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "automation",
-        title: "自動化你的重複工作",
-        description: "用工具省下寶貴時間",
-        readTime: "7 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "deep-work",
-        title: "深度工作的力量",
-        description: "專注是自由工作者的超能力",
-        readTime: "6 分鐘",
-        status: "coming_soon",
-      },
-    ],
-  },
-  {
-    id: "business",
-    emoji: "📈",
-    name: "事業成長",
-    description: "從接案到建立可擴展的事業",
-    articles: [
-      {
-        id: "multiple-income",
-        title: "打造多元收入來源",
-        description: "降低風險，增加穩定性",
-        readTime: "9 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "productize",
-        title: "將服務產品化",
-        description: "不靠時間也能賺錢的模式",
-        readTime: "10 分鐘",
-        status: "coming_soon",
-      },
-      {
-        id: "build-team",
-        title: "從獨自一人到小團隊",
-        description: "何時、如何開始找幫手？",
-        readTime: "8 分鐘",
-        status: "coming_soon",
-      },
-    ],
+    number: "04",
+    title: "運用 AI 與系統放大成果",
+    description: "把重複工作交給工具，把關鍵判斷留給自己。先建立可靠流程，再用 AI 加快研究、內容、生產與服務。",
+    action: "從經過整理的工具清單挑選合適方案。",
+    href: "/tools",
+    label: "查看工具與資源",
   },
 ];
 
-// 精選資源
-const featuredResources = [
+const faqs = [
   {
-    type: "guide",
-    title: "自由工作者起步指南",
-    description: "從零開始成為自由工作者的完整路線圖",
-    emoji: "📘",
-    status: "coming_soon",
+    question: "solo.tw 適合哪些人？",
+    answer: "solo.tw 適合正在經營或準備開始一人事業的自由工作者、顧問、講師、創作者與小型服務業者。內容聚焦於定位、產品化、客戶經營，以及運用 AI 提升個人產能。",
   },
   {
-    type: "checklist",
-    title: "Solo 事業體質檢查表",
-    description: "20 個問題診斷你的事業健康度",
-    emoji: "✅",
-    status: "coming_soon",
+    question: "完全沒有客戶，也可以從這裡開始嗎？",
+    answer: "可以。建議先完成事業健檢，接著訪談潛在客戶並驗證問題，而不是先投入大量時間製作產品。這份指南的四個階段可作為起步順序。",
   },
   {
-    type: "template",
-    title: "客戶溝通範本大全",
-    description: "從報價到收款的郵件模板",
-    emoji: "📝",
-    status: "coming_soon",
+    question: "一人事業等於所有事情都自己做嗎？",
+    answer: "不等於。一人事業強調由一位主理人掌握核心價值與決策，但可以運用 AI、自動化工具、外部夥伴與標準流程完成交付。重點是保持組織精簡，而非拒絕協作。",
+  },
+  {
+    question: "應該先做個人品牌，還是先設計產品？",
+    answer: "先確認服務對象與真實需求，再讓品牌內容呈現你的觀點與解法。產品可以從小規模服務開始驗證，品牌與產品則在回饋中同步調整。",
+  },
+  {
+    question: "solo.tw 的內容如何產製與查證？",
+    answer: "內容以實務經驗、第一手資料與可追溯來源為基礎，必要時使用 AI 協助整理與校對，但最終選題、判斷與發布責任由編輯者承擔。完整原則可查閱內容方法與編輯政策。",
   },
 ];
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.solo.tw/learn#webpage",
+  url: "https://www.solo.tw/learn",
+  name: "一人事業入門指南：從定位到穩定成長",
+  description: metadata.description,
+  inLanguage: "zh-Hant-TW",
+  isPartOf: {
+    "@type": "WebSite",
+    name: "solo.tw | 用 AI 放大你的一人事業",
+    url: "https://www.solo.tw",
+  },
+  about: ["一人事業", "自由工作", "個人品牌", "AI 生產力"],
+};
 
 export default function LearnPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-      {/* Header */}
-      <div className="text-center">
-        <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm sm:text-base">
-          📚 學習成長
-        </Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-          學習資源
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:mt-6 sm:text-xl">
-          實戰導向的文章與指南，幫助你建立成功的自由事業
-        </p>
-      </div>
+    <main>
+      <JsonLd data={webPageSchema} />
+      <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "一人事業入門指南", href: "/learn" }])} />
+      <JsonLd data={faqSchema(faqs)} />
 
-      {/* 精選資源 */}
-      <div className="mt-10 sm:mt-12">
-        <h2 className="text-xl font-bold sm:text-2xl">精選資源</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {featuredResources.map((resource) => (
-            <Card
-              key={resource.title}
-              className="relative overflow-hidden transition-all hover:border-primary/50 hover:shadow-md"
-            >
-              {resource.status === "coming_soon" && (
-                <div className="absolute right-4 top-4">
-                  <Badge variant="secondary" className="text-xs">即將推出</Badge>
-                </div>
-              )}
-              <CardHeader className="p-5 sm:p-6">
-                <span className="text-4xl sm:text-5xl">{resource.emoji}</span>
-                <CardTitle className="mt-3 text-lg sm:text-xl">{resource.title}</CardTitle>
-                <CardDescription className="text-base">{resource.description}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* 診斷 CTA */}
-      <Card className="mt-10 border-primary/20 bg-primary/5 sm:mt-12">
-        <CardContent className="flex flex-col items-center justify-between gap-4 p-5 sm:flex-row sm:p-6">
-          <div className="text-center sm:text-left">
-            <h3 className="text-lg font-semibold">不知道該學什麼？</h3>
-            <p className="mt-1 text-base text-muted-foreground">
-              做個診斷，找出你最需要加強的面向
-            </p>
-          </div>
-          <Button asChild className="h-11 px-6 text-base">
-            <Link href="/diagnose">免費診斷</Link>
-          </Button>
-        </CardContent>
-      </Card>
-
-      {/* 學習主題 */}
-      <div className="mt-14 space-y-14 sm:mt-16 sm:space-y-16">
-        {learningTopics.map((topic) => (
-          <div key={topic.id}>
-            <div className="flex items-center gap-3 sm:gap-4">
-              <span className="text-4xl sm:text-5xl">{topic.emoji}</span>
-              <div>
-                <h2 className="text-xl font-bold sm:text-2xl">{topic.name}</h2>
-                <p className="text-base text-muted-foreground sm:text-lg">{topic.description}</p>
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {topic.articles.map((article) => (
-                <Card
-                  key={article.id}
-                  className={`transition-all ${
-                    article.status === "published"
-                      ? "hover:border-primary/50 hover:shadow-md cursor-pointer"
-                      : "opacity-75"
-                  }`}
-                >
-                  <CardHeader className="p-5 pb-2 sm:p-6 sm:pb-2">
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg leading-snug sm:text-xl">
-                        {article.title}
-                      </CardTitle>
-                      {article.status === "coming_soon" && (
-                        <Badge variant="secondary" className="ml-2 shrink-0 text-xs">
-                          即將推出
-                        </Badge>
-                      )}
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-5 pt-0 sm:p-6 sm:pt-0">
-                    <CardDescription className="text-base">{article.description}</CardDescription>
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">
-                        📖 {article.readTime}
-                      </span>
-                      {article.status === "published" && (
-                        <Button size="sm" variant="ghost" asChild className="h-10 px-4 text-base">
-                          <Link href={`/learn/${topic.id}/${article.id}`}>
-                            閱讀 →
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* 電子報訂閱 */}
-      <Card className="mt-14 bg-muted sm:mt-16">
-        <CardContent className="p-6 text-center sm:p-8">
-          <h3 className="text-xl font-bold sm:text-2xl">每週收到最新內容</h3>
-          <p className="mt-2 text-base text-muted-foreground sm:text-lg">
-            訂閱電子報，第一時間收到新文章、工具和課程資訊
+      <section className="border-b bg-muted/30">
+        <div className="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+          <Badge variant="secondary" className="mb-5 px-4 py-2 text-sm">一人事業學習地圖</Badge>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl">
+            從專業能力，到可持續的一人事業
+          </h1>
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">
+            不必一次把所有事情做好。先找對問題，再建立可靠的服務與流程。這份指南整理四個起步階段，幫助你知道現在該做什麼。
           </p>
-          <Button className="mt-6 h-11 px-6 text-base" asChild>
-            <a href="https://iamvista.substack.com/" target="_blank" rel="noopener noreferrer">訂閱電子報</a>
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button asChild size="lg"><Link href="#roadmap">查看四階段路徑</Link></Button>
+            <Button asChild size="lg" variant="outline"><Link href="/diagnose">評估目前階段</Link></Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" className="scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold tracking-wider text-primary">建議順序</p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-4xl">四個階段，建立你的事業底盤</h2>
+            <p className="mt-4 text-lg leading-8 text-muted-foreground">每個階段都先完成最小可行的成果，再根據客戶回饋前進，不需要等到萬事俱備。</p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {steps.map((step) => (
+              <Card key={step.number} className="flex h-full flex-col">
+                <CardHeader>
+                  <span className="text-sm font-semibold tracking-widest text-primary">階段 {step.number}</span>
+                  <CardTitle className="text-2xl">{step.title}</CardTitle>
+                  <CardDescription className="text-base leading-7">{step.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="mt-auto">
+                  <p className="mb-5 text-sm leading-6 text-muted-foreground">{step.action}</p>
+                  <Button asChild variant="outline"><Link href={step.href}>{step.label}</Link></Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y bg-muted/30">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+          <div>
+            <h2 className="text-xl font-bold">想建立基礎</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">從部落格理解定位、內容與一人事業的核心觀念。</p>
+            <Button asChild variant="link" className="mt-3 px-0"><Link href="/blog">閱讀部落格</Link></Button>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">想動手實作</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">選擇工作坊，跟著明確步驟完成一項可用成果。</p>
+            <Button asChild variant="link" className="mt-3 px-0"><Link href="/courses">探索課程</Link></Button>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">想獲得個別建議</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">帶著你的現況與問題，在諮詢中一起釐清下一步。</p>
+            <Button asChild variant="link" className="mt-3 px-0"><Link href="/consulting">預約諮詢</Link></Button>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="learn-faq">
+        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-semibold tracking-wider text-primary">常見問題</p>
+            <h2 id="learn-faq" className="mt-2 text-2xl font-bold sm:text-4xl">開始之前，你可能想知道</h2>
+          </div>
+          <div className="mt-10 divide-y rounded-xl border bg-card px-5 sm:px-8">
+            {faqs.map((faq) => (
+              <details key={faq.question} className="group py-6">
+                <summary className="cursor-pointer list-none pr-8 text-lg font-semibold marker:hidden">
+                  {faq.question}
+                  <span aria-hidden="true" className="float-right -mr-8 text-muted-foreground group-open:rotate-45">＋</span>
+                </summary>
+                <p className="mt-4 leading-7 text-muted-foreground">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+          <p className="mt-8 text-center text-sm text-muted-foreground">
+            想了解內容如何產製與更正？請參閱 <Link className="underline underline-offset-4 hover:text-foreground" href="/methodology">內容方法</Link> 與 <Link className="underline underline-offset-4 hover:text-foreground" href="/editorial-policy">編輯與更正政策</Link>。
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }
