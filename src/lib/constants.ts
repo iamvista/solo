@@ -4,7 +4,7 @@
  */
 export const SOCIAL_PROOF = {
   diagnoseCount: "1,000+",
-  newsletterSubscribers: "18,500+",
+  newsletterSubscribers: "19,000+",
   workshopCount: "50+",
   consultingHours: "200+",
 } as const;

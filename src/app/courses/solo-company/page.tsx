@@ -858,7 +858,7 @@ export default function SoloCompanyPage() {
                     "前風傳媒產品總監・前數位時代主編",
                     "著有《ChatGPT 提問課》《慢讀秒懂》等 20 餘本",
                     "200 場以上 AI 主題演講・100 場以上企業內訓",
-                    "18,500 位以上電子報訂閱者",
+                    "19,000 位以上電子報訂閱者",
                     "經營十個站臺與一整套線上工具",
                   ].map((t, i) => (
                     <div key={i} className="flex items-start gap-2">

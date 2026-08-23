@@ -411,7 +411,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     免費訂閱 →
                   </a>
                   <p className="mt-3 text-xs text-stone-400">
-                    已有 18,500+ 訂閱者
+                    已有 19,000+ 訂閱者
                   </p>
                 </div>
               </div>
