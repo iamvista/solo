@@ -75,7 +75,7 @@ export const editorialPolicyContent: TrustPageContent = {
     },
     {
       title: "如何提出回報",
-      paragraphs: ["若你發現事實錯誤、失效連結、未揭露的利益關係或不當引用，請透過網站聯絡管道提供頁面網址、問題位置與可供核對的來源。我們會查核回報，並依影響程度更新內容。"],
+      paragraphs: ["若你發現事實錯誤、失效連結、未揭露的利益關係或不當引用，請寄信至 iamvista@gmail.com，並提供頁面網址、問題位置與可供核對的來源。我們會查核回報，並依影響程度更新內容。"],
     },
   ],
   relatedLabel: "了解我們的內容方法",
