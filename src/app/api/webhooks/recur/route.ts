@@ -351,21 +351,28 @@ async function markEnrollmentPaid({
     if (error) {
       console.error("[recur webhook] mark enrollment paid failed", error);
     } else {
-      // 付款成功後，把同人同課其他 pending（放棄／刷卡失敗留下的殘留）標記為 superseded，
+      // 付款成功後，把同人同期其他 pending（放棄／刷卡失敗留下的殘留）標記為 superseded，
       // 名單與「待付款」數字才不會被同一人的重複嘗試灌爆。
+      //
+      // 收斂到期別：一門課開多期時，「報了第二期又報第三期」是完全正當的，
+      // 用課程層級清會把另一期的合法待付款一起殺掉。
       const { data: paidRow } = await sb
         .from("course_enrollments")
-        .select("email, course_id")
+        .select("email, course_id, cohort_key")
         .eq("id", enrollmentId)
         .maybeSingle();
       if (paidRow?.email && paidRow?.course_id) {
-        const { error: supErr } = await sb
+        let supQuery = sb
           .from("course_enrollments")
           .update({ status: "superseded" })
           .eq("course_id", paidRow.course_id)
           .eq("email", paidRow.email)
           .eq("status", "pending")
           .neq("id", enrollmentId);
+        supQuery = paidRow.cohort_key
+          ? supQuery.eq("cohort_key", paidRow.cohort_key)
+          : supQuery.is("cohort_key", null);
+        const { error: supErr } = await supQuery;
         if (supErr) {
           console.error("[recur webhook] supersede siblings failed", supErr);
         }

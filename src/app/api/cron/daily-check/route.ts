@@ -122,9 +122,13 @@ export async function GET(request: NextRequest) {
     // 開課日一律由期別提供，不從課程層級取：頂層的 date 只是招生中那一期的
     // 複本，用它算 D-N 會讓已結束的期別也被重新計算。每門課至少有一期，
     // 這條不變式由 courses-config.test.ts 把關。
+    // date 也一併取自期別。頂層的 course.date 只是「招生中那一期」的複本，
+    // 拿它填提醒信會讓其他期別的學員收到別場的日期——第三期 10/31 的 D-7
+    // 落在 10/24，那時頂層若還沒切過去，信上會寫 9/12。
     const targets = course.cohorts.map((c) => ({
       cohortKey: c.key as string | null,
       startsAt: c.startsAt,
+      date: c.date,
     }));
 
     for (const target of targets) {
@@ -192,7 +196,7 @@ export async function GET(request: NextRequest) {
               courseTitle: course.title,
               headline: copy.headline,
               whenLabel: copy.whenLabel,
-              courseDate: course.date,
+              courseDate: target.date,
               courseTime: course.time,
               location: course.location,
               courseUrl: `${process.env.NEXT_PUBLIC_SITE_URL}${course.detailUrl}`,

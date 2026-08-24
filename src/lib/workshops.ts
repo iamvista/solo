@@ -239,7 +239,9 @@ export const workshops: Workshop[] = [
       "給研究生、博士生、大學教師與研究員：用 AI Agent（Claude Code／Codex）當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。強調 AI 輔助而非代寫，核心思考仍來自你自己，含學術倫理與 AI 揭露。課程以 AI Agent 實作，請自備筆電並建議訂閱 Claude Pro（Codex 含於 ChatGPT 付費帳號）。3 小時帶走一套可複用的個人 AI 學術工作流。",
     instructor: vista,
     emoji: "🎓",
-    date: "2026 年 9 月 12 日（六）",
+    // 第三期 10/31 採「先揭露、後開賣」：這裡先露出日期讓列表頁看得到，
+    // 但 price 仍是第二期在賣的 5,500。9/13 切換時才改成早鳥 4,500。
+    date: "2026 年 9 月 12 日（六）／下一梯 10 月 31 日（六）",
     sortDate: "2026-09-12",
     time: "9:00–12:00",
     duration: "3 小時",

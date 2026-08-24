@@ -223,6 +223,24 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
   },
 
+  // AI 賦能學術研究與寫作實戰工作坊・第三期（2026/10/31 臺北）
+  // 商品先建好把 slug 綁死開課日（Recur 的 slug 事後改不了），
+  // 在 Recur 設為 active: false，9/13 開賣時才啟用。
+  m2hc9ys1p1d2c2o5eji3zbhd: {
+    kind: "course",
+    productId: "m2hc9ys1p1d2c2o5eji3zbhd",
+    productName: "AI 賦能學術研究與寫作實戰工作坊・早鳥（2026/10/31 臺北）",
+    whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
+  },
+  nfxg03hr71mosrsyflzqce5e: {
+    kind: "course",
+    productId: "nfxg03hr71mosrsyflzqce5e",
+    productName: "AI 賦能學術研究與寫作實戰工作坊（2026/10/31 臺北）",
+    whatsNext: COURSE_AI_ACADEMIC_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-academic-writing",
+  },
+
   // 概念變現陪跑營（6 週線上・2026/8/6 起）
   df2j3u3vfh8u2wwh14048yym: {
     kind: "course",

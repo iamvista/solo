@@ -159,7 +159,7 @@ describe("getCohort", () => {
   });
 });
 
-describe("ai-academic-writing 的兩期（本次變更的主體）", () => {
+describe("ai-academic-writing 的三期（本次變更的主體）", () => {
   const c = COURSE_CONFIGS["ai-academic-writing"];
 
   it("第一期是 8/16，且商品是已關閉的那一組", () => {
@@ -182,8 +182,27 @@ describe("ai-academic-writing 的兩期（本次變更的主體）", () => {
     expect(second?.open).toBe(true);
   });
 
-  it("第一期的日期沒有被第二期覆蓋", () => {
+  it("第二期有 startsAt，開課倒數提醒才會發", () => {
+    // 補這欄之前，9/12 那九位已付款學員完全收不到 D-7/5/3/1 提醒。
+    expect(getCohort(c, "2")?.startsAt).toBe("2026-09-12T09:00:00+08:00");
+  });
+
+  it("第三期是 10/31，尚未開放報名，商品是另外新建的一組", () => {
+    // 「先揭露、後開賣」：招生頁露出 10/31 的日期與價格，但 open 仍在第二期。
+    // 9/12 開課後才由 2026-09-13 的行事曆提醒觸發切換。
+    const third = getCohort(c, "3");
+    expect(third?.date).toBe("2026/10/31（六）");
+    expect(third?.startsAt).toBe("2026-10-31T09:00:00+08:00");
+    expect(third?.productIds).toEqual([
+      "m2hc9ys1p1d2c2o5eji3zbhd",
+      "nfxg03hr71mosrsyflzqce5e",
+    ]);
+    expect(third?.open).toBeFalsy();
+  });
+
+  it("三期的日期彼此不同，沒有被就地覆蓋", () => {
     // 這正是 ef7188e 造成的問題：date 被就地改掉，第一期的 8/16 消失。
-    expect(getCohort(c, "1")?.date).not.toBe(getCohort(c, "2")?.date);
+    const dates = c.cohorts.map((h) => h.date);
+    expect(new Set(dates).size).toBe(dates.length);
   });
 });

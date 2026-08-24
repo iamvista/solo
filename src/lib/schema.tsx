@@ -26,7 +26,13 @@ export interface CourseSchemaProps {
   price?: number;
   priceCurrency?: string;
   duration: string;
-  startDate?: string;
+  /**
+   * 開課日期。一門課同時公告多個場次時傳陣列，會輸出多個 CourseInstance。
+   *
+   * ⚠️ 傳進來的每一個日期都必須在頁面上看得見——schema 標了卻沒渲染，
+   * 等於對搜尋引擎宣稱一件讀者查證不到的事。
+   */
+  startDate?: string | string[];
   location?: string;
   image?: string;
 }
@@ -58,10 +64,13 @@ export function courseSchema(props: CourseSchemaProps) {
     }),
     ...(props.duration && { timeRequired: props.duration }),
     ...(props.startDate && {
-      hasCourseInstance: {
+      hasCourseInstance: (Array.isArray(props.startDate)
+        ? props.startDate
+        : [props.startDate]
+      ).map((startDate) => ({
         "@type": "CourseInstance",
         courseMode: "Blended",
-        startDate: props.startDate,
+        startDate,
         ...(props.location && {
           location: {
             "@type": "Place",
@@ -69,7 +78,7 @@ export function courseSchema(props: CourseSchemaProps) {
             address: { "@type": "PostalAddress", addressLocality: "臺北市" },
           },
         }),
-      },
+      })),
     }),
     ...(props.image && { image: props.image }),
   };

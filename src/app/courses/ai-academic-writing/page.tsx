@@ -179,6 +179,37 @@ const freeMiniCourses = [
 const FREE_COURSE_HUB_URL =
   "https://share.minicoursegenerator.com/category/c/caab3884-358e-45d3-bc5d-ad8e2fc8afec";
 
+// 這門課背後的學術生態系。researcher.tw 的課程頁已經單向連到本頁，
+// 這裡把回連補上，兩站的漏斗才是通的。
+const RESEARCHER_HUB_URL = "https://researcher.tw/";
+
+const academicEcosystem = [
+  {
+    title: "六支免費學術小工具",
+    scale: "不必註冊",
+    summary:
+      "研究流程裡最常重複的幾個動作各做成一支小工具，開網頁就能用，資料只留在你自己的裝置上，不上傳。",
+    url: "https://researcher.tw/tools/",
+    cta: "打開工具",
+  },
+  {
+    title: "AI 學術工具資源庫",
+    scale: "56 項・七階段分類",
+    summary:
+      "依研究流程七階段收錄，可搜尋與篩選。每一項都寫明什麼時候該用它，而不是丟一份工具清單讓你自己猜。",
+    url: "https://researcher.tw/resources/",
+    cta: "逛資源庫",
+  },
+  {
+    title: "臉書社團「博碩士生練功團」",
+    scale: "上萬名研究夥伴",
+    summary:
+      "這門課的問題意識大半來自這個社團裡真實被問過的卡點。想先看看大家都卡在哪，進去逛一圈最快。",
+    url: "https://www.facebook.com/groups/thesisdojo",
+    cta: "加入社團",
+  },
+];
+
 // 帶得走的工具
 const takeaways = [
   { name: "AI 協作原則卡", desc: "心態與界線一張卡，下筆前確認自己站在輔助這一邊。" },
@@ -211,6 +242,10 @@ const faqs = [
     a: "自備筆電、課前完成 Claude Code 的安裝與登入（用 Codex 者請備妥 ChatGPT 付費帳號），最好帶一個你正在進行的研究題目或一篇要改的草稿，課堂實作會直接拿你的題目練。",
   },
   {
+    q: "9/12 與 10/31 兩場內容一樣嗎？該報哪一場？",
+    a: "內容相同，選你時間搭得上的那一場。9/12 現在開放報名，費用 NT$5,500；10/31 那場在 9 月 13 日才開賣，早鳥 NT$4,500（9/30 截止）。如果現在就確定要上，9/12 直接報名即可；若想等 10/31，可以先留信箱，開賣當天會第一時間通知你。",
+  },
+  {
     q: "這跟你其他 AI 課有什麼不同？",
     a: "這堂專為學術研究與寫作場景設計，從文獻一路走到投稿，講的是研究者真正會遇到的卡點，而不是泛用的 AI 操作。",
   },
@@ -226,9 +261,13 @@ export default function AiAcademicWritingPage() {
             "用 AI Agent 當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。輔助不代寫，含學術倫理與 AI 揭露原則。",
           url: "https://www.solo.tw/courses/ai-academic-writing",
           instructor: "Vista",
+          // price 是「現在真的收得到的金額」。10/31 那場 9/13 才開放報名，
+          // 屆時切換到早鳥 4500 時要一併改這裡。
           price: 5500,
           duration: "PT3H",
-          startDate: "2026-09-12",
+          // 兩個日期都必須在頁面上看得見（見 courseSchema 的註解）：
+          // 9/12 在開課資訊主卡，10/31 在下一梯預告卡。
+          startDate: ["2026-09-12", "2026-10-31"],
           location: "臺北市",
           image:
             "https://www.solo.tw/images/workshops/cover-ai-academic-writing.webp",
@@ -296,8 +335,35 @@ export default function AiAcademicWritingPage() {
         </section>
 
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          {/* 這堂課要解決的問題 */}
+          {/* 第一期現場花絮：課還沒上過的人最想知道的是「現場到底長什麼樣」，
+              所以這段擺在最前面，先於任何文案。 */}
           <section className="py-14 sm:py-16">
+            <h2 className="text-center text-xl font-bold sm:text-2xl">
+              現場長這樣
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+              2026 年 8 月 16 日第一期的實體現場花絮。三小時、20 人的教室，
+              大家帶著自己的題目與草稿來，離開時帶走一套跑得動的工作流。
+            </p>
+            <div className="mx-auto mt-8 max-w-2xl">
+              <div className="aspect-video w-full overflow-hidden rounded-xl">
+                <iframe
+                  src="https://www.youtube.com/embed/XcW7qOvXFqE"
+                  title="AI 是研究副駕駛，不是代筆｜給研究生與大學教師的 AI 學術寫作工作坊"
+                  className="h-full w-full"
+                  loading="lazy"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm text-muted-foreground">
+                影片：AI 是研究副駕駛，不是代筆｜給研究生與大學教師的 AI 學術寫作工作坊
+              </p>
+            </div>
+          </section>
+
+          {/* 這堂課要解決的問題 */}
+          <section className="border-t py-14 sm:py-16">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-xl font-bold sm:text-2xl">
                 研究者最缺的不是努力，是時間
@@ -593,6 +659,64 @@ export default function AiAcademicWritingPage() {
             </Card>
           </section>
 
+          {/* 這門課背後的學術生態系：researcher.tw 與博碩士生練功團。
+              這頁原本沒有回連 researcher.tw，漏斗只有單向。 */}
+          <section className="border-t py-14 sm:py-16">
+            <h2 className="text-center text-xl font-bold sm:text-2xl">
+              這門課背後的學術生態系
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+              這三小時不是憑空生出來的。它長在一個持續運作的學術社群與資源庫上面，
+              而這些東西你現在就能免費用，不必等到開課日。
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {academicEcosystem.map((item) => (
+                <Card key={item.url} className="flex flex-col">
+                  <CardContent className="flex flex-1 flex-col p-6">
+                    <p className="text-xs font-medium text-primary">{item.scale}</p>
+                    <h3 className="mt-2 text-base font-bold">{item.title}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {item.summary}
+                    </p>
+                    <Button asChild variant="outline" size="sm" className="mt-5 w-full">
+                      <a href={item.url} target="_blank" rel="noopener noreferrer">
+                        {item.cta}
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <Card className="mt-6 border-primary/20 bg-primary/5">
+              <CardContent className="p-6">
+                <h3 className="text-base font-bold">課前暖身與課後延伸</h3>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <p className="text-sm font-medium">課前：先逛資源庫</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      資源庫依研究流程七階段分類，每一項都寫明「什麼時候該用它」。
+                      課前先看過自己卡住的那一段，現場的三小時會更有效率。
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">課後：工具留著繼續用</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      六支小工具不必註冊、資料只留在你自己的裝置上，
+                      課後接著用在下一篇論文，不會隨著課程結束而失效。
+                    </p>
+                  </div>
+                </div>
+                <Button asChild variant="ghost" size="sm" className="mt-4 px-0">
+                  <a href={RESEARCHER_HUB_URL} target="_blank" rel="noopener noreferrer">
+                    前往 researcher.tw →
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </section>
+
           {/* 帶得走的工具 */}
           <section className="border-t py-14 sm:py-16">
             <Card className="border-primary/20 bg-primary/5">
@@ -648,7 +772,7 @@ export default function AiAcademicWritingPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>👥</span>
-                      <span>限額 20 人・額滿即止</span>
+                      <span>每場限額 20 人・額滿即止</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>💻</span>
@@ -669,7 +793,7 @@ export default function AiAcademicWritingPage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>限額 20 人，額滿即止，把握名額。</span>
+                  <span>每場限額 20 人，額滿即止，把握名額。</span>
                 </div>
 
                 {/* 課前準備 */}
@@ -691,6 +815,42 @@ export default function AiAcademicWritingPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* 下一梯預告：9/12 開課後才開放報名，所以這張卡刻意不放報名鈕，
+                只放留信箱的入口，把想等 10/31 的人先收成名單。 */}
+            <Card className="mt-6 border-dashed">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <Badge variant="outline" className="mb-3">
+                      下一梯・9/13 開放報名
+                    </Badge>
+                    <p className="text-lg font-bold text-foreground">
+                      2026/10/31（六）09:00 – 12:00
+                    </p>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      臺北市區・捷運站步行可達｜每場限額 20 人
+                    </p>
+                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                      內容與 9/12 這場相同。9 月這場如果時間搭不上，可以等 10/31。
+                    </p>
+                  </div>
+                  <div className="shrink-0 rounded-lg border bg-muted/40 p-4 text-center sm:min-w-[11rem]">
+                    <p className="text-xs text-muted-foreground">早鳥價（9/30 截止）</p>
+                    <p className="mt-1 text-2xl font-bold text-foreground">NT$4,500</p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      原價 NT$5,500
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-5 rounded-lg border bg-background px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-semibold text-foreground">尚未開放報名。</span>
+                  10/31 這場會在 <span className="font-medium text-foreground">9 月 13 日</span> 開賣。
+                  留下信箱，開賣當天第一時間通知你，早鳥席次也會優先寄給名單上的人。
+                </p>
+              </CardContent>
+            </Card>
+
             <CourseNotifyEntry slug="ai-academic-writing" />
           </section>
 

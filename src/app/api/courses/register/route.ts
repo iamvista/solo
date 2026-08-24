@@ -191,14 +191,22 @@ export async function POST(request: Request) {
     companion_phone_country: companionPhoneNorm?.country ?? null,
   };
 
-  // 去重：同一 (course, email) 已有 pending 就更新該筆並重用其 id，不再每次送出都新增一列
+  // 去重：同一 (course, cohort, email) 已有 pending 就更新該筆並重用其 id，不再每次送出都新增一列
   //（避免「待付款」被同一人的重試／放棄灌爆）。
-  const { data: existingPending } = await supabase
+  //
+  // 收斂到期別，與下方的唯一索引一致。少了 cohort 條件，就會撈到「別期」的 pending
+  // 並把它就地改寫成本期資料——那個人若之後回頭付舊期的結帳連結，webhook 的
+  // findPendingEnrollment 用 recur_product_id 比對就對不到，變成錢收了、報名沒轉 paid。
+  let pendingQuery = supabase
     .from("course_enrollments")
     .select("id")
     .eq("course_id", course.slug)
     .eq("email", email)
-    .eq("status", "pending")
+    .eq("status", "pending");
+  pendingQuery = cohortKey
+    ? pendingQuery.eq("cohort_key", cohortKey)
+    : pendingQuery.is("cohort_key", null);
+  const { data: existingPending } = await pendingQuery
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
@@ -216,16 +224,22 @@ export async function POST(request: Request) {
         .select("id")
         .single();
 
-  // TOCTOU 防護：course_enrollments 有 partial unique index (course_id,email) WHERE status='pending'。
+  // TOCTOU 防護：course_enrollments 有 partial unique index
+  // (course_id, coalesce(cohort_key,''), email) WHERE status='pending'
+  //（見 supabase/migrations/20260717_pending_unique_per_cohort.sql）。
   // 並發的第二個 INSERT 會撞 23505（唯一鍵衝突），退回抓對方剛插入的那筆 pending 改 UPDATE，
-  // 確保同人同課永遠只有一筆 pending，避免 markEnrollmentPaid 標錯列或 Purchase 重複計。
+  // 確保同人同期永遠只有一筆 pending，避免 markEnrollmentPaid 標錯列或 Purchase 重複計。
   if (writeResult.error?.code === "23505" && !existingPending) {
-    const { data: raced } = await supabase
+    let racedQuery = supabase
       .from("course_enrollments")
       .select("id")
       .eq("course_id", course.slug)
       .eq("email", email)
-      .eq("status", "pending")
+      .eq("status", "pending");
+    racedQuery = cohortKey
+      ? racedQuery.eq("cohort_key", cohortKey)
+      : racedQuery.is("cohort_key", null);
+    const { data: raced } = await racedQuery
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
