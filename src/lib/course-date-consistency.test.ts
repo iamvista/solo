@@ -28,8 +28,19 @@ describe("workshops.ts 與 courses-config.ts 日期一致性", () => {
     .map((w) => w.id)
     .filter((id) => id in COURSE_CONFIGS);
 
-  it("至少涵蓋 vibe-coding 這門共用課程", () => {
-    expect(sharedIds).toEqual(expect.arrayContaining(["vibe-coding"]));
+  it("每一門有報名表單的課都納入比對（現行 4 門：ai-content 等）", () => {
+    // 這條原本釘死 "vibe-coding"。那門課在第 8 班沒開成之後被移出 COURSE_CONFIGS
+    // （見 courses-config.ts 的註解），守門測試從此變成常紅的假警報——紅的是測試
+    // 的前提，不是資料。釘任何一門具名課程都會這樣：課程一汰換就過期。
+    //
+    // 改成從資料推導：COURSE_CONFIGS 裡的每一門課都正在收報名，因此它必然要在
+    // workshops.ts 有對應條目、狀態也不能是 coming_soon，否則 /courses 列表上
+    // 要嘛看不到它、要嘛顯示「日期尚未公告」。這個不變式不隨課程汰換而過期，
+    // 而且比原本強：原本只保證某一門課在比對範圍內，現在保證沒有任何一門漏掉。
+    //
+    // 同時它也守住原本那條的用意——sharedIds 一旦變空，下面的 it.each 會產生
+    // 零個測試，日期漂移的保護就無聲消失，而測試仍然全綠。
+    expect([...sharedIds].sort()).toEqual(Object.keys(COURSE_CONFIGS).sort());
   });
 
   it.each(sharedIds)("%s 的開課日期在 workshops.ts 與 courses-config.ts 必須一致", (id) => {
