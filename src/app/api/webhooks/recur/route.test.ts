@@ -31,9 +31,22 @@ vi.mock("recur-tw/server", () => {
   return { Recur: MockRecur };
 });
 
-const sendEmail = vi.fn(async () => ({ success: true, data: { id: "msg" } }));
+// 簽名要明寫，不能讓 vi.fn 從實作推論：預設實作沒有參數，推論出來的型別就是
+// 「零參數、只回成功」，於是本檔三種用法全部對不上型別（14 個 tsc 錯誤）——
+// 下面的 sendEmail(args) 被判定多傳了一個參數、mockImplementation 傳入一參數版
+// 實作被拒、sendEmail.mock.calls[0][0] 則因為參數是空 tuple 而無法索引。
+// 兩個型別對齊 src/lib/email.ts 的 sendEmail：吃一個帶 to 的物件，
+// 回傳 { success: true, data } 或 { success: false, error } 兩種形狀。
+type SendEmailArgs = { to: string | string[] };
+type SendEmailResult =
+  | { success: true; data: { id: string } }
+  | { success: false; error: unknown };
+
+const sendEmail = vi.fn<(args: SendEmailArgs) => Promise<SendEmailResult>>(
+  async () => ({ success: true, data: { id: "msg" } }),
+);
 vi.mock("@/lib/email", () => ({
-  sendEmail: (args: { to: string | string[] }) => sendEmail(args),
+  sendEmail: (args: SendEmailArgs) => sendEmail(args),
 }));
 
 // Task 4：Purchase 事件的 server CAPI 呼叫，這裡只驗證 handleOrderPaid 有沒有正確
