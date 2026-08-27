@@ -112,6 +112,15 @@ const nextConfig: NextConfig = {
         destination: "/courses",
         permanent: true,
       },
+      // 已下架課程補轉址（2026-08-27）：/courses/ai-proposal-spotlight（AI 提案成交力，
+      // 陳建銘老師）一直是裸 404 卻仍被 Google 索引並排名（90 天 5 次曝光、名次 19.8）。
+      // 講師 jianming 沒有 /teachers 頁面，故比照 senior-asset-safety 導課程列表，
+      // 不比照 ai-social-content 導講師頁。
+      {
+        source: "/courses/ai-proposal-spotlight",
+        destination: "/courses",
+        permanent: true,
+      },
       {
         source: "/courses/innovation-workshop",
         destination: "/courses",
