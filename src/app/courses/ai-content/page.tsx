@@ -316,12 +316,30 @@ const testimonials = [
       "課程中也提到如何依照不同需求產生不同的文體，而每個文體的呈現方式跟重點又是什麼，整體真的讓人感到相當充實。",
     ],
   },
+  {
+    name: "柳靖",
+    headline: "查證變快之後，我對「與 AI 協作」有了更完整的理解",
+    highlights: [
+      "身為一個以文字維生的人，靈感枯竭還算好解決，真正磨人的是藏在文章背後、瑣碎又耗神的查證工作。",
+      "用了 Claude Code 之後，過去讓我埋頭苦幹的查證工作速度快了許多，人也輕鬆不少。",
+      "老師把複雜東西講得清楚明白的本事，讓我對接下來的工作方式多了幾分踏實。",
+    ],
+  },
+  {
+    name: "林駿宜",
+    headline: "一個月 600 元的小夥伴，產出的價值遠遠超出價格",
+    highlights: [
+      "Claude Code 是一個月花 600 元請來的小夥伴，不會用的人覺得很貴，經過老師教導，產出的價值遠遠超出價格。",
+      "終端機 CLI 不到三分鐘完成安裝，開啟了更廣闊的視野。",
+      "拿到入門鑰匙，剩下就是看自己不斷地摸索，這堂課非常超值。",
+    ],
+  },
 ];
 
 export default function AIContentPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-08-30", location: "臺北市" })} />
+      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-10-03", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 內容產製系統", href: "/courses/ai-content" }])} />
       <JsonLd data={faqSchema(faqs.map((faq) => ({ question: faq.q, answer: faq.a })))} />
     <div>
@@ -332,7 +350,7 @@ export default function AIContentPage() {
             variant="secondary"
             className="mb-4 px-4 py-2 text-sm sm:text-base"
           >
-            ✍️ 3 小時實戰工作坊 — 2026 年 8 月 30 日（日）
+            ✍️ 3 小時實戰工作坊：2026 年 10 月 3 日（六）
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             AI 內容產製系統工作坊
@@ -648,68 +666,73 @@ export default function AIContentPage() {
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             學員口碑
           </h2>
+          <p className="mt-3 text-center text-base text-muted-foreground">
+            已有 {testimonials.length} 位學員上完這堂課，這是他們的真心話。
+          </p>
 
-          <div className="mt-8 space-y-6">
-            {/* Testimonial 1 - Bengo Li */}
-            <Card className="border-muted">
-              <CardContent className="p-6 sm:p-8">
-                <div className="flex flex-col gap-6 md:flex-row">
-                  <div className="md:w-2/5 shrink-0">
-                    <Image
-                      src="/images/workshops/testimonial-ai-content.webp"
-                      alt="Bengo Li 課程心得"
-                      width={600}
-                      height={400}
-                      className="w-full rounded-lg object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-3xl text-primary/30">&ldquo;</span>
-                      <div>
-                        <p className="text-base font-bold text-foreground">
-                          {testimonials[0].name}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-lg font-semibold text-foreground mb-4">
-                      {testimonials[0].headline}
-                    </p>
-                    <div className="space-y-3">
-                      {testimonials[0].highlights.map((highlight, i) => (
-                        <div key={i} className="flex items-start gap-2">
-                          <span className="text-primary shrink-0 mt-1">&#8226;</span>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {highlight}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+          {/* 精選一則：帶照片，作為口碑牆的門面 */}
+          <Card className="mt-8 border-muted">
+            <CardContent className="p-6 sm:p-8">
+              <div className="flex flex-col gap-6 md:flex-row">
+                <div className="md:w-2/5 shrink-0">
+                  <Image
+                    src="/images/workshops/testimonial-ai-content.webp"
+                    alt="Bengo Li 課程心得"
+                    width={600}
+                    height={400}
+                    className="w-full rounded-lg object-cover"
+                  />
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Testimonials 2..N — 文字版 */}
-            {testimonials.slice(1).map((t) => (
-              <Card key={t.name} className="border-muted">
-                <CardContent className="p-6 sm:p-8">
+                <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-3xl text-primary/30">&ldquo;</span>
                     <div>
                       <p className="text-base font-bold text-foreground">
-                        {t.name}
+                        {testimonials[0].name}
                       </p>
                     </div>
                   </div>
                   <p className="text-lg font-semibold text-foreground mb-4">
-                    {t.headline}
+                    {testimonials[0].headline}
                   </p>
                   <div className="space-y-3">
-                    {t.highlights.map((highlight, i) => (
+                    {testimonials[0].highlights.map((highlight, i) => (
                       <div key={i} className="flex items-start gap-2">
                         <span className="text-primary shrink-0 mt-1">&#8226;</span>
                         <p className="text-sm text-muted-foreground leading-relaxed">
+                          {highlight}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 其餘口碑：網格牆，控制卡片高度以利掃視 */}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {testimonials.slice(1).map((t) => (
+              <Card key={t.name} className="border-muted">
+                <CardContent className="flex h-full flex-col p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl leading-none text-primary/30">
+                      &ldquo;
+                    </span>
+                    <p className="text-sm font-bold text-foreground">
+                      {t.name}
+                    </p>
+                  </div>
+                  <p className="text-sm font-semibold leading-snug text-foreground mb-2.5">
+                    {t.headline}
+                  </p>
+                  <div className="space-y-1.5">
+                    {t.highlights.slice(0, 2).map((highlight, i) => (
+                      <div key={i} className="flex items-start gap-1.5">
+                        <span className="text-primary shrink-0 mt-1 text-xs">
+                          &#8226;
+                        </span>
+                        <p className="text-xs leading-relaxed text-muted-foreground">
                           {highlight}
                         </p>
                       </div>
@@ -788,7 +811,7 @@ export default function AIContentPage() {
                 <div className="space-y-3 text-base">
                   <div className="flex items-center gap-2">
                     <span>📅</span>
-                    <span className="font-medium">2026 年 8 月 30 日（日）</span>
+                    <span className="font-medium">2026 年 10 月 3 日（六）</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🕘</span>
@@ -811,7 +834,15 @@ export default function AIContentPage() {
                 <div className="space-y-3">
                   <div>
                     <p className="text-sm text-muted-foreground">課程費用</p>
-                    <p className="text-3xl font-bold text-primary">NT$5,000</p>
+                    <p className="text-3xl font-bold text-primary">
+                      NT$5,000
+                      <span className="ml-2 text-base font-normal text-muted-foreground line-through">
+                        NT$5,500
+                      </span>
+                    </p>
+                    <p className="mt-1 text-sm font-medium text-primary">
+                      早鳥價，9 月 12 日前報名
+                    </p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       3 小時實作・含課後學員 LINE 群組
                     </p>

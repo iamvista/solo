@@ -142,13 +142,13 @@ URL: https://www.solo.tw/tools
 - URL: https://www.solo.tw/courses/ai-content
 - 定位: 一份素材，自動產出六種格式
 - 描述: 3 小時實作課程，用 Claude Code 建立完整的內容產製系統，從輸入到多平臺分發一次搞定。
-- 日期: 2026 年 8 月 30 日（日） 9:00–12:00
+- 日期: 2026 年 10 月 3 日（六） 9:00–12:00
 - 時長: 3 小時
 - 地點: 臺北市區・捷運站步行可達（報名後告知教室地址）
 - 名額: 16 人
 - 狀態: open
 - 分類: ai
-- 價格: 原價 NT$7,000；早鳥 NT$5,000
+- 價格: 原價 NT$5,500；早鳥 NT$5,000
 
 ### 用 AI 寫出讓人忍不住留言的社群內容
 - URL: https://www.solo.tw/courses/ai-social-content
