@@ -409,6 +409,28 @@ export default function AIContentPage() {
       </section>
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        {/* ====== Course Overview Video ====== */}
+        <section className="py-14 sm:py-16">
+          <h2 className="text-center text-xl font-bold sm:text-2xl">
+            不到 2 分鐘，看懂這套系統
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-base text-muted-foreground">
+            從靈感到多平臺分發，濃縮呈現這堂課要教你的完整工作流。
+          </p>
+          <div className="mx-auto mt-8 max-w-2xl">
+            <div className="aspect-video w-full overflow-hidden rounded-xl">
+              <iframe
+                src="https://www.youtube.com/embed/x6w55dQpgtM"
+                title="AI 內容產製系統工作坊：從靈感到多平臺分發的完整工作流"
+                className="h-full w-full"
+                loading="lazy"
+                allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* ====== Pain Points ====== */}
         <section className="py-14 sm:py-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
