@@ -345,10 +345,10 @@ export default function AIContentPage() {
     <div>
       {/* ====== Hero ====== */}
       <section className="bg-gradient-to-b from-violet-50/50 to-background dark:from-violet-950/20">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
+        <div className="mx-auto max-w-4xl px-4 py-10 text-center sm:px-6 sm:py-14 lg:px-8">
           <Badge
             variant="secondary"
-            className="mb-4 px-4 py-2 text-sm sm:text-base"
+            className="mb-3 px-4 py-2 text-sm sm:text-base"
           >
             ✍️ 3 小時實戰工作坊：2026 年 10 月 3 日（六）
           </Badge>
@@ -358,7 +358,7 @@ export default function AIContentPage() {
           <p className="mx-auto mt-2 max-w-2xl text-base text-muted-foreground sm:text-lg">
             一份素材，自動產出六種格式 — 從輸入到多平臺分發一次搞定
           </p>
-          <p className="mx-auto mt-6 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
+          <p className="mx-auto mt-4 max-w-2xl text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
             你還在用 AI <span className="gradient-text">一問一答</span>嗎？
           </p>
           <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
@@ -368,7 +368,7 @@ export default function AIContentPage() {
               問題不在 AI 不夠強，而在你沒有建立一套系統，讓 AI 真正為你工作。
             </span>
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button size="lg" className="h-12 px-8 text-base" asChild>
               <a href="#register">我要報名</a>
             </Button>
@@ -383,7 +383,7 @@ export default function AIContentPage() {
           </div>
 
           {/* Key Stats */}
-          <div className="mt-10 flex justify-center gap-8 sm:gap-12">
+          <div className="mt-6 flex justify-center gap-8 sm:gap-12">
             <div className="text-center">
               <p className="text-2xl font-bold text-primary sm:text-3xl">3hr</p>
               <p className="mt-1 text-sm text-muted-foreground">實戰工作坊</p>
@@ -410,14 +410,14 @@ export default function AIContentPage() {
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* ====== Course Overview Video ====== */}
-        <section className="py-14 sm:py-16">
+        <section className="pt-6 pb-14 sm:pt-8 sm:pb-16">
           <h2 className="text-center text-xl font-bold sm:text-2xl">
             不到 2 分鐘，看懂這套系統
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-base text-muted-foreground">
+          <p className="mx-auto mt-2 max-w-2xl text-center text-base text-muted-foreground">
             從靈感到多平臺分發，濃縮呈現這堂課要教你的完整工作流。
           </p>
-          <div className="mx-auto mt-8 max-w-2xl">
+          <div className="mx-auto mt-5 max-w-2xl">
             <div className="aspect-video w-full overflow-hidden rounded-xl">
               <iframe
                 src="https://www.youtube.com/embed/x6w55dQpgtM"
