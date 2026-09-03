@@ -113,7 +113,7 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
 
 - 自由人學院（solo.tw）創辦人
 - AI 應用講師、一人事業教練
-- 著有近 20 本書
+- 著有21 本書
 - 18,000+ 電子報訂閱者（Substack：https://iamvista.substack.com）
 - 50+ 場 AI 工作坊講師
 - 個人網站：https://www.vista.tw

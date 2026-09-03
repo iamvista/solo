@@ -12,6 +12,11 @@ const WORKSHOPS_FILE = path.join(ROOT, 'src/lib/workshops.ts');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const SITE = 'https://www.solo.tw';
 
+// 實績段落與數字：由 scripts/pull-claims.mjs 從 canonical registry 烘進來，不硬編碼。
+// 改數字請改 vista-official-site/data/registry.json 再跑 node scripts/pull-claims.mjs --fix
+const ACHIEVEMENTS = fs.readFileSync(path.join(ROOT, 'src/lib/llms-achievements.txt'), 'utf8');
+const CLAIMS = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/lib/claims.generated.json'), 'utf8'));
+
 const TRUST_LINKS = `## 學習與內容信任入口
 
 - 學習指南: ${SITE}/learn
@@ -298,6 +303,7 @@ function formatFull(posts, workshops) {
     '',
   ];
 
+  lines.push(ACHIEVEMENTS);
   lines.push(TRUST_LINKS);
   lines.push(formatConsultingSection());
   lines.push(formatToolsSection());
@@ -416,9 +422,11 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
     formatToolsSection() +
     formatBuyoutProductsSection() +
     formatLatestBlog(posts, 10) +
+    ACHIEVEMENTS +
+    '\n' +
     TRUST_LINKS +
     '\n' +
-    '## 平臺數據\n\n- 電子報訂閱者：19,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
+    `## 平臺數據\n\n- 電子報訂閱者：${CLAIMS.newsletter_subscribers.value} 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n` +
     FOOTER_LINKS;
 
   const llmsFull = formatFull(posts, workshops);
