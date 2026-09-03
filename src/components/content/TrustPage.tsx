@@ -31,7 +31,7 @@ export function TrustPage({ content }: { content: TrustPageContent }) {
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <Badge variant="secondary" className="mb-5 px-4 py-2 text-sm">{content.eyebrow}</Badge>
           <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">{content.title}</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{content.summary}</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{content.intro}</p>
         </div>
       </section>
 
@@ -63,7 +63,7 @@ export function TrustPage({ content }: { content: TrustPageContent }) {
               <h2 className="text-xl font-bold">進一步了解內容準則</h2>
               <p className="mt-2 leading-7 text-muted-foreground">方法與政策互相配合，共同說明內容如何產生、發布與維護。</p>
             </div>
-            <Button asChild variant="outline"><Link href={content.relatedHref}>{content.relatedLabel}</Link></Button>
+            <Button asChild variant="outline"><Link href={content.related[0].href}>{content.related[0].label}</Link></Button>
           </CardContent>
         </Card>
       </div>
