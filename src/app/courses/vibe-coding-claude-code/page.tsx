@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title:
@@ -720,7 +721,7 @@ export default function VibeCodingClaudeCodePage() {
                   <div className="flex items-start gap-2">
                     <span className="text-primary shrink-0">✓</span>
                     <span className="text-muted-foreground">
-                      213 場以上可查證授課
+                      {SOCIAL_PROOF.verifiedSessions}可查證授課
                     </span>
                   </div>
                   <div className="flex items-start gap-2">

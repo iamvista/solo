@@ -59,7 +59,7 @@ const personSchema = {
   url: "https://www.solo.tw/about",
   image: "https://www.solo.tw/images/vista-profile.webp",
   description:
-    `幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。${SOCIAL_PROOF.newsletterSubscribers} 電子報讀者、213 場以上可查證授課。提供 諮詢、線上課程與企業內訓。`,
+    `幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。${SOCIAL_PROOF.newsletterSubscribers} 電子報讀者、${SOCIAL_PROOF.verifiedSessions}可查證授課。提供 諮詢、線上課程與企業內訓。`,
   worksFor: {
     "@type": "Organization",
     name: "solo.tw（自由人學院）",

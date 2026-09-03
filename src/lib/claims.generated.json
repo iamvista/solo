@@ -1,13 +1,13 @@
 {
 	"verified_sessions": {
-		"value": "213 場以上",
+		"value": "222 場以上",
 		"label": "可查證授課場次",
-		"exact": 213
+		"exact": 222
 	},
 	"partner_orgs": {
-		"value": "123 個以上",
+		"value": "130 個以上",
 		"label": "合作單位",
-		"exact": 123
+		"exact": 130
 	},
 	"newsletter_subscribers": {
 		"value": "19,000+",
