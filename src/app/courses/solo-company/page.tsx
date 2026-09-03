@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: "無人公司工作坊．設計篇｜半日實作工作坊 | solo.tw",
@@ -854,11 +855,11 @@ export default function SoloCompanyPage() {
 
                 <div className="mt-6 space-y-2.5 text-sm">
                   {[
-                    "20 年以上數位內容產業經歷",
+                    "30 年以上寫作經歷",
                     "前風傳媒產品總監・前數位時代主編",
                     "著有《ChatGPT 提問課》《慢讀秒懂》等 20 餘本",
                     "200 場以上 AI 主題演講・100 場以上企業內訓",
-                    "19,000 位以上電子報訂閱者",
+                    `${SOCIAL_PROOF.newsletterSubscribers} 位以上電子報訂閱者`,
                     "經營十個站臺與一整套線上工具",
                   ].map((t, i) => (
                     <div key={i} className="flex items-start gap-2">

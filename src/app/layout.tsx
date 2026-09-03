@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Analytics } from "@vercel/analytics/next";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 /* ── JSON-LD 結構化數據 ── */
 const organizationSchema = {
@@ -58,7 +59,7 @@ const personSchema = {
   url: "https://www.solo.tw/about",
   image: "https://www.solo.tw/images/vista-profile.webp",
   description:
-    "幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。19,000+ 電子報讀者、50+ 場工作坊。提供 諮詢、線上課程與企業內訓。",
+    `幫助自由工作者、講師和顧問用 AI 放大一人事業的產出。${SOCIAL_PROOF.newsletterSubscribers} 電子報讀者、213 場以上可查證授課。提供 諮詢、線上課程與企業內訓。`,
   worksFor: {
     "@type": "Organization",
     name: "solo.tw（自由人學院）",

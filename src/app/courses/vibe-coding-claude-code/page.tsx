@@ -691,7 +691,7 @@ export default function VibeCodingClaudeCodePage() {
 
                 <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
                   <p>
-                    擁有超過 20 年數位內容產業經歷，從媒體主編到產品總監。
+                    曾任媒體主編與產品總監。
                     2025 年起投入 Vibe Coding 教學，已開設 6 班 Antigravity 版工作坊；
                     自己日常用 Claude Code 維護多個個人產品（vista.tw、solo.tw、content.tw、slides.vista.tw 等），
                     把這套工具的真實工作流帶進課堂。
@@ -720,7 +720,7 @@ export default function VibeCodingClaudeCodePage() {
                   <div className="flex items-start gap-2">
                     <span className="text-primary shrink-0">✓</span>
                     <span className="text-muted-foreground">
-                      200+ 場 AI 主題演講
+                      213 場以上可查證授課
                     </span>
                   </div>
                   <div className="flex items-start gap-2">

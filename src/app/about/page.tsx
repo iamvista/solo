@@ -17,7 +17,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "關於 Vista Cheng（鄭緯筌）— 自由人學院創辦人 | solo.tw",
   description:
-    "Vista Cheng（鄭緯筌），自由人學院（solo.tw）創辦人、AI 應用講師、一人事業教練。著有近 20 本書，幫助自由工作者、講師和顧問用 AI 放大產出。19,000+ 電子報讀者、50+ 場工作坊。",
+    `Vista Cheng（鄭緯筌），自由人學院（solo.tw）創辦人、AI 應用講師、一人事業教練。著有 21 本書，幫助自由工作者、講師和顧問用 AI 放大產出。${SOCIAL_PROOF.newsletterSubscribers} 電子報讀者、213 場以上可查證授課。`,
   keywords: [
     "Vista Cheng",
     "鄭緯筌",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vista Cheng（鄭緯筌）— 自由人學院創辦人",
     description:
-      "AI 應用講師、一人事業教練、內容策略顧問。著有近 20 本書，幫助自由工作者、講師和顧問用 AI 放大產出。",
+      "AI 應用講師、一人事業教練、內容策略顧問。著有 21 本書，幫助自由工作者、講師和顧問用 AI 放大產出。",
     url: "https://www.solo.tw/about",
     siteName: "solo.tw",
     locale: "zh_TW",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vista Cheng（鄭緯筌）— 自由人學院創辦人",
     description:
-      "AI 應用講師、一人事業教練。19,000+ 電子報讀者、50+ 場工作坊。",
+      `AI 應用講師、一人事業教練。${SOCIAL_PROOF.newsletterSubscribers} 電子報讀者、213 場以上可查證授課。`,
     images: ["https://www.solo.tw/images/vista-profile.webp"],
   },
 };

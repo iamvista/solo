@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 const features = [
   {
@@ -41,7 +42,7 @@ const features = [
       </svg>
     ),
     title: "文章 & 電子報",
-    description: "每週更新的實戰心法、接案技巧、個人品牌經營秘訣。19,000+ 訂閱者都在看。",
+    description: `每週更新的實戰心法、接案技巧、個人品牌經營秘訣。${SOCIAL_PROOF.newsletterSubscribers} 訂閱者都在看。`,
     href: "/blog",
     tag: "免費",
   },

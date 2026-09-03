@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { JsonLd, courseSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { CourseNotifyEntry } from "@/components/course/CourseNotifyEntry";
 import { CourseNotifyFooter } from "@/components/course/CourseNotifyFooter";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: "AI 內容產製系統工作坊｜3 小時實戰工作坊 | solo.tw",
@@ -663,7 +664,7 @@ export default function AIContentPage() {
                 <div className="flex items-start gap-2">
                   <span className="text-primary shrink-0">✓</span>
                   <span className="text-muted-foreground">
-                    200+ 場 AI 主題演講
+                    213 場以上可查證授課
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
@@ -675,7 +676,7 @@ export default function AIContentPage() {
                 <div className="flex items-start gap-2">
                   <span className="text-primary shrink-0">✓</span>
                   <span className="text-muted-foreground">
-                    19,000+ 電子報訂閱者
+                    {SOCIAL_PROOF.newsletterSubscribers} 電子報訂閱者
                   </span>
                 </div>
               </div>

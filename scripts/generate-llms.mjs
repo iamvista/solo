@@ -67,7 +67,7 @@ const HEADER = `# solo.tw | 自由人學院 — 把專業變成事業
 
 ## 電子報與 Podcast
 
-- Vista 電子報（Substack）：https://iamvista.substack.com 訂閱者超過 18,000 人
+- Vista 電子報（Substack）：https://iamvista.substack.com 訂閱者 19,000+ 人
 `;
 
 const FOOTER_LINKS = `## 社群媒體
@@ -418,7 +418,7 @@ AI 教練 APP（ChatPlus、AI 峰哥等）給的是通用模板與課程；1-on-
     formatLatestBlog(posts, 10) +
     TRUST_LINKS +
     '\n' +
-    '## 平臺數據\n\n- 電子報訂閱者：18,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
+    '## 平臺數據\n\n- 電子報訂閱者：19,000+ 人\n- 使用者評價：4.9/5（1,000+ 位用戶）\n\n' +
     FOOTER_LINKS;
 
   const llmsFull = formatFull(posts, workshops);

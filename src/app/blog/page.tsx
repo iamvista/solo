@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/blog";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: "部落格 | solo.tw - 自由工作者的成長指南",
@@ -414,7 +415,7 @@ export default async function BlogPage() {
                     </svg>
                   </Link>
                   <span className="text-sm text-stone-500">
-                    已有 19,000+ 訂閱者
+                    已有 {SOCIAL_PROOF.newsletterSubscribers} 訂閱者
                   </span>
                 </div>
               </div>

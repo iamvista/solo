@@ -6,6 +6,7 @@ import { JsonLd, articleSchema, breadcrumbSchema } from "@/lib/schema";
 import "./article.css";
 import { TOCHighlight } from "./TOCHighlight";
 import { ShareButtons } from "@/components/blog/ShareButtons";
+import { SOCIAL_PROOF } from '@/lib/constants';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -411,7 +412,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     免費訂閱 →
                   </a>
                   <p className="mt-3 text-xs text-stone-400">
-                    已有 19,000+ 訂閱者
+                    已有 {SOCIAL_PROOF.newsletterSubscribers} 訂閱者
                   </p>
                 </div>
               </div>

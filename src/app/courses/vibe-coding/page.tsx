@@ -723,7 +723,7 @@ export default function VibeCodingPage() {
 
               <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
                 <p>
-                  擁有超過 20 年數位內容產業經歷，從媒體主編到產品總監，長期關注 AI 與內容產業的交匯。2025 年起投入 Vibe Coding 教學，致力於讓非技術背景的人也能用 AI 建立數位資產。
+                  曾任媒體主編與產品總監，長期關注 AI 與內容產業的交匯。2025 年起投入 Vibe Coding 教學，致力於讓非技術背景的人也能用 AI 建立數位資產。
                 </p>
               </div>
 
@@ -749,7 +749,7 @@ export default function VibeCodingPage() {
                 <div className="flex items-start gap-2">
                   <span className="text-primary shrink-0">✓</span>
                   <span className="text-muted-foreground">
-                    200+ 場 AI 主題演講
+                    213 場以上可查證授課
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
