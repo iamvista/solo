@@ -148,6 +148,24 @@ const PRODUCT_CONFIG_MAP: Record<string, ProductEmailConfig> = {
     detailUrl: "https://www.solo.tw/courses/ai-content",
   },
 
+  // AI 內容產製系統工作坊（第二期・2026/10/3 臺北）早鳥
+  cp0irmxq2qt56121p2ix5d4b: {
+    kind: "course",
+    productId: "cp0irmxq2qt56121p2ix5d4b",
+    productName: "AI 內容產製系統工作坊（2026/10/3 臺北）早鳥",
+    whatsNext: COURSE_AI_CONTENT_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-content",
+  },
+
+  // AI 內容產製系統工作坊（第二期・2026/10/3 臺北）原價
+  c9jtzkzdn8c5hcomi3iraiy8: {
+    kind: "course",
+    productId: "c9jtzkzdn8c5hcomi3iraiy8",
+    productName: "AI 內容產製系統工作坊（2026/10/3 臺北）原價",
+    whatsNext: COURSE_AI_CONTENT_NEXT_STEPS,
+    detailUrl: "https://www.solo.tw/courses/ai-content",
+  },
+
   // Vibe Coding 實戰工作坊（第 8 班・2026/7/26 臺北）
   y7q482kwsc16h7iw3akwufzq: {
     kind: "course",
