@@ -242,8 +242,8 @@ const faqs = [
     a: "自備筆電、課前完成 Claude Code 的安裝與登入（用 Codex 者請備妥 ChatGPT 付費帳號），最好帶一個你正在進行的研究題目或一篇要改的草稿，課堂實作會直接拿你的題目練。",
   },
   {
-    q: "9/12 與 10/31 兩場內容一樣嗎？該報哪一場？",
-    a: "內容相同，選你時間搭得上的那一場。9/12 現在開放報名，費用 NT$5,500；10/31 那場在 9 月 13 日才開賣，早鳥 NT$4,500（9/30 截止）。如果現在就確定要上，9/12 直接報名即可；若想等 10/31，可以先留信箱，開賣當天會第一時間通知你。",
+    q: "早鳥價怎麼算？什麼時候截止？",
+    a: "10/31 這場的早鳥價是 NT$4,500，9 月 30 日截止，10 月 1 日起恢復原價 NT$5,500。報名表會依你送出的時間自動帶出當下的價格，不需要填折扣碼。名額只有 20 位，額滿就提前關閉。",
   },
   {
     q: "這跟你其他 AI 課有什麼不同？",
@@ -261,13 +261,13 @@ export default function AiAcademicWritingPage() {
             "用 AI Agent 當研究副駕駛，從方法與心態到文獻搜集與改稿，跑通研究與寫作工作流。輔助不代寫，含學術倫理與 AI 揭露原則。",
           url: "https://www.solo.tw/courses/ai-academic-writing",
           instructor: "Vista",
-          // price 是「現在真的收得到的金額」。10/31 那場 9/13 才開放報名，
-          // 屆時切換到早鳥 4500 時要一併改這裡。
-          price: 5500,
+          // price 是「現在真的收得到的金額」：早鳥期間就是早鳥價。
+          // 9/30 早鳥截止後要改回 5500。
+          price: 4500,
           duration: "PT3H",
-          // 兩個日期都必須在頁面上看得見（見 courseSchema 的註解）：
-          // 9/12 在開課資訊主卡，10/31 在下一梯預告卡。
-          startDate: ["2026-09-12", "2026-10-31"],
+          // 日期必須在頁面上看得見（見 courseSchema 的註解）：
+          // 10/31 在開課資訊主卡。
+          startDate: ["2026-10-31"],
           location: "臺北市",
           image:
             "https://www.solo.tw/images/workshops/cover-ai-academic-writing.webp",
@@ -760,7 +760,7 @@ export default function AiAcademicWritingPage() {
                   <div className="space-y-3 text-base">
                     <div className="flex items-center gap-2">
                       <span>📅</span>
-                      <span className="font-medium">2026/9/12（六）</span>
+                      <span className="font-medium">2026/10/31（六）</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🕘</span>
@@ -784,8 +784,16 @@ export default function AiAcademicWritingPage() {
                   <div className="flex flex-col justify-center">
                     <div className="rounded-lg border border-primary/30 bg-background p-5 text-center">
                       <p className="text-sm text-muted-foreground">課程費用</p>
-                      <p className="mt-1 text-3xl font-bold text-foreground">NT$5,500</p>
-                      <p className="mt-1 text-xs font-medium text-primary">含全程實作引導</p>
+                      <p className="mt-1 text-3xl font-bold text-primary">
+                        NT$4,500
+                        <span className="ml-2 text-base font-normal text-muted-foreground line-through">
+                          NT$5,500
+                        </span>
+                      </p>
+                      <p className="mt-1 text-sm font-medium text-primary">
+                        早鳥價，9 月 30 日前報名
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">含全程實作引導</p>
                     </div>
                   </div>
                 </div>
@@ -793,7 +801,7 @@ export default function AiAcademicWritingPage() {
                 {/* 報名急迫感 */}
                 <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-foreground">
                   <span>⏳</span>
-                  <span>每場限額 20 人，額滿即止，把握名額。</span>
+                  <span>早鳥價 9 月 30 日截止，每場限額 20 人，額滿即止。</span>
                 </div>
 
                 {/* 課前準備 */}
@@ -813,41 +821,6 @@ export default function AiAcademicWritingPage() {
                     點擊後填寫報名表並線上完成付款即報名成功。教室地址將於課前以 email 通知。
                   </p>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* 下一梯預告：9/12 開課後才開放報名，所以這張卡刻意不放報名鈕，
-                只放留信箱的入口，把想等 10/31 的人先收成名單。 */}
-            <Card className="mt-6 border-dashed">
-              <CardContent className="p-6 sm:p-8">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <Badge variant="outline" className="mb-3">
-                      下一梯・9/13 開放報名
-                    </Badge>
-                    <p className="text-lg font-bold text-foreground">
-                      2026/10/31（六）09:00 – 12:00
-                    </p>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      臺北市區・捷運站步行可達｜每場限額 20 人
-                    </p>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                      內容與 9/12 這場相同。9 月這場如果時間搭不上，可以等 10/31。
-                    </p>
-                  </div>
-                  <div className="shrink-0 rounded-lg border bg-muted/40 p-4 text-center sm:min-w-[11rem]">
-                    <p className="text-xs text-muted-foreground">早鳥價（9/30 截止）</p>
-                    <p className="mt-1 text-2xl font-bold text-foreground">NT$4,500</p>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      原價 NT$5,500
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-5 rounded-lg border bg-background px-4 py-3 text-sm leading-relaxed text-muted-foreground">
-                  <span className="font-semibold text-foreground">尚未開放報名。</span>
-                  10/31 這場會在 <span className="font-medium text-foreground">9 月 13 日</span> 開賣。
-                  留下信箱，開賣當天第一時間通知你，早鳥席次也會優先寄給名單上的人。
-                </p>
               </CardContent>
             </Card>
 

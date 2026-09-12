@@ -168,7 +168,7 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
     slug: "ai-academic-writing",
     title: "AI 賦能學術研究與寫作實戰工作坊",
     subtitle: "用 AI Agent 當研究副駕駛——加速研究與寫作，但不代寫",
-    date: "2026/9/12（六）",
+    date: "2026/10/31（六）",
     time: "09:00–12:00（3 小時）",
     location: "臺北市區・捷運站步行可達（報名後告知教室地址）",
     capacity: 20,
@@ -188,33 +188,30 @@ export const COURSE_CONFIGS: Record<string, CourseConfig> = {
         name: "第二期",
         date: "2026/9/12（六）",
         startsAt: "2026-09-12T09:00:00+08:00",
-        open: true,
         productIds: [
           "tpl4a90ujudu17w69oggetbk", // 早鳥（8/12 截止，商品已設 active: false）
-          "dckcqar572yqgeij7ubqsljj", // 原價
+          "dckcqar572yqgeij7ubqsljj", // 原價（開課後已設 active: false）
         ],
       },
-      // 第三期採「先揭露、後開賣」：招生頁現在就露出 10/31 的日期與價格，
-      // 但線上報名仍指向第二期，商品在 Recur 也是 active: false。
-      // 9/12 開課後才把 open 移過來——理由是第二期還有 11 席在賣 5,500，
-      // 若 10/31 的早鳥 4,500 同時上架，會把三週後的現金推遲到兩個月後。
-      // ⚠️ 切換動作掛在 2026-09-13 的 Google Calendar 提醒上（open 旗標沒有
-      // 時間概念，過了開課日不會自己關）。忘了切，網站會繼續賣已上完的課。
+      // 第三期於 2026-09-12 第二期上完後開賣（原本採「先揭露、後開賣」，
+      // 招生頁先露出日期與價格、報名鈕仍指向第二期，理由是不讓 10/31 的
+      // 早鳥 4,500 蠶食第二期正在賣的 5,500）。
       {
         key: "3",
         name: "第三期",
         date: "2026/10/31（六）",
         startsAt: "2026-10-31T09:00:00+08:00",
+        open: true,
         productIds: [
           "m2hc9ys1p1d2c2o5eji3zbhd", // 早鳥 4500（9/30 截止）
           "nfxg03hr71mosrsyflzqce5e", // 原價 5500
         ],
       },
     ],
-    recurProductIdEarlyBird: "tpl4a90ujudu17w69oggetbk",
+    recurProductIdEarlyBird: "m2hc9ys1p1d2c2o5eji3zbhd",
     earlyBirdPrice: 4500,
-    earlyBirdDeadline: "2026-08-12",
-    recurProductIdRegular: "dckcqar572yqgeij7ubqsljj",
+    earlyBirdDeadline: "2026-09-30",
+    recurProductIdRegular: "nfxg03hr71mosrsyflzqce5e",
     regularPrice: 5500,
     detailUrl: "/courses/ai-academic-writing",
     hideInvoiceSection: true,

@@ -142,8 +142,8 @@ describe("startsAt（倒數提醒 cron 讀的開課時間）", () => {
 describe("getOpenCohort", () => {
   it("回傳標記 open 的那一期", () => {
     const c = COURSE_CONFIGS["ai-academic-writing"];
-    expect(getOpenCohort(c)?.key).toBe("2");
-    expect(getOpenCohort(c)?.name).toBe("第二期");
+    expect(getOpenCohort(c)?.key).toBe("3");
+    expect(getOpenCohort(c)?.name).toBe("第三期");
   });
 });
 
@@ -172,14 +172,14 @@ describe("ai-academic-writing 的三期（本次變更的主體）", () => {
     expect(first?.open).toBeFalsy();
   });
 
-  it("第二期是 9/12，招生中，商品是新建的那一組", () => {
+  it("第二期是 9/12，已結束，商品是那一組", () => {
     const second = getCohort(c, "2");
     expect(second?.date).toBe("2026/9/12（六）");
     expect(second?.productIds).toEqual([
       "tpl4a90ujudu17w69oggetbk",
       "dckcqar572yqgeij7ubqsljj",
     ]);
-    expect(second?.open).toBe(true);
+    expect(second?.open).toBeFalsy();
   });
 
   it("第二期有 startsAt，開課倒數提醒才會發", () => {
@@ -187,9 +187,8 @@ describe("ai-academic-writing 的三期（本次變更的主體）", () => {
     expect(getCohort(c, "2")?.startsAt).toBe("2026-09-12T09:00:00+08:00");
   });
 
-  it("第三期是 10/31，尚未開放報名，商品是另外新建的一組", () => {
-    // 「先揭露、後開賣」：招生頁露出 10/31 的日期與價格，但 open 仍在第二期。
-    // 9/12 開課後才由 2026-09-13 的行事曆提醒觸發切換。
+  it("第三期是 10/31，招生中，商品是另外新建的一組", () => {
+    // 2026-09-12 第二期上完後切換過來（原採「先揭露、後開賣」）。
     const third = getCohort(c, "3");
     expect(third?.date).toBe("2026/10/31（六）");
     expect(third?.startsAt).toBe("2026-10-31T09:00:00+08:00");
@@ -197,7 +196,16 @@ describe("ai-academic-writing 的三期（本次變更的主體）", () => {
       "m2hc9ys1p1d2c2o5eji3zbhd",
       "nfxg03hr71mosrsyflzqce5e",
     ]);
-    expect(third?.open).toBeFalsy();
+    expect(third?.open).toBe(true);
+  });
+
+  it("早鳥指向第三期的商品，9/30 截止", () => {
+    // 頂層若還留著第二期的商品 ID，報名頁會把錢收進已上完的那一場。
+    expect(c.recurProductIdEarlyBird).toBe("m2hc9ys1p1d2c2o5eji3zbhd");
+    expect(c.earlyBirdPrice).toBe(4500);
+    expect(c.earlyBirdDeadline).toBe("2026-09-30");
+    expect(c.recurProductIdRegular).toBe("nfxg03hr71mosrsyflzqce5e");
+    expect(c.regularPrice).toBe(5500);
   });
 
   it("三期的日期彼此不同，沒有被就地覆蓋", () => {
