@@ -340,7 +340,7 @@ const testimonials = [
 export default function AIContentPage() {
   return (
     <>
-      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5000, duration: "PT3H", startDate: "2026-10-03", location: "臺北市" })} />
+      <JsonLd data={courseSchema({ name: "AI 內容產製系統工作坊", description: "用 Claude Code 建立完整的五層內容產製架構，一份素材自動產出六種格式", url: "https://www.solo.tw/courses/ai-content", instructor: "Vista", price: 5500, duration: "PT3H", startDate: "2026-10-03", location: "臺北市" })} />
       <JsonLd data={breadcrumbSchema([{ name: "首頁", href: "/" }, { name: "課程", href: "/courses" }, { name: "AI 內容產製系統", href: "/courses/ai-content" }])} />
       <JsonLd data={faqSchema(faqs.map((faq) => ({ question: faq.q, answer: faq.a })))} />
     <div>
@@ -858,13 +858,7 @@ export default function AIContentPage() {
                   <div>
                     <p className="text-sm text-muted-foreground">課程費用</p>
                     <p className="text-3xl font-bold text-primary">
-                      NT$5,000
-                      <span className="ml-2 text-base font-normal text-muted-foreground line-through">
-                        NT$5,500
-                      </span>
-                    </p>
-                    <p className="mt-1 text-sm font-medium text-primary">
-                      早鳥價，9 月 12 日前報名
+                      NT$5,500
                     </p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       3 小時實作・含課後學員 LINE 群組

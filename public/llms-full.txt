@@ -160,7 +160,7 @@ URL: https://www.solo.tw/tools
 - 名額: 16 人
 - 狀態: open
 - 分類: ai
-- 價格: 原價 NT$5,500；早鳥 NT$5,000
+- 價格: 原價 NT$5,500
 
 ### 用 AI 寫出讓人忍不住留言的社群內容
 - URL: https://www.solo.tw/courses/ai-social-content
